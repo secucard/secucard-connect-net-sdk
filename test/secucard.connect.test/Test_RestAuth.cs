@@ -17,8 +17,10 @@ namespace secucard.connect.test
 
         // TODO: Will have to move to config files
 
-        private const string AuthUrl = "https://connect.secucard.com/";
-        //    private const string AuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/";
+        // https://core-dev10.secupay-ag.de/app.core.connector/oauth/token
+
+        // private const string AuthUrl = "https://connect.secucard.com/";
+        private const string AuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/";
 
         private const string ApiUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/";
         // private const string ApiUrl = "https://connect.secucard.com/api/v2/";
@@ -28,12 +30,13 @@ namespace secucard.connect.test
 
         private const string ClientId = "611c00ec6b2be6c77c2338774f50040b";
         private const string Secret = "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb";
-        private const string Uuid = "/vendor/unknown/cashier/iostest1";
-        //private const string PageOauthToken = "oauth/token";
-        private const string PageOauthToken = "app.core.connector/oauth/token";
+        //private const string Uuid = "/vendor/unknown/cashier/iostest1";
+        private const string Uuid = "/vendor/unknown/cashier/dotnettest1";
 
-        private const string PageSmartDevices =
-            "app.core.connector/api/v2/Smart/Devices/SDV_3E3S4XR332YASA3MB5GQGMW2R3YNAA/pin";
+        //private const string PageOauthToken = "oauth/token";
+        private const string PageOauthToken = "oauth/token";
+
+        private const string PageSmartDevices ="api/v2/Smart/Devices/SDV_2FUFB3YJQ2YBHEDJKBSA9Q57NM8UA6/pin";
 
         private const string VerificationUrl = "http://www.secuoffice.com";
         private const string TokenTypeBearer = "bearer";
