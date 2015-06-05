@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\AuthConfig.cs" />
     <Compile Include="Auth\AuthGrantTypeConst.cs" />
     <Compile Include="Auth\AuthConst.cs" />
     <Compile Include="Auth\RestAuth.cs" />

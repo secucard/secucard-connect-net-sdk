@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Test_Base.cs" />
     <Compile Include="Test_RestAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +62,10 @@
     <ProjectReference Include="..\..\lib\secucard.model\secucard.model.csproj">
       <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
       <Name>secucard.model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\secucard.stomp\secucard.stomp.csproj">
+      <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
+      <Name>secucard.stomp</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
