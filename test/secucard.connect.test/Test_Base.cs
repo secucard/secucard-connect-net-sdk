@@ -10,8 +10,9 @@
 
         protected Test_Base()
         {
-            const string host = "dev10.secupay-ag.de"; // 91.195.151.211
-
+            //const string host = "dev10.secupay-ag.de"; // 91.195.151.211
+            const string host = "core-dev10.secupay-ag.de"; // 91.195.151.211
+            
             ConfigStomp = new StompConfig
             {
                 Host = host,
@@ -25,7 +26,7 @@
 
             ConfigAuth = new AuthConfig
             {
-                Host = host,
+                Host = "core-dev10.secupay-ag.de",
                 AuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/",
                 ClientId = "611c00ec6b2be6c77c2338774f50040b",
                 Secret = "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb",
