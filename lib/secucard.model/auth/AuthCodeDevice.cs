@@ -1,9 +1,9 @@
-﻿namespace secucard.model.auth
+﻿namespace Secucard.Model.Auth
 {
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class AuthCodeDevice
+    public class DeviceAuthCode
     {
         [DataMember(Name = "device_code")]
         public string DeviceCode { get; set; }
@@ -23,12 +23,12 @@
         public override string ToString()
         {
             return "DeviceAuthCode {" +
-                "deviceCode='" + DeviceCode + '\'' +
-                ", userCode='" + UserCode + '\'' +
-                ", verificationUrl='" + VerificationUrl + '\'' +
-                ", expiresIn=" + ExpiresIn +
-                ", interval=" + Interval +
-                '}';
+                   "deviceCode='" + DeviceCode + '\'' +
+                   ", userCode='" + UserCode + '\'' +
+                   ", verificationUrl='" + VerificationUrl + '\'' +
+                   ", expiresIn=" + ExpiresIn +
+                   ", interval=" + Interval +
+                   '}';
         }
     }
 }

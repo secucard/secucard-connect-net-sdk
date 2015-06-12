@@ -1,4 +1,4 @@
-﻿namespace secucard.stomp
+﻿namespace Secucard.Stomp
 {
     public static class StompHeader
     {

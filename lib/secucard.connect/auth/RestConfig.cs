@@ -1,4 +1,4 @@
-﻿namespace secucard.connect.auth
+﻿namespace Secucard.Connect.Auth
 {
     public class RestConfig
     {

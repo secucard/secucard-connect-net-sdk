@@ -7,8 +7,8 @@
     <ProjectGuid>{092CECFF-F04B-4DBF-AF77-1D56CF80E49B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>secucard.stomp</RootNamespace>
-    <AssemblyName>secucard.stomp</AssemblyName>
+    <RootNamespace>Secucard.Stomp</RootNamespace>
+    <AssemblyName>Secucard.Stomp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -6,8 +6,8 @@
     <ProjectGuid>{54AA0ACE-7163-4199-9AC0-243B9871AA88}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>secucard.stomp.test</RootNamespace>
-    <AssemblyName>secucard.stomp.test</AssemblyName>
+    <RootNamespace>Secucard.Stomp.Test</RootNamespace>
+    <AssemblyName>Secucard.Stomp.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -57,9 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\secucard.stomp\secucard.stomp.csproj">
+    <ProjectReference Include="..\..\lib\secucard.stomp\Secucard.Stomp.csproj">
       <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
-      <Name>secucard.stomp</Name>
+      <Name>Secucard.Stomp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

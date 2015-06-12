@@ -1,4 +1,4 @@
-﻿namespace secucard.connect.rest
+﻿namespace Secucard.Connect.Rest
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,6 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using System.Web;
-    using secucard.connect.Rest;
     using secucard.model;
 
     public class RestBase
@@ -20,7 +19,7 @@
 
         #region  ### Ctor ###
 
-        public RestBase()
+        protected RestBase()
         {
             ServicePointManager.ServerCertificateValidationCallback = AcceptAllCertifications;
         }
@@ -34,16 +33,7 @@
             var ret = RestPost(request);
             if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Execption
 
-            try
-            {
-                var x = JsonSerializer.DeserializeJson<T>(ret);
-                return x;
-            }
-            catch (Exception)
-            {
-                // TODO: Create Execption
-                throw;
-            }
+            return JsonSerializer.DeserializeJson<T>(ret);
         }
 
         public string RestPost(RestRequest request)
@@ -76,19 +66,19 @@
                     }
                 }
             }
-            catch (WebException oEx)
+            catch (WebException ex)
             {
-                var wr = oEx.Response as HttpWebResponse;
+                var wr = ex.Response as HttpWebResponse;
                 var dataStream = wr.GetResponseStream();
                 var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var ex = new RestException
+                var restException = new RestException
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = wr.GetResponseHeader("Status")
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
-                throw ex;
+                throw restException;
             }
             return null;
         }
@@ -125,19 +115,19 @@
                     }
                 }
             }
-            catch (WebException oEx)
+            catch (WebException ex)
             {
-                var wr = oEx.Response as HttpWebResponse;
+                var wr = ex.Response as HttpWebResponse;
                 var dataStream = wr.GetResponseStream();
                 var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var ex = new RestException
+                var restEx = new RestException
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = wr.GetResponseHeader("Status")
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
-                throw ex;
+                throw restEx;
             }
 
             return null;

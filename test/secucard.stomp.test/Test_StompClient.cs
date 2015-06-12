@@ -1,4 +1,4 @@
-﻿namespace secucard.stomp.test
+﻿namespace Secucard.Stomp.test
 {
     using System;
     using System.Threading;
@@ -29,7 +29,9 @@
                 client.SendFrame(framePing);
 
                 // waiting for frame to come
-                while (frameIn == null) { }
+                while (frameIn == null)
+                {
+                }
 
                 Assert.IsTrue(frameIn.Body.Contains("Testdaten"));
 
@@ -37,7 +39,7 @@
                 Thread.Sleep(6000);
 
                 client.Disconnect();
-                Thread.Sleep(3000);                // Wait for Disconnect Receipt to arrive
+                Thread.Sleep(3000); // Wait for Disconnect Receipt to arrive
                 Assert.IsTrue(client.StompClientStatus == EnumStompCoreStatus.Disconnected);
             }
         }

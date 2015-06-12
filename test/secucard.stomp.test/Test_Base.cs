@@ -1,4 +1,4 @@
-﻿namespace secucard.stomp.test
+﻿namespace Secucard.Stomp.test
 {
     public class Test_Base
     {

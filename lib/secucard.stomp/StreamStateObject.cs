@@ -1,4 +1,4 @@
-namespace secucard.stomp
+namespace Secucard.Stomp
 {
     using System.Collections.Generic;
     using System.Net.Security;

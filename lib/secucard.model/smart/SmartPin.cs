@@ -1,4 +1,4 @@
-﻿namespace secucard.model.smart
+﻿namespace Secucard.Model.Smart
 {
     using System.Runtime.Serialization;
 

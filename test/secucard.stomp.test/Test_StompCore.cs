@@ -1,4 +1,4 @@
-﻿namespace secucard.stomp.test
+﻿namespace Secucard.Stomp.test
 {
     using System;
     using System.Threading;

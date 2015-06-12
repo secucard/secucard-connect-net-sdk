@@ -1,4 +1,4 @@
-﻿namespace secucard.stomp
+﻿namespace Secucard.Stomp
 {
     using System;
     using System.Linq;
@@ -107,7 +107,7 @@
 
             try
             {
-                var state = (StreamStateObject)ar.AsyncState;
+                var state = (StreamStateObject) ar.AsyncState;
                 var stream = state.Stream;
 
                 var bytesRead = stream.EndRead(ar);
@@ -125,7 +125,7 @@
                     {
                         // Create Frame from Bytes
                         var frame = StompFrame.CreateFrame(state.bytes.Take(i).ToArray());
-                        OnFrameArrived(new StompCoreFrameArrivedEventArgs { Frame = frame, Time = DateTime.Now });
+                        OnFrameArrived(new StompCoreFrameArrivedEventArgs {Frame = frame, Time = DateTime.Now});
                         // remove used up bytes from list
                         state.bytes.RemoveRange(0, i + 1);
                     }

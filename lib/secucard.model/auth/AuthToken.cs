@@ -1,8 +1,9 @@
-﻿namespace secucard.model.auth
+﻿namespace Secucard.Model.Auth
 {
     using System;
     using System.Runtime.Serialization;
 
+    [Serializable]
     [DataContract]
     public class AuthToken
     {
@@ -23,37 +24,28 @@
         [DataMember(Name = "refresh_token")]
         public string RefreshToken { get; set; }
 
-        // UNIX timestamp of token expiring
-        private DateTime? ExpireTime { get; set; }
+        public DateTime? ExpireTime { get; set; }
 
-        //public AuthToken(string accessToken, string refreshToken)
-        //{
-        //    this.AccessToken = accessToken;
-        //    this.RefreshToken = refreshToken;
-        //}
+        public void SetExpireTime()
+        {
+            ExpireTime = DateTime.Now.AddMilliseconds(ExpiresIn*1000);
+        }
 
-
-        //public void SetExpireTime()
-        //{
-        //    this.ExpireTime = DateTime.Now.AddMilliseconds(ExpiresIn * 1000);
-        //}
-
-        //public bool IsExpired()
-        //{
-        //    return ExpireTime.HasValue || DateTime.Now > ExpireTime;
-        //}
+        public bool IsExpired()
+        {
+            return !ExpireTime.HasValue || DateTime.Now > ExpireTime;
+        }
 
         public override string ToString()
         {
             return "Token{" +
-                    "accessToken='" + AccessToken + '\'' +
-                    ", expiresIn=" + ExpiresIn +
-                    ", tokenType='" + TokenType + '\'' +
-                    ", scope='" + Scope + '\'' +
-                    ", refreshToken='" + RefreshToken + '\'' +
-                    ", expireTime=" + ExpireTime +
-                    '}';
+                   "accessToken='" + AccessToken + '\'' +
+                   ", expiresIn=" + ExpiresIn +
+                   ", tokenType='" + TokenType + '\'' +
+                   ", scope='" + Scope + '\'' +
+                   ", refreshToken='" + RefreshToken + '\'' +
+                   ", expireTime=" + ExpireTime +
+                   '}';
         }
     }
-
 }

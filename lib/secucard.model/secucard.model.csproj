@@ -7,8 +7,8 @@
     <ProjectGuid>{F133B76F-6E03-448D-AFAE-F5CCA3AB986F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>secucard.model</RootNamespace>
-    <AssemblyName>secucard.model</AssemblyName>
+    <RootNamespace>Secucard.Model</RootNamespace>
+    <AssemblyName>Secucard.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

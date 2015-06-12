@@ -51,26 +51,33 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Test_Base.cs" />
+    <Compile Include="Test_OAuthProvider.cs" />
+    <Compile Include="Test_Storage.cs" />
     <Compile Include="Test_RestAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_FileTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\secucard.connect\secucard.connect.csproj">
       <Project>{067cc76b-1657-49aa-92a7-3cb2ba6586e9}</Project>
       <Name>secucard.connect</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\secucard.model\secucard.model.csproj">
+    <ProjectReference Include="..\..\lib\secucard.model\Secucard.Model.csproj">
       <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
-      <Name>secucard.model</Name>
+      <Name>Secucard.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\secucard.stomp\secucard.stomp.csproj">
+    <ProjectReference Include="..\..\lib\secucard.stomp\Secucard.Stomp.csproj">
       <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
-      <Name>secucard.stomp</Name>
+      <Name>Secucard.Stomp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="data\storage.sec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
