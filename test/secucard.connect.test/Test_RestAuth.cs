@@ -5,9 +5,9 @@
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect;
-    using secucard.model;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
+    using Secucard.Model;
     using Secucard.Model.Auth;
     using Secucard.Model.Smart;
     using Secucard.Stomp;

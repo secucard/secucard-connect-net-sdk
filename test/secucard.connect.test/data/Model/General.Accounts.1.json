@@ -1,0 +1,133 @@
+﻿{
+    "object": "general.accounts",
+    "id": "ACC_WS96HS6GP2Y7ATH8R5GQG30WAN62A7",
+    "username": "info@topclean-kassel.de",
+    "assignment": [
+        {
+            "created": "2015-02-23T13:01:10+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.merchants",
+                "id": "MRC_2Z6RHD72D54MKNB6ADTBHD0UX6D3P4"
+            }
+        },
+        {
+            "created": "2015-03-03T09:53:31+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_W48KCZ7N72Y7YEQ5R5GQGFYA9K8YAA"
+            }
+        },
+        {
+            "created": "2015-03-03T09:59:05+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_RXUUS4SS32Y7YEVCR5GQGHHZ9K8YAA"
+            }
+        },
+        {
+            "created": "2015-03-03T15:44:12+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_WW5G59XZ02Y7YP2UB5GQG959PK8YAA"
+            }
+        },
+        {
+            "created": "2015-03-05T13:23:54+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_T6P3N4QHY2Y7X9BCR5GQGNTJ9K8YAA"
+            }
+        },
+        {
+            "created": "2015-03-05T15:45:59+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_2YFMDYWGD2Y7XDGJR5GQGH9SPK8YAA"
+            }
+        },
+        {
+            "created": "2015-03-05T15:47:57+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_X6JEMAFHK2Y7XDZER5GQGQPUPK8YAA"
+            }
+        },
+        {
+            "created": "2015-03-06T15:09:18+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_3TKY4MQAZ2Y7PMK7B5GQGB8CPK8YAA"
+            }
+        },
+        {
+            "created": "2015-03-07T12:36:56+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_WJ4X9V7HN2Y7QSBCB5GQG0449K8YAA"
+            }
+        },
+        {
+            "created": "2015-03-13T08:23:30+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_3F5FKVJS72Y82ZWPB5GQGASCWF7FA0"
+            }
+        },
+        {
+            "created": "2015-03-18T15:09:05+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_RV7VYY6HE2Y89GS0R5GQGHWWZW0TA9"
+            }
+        },
+        {
+            "created": "2015-03-23T15:06:00+01:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_Q4E3D7EE82Y8G3N4B5GQGNCQBQUUAE"
+            }
+        },
+        {
+            "created": "2015-03-30T15:07:53+02:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_2DBBVJEF42Y8P9AKR5GQGX4B7ZXWA2"
+            }
+        },
+        {
+            "created": "2015-05-04T17:49:40+02:00",
+            "type": "assignment",
+            "owner": false,
+            "assign": {
+                "object": "general.accountdevices",
+                "id": "ACD_3SN3UETFE2YA7ZKAB5GQGH5X2GMZA0"
+            }
+        }
+    ]
+},

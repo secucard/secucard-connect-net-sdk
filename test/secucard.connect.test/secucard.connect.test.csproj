@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Model\Test_Model_Payment.cs" />
+    <Compile Include="Model\Test_Model_General.cs" />
     <Compile Include="Test_Base.cs" />
     <Compile Include="Test_OAuthProvider.cs" />
     <Compile Include="Test_Storage.cs" />
@@ -73,9 +75,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Content Include="data\storage.sec">
+    <Content Include="Data\storage.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Model\General.Contacts.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\General.Accounts.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\General.Accounts.2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\General.Accounts.0.doc.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Payment.Containers.0.doc.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Data\Model\Payment.Customers.0.doc.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Choose>

@@ -1,0 +1,25 @@
+﻿{
+    "count": 1,
+    "data": [
+        {
+            "object": "payment.customers",
+            "id": "pcu_abc123",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "mrc_abc123"
+            },
+            "forename": "John",
+            "surname": "Doe",
+            "companyname": "Example Inc.",
+            "salutation": "Mr.",
+            "title": "Dr.",
+            "street": "Example Street 6a",
+            "zipcode": "01234",
+            "city": "Examplecity",
+            "email": "example@example.com",
+            "phone": "0049-123-456789",
+            "dob": "1901-02-03T00:00:00+01:00",
+            "created": "2015-02-03T14:25:25+01:00"
+        }
+    ]
+}

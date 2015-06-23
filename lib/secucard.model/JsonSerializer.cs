@@ -1,4 +1,4 @@
-﻿namespace secucard.model
+﻿namespace Secucard.Model
 {
     using System.IO;
     using System.Runtime.Serialization.Json;

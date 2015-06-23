@@ -40,14 +40,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="auth\AuthCodeDevice.cs" />
-    <Compile Include="auth\AuthCodeError.cs" />
+    <Compile Include="Auth\AuthCodeDevice.cs" />
+    <Compile Include="Auth\AuthCodeError.cs" />
     <Compile Include="JsonSerializer.cs" />
-    <Compile Include="smart\SmartPin.cs" />
-    <Compile Include="auth\AuthToken.cs" />
+    <Compile Include="JsonEnvelope.cs" />
+    <Compile Include="Linq.cs" />
+    <Compile Include="SecuObject.cs" />
+    <Compile Include="Smart\SmartPin.cs" />
+    <Compile Include="Auth\AuthToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="General\Account.cs" />
+    <Content Include="Annotation\ProductInfo.java" />
+    <Content Include="Document\uploads\Document.java" />
+    <Content Include="General\AccountDevice.java" />
+    <Compile Include="General\Address.cs" />
+    <Compile Include="General\Assignment.cs" />
+    <Content Include="General\BeaconEnvironment.java" />
+    <Compile Include="General\Components\AddressComponent.cs" />
+    <Compile Include="General\Components\Assign.cs" />
+    <Compile Include="General\Components\DayTime.cs" />
+    <Compile Include="General\Components\Geometry.cs" />
+    <Compile Include="General\Components\MetaData.cs" />
+    <Compile Include="General\Components\OpenHours.cs" />
+    <Compile Include="General\Contact.cs" />
+    <Content Include="General\Event.java" />
+    <Compile Include="General\Location.cs" />
+    <Compile Include="General\Merchant.cs" />
+    <Content Include="General\MerchantDetails.java" />
+    <Content Include="General\MerchantList.java" />
+    <Compile Include="General\News.cs" />
+    <Content Include="General\Notification.java" />
+    <Content Include="General\PublicMerchant.java" />
+    <Compile Include="General\Store.cs" />
+    <Content Include="General\StoreSetDefault.java" />
+    <Content Include="General\Transaction.java" />
+    <Compile Include="MediaResource.cs" />
+    <Content Include="Loyalty\Bonus.java" />
+    <Compile Include="Loyalty\Card.cs" />
+    <Compile Include="Loyalty\CardGroup.cs" />
+    <Compile Include="Loyalty\Condition.cs" />
+    <Compile Include="Loyalty\Customer.cs" />
+    <Content Include="Loyalty\MerchantCard.java" />
+    <Compile Include="Loyalty\Program.cs" />
+    <Content Include="Loyalty\Sale.java" />
+    <Compile Include="Payment\Container.cs" />
+    <Compile Include="Payment\Contract.cs" />
+    <Content Include="Payment\Customer.java" />
+    <Compile Include="Payment\Data.cs" />
+    <Content Include="Payment\SecupayDebit.java" />
+    <Content Include="Payment\SecupayPrepay.java" />
+    <Content Include="Payment\Transaction.java" />
+    <Content Include="Payment\TransferAccount.java" />
+    <Content Include="services\Contract.java" />
+    <Content Include="services\IdentRequest.java" />
+    <Content Include="services\IdentResult.java" />
+    <Content Include="services\idrequest\Person.java" />
+    <Content Include="services\idresult\Address.java" />
+    <Content Include="services\idresult\Attachment.java" />
+    <Content Include="services\idresult\ContactData.java" />
+    <Content Include="services\idresult\CustomData.java" />
+    <Content Include="services\idresult\IdentificationDocument.java" />
+    <Content Include="services\idresult\IdentificationProcess.java" />
+    <Content Include="services\idresult\Person.java" />
+    <Content Include="services\idresult\UserData.java" />
+    <Content Include="services\idresult\Value.java" />
+    <Content Include="Smart\Basket.java" />
+    <Content Include="Smart\BasketInfo.java" />
+    <Content Include="Smart\CashierDisplay.java" />
+    <Content Include="Smart\Checkin.java" />
+    <Content Include="Smart\Device.java" />
+    <Content Include="Smart\Ident.java" />
+    <Content Include="Smart\Product.java" />
+    <Content Include="Smart\ProductGroup.java" />
+    <Content Include="Smart\ReceiptLine.java" />
+    <Content Include="Smart\Text.java" />
+    <Content Include="Smart\Transaction.java" />
+    <Content Include="Smart\TransactionResult.java" />
+    <Content Include="Transport\Message.java" />
+    <Content Include="Transport\Result.java" />
+    <Content Include="Transport\Status.java" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
