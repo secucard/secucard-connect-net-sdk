@@ -18,5 +18,10 @@ namespace Secucard.Model.General.Components
 
         [DataMember(Name = "types")]
         private List<string> Types { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("LongName: {0}, ShortName: {1}", LongName, ShortName);
+        }
     }
 }

@@ -5,9 +5,9 @@ namespace Secucard.Model.General
     using System;
     using System.Collections.Generic;
 
+    [DataContract]
     public class News : SecuObject
     {
-
         public override string SecuObjectName
         {
             get { return "general.news"; }
@@ -16,20 +16,17 @@ namespace Secucard.Model.General
         //public static final String STATUS_READ = "read";
         //public static final String STATUS_UNREAD = "unread";
 
-        [DataMember(Name = "headline")]
-        public string Headline;
+        [DataMember(Name = "related")] public List<Merchant> Related;
 
-        [DataMember(Name = "text_teaser")]
-        public string TextTeaser;
+        [DataMember(Name = "headline")] public string Headline;
 
-        [DataMember(Name = "text_full")]
-        public string TextFull;
+        [DataMember(Name = "text_teaser")] public string TextTeaser;
 
-        [DataMember(Name = "author")]
-        public string Author;
+        [DataMember(Name = "text_full")] public string TextFull;
 
-        [DataMember(Name = "document_id")]
-        public string DocumentId;
+        [DataMember(Name = "author")] public string Author;
+
+        [DataMember(Name = "document_id")] public string DocumentId;
 
         [DataMember(Name = "created")]
         public string FormattedCreated
@@ -37,13 +34,12 @@ namespace Secucard.Model.General
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
+
         public DateTime? Created;
 
-        [DataMember(Name = "headline")]
-        public string Picture;
+        [DataMember(Name = "picture")] public string Picture;
 
-        [DataMember(Name = "_account_read")]
-        public string AccountRead;
+        [DataMember(Name = "_account_read")] public string AccountRead;
 
         public MediaResource PictureObject;
 
@@ -51,16 +47,9 @@ namespace Secucard.Model.General
         //@JsonSubTypes({
         //    @JsonSubTypes.Type(value = Merchant.class, name = Merchant.OBJECT)})
 
-        [DataMember(Name = "related")]
-        public List<SecuObject> Related;
-
-
-
-
         //public void setPicture(String value) {
         //  this.picture = value;
         //  pictureObject = MediaResource.create(picture);
         //}
-
     }
 }

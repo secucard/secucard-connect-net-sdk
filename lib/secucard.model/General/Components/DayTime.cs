@@ -2,13 +2,16 @@ namespace Secucard.Model.General.Components
 {
     using System.Runtime.Serialization;
 
-    [DataContract] 
-    public class DayTime  {
+    [DataContract]
+    public class DayTime
+    {
+        [DataMember(Name = "day")] public int Day;
 
-        [DataMember(Name = "day")]
-        public int day;
+        [DataMember(Name = "time")] public string Time;
 
-        [DataMember(Name = "time")]
-        public string time;
+        public override string ToString()
+        {
+            return string.Format("Day: {0}, Time: {1}", Day, Time);
+        }
     }
 }

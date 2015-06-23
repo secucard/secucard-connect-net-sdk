@@ -7,28 +7,28 @@ namespace Secucard.Model.General
     {
 
         [DataMember(Name = "street")]
-        public string street { get; set; }
+        public string Street { get; set; }
 
         [DataMember(Name = "street_number")]
-        public string streetNumber { get; set; }
+        public string StreetNumber { get; set; }
 
         [DataMember(Name = "postal_code")]
-        public string postalCode { get; set; }
+        public string PostalCode { get; set; }
 
         [DataMember(Name = "city")]
-        public string city { get; set; }
+        public string City { get; set; }
 
         [DataMember(Name = "country")]
-        public string country { get; set; } // ISO 3166 country code like DE
+        public string Country { get; set; } // ISO 3166 country code like DE
 
         public override string ToString()
         {
             return "Address{" +
-                   "street='" + street + '\'' +
-                   ", streetNumber='" + streetNumber + '\'' +
-                   ", postalCode='" + postalCode + '\'' +
-                   ", city='" + city + '\'' +
-                   ", country='" + country + '\'' +
+                   "street='" + Street + '\'' +
+                   ", streetNumber='" + StreetNumber + '\'' +
+                   ", postalCode='" + PostalCode + '\'' +
+                   ", city='" + City + '\'' +
+                   ", country='" + Country + '\'' +
                    '}';
         }
     }

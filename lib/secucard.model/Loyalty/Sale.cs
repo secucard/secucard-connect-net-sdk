@@ -17,7 +17,20 @@ namespace Secucard.Model.Loyalty
         public int Amount;
 
         [DataMember(Name = "last_change")]
-        public DateTime LastChange;
+        public string FormattedLastChange
+        {
+            get { return LastChange.ToDateTimeZone(); }
+            set { LastChange = value.ToDateTime(); }
+        }
+        public DateTime? LastChange;
+
+        [DataMember(Name = "created")]
+        public string FormattedCreated
+        {
+            get { return Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
+        } 
+        public DateTime? Created;
 
         [DataMember(Name = "status")]
         public int Status;

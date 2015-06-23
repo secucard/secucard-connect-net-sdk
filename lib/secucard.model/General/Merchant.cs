@@ -1,4 +1,3 @@
-
 namespace Secucard.Model.General
 {
     using System.Collections.Generic;
