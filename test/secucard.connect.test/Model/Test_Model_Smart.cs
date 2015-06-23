@@ -1,7 +1,6 @@
 ﻿namespace Secucard.Connect.Test
 {
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -45,5 +44,34 @@
             Assert.AreEqual(product1.ArticleNumber, "70000");
 
         }
+
+        [TestMethod, TestCategory("Model")]
+        public void Test_Smart_Devices_1()
+        {
+            var json = File.ReadAllText("Data\\Model\\Smart.Devices.1.json");
+            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Device>>>(json);
+            Assert.IsTrue(data.Data.Count > 1);
+            var device = data.Data.First();
+            Assert.AreEqual(device.Id, "SDV_99W7SUCEH2Y7TNQJB5GQG7HXWF7FAW");
+            Assert.AreEqual(device.Merchant.Id, "MRC_2YPYFEYKF2DYG8Z4KHB5T8P2P4H0P6");
+            Assert.AreEqual(device.Store.Id, "STO_WFMX9VS2VCC7TBBWWMP6HBAGP6PPPP");
+            Assert.AreEqual(device.Type, "cashier");
+            Assert.IsNotNull(device.GenralDevice);
+            Assert.AreEqual(device.GenralDevice.Id, "DEV_2P2WSRMA63DRT4A9H2A8DDYBH00PPG");
+            Assert.AreEqual(device.FormattedCreated, "2015-03-09T16:39:18+01:00");
+            Assert.AreEqual(device.Online, false);
+
+        }
+
+        [TestMethod, TestCategory("Model")]
+        public void Test_Smart_Routings_1()
+        {
+            var json = File.ReadAllText("Data\\Model\\Smart.Routings.1.json");
+            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Routing>>>(json);
+            Assert.IsTrue(data.Data.Count > 1);
+            
+
+        }
+
     }
 }

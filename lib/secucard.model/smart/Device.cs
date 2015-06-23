@@ -1,5 +1,6 @@
 namespace Secucard.Model.Smart
 {
+    using System;
     using System.Runtime.Serialization;
     using Secucard.Model.General;
 
@@ -17,6 +18,36 @@ namespace Secucard.Model.Smart
 
         [DataMember(Name = "merchant")]
         public Merchant Merchant;
+
+        [DataMember(Name = "store")]
+        public Store Store;
+
+        [DataMember(Name = "vendor")]
+        public string Vendor;
+
+        [DataMember(Name = "vendor_uid")]
+        public string VendorUid;
+
+        [DataMember(Name = "device")]
+        public General.Device GenralDevice;
+
+        [DataMember(Name = "user_pin")]
+        public string UserPin;
+
+        [DataMember(Name = "description")]
+        public string Description;
+
+
+        [DataMember(Name = "online")]
+        public bool Online;
+
+        [DataMember(Name = "created")]
+        public string FormattedCreated
+        {
+            get { return Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
+        }
+        public DateTime? Created;
 
         //public Device() {
         //}

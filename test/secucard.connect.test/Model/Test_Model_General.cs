@@ -53,22 +53,17 @@
             Assert.AreEqual(contact.Id, "CNT_2V8EC9RTT2Y772BFB5GQGNH6NM8UA6");
         }
 
-
         [TestMethod, TestCategory("Model")]
-        public void Test_Payment_Container_0_doc()
+        public void Test_General_Accountdevices_1()
         {
-            var json = File.ReadAllText("Data\\Model\\Payment.Containers.0.doc.json");
-            var data_container = JsonSerializer.DeserializeJson<JsonEnvelope<List<Container>>>(json);
-            Assert.AreEqual(data_container.Data.Count, 1);
-            var paymentContainer = data_container.Data.First();
-            Assert.AreEqual(paymentContainer.Id, "pct_abc123");
-            Assert.AreEqual(paymentContainer.Merchant.Id, "mrc_abc123");
-            Assert.AreEqual(paymentContainer.PrivateData.Owner, "John Doe");
-            Assert.AreEqual(paymentContainer.PublicData.Owner, "John Doe");
-            Assert.AreEqual(paymentContainer.Type, "bank_account");
-            Assert.AreEqual(paymentContainer.FormattedCreated, "2015-02-03T14:22:19+01:00");
+            string json = File.ReadAllText("Data\\Model\\General.Accountdevices.1.json");
+            var devices = JsonSerializer.DeserializeJson<JsonEnvelope<List<AccountDevice>>>(json);
+            Assert.IsTrue(devices.Count>1);
+           
         }
 
+
+      
 
 
 

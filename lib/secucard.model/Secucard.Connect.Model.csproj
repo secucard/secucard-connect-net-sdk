@@ -42,10 +42,13 @@
   <ItemGroup>
     <Compile Include="Auth\AuthCodeDevice.cs" />
     <Compile Include="Auth\AuthCodeError.cs" />
+    <Compile Include="General\Components\NameValueItem.cs" />
+    <Compile Include="General\Device.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="JsonEnvelope.cs" />
     <Compile Include="Linq.cs" />
     <Compile Include="SecuObject.cs" />
+    <Compile Include="Smart\Routing.cs" />
     <Compile Include="Smart\SmartPin.cs" />
     <Compile Include="Auth\AuthToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +57,7 @@
     <Compile Include="General\Account.cs" />
     <Content Include="Annotation\ProductInfo.java" />
     <Content Include="Document\uploads\Document.java" />
-    <Content Include="General\AccountDevice.java" />
+    <Compile Include="General\AccountDevice.cs" />
     <Compile Include="General\Address.cs" />
     <Compile Include="General\Assignment.cs" />
     <Content Include="General\BeaconEnvironment.java" />

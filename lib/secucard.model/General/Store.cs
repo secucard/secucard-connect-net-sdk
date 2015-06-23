@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Secucard.Model.General.Components;
-
 namespace Secucard.Model.General
 {
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+    using Secucard.Model.General.Components;
     using Secucard.Model.Loyalty;
 
     [DataContract]
