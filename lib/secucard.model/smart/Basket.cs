@@ -7,10 +7,10 @@ namespace Secucard.Model.Smart
     public class Basket {
 
         [DataMember(Name = "products")]
-        private List<Product> Products = new List<Product>();
+        public List<Product> Products = new List<Product>();
 
         [DataMember(Name = "texts")]
-        private List<Text> Texts = new List<Text>();
+        public List<Text> Texts = new List<Text>();
 
        
         //// Returns a mixed list of products followed by belonging texts.

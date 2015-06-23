@@ -7,8 +7,16 @@
     {
         public static DateTime? ToDateTime(this string s)
         {
-            var d = DateTime.ParseExact(s, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal );
-            return d;
+            if (string.IsNullOrWhiteSpace(s)) return null;
+            DateTime d;
+            const string fmt = "yyyy-MM-ddTHH:mm:sszzz";
+            if (DateTime.TryParseExact(s, fmt, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out d))
+            {
+                return d;
+            }
+            return null;
+            //var d = DateTime.ParseExact(s, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal );
+            //return d;
         }
 
         public static string ToDateTimeZone(this DateTime? d)

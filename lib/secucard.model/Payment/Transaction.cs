@@ -10,10 +10,10 @@ namespace Secucard.Model.Payment
         //public static final String STATUS_PROCEED = "proceed";
 
         [DataMember(Name = "customer")]
-        public Customer customer;
+        public Customer Customer;
 
         [DataMember(Name = "contract")]
-        public Contract contract;
+        public Contract Contract;
 
         [DataMember(Name = "amount")]
         public long amount;
@@ -22,18 +22,18 @@ namespace Secucard.Model.Payment
         //public Currency currency;
 
         [DataMember(Name = "purpose")]
-        public string purpose;
+        public string Purpose;
 
         [DataMember(Name = "orderId")]
-        public string orderId;
+        public string OrderId;
 
         [DataMember(Name = "transId")]
-        public string transId;
+        public string TransId;
 
         [DataMember(Name = "status")]
-        public string status;
+        public string Status;
 
         [DataMember(Name = "transaction_status")]
-        public string transactionStatus;
+        public string TransactionStatus;
     }
 }

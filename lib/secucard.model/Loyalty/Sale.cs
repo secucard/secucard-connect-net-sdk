@@ -12,44 +12,45 @@ namespace Secucard.Model.Loyalty
         {
             get { return "loyalty.sales"; }
         }
+
         [DataMember(Name = "amount")]
-        public int amount;
+        public int Amount;
 
         [DataMember(Name = "last_change")]
-        public DateTime lastChange;
+        public DateTime LastChange;
 
         [DataMember(Name = "status")]
-        public int status;
+        public int Status;
 
         [DataMember(Name = "description")]
-        public string description;
+        public string Description;
 
         [DataMember(Name = "description_raw")]
-        public string descriptionRaw;
+        public string DescriptionRaw;
 
         [DataMember(Name = "store")]
-        public Store store;
+        public Store Store;
 
         [DataMember(Name = "card")]
-        public Card card;
+        public Card Card;
 
         [DataMember(Name = "cardgroup")]
-        public CardGroup cardgroup;
+        public CardGroup Cardgroup;
 
         [DataMember(Name = "merchantcard")]
-        public MerchantCard merchantcard;
+        public MerchantCard MerchantCard;
 
         [DataMember(Name = "balance_amount")]
-        public int balanceAmount;
+        public int BalanceAmount;
 
         [DataMember(Name = "balance_points")]
-        public int balancePoints;
+        public int BalancePoints;
 
         //TODO:
         //public Currency currency;
 
         [DataMember(Name = "created_for_merchant")]
-        public List<Bonus> bonus;
+        public List<Bonus> Bonus;
 
 
     }

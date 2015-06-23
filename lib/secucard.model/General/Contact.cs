@@ -36,7 +36,12 @@ namespace Secucard.Model.General
 
         //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
         [DataMember(Name = "dob")]
-		public DateTime DateOfBirth { get; set; }
+        public string FormattedUpdated
+        {
+            get { return DateOfBirth.ToDateTimeZone(); }
+            set { DateOfBirth = value.ToDateTime(); }
+        }
+        public DateTime? DateOfBirth { get; set; }
 
         [DataMember(Name = "birthplace")]
         public string BirthPlace { get; set; }

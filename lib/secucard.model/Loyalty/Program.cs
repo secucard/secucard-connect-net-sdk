@@ -1,23 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-
 namespace Secucard.Model.Loyalty
 {
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
     [DataContract]
     public class Program : SecuObject
     {
         public override string SecuObjectName
         {
-            get { throw new NotImplementedException(); }
+            get { return "loyalty.program"; }
         }
 
         [DataMember(Name = "description")]
-        public string description;
-
+        public string Description;
 
         [DataMember(Name = "cardGroup")]
-        public CardGroup cardGroup;
+        public CardGroup CardGroup;
 
         [DataMember(Name = "conditions")]
         public List<Condition> conditions;

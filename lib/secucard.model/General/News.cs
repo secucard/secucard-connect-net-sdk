@@ -20,34 +20,39 @@ namespace Secucard.Model.General
         public string Headline;
 
         [DataMember(Name = "text_teaser")]
-        public string textTeaser;
+        public string TextTeaser;
 
         [DataMember(Name = "text_full")]
-        public string textFull;
+        public string TextFull;
 
         [DataMember(Name = "author")]
-        public string author;
+        public string Author;
 
         [DataMember(Name = "document_id")]
-        public string documentId;
+        public string DocumentId;
 
         [DataMember(Name = "created")]
-        public DateTime created;
+        public string FormattedCreated
+        {
+            get { return Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
+        }
+        public DateTime? Created;
 
         [DataMember(Name = "headline")]
-        public string picture;
+        public string Picture;
 
         [DataMember(Name = "_account_read")]
-        public string accountRead;
+        public string AccountRead;
 
-        public MediaResource pictureObject;
+        public MediaResource PictureObject;
 
         //@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = SecuObject.OBJECT_PROPERTY)
         //@JsonSubTypes({
         //    @JsonSubTypes.Type(value = Merchant.class, name = Merchant.OBJECT)})
 
         [DataMember(Name = "related")]
-        public List<SecuObject> related;
+        public List<SecuObject> Related;
 
 
 

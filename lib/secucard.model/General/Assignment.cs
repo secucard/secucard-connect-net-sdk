@@ -11,10 +11,10 @@ namespace Secucard.Model.General
         [DataMember(Name = "created")]
         public string FormattedCreated
         {
-            get { return string.Format("{0:yyyy-MM-ddTHH:mm:ss}", Created); }
-            set { Created = Convert.ToDateTime(value); }
+            get { return  Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
         }
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }
 
         [DataMember(Name = "type")]
         public string Type { get; set; }

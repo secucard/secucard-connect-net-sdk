@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Model\Test_Model_Smart.cs" />
     <Compile Include="Model\Test_Model_Payment.cs" />
     <Compile Include="Model\Test_Model_General.cs" />
     <Compile Include="Test_Base.cs" />
@@ -64,9 +65,9 @@
       <Project>{067cc76b-1657-49aa-92a7-3cb2ba6586e9}</Project>
       <Name>secucard.connect</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\secucard.model\Secucard.Model.csproj">
+    <ProjectReference Include="..\..\lib\secucard.model\Secucard.Connect.Model.csproj">
       <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
-      <Name>Secucard.Model</Name>
+      <Name>Secucard.Connect.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\lib\secucard.stomp\Secucard.Stomp.csproj">
       <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
@@ -96,6 +97,12 @@
     <None Include="Data\Model\Payment.Customers.0.doc.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\Model\Smart.Idents.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Smart.Transactions.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Choose>

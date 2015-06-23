@@ -1,5 +1,6 @@
 namespace Secucard.Model.Loyalty
 {
+    using System;
     using System.Runtime.Serialization;
     using Secucard.Model.General;
 
@@ -10,7 +11,12 @@ namespace Secucard.Model.Loyalty
         public string CardNumber;
 
         [DataMember(Name = "created")]
-        public string Created;
+        public string FormattedCreated
+        {
+            get { return Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
+        } 
+        public DateTime? Created;
 
         [DataMember(Name = "account")]
         public Account Account;

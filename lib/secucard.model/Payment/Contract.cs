@@ -27,7 +27,6 @@ namespace Secucard.Model.Payment
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
-
         public DateTime? Created { get; set; }
     }
 }

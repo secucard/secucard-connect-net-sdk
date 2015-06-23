@@ -13,7 +13,7 @@ namespace Secucard.Model.Payment
         {
             return "SecupayPrepay{" +
                    "transferPurpose='" + TransferPurpose + '\'' +
-                   ", transactionStatus='" + transactionStatus + '\'' +
+                   ", transactionStatus='" + TransactionStatus + '\'' +
                    ", transferAccount=" + TransferAccount +
                    "} " + base.ToString();
         }

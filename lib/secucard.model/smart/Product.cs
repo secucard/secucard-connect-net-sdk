@@ -8,10 +8,10 @@ namespace Secucard.Model.Smart
     {
 
         [DataMember(Name = "id")]
-        public int Id;
+        public int? Id;
 
         [DataMember(Name = "parent")]
-        public int Parent;
+        public int? Parent;
 
         [DataMember(Name = "articleNumber")]
         public string ArticleNumber;
@@ -26,10 +26,10 @@ namespace Secucard.Model.Smart
         public decimal Quantity;
 
         [DataMember(Name = "priceOne")]
-        public int PriceOne;
+        public int? PriceOne;
 
         [DataMember(Name = "tax")]
-        public int Tax;
+        public int? Tax;
 
         [DataMember(Name = "group")]
         public List<ProductGroup> Groups = new List<ProductGroup>();

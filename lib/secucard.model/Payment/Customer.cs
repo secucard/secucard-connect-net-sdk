@@ -14,10 +14,20 @@ namespace Secucard.Model.Payment
         public Contact Contact;
 
         [DataMember(Name = "created")]
-        public DateTime Created;
+        public string FormattedCreated
+        {
+            get { return Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
+        }
+        public DateTime? Created;
 
         [DataMember(Name = "updated")]
-        public DateTime Updated;
+        public string FormattedUpdated
+        {
+            get { return Updated.ToDateTimeZone(); }
+            set { Updated = value.ToDateTime(); }
+        }
+        public DateTime? Updated;
 
         [DataMember(Name = "contract")]
         public Contract Contract;

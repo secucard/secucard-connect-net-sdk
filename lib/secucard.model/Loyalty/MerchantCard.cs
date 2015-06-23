@@ -10,42 +10,52 @@ namespace Secucard.Model.Loyalty
         public override string SecuObjectName { get { return "loyalty.merchantcards"; } }
 
         [DataMember(Name = "merchant")]
-        public Merchant merchant;
+        public Merchant Merchant;
 
         [DataMember(Name = "created_for_merchant")]
-        public Merchant createdForMerchant;
+        public Merchant CreatedForMerchant;
 
         [DataMember(Name = "card")]
-        public Card card;
+        public Card Card;
 
         [DataMember(Name = "created_for_store")]
-        public Store createdForStore;
+        public Store CreatedForStore;
 
         [DataMember(Name = "is_base_card")]
-        public bool isBaseCard;
+        public bool IsBaseCard;
 
         [DataMember(Name = "cardgroup")]
-        public CardGroup cardgroup;
+        public CardGroup Cardgroup;
 
         [DataMember(Name = "customer")]
-        public Customer customer;
+        public Customer Customer;
 
         [DataMember(Name = "balance")]
-        public int balance;
+        public int Balance;
 
         [DataMember(Name = "points")]
-        public int points;
+        public int Points;
 
         [DataMember(Name = "last_usage")]
-        public DateTime lastUsage;
+        public string FormattedLastUsage
+        {
+            get { return LastUsage.ToDateTimeZone(); }
+            set { LastUsage = value.ToDateTime(); }
+        }    
+        public DateTime? LastUsage;
 
         [DataMember(Name = "last_charge")]
-        public DateTime lastCharge;
+        public string FormattedLastCharge
+        {
+            get { return LastCharge.ToDateTimeZone(); }
+            set { LastCharge = value.ToDateTime(); }
+        }         
+        public DateTime? LastCharge;
 
         [DataMember(Name = "stock_status")]
-        public string stockStatus;
+        public string StockStatus;
 
         [DataMember(Name = "lock_status")]
-        public string lockStatus;
+        public string LockStatus;
     }
 }

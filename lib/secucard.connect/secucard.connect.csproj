@@ -64,9 +64,9 @@
     <Compile Include="Trace\SecucardTraceListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\secucard.model\Secucard.Model.csproj">
+    <ProjectReference Include="..\secucard.model\Secucard.Connect.Model.csproj">
       <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
-      <Name>Secucard.Model</Name>
+      <Name>Secucard.Connect.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
