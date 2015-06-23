@@ -33,7 +33,7 @@
         public void Test_Payment_Customers_0_doc()
         {
             var json = File.ReadAllText("Data\\Model\\Payment.Customers.0.doc.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Customer>>>(json);
+            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Model.Loyalty.Customer>>>(json); // TODO: Customer???
             Assert.AreEqual(data.Data.Count, 1);
             var obj = data.Data.First();
             Assert.AreEqual(obj.Id, "pcu_abc123");

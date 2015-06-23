@@ -3,7 +3,6 @@ namespace Secucard.Model.Payment
     using System;
     using System.Runtime.Serialization;
     using Secucard.Model.General;
-    using Secucard.Model.Loyalty;
 
     [DataContract]
     public class Container : SecuObject
