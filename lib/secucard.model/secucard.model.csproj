@@ -106,21 +106,21 @@
     <Content Include="services\idresult\Person.java" />
     <Content Include="services\idresult\UserData.java" />
     <Content Include="services\idresult\Value.java" />
-    <Content Include="Smart\Basket.java" />
-    <Content Include="Smart\BasketInfo.java" />
+    <Compile Include="Smart\Basket.cs" />
+    <Compile Include="Smart\BasketInfo.cs" />
     <Content Include="Smart\CashierDisplay.java" />
     <Content Include="Smart\Checkin.java" />
-    <Content Include="Smart\Device.java" />
-    <Content Include="Smart\Ident.java" />
-    <Content Include="Smart\Product.java" />
-    <Content Include="Smart\ProductGroup.java" />
-    <Content Include="Smart\ReceiptLine.java" />
-    <Content Include="Smart\Text.java" />
+    <Compile Include="Smart\Device.cs" />
+    <Compile Include="Smart\Ident.cs" />
+    <Compile Include="Smart\Product.cs" />
+    <Compile Include="Smart\ProductGroup.cs" />
+    <Compile Include="Smart\ReceiptLine.cs" />
+    <Compile Include="Smart\Text.cs" />
     <Content Include="Smart\Transaction.java" />
-    <Content Include="Smart\TransactionResult.java" />
+    <Compile Include="Smart\TransactionResult.cs" />
     <Content Include="Transport\Message.java" />
     <Content Include="Transport\Result.java" />
-    <Content Include="Transport\Status.java" />
+    <Compile Include="Transport\Status.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
