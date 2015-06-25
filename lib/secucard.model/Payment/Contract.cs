@@ -7,7 +7,7 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class Contract : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "payment.contracts"; }
         }

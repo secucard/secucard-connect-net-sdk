@@ -8,7 +8,7 @@ namespace Secucard.Model.General
     [DataContract]
     public class News : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.news"; }
         }

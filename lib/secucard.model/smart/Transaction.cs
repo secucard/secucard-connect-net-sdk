@@ -7,7 +7,7 @@ namespace Secucard.Model.Smart
     [DataContract]
     public class Transaction : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "smart.transactions"; }
         }

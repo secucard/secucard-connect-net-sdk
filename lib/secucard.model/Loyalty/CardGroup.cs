@@ -7,7 +7,7 @@ namespace Secucard.Model.Loyalty
     public class CardGroup : SecuObject
     {
         //public static final String OBJECT = "loyalty.cardgroups";
-		        public override string SecuObjectName
+		        public override string ServiceResourceName
         {
             get { return "loyalty.cardgroups"; }
         }

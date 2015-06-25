@@ -6,7 +6,7 @@ namespace Secucard.Model.General
     [DataContract]
     public class Account : SecuObject
     {
-        public override string SecuObjectName { get { return "general.accounts"; } }
+        public override string ServiceResourceName { get { return "general.accounts"; } }
 
         [DataMember(Name = "username")]
         public string Username { get; set; }

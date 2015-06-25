@@ -6,7 +6,7 @@ namespace Secucard.Model.Loyalty
     [DataContract]
     public class Program : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "loyalty.program"; }
         }

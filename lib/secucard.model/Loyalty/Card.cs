@@ -21,7 +21,7 @@ namespace Secucard.Model.Loyalty
         [DataMember(Name = "account")]
         public Account Account;
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "loyalty.cards"; }
         }

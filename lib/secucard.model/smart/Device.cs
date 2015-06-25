@@ -8,7 +8,7 @@ namespace Secucard.Model.Smart
     public class Device : SecuObject
     {
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "smart.devices"; }
         }

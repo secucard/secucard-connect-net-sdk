@@ -18,7 +18,7 @@ namespace Secucard.Model.General
         //public static final String NEWS_STATUS_UNREAD = "unread";
 
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.stores"; }
         }

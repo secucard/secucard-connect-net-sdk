@@ -10,7 +10,7 @@ namespace Secucard.Model.Payment
         public Container container;
 
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "payment.secupaydebits"; }
         }

@@ -28,7 +28,7 @@ namespace Secucard.Model.General
         [DataMember(Name = "url_website")] public string UrlWebsite;
         [DataMember(Name = "utc_offset")] public int UtcOffset;
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.publicmerchants"; }
         }

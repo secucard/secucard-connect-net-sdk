@@ -15,9 +15,9 @@
         public void Test_Smart_Idents_1()
         {
             var json = File.ReadAllText("Data\\Model\\Smart.Idents.1.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Ident>>>(json);
-            Assert.AreEqual(data.Data.Count, 3);
-            var smartIdent = data.Data.First();
+            var data = JsonSerializer.DeserializeJson<ObjectList<Ident>>(json);
+            Assert.AreEqual(data.List.Count, 3);
+            var smartIdent = data.List.First();
             Assert.AreEqual(smartIdent.Id, "smi_1");
             Assert.AreEqual(smartIdent.Type, "card");
             Assert.AreEqual(smartIdent.Prefix, "9276");
@@ -30,9 +30,9 @@
         public void Test_Smart_Transactions_1()
         {
             var json = File.ReadAllText("Data\\Model\\Smart.Transactions.1.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Transaction>>>(json);
-            Assert.IsTrue(data.Data.Count> 1);
-            var transaction = data.Data.First();
+            var data = JsonSerializer.DeserializeJson<ObjectList<Transaction>>(json);
+            Assert.IsTrue(data.List.Count> 1);
+            var transaction = data.List.First();
             Assert.AreEqual(transaction.Id, "STX_TC6Z542ZT2Y7US4VR5GQG8DMHF7FA0");
             Assert.AreEqual(transaction.Status, "failed");
             Assert.AreEqual(transaction.TransactionRef, "Beleg4536676");
@@ -40,7 +40,7 @@
             Assert.IsNotNull(transaction.Basket);
             Assert.AreEqual(transaction.FormattedCreated, "2015-03-10T13:19:11+01:00");
             Assert.AreEqual(transaction.FormattedUpdated, "2015-03-10T13:19:40+01:00");
-            var product1 = data.Data.First().Basket.Products.First();
+            var product1 = data.List.First().Basket.Products.First();
             Assert.AreEqual(product1.ArticleNumber, "70000");
 
         }
@@ -49,9 +49,9 @@
         public void Test_Smart_Devices_1()
         {
             var json = File.ReadAllText("Data\\Model\\Smart.Devices.1.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Device>>>(json);
-            Assert.IsTrue(data.Data.Count > 1);
-            var device = data.Data.First();
+            var data = JsonSerializer.DeserializeJson<ObjectList<Device>>(json);
+            Assert.IsTrue(data.List.Count > 1);
+            var device = data.List.First();
             Assert.AreEqual(device.Id, "SDV_99W7SUCEH2Y7TNQJB5GQG7HXWF7FAW");
             Assert.AreEqual(device.Merchant.Id, "MRC_2YPYFEYKF2DYG8Z4KHB5T8P2P4H0P6");
             Assert.AreEqual(device.Store.Id, "STO_WFMX9VS2VCC7TBBWWMP6HBAGP6PPPP");
@@ -67,8 +67,8 @@
         public void Test_Smart_Routings_1()
         {
             var json = File.ReadAllText("Data\\Model\\Smart.Routings.1.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Routing>>>(json);
-            Assert.IsTrue(data.Data.Count > 1);
+            var data = JsonSerializer.DeserializeJson<ObjectList<List<Routing>>>(json);
+            Assert.IsTrue(data.List.Count > 1);
             
 
         }

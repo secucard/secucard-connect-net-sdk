@@ -35,7 +35,7 @@ namespace Secucard.Model.General
         public string Currency;
 
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.transactions"; }
         }

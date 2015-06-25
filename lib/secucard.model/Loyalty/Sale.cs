@@ -8,7 +8,7 @@ namespace Secucard.Model.Loyalty
     [DataContract]
     public class Sale : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "loyalty.sales"; }
         }

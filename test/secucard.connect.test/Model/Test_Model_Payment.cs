@@ -1,13 +1,11 @@
 ﻿namespace Secucard.Connect.Test
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     using Secucard.Model;
-    using Secucard.Model.Loyalty;
     using Secucard.Model.Payment;
+    using Customer = Secucard.Model.Loyalty.Customer;
 
     [TestClass]
     [DeploymentItem("Data\\Model", "Data\\Model")]
@@ -17,9 +15,9 @@
         public void Test_Payment_Container_0_doc()
         {
             var json = File.ReadAllText("Data\\Model\\Payment.Containers.0.doc.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Container>>>(json);
-            Assert.AreEqual(data.Data.Count, 1);
-            var paymentContainer = data.Data.First();
+            var data = JsonSerializer.DeserializeJson<ObjectList<Container>>(json);
+            Assert.AreEqual(data.List.Count, 1);
+            var paymentContainer = data.List.First();
             Assert.AreEqual(paymentContainer.Id, "pct_abc123");
             Assert.AreEqual(paymentContainer.Merchant.Id, "mrc_abc123");
             Assert.AreEqual(paymentContainer.PrivateData.Owner, "John Doe");
@@ -33,9 +31,9 @@
         public void Test_Payment_Customers_0_doc()
         {
             var json = File.ReadAllText("Data\\Model\\Payment.Customers.0.doc.json");
-            var data = JsonSerializer.DeserializeJson<JsonEnvelope<List<Model.Loyalty.Customer>>>(json); // TODO: Customer???
-            Assert.AreEqual(data.Data.Count, 1);
-            var obj = data.Data.First();
+            var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json); // TODO: Customer???
+            Assert.AreEqual(data.List.Count, 1);
+            var obj = data.List.First();
             Assert.AreEqual(obj.Id, "pcu_abc123");
             Assert.AreEqual(obj.Merchant.Id, "mrc_abc123");
             Assert.AreEqual(obj.ForeName, "John");

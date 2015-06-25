@@ -47,7 +47,7 @@
     <Compile Include="General\Components\NameValueItem.cs" />
     <Compile Include="General\Device.cs" />
     <Compile Include="JsonSerializer.cs" />
-    <Compile Include="JsonEnvelope.cs" />
+    <Compile Include="ObjectList.cs" />
     <Compile Include="Linq.cs" />
     <Compile Include="SecuObject.cs" />
     <Compile Include="Smart\Routing.cs" />
@@ -79,6 +79,7 @@
     <Content Include="General\Notification.java" />
     <Compile Include="General\PublicMerchant.cs" />
     <Compile Include="General\Store.cs" />
+    <Compile Include="General\Skeleton.cs" />
     <Content Include="General\StoreSetDefault.java" />
     <Compile Include="General\Transaction.cs" />
     <Compile Include="MediaResource.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Payment\SecupayPrepay.cs" />
     <Compile Include="Payment\Transaction.cs" />
     <Compile Include="Payment\TransferAccount.cs" />
+    <Compile Include="QueryParams.cs" />
     <Content Include="services\Contract.java" />
     <Content Include="services\IdentRequest.java" />
     <Content Include="services\IdentResult.java" />

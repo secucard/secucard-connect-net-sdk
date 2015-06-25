@@ -6,7 +6,7 @@ namespace Secucard.Model.Smart
     [DataContract]
     public class Ident : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "smart.idents"; }
         }

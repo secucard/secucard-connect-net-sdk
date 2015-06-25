@@ -7,7 +7,7 @@ namespace Secucard.Model.General
     [DataContract]
 	public class Contact : SecuObject {
 
-        public override string SecuObjectName { get { return "general.contacts"; } }
+        public override string ServiceResourceName { get { return "general.contacts"; } }
 
         //public const string GENDER_MALE = "MALE";
         //public const string GENDER_FEMALE = "FEMALE";

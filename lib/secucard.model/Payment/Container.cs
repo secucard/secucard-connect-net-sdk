@@ -8,7 +8,7 @@ namespace Secucard.Model.Payment
     public class Container : SecuObject
     {
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "payment.containers"; }
         }

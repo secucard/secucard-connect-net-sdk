@@ -82,6 +82,12 @@
     <Compile Include="Auth\ClientCredentials.cs" />
     <Compile Include="Auth\UserCredentials.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Channel\AbstractChannel.java" />
+    <Content Include="Channel\IChannel.java" />
+    <Content Include="Channel\JsonMapper.java" />
+    <Content Include="Channel\PathResolver.java" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

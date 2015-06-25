@@ -5,7 +5,7 @@ namespace Secucard.Model.General
     [DataContract]
     public class App : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.apps"; }
         }

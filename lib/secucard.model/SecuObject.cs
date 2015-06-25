@@ -9,10 +9,10 @@
         //public const string OBJECT_PROPERTY = "object";
         //public const string ID_PROPERTY = "id";
 
-        public abstract string SecuObjectName { get; }
-        private string ObjectName;
+        public abstract string ServiceResourceName { get; }
+        private string _ServiceResourceName;
         [DataMember(Name = "object")]
-        public virtual string Object { get { return SecuObjectName; } set { ObjectName = value; } }
+        public virtual string Object { get { return ServiceResourceName; } set { _ServiceResourceName = value; } }
 
 
         [DataMember(Name = "id")]
@@ -22,7 +22,6 @@
         {
             return "SecuObject{id='" + Id + "', object='" + Object + '}';
         }
-
     }
 }
 

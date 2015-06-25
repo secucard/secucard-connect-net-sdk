@@ -7,7 +7,7 @@ namespace Secucard.Model.Loyalty
     [DataContract]
     public class MerchantCard : SecuObject
     {
-        public override string SecuObjectName { get { return "loyalty.merchantcards"; } }
+        public override string ServiceResourceName { get { return "loyalty.merchantcards"; } }
 
         [DataMember(Name = "merchant")]
         public Merchant Merchant;

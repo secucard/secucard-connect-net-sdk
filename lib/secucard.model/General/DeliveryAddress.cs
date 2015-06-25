@@ -5,7 +5,7 @@ namespace Secucard.Model.General
     [DataContract]
     public class DeliveryAddress : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.deliveryaddresses"; }
         }

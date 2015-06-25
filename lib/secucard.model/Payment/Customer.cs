@@ -43,7 +43,7 @@ namespace Secucard.Model.Payment
                    "} " + base.ToString();
         }
 
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "payment.customers"; }
         }

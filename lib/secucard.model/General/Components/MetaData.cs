@@ -5,7 +5,7 @@ namespace Secucard.Model.General.Components
     [DataContract]
     public class MetaData : SecuObject
     {
-        public override string SecuObjectName
+        public override string ServiceResourceName
         {
             get { return "general.metadata"; }
         }
