@@ -49,15 +49,20 @@
     <Compile Include="Auth\AuthProviderStatusEnum.cs" />
     <Compile Include="Auth\AutTypeEnum.cs" />
     <Compile Include="Auth\IAuthProvider.cs" />
-    <Compile Include="Auth\OAuthProvider.cs" />
+    <Compile Include="Auth\AuthProvider.cs" />
     <Compile Include="Auth\RestAuth.cs" />
     <Compile Include="Auth\RestConfig.cs" />
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
+    <Compile Include="Product\ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\RestBase.cs" />
+    <Compile Include="Rest\RestConfig.cs" />
     <Compile Include="Rest\RestException.cs" />
     <Compile Include="Rest\RestHelp.cs" />
     <Compile Include="Rest\RestRequest.cs" />
+    <Compile Include="SecucardConnect.cs" />
+    <Compile Include="SecucardConnectEvent.cs" />
+    <Compile Include="SecucardConnectException.cs" />
     <Compile Include="Storage\StorageItem.cs" />
     <Compile Include="Trace\ISecucardTrace.cs" />
     <Compile Include="Trace\SecucardTraceFile.cs" />
@@ -67,6 +72,10 @@
     <ProjectReference Include="..\secucard.model\Secucard.Connect.Model.csproj">
       <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
       <Name>Secucard.Connect.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\secucard.stomp\Secucard.Stomp.csproj">
+      <Project>{092CECFF-F04B-4DBF-AF77-1D56CF80E49B}</Project>
+      <Name>Secucard.Stomp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -83,10 +92,18 @@
     <Compile Include="Auth\UserCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Channel\AbstractChannel.java" />
-    <Content Include="Channel\IChannel.java" />
+    <Compile Include="Channel\AbstractChannel.cs" />
+    <Compile Include="Channel\IChannel.cs" />
     <Content Include="Channel\JsonMapper.java" />
     <Content Include="Channel\PathResolver.java" />
+    <Compile Include="ClientContext.cs" />
+    <Compile Include="ClientConfiguration.cs" />
+    <Compile Include="Channel\Rest\RestChannelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Channel\Stomp\" />
+    <Folder Include="Product\General\" />
+    <Folder Include="Product\Smart\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

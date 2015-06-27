@@ -30,14 +30,14 @@
             var storage = MemoryDataStorage.LoadFromFile("data\\storage.sec");
             storage.Clear();
             // first run with empty storage
-            var authProvider = new OAuthProvider("testprovider", ConfigAuth, tracer, storage);
+            var authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             var token = authProvider.GetToken(true);
             Assert.IsNotNull(token.AccessToken);
             storage.SaveToFile(fullStoragePath);
 
             // second run with token in storage still valid
-            authProvider = new OAuthProvider("testprovider", ConfigAuth, tracer, storage);
+            authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             token = authProvider.GetToken(true);
             Assert.IsNotNull(token.AccessToken);
@@ -47,7 +47,7 @@
             // second run with token in storage still valid
             token.ExpireTime = DateTime.Now.AddMinutes(-1);
             storage.Save("token-" + "testprovider", token);
-            authProvider = new OAuthProvider("testprovider", ConfigAuth, tracer, storage);
+            authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             token = authProvider.GetToken(true);
             Assert.IsNotNull(token.AccessToken);

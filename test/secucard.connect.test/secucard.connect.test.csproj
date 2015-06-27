@@ -75,6 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="infos.txt" />
     <None Include="App.config" />
     <Content Include="Data\storage.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -12,7 +12,7 @@
     ///     Implementation of the AuthProvider interface which gets an OAuth token via REST channel.
     ///     The retrieved token is also cached and refreshed.
     /// </summary>
-    public class OAuthProvider : IAuthProvider
+    public class AuthProvider : IAuthProvider
     {
         public delegate void AuthProviderStatusUpdateDelegate(object sender, AuthProviderStatusUpdateEventArgs args);
 
@@ -24,7 +24,7 @@
         private bool CancelAuthFlag { get; set; }
         //private readonly UserAgentProvider userAgentProvider = new UserAgentProvider();
 
-        public OAuthProvider(string id, AuthConfig config, ISecucardTrace trace, DataStorage storage)
+        public AuthProvider(string id, AuthConfig config, ISecucardTrace trace, DataStorage storage)
         {
             Id = id;
             Config = config;

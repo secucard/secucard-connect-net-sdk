@@ -12,10 +12,10 @@ namespace Secucard.Model
         //public static final String SORT_DESC = "desc";
 
         [DataMember(Name = "count")]
-        public int Count;
+        public int? Count;
 
         [DataMember(Name = "offset")]
-        public int Offset;
+        public int? Offset;
 
         [DataMember(Name = "scroll_id")]
         public string ScrollId;
@@ -63,9 +63,9 @@ namespace Secucard.Model
 
             public string Distance;
 
-            public double Lat;
+            public double? Lat;
 
-            public double Lon;
+            public double? Lon;
 
             //public GeoQuery() {
             //}
