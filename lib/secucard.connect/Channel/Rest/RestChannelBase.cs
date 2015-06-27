@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using Secucard.Connect.Auth;
+using Secucard.Connect.Rest;
 using Secucard.Model;
 
 public abstract class RestChannelBase : AbstractChannel {

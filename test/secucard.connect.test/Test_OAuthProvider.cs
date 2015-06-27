@@ -61,7 +61,7 @@
             {
                 // Set pin via SMART REST (only development)
 
-                var reqSmartPin = new RestRequest(ConfigAuth.AuthUrl)
+                var reqSmartPin = new RestRequest
                 {
                     PageUrl = ConfigAuth.PageSmartDevices,
                     Host = ConfigAuth.Host,

@@ -51,9 +51,10 @@
     <Compile Include="Auth\IAuthProvider.cs" />
     <Compile Include="Auth\AuthProvider.cs" />
     <Compile Include="Auth\RestAuth.cs" />
-    <Compile Include="Auth\RestConfig.cs" />
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
+    <Compile Include="Product\General\GeneralService.cs" />
     <Compile Include="Product\ServiceBase.cs" />
+    <Compile Include="Product\Smart\SmartService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\RestBase.cs" />
     <Compile Include="Rest\RestConfig.cs" />
@@ -102,8 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Channel\Stomp\" />
-    <Folder Include="Product\General\" />
-    <Folder Include="Product\Smart\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

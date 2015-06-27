@@ -17,10 +17,14 @@
         private const string ContentTypeFrom = "application/x-www-form-urlencoded";
         private const string ContentTypeJson = "application/json";
 
+        public RestConfig Config { get; set; }
+
+
         #region  ### Ctor ###
 
-        protected RestBase()
+        public RestBase(RestConfig config)
         {
+            Config = config;
             ServicePointManager.ServerCertificateValidationCallback = AcceptAllCertifications;
         }
 
@@ -40,7 +44,8 @@
         {
             var webRequest =
                 (HttpWebRequest)
-                    WebRequest.Create(string.Format("{0}{1}", request.BaseUrl, request.PageUrl.TrimStart('/')));
+                    WebRequest.Create(string.Format("{0}{1}", Config.BaseUrl, request.PageUrl.TrimStart('/')));
+
             webRequest.Method = WebRequestMethods.Http.Post;
             webRequest.UserAgent = UserAgent;
             webRequest.Host = request.Host;
@@ -87,7 +92,7 @@
         {
             var webRequest =
                 (HttpWebRequest)
-                    WebRequest.Create(string.Format("{0}{1}", request.BaseUrl, request.PageUrl.TrimStart('/')));
+                    WebRequest.Create(string.Format("{0}{1}", Config.BaseUrl, request.PageUrl.TrimStart('/')));
             webRequest.Method = WebRequestMethods.Http.Put;
             webRequest.UserAgent = UserAgent;
             webRequest.Host = request.Host;

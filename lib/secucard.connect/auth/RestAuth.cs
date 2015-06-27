@@ -6,25 +6,26 @@
 
     public class RestAuth : RestBase
     {
-        private readonly AuthConfig Config;
+        private readonly AuthConfig AuthConfig;
 
-        public RestAuth(AuthConfig config)
+        public RestAuth(AuthConfig authConfig)
+            : base(new RestConfig { BaseUrl = authConfig.AuthUrl })
         {
-            Config = config;
+            AuthConfig = authConfig;
         }
 
         public DeviceAuthCode GetDeviceAuthCode()
         {
-            var req = new RestRequest(Config.AuthUrl)
+            var req = new RestRequest
             {
-                PageUrl = Config.PageOauthToken,
-                Host = Config.Host
+                PageUrl = AuthConfig.PageOauthToken,
+                Host = AuthConfig.Host
             };
 
             req.Parameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            req.Parameter.Add(AuthConst.Client_Id, Config.ClientCredentials.ClientId);
-            req.Parameter.Add(AuthConst.Client_Secret, Config.ClientCredentials.ClientSecret);
-            req.Parameter.Add(AuthConst.Uuid, Config.Uuid);
+            req.Parameter.Add(AuthConst.Client_Id, AuthConfig.ClientCredentials.ClientId);
+            req.Parameter.Add(AuthConst.Client_Secret, AuthConfig.ClientCredentials.ClientSecret);
+            req.Parameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
             var deviceAuthCode = RestPost<DeviceAuthCode>(req);
             return deviceAuthCode;
@@ -32,15 +33,15 @@
 
         public AuthToken ObtainAuthToken(string deviceCode)
         {
-            var req = new RestRequest(Config.AuthUrl)
+            var req = new RestRequest()
             {
-                PageUrl = Config.PageOauthToken,
-                Host = Config.Host
+                PageUrl = AuthConfig.PageOauthToken,
+                Host = AuthConfig.Host
             };
 
             req.Parameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            req.Parameter.Add(AuthConst.Client_Id, Config.ClientId);
-            req.Parameter.Add(AuthConst.Client_Secret, Config.Secret);
+            req.Parameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
+            req.Parameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
             req.Parameter.Add(AuthConst.Code, deviceCode);
 
             try
@@ -57,15 +58,15 @@
 
         public AuthToken RefreshToken(string refreshToken)
         {
-            var req = new RestRequest(Config.AuthUrl)
+            var req = new RestRequest
             {
-                PageUrl = Config.PageOauthToken,
-                Host = Config.Host
+                PageUrl = AuthConfig.PageOauthToken,
+                Host = AuthConfig.Host
             };
 
             req.Parameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
-            req.Parameter.Add(AuthConst.Client_Id, Config.ClientId);
-            req.Parameter.Add(AuthConst.Client_Secret, Config.Secret);
+            req.Parameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
+            req.Parameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
             req.Parameter.Add(AuthConst.RefreshToken, refreshToken);
 
             var token = RestPost<AuthToken>(req);

@@ -8,6 +8,7 @@ using Secucard.Connect.Auth;
 
 namespace Secucard.Connect
 {
+    using Secucard.Connect.Rest;
     using Secucard.Stomp;
 
     public class ClientConfiguration

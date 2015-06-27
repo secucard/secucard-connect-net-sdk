@@ -18,7 +18,7 @@
         [TestMethod, TestCategory("Auth")]
         public void Test_Auth_Device_Start()
         {
-            var request = new RestRequest(ConfigAuth.AuthUrl)
+            var request = new RestRequest
             {
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
@@ -39,7 +39,7 @@
             var rest = new RestAuth(ConfigAuth);
 
             // AUTH: GetToken
-            var reqDeviceGetToken = new RestRequest(ConfigAuth.AuthUrl)
+            var reqDeviceGetToken = new RestRequest()
             {
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
@@ -59,7 +59,7 @@
 
             // Set pin via SMART REST (only development)
 
-            var reqSmartPin = new RestRequest(ConfigAuth.AuthUrl)
+            var reqSmartPin = new RestRequest()
             {
                 PageUrl = ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
@@ -73,7 +73,7 @@
 
 
             // AUTH: Obtain Access Token
-            var reqObtainAccessToken = new RestRequest(ConfigAuth.AuthUrl)
+            var reqObtainAccessToken = new RestRequest()
             {
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
@@ -92,7 +92,7 @@
 
 
             // Refresh Token
-            var reqRefreshExpiredToken = new RestRequest(ConfigAuth.AuthUrl)
+            var reqRefreshExpiredToken = new RestRequest()
             {
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
@@ -160,7 +160,7 @@
 
 
             // Set pin via SMART REST (only development)
-            var reqSmartPin = new RestRequest(ConfigAuth.AuthUrl)
+            var reqSmartPin = new RestRequest()
             {
                 PageUrl = ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
