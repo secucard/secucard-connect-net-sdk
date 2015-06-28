@@ -22,10 +22,10 @@
                 Host = AuthConfig.Host
             };
 
-            req.Parameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            req.Parameter.Add(AuthConst.Client_Id, AuthConfig.ClientCredentials.ClientId);
-            req.Parameter.Add(AuthConst.Client_Secret, AuthConfig.ClientCredentials.ClientSecret);
-            req.Parameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
+            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
+            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientCredentials.ClientId);
+            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.ClientCredentials.ClientSecret);
+            req.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
             var deviceAuthCode = RestPost<DeviceAuthCode>(req);
             return deviceAuthCode;
@@ -39,10 +39,10 @@
                 Host = AuthConfig.Host
             };
 
-            req.Parameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            req.Parameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
-            req.Parameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
-            req.Parameter.Add(AuthConst.Code, deviceCode);
+            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
+            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
+            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
+            req.BodyParameter.Add(AuthConst.Code, deviceCode);
 
             try
             {
@@ -64,10 +64,10 @@
                 Host = AuthConfig.Host
             };
 
-            req.Parameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
-            req.Parameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
-            req.Parameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
-            req.Parameter.Add(AuthConst.RefreshToken, refreshToken);
+            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
+            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
+            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
+            req.BodyParameter.Add(AuthConst.RefreshToken, refreshToken);
 
             var token = RestPost<AuthToken>(req);
             return token;

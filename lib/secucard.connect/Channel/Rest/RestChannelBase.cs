@@ -8,6 +8,7 @@ using Secucard.Connect.Rest;
 using Secucard.Model;
 
 public abstract class RestChannelBase : AbstractChannel {
+
   protected RestConfig configuration;
   public bool secure = true;
   //protected JsonMapper jsonMapper = JsonMapper.get();
@@ -65,8 +66,8 @@ public abstract class RestChannelBase : AbstractChannel {
 
     var sortOrder = queryParams.SortOrder;
     if (!scroll && sortOrder != null) {
-       foreach ( var entry in sortOrder) {
-        map.Add("sort[" + entry.Key + "]", entry.Value);
+       foreach ( var key in sortOrder.AllKeys) {
+        map.Add("sort[" + key + "]", sortOrder[key]);
       }
     }
 
@@ -100,29 +101,29 @@ public abstract class RestChannelBase : AbstractChannel {
     return map;
   }
 
-  protected string encodeQueryParams(QueryParams queryParams) {
-    return encodeQueryParams(queryParamsToMap(queryParams));
-  }
+  //protected string encodeQueryParams(QueryParams queryParams) {
+  //  return encodeQueryParams(queryParamsToMap(queryParams));
+  //}
 
-  protected string encodeQueryParams(Dictionary<string, object> queryParams) {
-    if (queryParams == null || !queryParams.Any()) {
-      return null;
-    }
-    var encodedParams = new StringBuilder();
-    string paramsEncoding = "UTF-8";
-    //try {
-    //  for (Map.Entry<string, object> entry : queryParams.entrySet()) {
-    //    encodedParams.append(URLEncoder.encode(entry.getKey(), paramsEncoding));
-    //    encodedParams.append('=');
-    //    encodedParams.append(URLEncoder.encode((string) entry.getValue(), paramsEncoding));
-    //    encodedParams.append('&');
-    //  }
-    //  return encodedParams.toString();
-    //} catch (UnsupportedEncodingException uee) {
-    //  throw new RuntimeException("Encoding not supported: " + paramsEncoding, uee);
-    //}
-      return null;
-  }
+  //protected string encodeQueryParams(Dictionary<string, object> queryParams) {
+  //  if (queryParams == null || !queryParams.Any()) {
+  //    return null;
+  //  }
+  //  var encodedParams = new StringBuilder();
+  //  string paramsEncoding = "UTF-8";
+  //  //try {
+  //  //  for (Map.Entry<string, object> entry : queryParams.entrySet()) {
+  //  //    encodedParams.append(URLEncoder.encode(entry.getKey(), paramsEncoding));
+  //  //    encodedParams.append('=');
+  //  //    encodedParams.append(URLEncoder.encode((string) entry.getValue(), paramsEncoding));
+  //  //    encodedParams.append('&');
+  //  //  }
+  //  //  return encodedParams.toString();
+  //  //} catch (UnsupportedEncodingException uee) {
+  //  //  throw new RuntimeException("Encoding not supported: " + paramsEncoding, uee);
+  //  //}
+  //    return null;
+  //}
 
   protected void SetAuthorizationHeader(Dictionary<string,string> headers, string token) {
     if (token != null) {

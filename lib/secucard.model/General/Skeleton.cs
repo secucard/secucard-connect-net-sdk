@@ -10,22 +10,22 @@ namespace Secucard.Model.General
         [DataMember(Name = "a")]
         public string A;
 
-        [DataMember(Name = "a")]
+        [DataMember(Name = "b")]
         public string B;
 
-        [DataMember(Name = "a")]
+        [DataMember(Name = "c")]
         public string C;
 
-        [DataMember(Name = "a")]
+        [DataMember(Name = "amount")]
         public int Amount;
 
-        [DataMember(Name = "a")]
-        public string Picture;
-
-        [DataMember(Name = "a")]
+        [DataMember(Name = "date")]
         public string Date;
 
-        [DataMember(Name = "a")]
+        [DataMember(Name = "picture")]
+        public string Picture;
+
+        [DataMember(Name = "type")]
         public string Type;
 
         [DataMember(Name = "location")]

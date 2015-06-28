@@ -53,6 +53,7 @@
     <Compile Include="Model\Test_Model_Smart.cs" />
     <Compile Include="Model\Test_Model_Payment.cs" />
     <Compile Include="Model\Test_Model_General.cs" />
+    <Compile Include="Rest\Test_Rest_General.cs" />
     <Compile Include="Test_Base.cs" />
     <Compile Include="Test_OAuthProvider.cs" />
     <Compile Include="Test_Storage.cs" />
@@ -119,6 +120,9 @@
     <Content Include="Data\Model\General.Transactions.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Model\General.Skeleton.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Model\Payment.Customers.0.doc.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -132,6 +136,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\Smart.Routings.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\secucard.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

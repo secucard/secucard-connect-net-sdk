@@ -116,5 +116,14 @@
             var stores = JsonSerializer.DeserializeJson<ObjectList<Transaction>>(json);
             Assert.IsTrue(stores.Count > 0);
         }
+
+
+        [TestMethod, TestCategory("Model")]
+        public void Test_General_Skeleton_1()
+        {
+            string json = File.ReadAllText("Data\\Model\\General.Skeleton.1.json");
+            var skeletons = JsonSerializer.DeserializeJson<ObjectList<Skeleton>>(json);
+            Assert.IsTrue(skeletons.Count > 0);
+        }
     }
 }

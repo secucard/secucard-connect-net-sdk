@@ -3,6 +3,7 @@
 namespace Secucard.Model
 {
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Runtime.Serialization;
 
     [DataContract]
@@ -27,7 +28,7 @@ namespace Secucard.Model
         public List<string> Fields;
 
         [DataMember(Name = "sort")]
-        public Dictionary<string, string> SortOrder;
+        public NameValueCollection SortOrder;
 
         [DataMember(Name = "q")]
         public string Query;

@@ -20,7 +20,7 @@
         public void Test_OAuthDevice()
         {
             const string logPath = "data\\secucard.cliend.log";
-            const string storagePath = "data\\secucard.cliend.log";
+            const string storagePath = "data\\secucard.cliend.sec";
 
             // Delete storage and log
             File.Delete(storagePath);

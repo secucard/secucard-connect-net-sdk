@@ -6,7 +6,7 @@
     {
         public static byte[] ToUTF8Bytes(this string s)
         {
-            return Encoding.UTF8.GetBytes(s);
+            return s == null ? null : Encoding.UTF8.GetBytes(s);
         }
     }
 }
