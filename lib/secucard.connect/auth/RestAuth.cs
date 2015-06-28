@@ -1,5 +1,6 @@
 ﻿namespace secucard.connect
 {
+    using System.Net;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
     using Secucard.Model.Auth;
@@ -18,6 +19,7 @@
         {
             var req = new RestRequest
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
@@ -35,6 +37,7 @@
         {
             var req = new RestRequest()
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
@@ -60,6 +63,7 @@
         {
             var req = new RestRequest
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };

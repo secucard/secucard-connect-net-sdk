@@ -34,6 +34,7 @@
 
         public T RestPost<T>(RestRequest request)
         {
+            request.Method = WebRequestMethods.Http.Post;
             var ret = RestPost(request);
             if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Execption
 
@@ -43,15 +44,9 @@
 
         public string RestPost(RestRequest request)
         {
-            var webRequest =
-                (HttpWebRequest)
-                    WebRequest.Create(string.Format("{0}{1}", Config.BaseUrl, request.PageUrl.TrimStart('/')));
-
-            webRequest.Method = WebRequestMethods.Http.Post;
-            webRequest.UserAgent = UserAgent;
-            webRequest.Host = request.Host;
+            request.Method = WebRequestMethods.Http.Post;
+            var webRequest = FactoryWebRequest(request);
             webRequest.ContentType = ContentTypeFrom;
-            webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
 
             var postBytes = BuildPostData(request.BodyParameter).ToUTF8Bytes();
             webRequest.ContentLength = postBytes.Length;
@@ -91,17 +86,9 @@
 
         public string RestPut(RestRequest request)
         {
-            var webRequest =
-                (HttpWebRequest)
-                    WebRequest.Create(string.Format("{0}{1}", Config.BaseUrl, request.PageUrl.TrimStart('/')));
-
-            webRequest.Method = WebRequestMethods.Http.Put;
-            webRequest.UserAgent = UserAgent;
-            webRequest.Host = request.Host;
-            webRequest.Accept = ContentTypeJson;
+            request.Method = WebRequestMethods.Http.Put;
+            var webRequest = FactoryWebRequest(request);
             webRequest.ContentType = ContentTypeJson;
-            webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-            webRequest.Headers.Add("Accept-Charset", "utf-8");
 
             var bodyBytes = request.BodyJsonString.ToUTF8Bytes();
             webRequest.ContentLength = bodyBytes.Length;
@@ -142,24 +129,9 @@
 
         protected string RestGet(RestRequest request)
         {
-            string uri = string.Format("{0}{1}", Config.BaseUrl, request.GetPathAndQueryString());
-
-            var webRequest = (HttpWebRequest)WebRequest.Create(uri);
-
-            webRequest.Method = WebRequestMethods.Http.Get;
-
-            webRequest.UserAgent = UserAgent;
-            webRequest.Host = request.Host;
-            webRequest.Accept = ContentTypeJson;
+            request.Method = WebRequestMethods.Http.Get;
+            var webRequest = FactoryWebRequest(request);
             webRequest.ContentType = ContentTypeJson;
-            webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-            webRequest.Headers.Add("Accept-Charset", "utf-8");
-
-            // Set Authorization
-            if (!string.IsNullOrWhiteSpace(request.Token)) webRequest.Headers.Add("Authorization", string.Format("Bearer {0}", request.Token));
-
-            // Other Header Infos
-            webRequest.Headers.Add(request.Header);
 
             try
             {
@@ -192,6 +164,66 @@
             return null;
         }
 
+        protected string RestDelete(RestRequest request)
+        {
+            request.Method = "DELETE";
+            var webRequest = FactoryWebRequest(request);
+            webRequest.ContentType = ContentTypeJson;
+
+            try
+            {
+                var webResponse = webRequest.GetResponse();
+                var respStream = webResponse.GetResponseStream();
+
+                if (respStream != null)
+                {
+                    using (var reader = new StreamReader(respStream, Encoding.UTF8))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                var wr = ex.Response as HttpWebResponse;
+                var dataStream = wr.GetResponseStream();
+                var reader = new StreamReader(dataStream, Encoding.UTF8);
+                var restEx = new RestException
+                {
+                    BodyText = reader.ReadToEnd(),
+                    StatusDescription = wr.StatusDescription,
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                };
+                reader.Close();
+                throw restEx;
+            }
+
+            return null;
+        }
+
+
+        private HttpWebRequest FactoryWebRequest(RestRequest request)
+        {
+            var uri = string.Format("{0}{1}", Config.BaseUrl, request.GetPathAndQueryString());
+
+            var webRequest = (HttpWebRequest) WebRequest.Create(uri);
+
+            webRequest.Method = request.Method;
+            webRequest.UserAgent = UserAgent;
+            webRequest.Host = request.Host;
+            webRequest.Accept = ContentTypeJson;
+            webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+            webRequest.Headers.Add("Accept-Charset", "utf-8");
+
+            // Set Authorization
+            if (!string.IsNullOrWhiteSpace(request.Token))
+                webRequest.Headers.Add("Authorization", string.Format("Bearer {0}", request.Token));
+
+            // Other Header Infos
+            webRequest.Headers.Add(request.Header);
+
+            return webRequest;
+        }
 
         #endregion
 

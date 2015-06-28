@@ -2,9 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.IO;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
+    using System.Net;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect;
     using Secucard.Connect.auth;
@@ -32,11 +30,12 @@
             var authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             var token = authProvider.GetToken(true);
-            storage.SaveToFile(storagePath);
+            storage.SaveToFile(storagePath); // Save new token 
 
             var restService = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/" });
             var request = new RestRequest
             {
+                Method = WebRequestMethods.Http.Get,
                 Token = token.AccessToken,
                 QueyParams = new QueryParams
                 {

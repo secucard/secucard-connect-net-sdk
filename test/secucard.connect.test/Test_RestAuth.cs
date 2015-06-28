@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Net;
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect;
@@ -20,6 +21,7 @@
         {
             var request = new RestRequest
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
@@ -41,6 +43,7 @@
             // AUTH: GetToken
             var reqDeviceGetToken = new RestRequest()
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
@@ -61,6 +64,7 @@
 
             var reqSmartPin = new RestRequest()
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
@@ -75,6 +79,7 @@
             // AUTH: Obtain Access Token
             var reqObtainAccessToken = new RestRequest()
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
@@ -94,6 +99,7 @@
             // Refresh Token
             var reqRefreshExpiredToken = new RestRequest()
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
@@ -162,6 +168,7 @@
             // Set pin via SMART REST (only development)
             var reqSmartPin = new RestRequest()
             {
+                Method = WebRequestMethods.Http.Post,
                 PageUrl = ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})

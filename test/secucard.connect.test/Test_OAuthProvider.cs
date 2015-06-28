@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Net;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect;
     using Secucard.Connect.auth;
@@ -63,6 +64,7 @@
 
                 var reqSmartPin = new RestRequest
                 {
+                    Method = WebRequestMethods.Http.Post,
                     PageUrl = ConfigAuth.PageSmartDevices,
                     Host = ConfigAuth.Host,
                     BodyJsonString =

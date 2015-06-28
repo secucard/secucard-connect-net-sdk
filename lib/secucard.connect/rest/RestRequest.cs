@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
-    using System.Text;
-    using System.Web;
     using Secucard.Model;
 
     public class RestRequest
@@ -17,6 +15,7 @@
         }
 
         public string Host { get; set; }
+        public string Method { get; set; }
         public string PageUrl { get; set; }
         public NameValueCollection Header { get; set; }
         public Dictionary<string, string> BodyParameter { get; set; }
