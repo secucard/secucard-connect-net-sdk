@@ -32,7 +32,7 @@
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
 
             if (queryParams == null)
             {
@@ -62,12 +62,12 @@
                 nvc.Add("offset", queryParams.Offset.ToString());
             }
 
-            List<string> fields = queryParams.Fields;
+            var fields = queryParams.Fields;
             if (!scroll && fields != null && fields.Count > 0)
             {
                 // add "," separated list of field names
                 string names = null;
-                foreach (string field in fields)
+                foreach (var field in fields)
                 {
                     names = names == null ? "" : names + ',';
                     names += field;
@@ -94,7 +94,7 @@
                 nvc.Add("preset", queryParams.Preset);
             }
 
-            QueryParams.GeoQuery gq = queryParams.GeoQueryObj;
+            var gq = queryParams.GeoQueryObj;
             if (gq != null)
             {
                 if (!string.IsNullOrWhiteSpace(gq.Field))
@@ -128,9 +128,14 @@
                 return null;
             }
 
+            //var array = (from key in queryParams.AllKeys
+            //             from value in queryParams.GetValues(key)
+            //             select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value))).ToArray();
+
             var array = (from key in queryParams.AllKeys
                          from value in queryParams.GetValues(key)
-                         select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value))).ToArray();
+                         select string.Format("{0}={1}",key, value)).ToArray(); 
+            
             return "?" + string.Join("&", array);
 
         }

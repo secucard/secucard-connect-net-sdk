@@ -41,9 +41,9 @@
                 QueyParams = new QueryParams
                 {
                     Count = 10,
-                    Offset = 0
-                    //SortOrder = new NameValueCollection { { "sort[a]", "desc" } }
-                    //Fields = new List<string> { "a", "b" }
+                    Offset = 0,
+                    SortOrder = new NameValueCollection { { "a", "asc" } },
+                    Fields = new List<string> { "a", "b" }
                 },
                 PageUrl = "General/Skeletons",//new Skeleton().ServiceResourceName.Replace(".", "/"),
                 Host = "core-dev10.secupay-ag.de"
