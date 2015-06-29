@@ -1,5 +1,6 @@
 ﻿namespace secucard.connect.test.Rest
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
@@ -8,13 +9,14 @@
     using Secucard.Connect.Rest;
     using Secucard.Model;
     using Secucard.Model.General;
+    using Secucard.Model.Payment;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
     public class Test_Rest_General : Test_Rest_Base
     {
         [TestMethod, TestCategory("Rest")]
-        public void Test_General_Skeleton_1()
+        public void Test_General_Skeleton_1_GET()
         {
             // {{host}}General/Skeletons?count=10&offset=5&fields=a,b&sort[a]=asc
             var request = new RestRequest
@@ -39,7 +41,7 @@
 
 
         [TestMethod, TestCategory("Rest")]
-        public void Test_General_Skeleton_2()
+        public void Test_General_Skeleton_2_GET()
         {
             string scrollId;
 
@@ -91,12 +93,11 @@
 
 
         [TestMethod, TestCategory("Rest")]
-        public void Test_General_Skeleton_3()
+        public void Test_General_Skeleton_3_GET()
         {
             // {{host}}General/Skeletons?q=a:abc1? OR (b:*0 AND NOT c:???1??)
             var request = new RestRequest
             {
-                Method = WebRequestMethods.Http.Get,
                 Token = Token.AccessToken,
                 QueyParams = new QueryParams
                 {
@@ -113,12 +114,11 @@
 
 
         [TestMethod, TestCategory("Rest")]
-        public void Test_General_Skeleton_4()
+        public void Test_General_Skeleton_4_GET()
         {
             // {{host}}General/Skeletons?expand=true
             var request = new RestRequest
             {
-                Method = WebRequestMethods.Http.Get,
                 Token = Token.AccessToken,
                 QueyParams = new QueryParams
                 {
@@ -135,14 +135,13 @@
         }
 
         [TestMethod, TestCategory("Rest")]
-        public void Test_General_Skeleton_5()
+        public void Test_General_Skeleton_5_GET()
         {
             string id;
             {
                 // Get Id prerequesit for test
                 var request = new RestRequest
                 {
-                    Method = WebRequestMethods.Http.Get,
                     Token = Token.AccessToken,
                     QueyParams = new QueryParams
                     {
@@ -163,7 +162,6 @@
                 // {{host}}General/Skeletons/skl_xxxxx?expand=true
                 var request = new RestRequest
                 {
-                    Method = WebRequestMethods.Http.Get,
                     Token = Token.AccessToken,
                     Id = id,
                         QueyParams = new QueryParams
@@ -179,6 +177,93 @@
 
                 Assert.AreEqual(list.Id,id);
             }
+        }
+
+
+        [TestMethod, TestCategory("Rest")]
+        public void Test_General_Skeleton_6_POST()
+        {
+            // POST {{host}}General/Skeletons
+            var id = "SKL_" + Guid.NewGuid();
+
+            //POST
+            {
+                var request = new RestRequest
+                {
+                    Token = Token.AccessToken,
+                    PageUrl = "General/Skeletons",
+                    Host = "core-dev10.secupay-ag.de",
+                    Object = new Skeleton { A = "value Test A", B = "value Test B", Id = id }
+                };
+
+                var obj = RestService.PostObject<Skeleton>(request);
+                Assert.AreEqual(obj.Id, id);
+                
+            }
+        }
+
+
+        [TestMethod, TestCategory("Rest")]
+        public void Test_General_Skeleton_7_PUT()
+        {
+            // POST {{host}}General/Skeletons
+
+            ObjectList<Skeleton> data;
+            Skeleton obj;
+            // {{host}}General/Skeletons?count=10&offset=5&fields=a,b&sort[a]=asc
+            {
+                var request = new RestRequest
+                {
+                    Method = WebRequestMethods.Http.Get,
+                    Token = Token.AccessToken,
+                    QueyParams = new QueryParams
+                    {
+                        Count = 10,
+                        Offset = 0,
+                        SortOrder = new NameValueCollection { { "id", QueryParams.SORT_ASC } }
+                    },
+                    PageUrl = "General/Skeletons",
+                    Host = "core-dev10.secupay-ag.de"
+                };
+
+                data = RestService.GetList<Skeleton>(request);
+                obj = data.List.First();
+            }
+
+            obj.A = "TEST TEST TEST";
+
+            //PUT
+            {
+                var request = new RestRequest
+                {
+                    Token = Token.AccessToken,
+                    PageUrl = "General/Skeletons",
+                    Host = "core-dev10.secupay-ag.de",
+                    Id = obj.Id,
+                    Object = obj
+                };
+
+                var objPut = RestService.PutObject<Skeleton>(request);
+
+                Assert.AreEqual(objPut.A, "TEST TEST TEST");
+            }
+
+            //DELETE
+            {
+                var request = new RestRequest
+                {
+                    Token = Token.AccessToken,
+                    PageUrl = "General/Skeletons",
+                    Host = "core-dev10.secupay-ag.de",
+                    Id = obj.Id
+                };
+
+                var objPut = RestService.DeleteObject<Skeleton>(request);
+
+            }
+
+
+
         }
 
     }

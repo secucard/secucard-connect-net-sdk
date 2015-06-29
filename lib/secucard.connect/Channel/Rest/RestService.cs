@@ -26,5 +26,27 @@
             return JsonSerializer.DeserializeJson<T>(ret); ;
         }
 
+        public T PostObject<T>(RestRequest request) where T : SecuObject
+        {
+            request.BodyJsonString  = JsonSerializer.SerializeJson((T)request.Object);
+            var ret = RestPost(request);
+
+            return JsonSerializer.DeserializeJson<T>(ret); ;
+        }
+
+        public T PutObject<T>(RestRequest request) where T : SecuObject
+        {
+            request.BodyJsonString = JsonSerializer.SerializeJson((T)request.Object);
+            var ret = RestPut(request);
+
+            return JsonSerializer.DeserializeJson<T>(ret); ;
+        }
+
+        public T DeleteObject<T>(RestRequest request) where T : SecuObject
+        {
+            var ret = RestDelete(request);
+
+            return JsonSerializer.DeserializeJson<T>(ret); ;
+        }
     }
 }

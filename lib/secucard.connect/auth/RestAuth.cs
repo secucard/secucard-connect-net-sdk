@@ -19,7 +19,6 @@
         {
             var req = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
@@ -37,7 +36,6 @@
         {
             var req = new RestRequest()
             {
-                Method = WebRequestMethods.Http.Post,
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
@@ -63,7 +61,6 @@
         {
             var req = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };

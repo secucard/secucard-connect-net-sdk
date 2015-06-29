@@ -15,16 +15,20 @@
         }
 
         public string Host { get; set; }
-        public string Method { get; set; }
         public string PageUrl { get; set; }
         public string Token { get; set; }
+        public string Method { get; set; }
         public NameValueCollection Header { get; set; }
 
         public string Id { get; set; }
         public QueryParams QueyParams { get; set; }
 
         public Dictionary<string, string> BodyParameter { get; set; }
+        public SecuObject Object { get; set; }
         public string BodyJsonString { get; set; }
+        public byte[] BodyBytes { get; set; }
+
+        #region Handle Parameters
 
         // TODO: Move to other class
         public string GetPathAndQueryString()
@@ -32,7 +36,8 @@
             if (string.IsNullOrWhiteSpace(Id))
                 return string.Format("{0}{1}", PageUrl.TrimStart('/'), EncodeQueryParams(QueryParamsToMap(QueyParams)));
             else
-                return string.Format("{0}/{1}{2}", PageUrl.Trim('/'), Id, EncodeQueryParams(QueryParamsToMap(QueyParams)));
+                return string.Format("{0}/{1}{2}", PageUrl.Trim('/'), Id,
+                    EncodeQueryParams(QueryParamsToMap(QueyParams)));
         }
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)
@@ -44,7 +49,7 @@
                 return nvc;
             }
 
-            if(queryParams.Expand.HasValue && queryParams.Expand.Value) nvc.Add("expand", "true");
+            if (queryParams.Expand.HasValue && queryParams.Expand.Value) nvc.Add("expand", "true");
 
             bool scroll = !string.IsNullOrWhiteSpace(queryParams.ScrollId);
             bool scrollExpire = !string.IsNullOrWhiteSpace(queryParams.ScrollExpire);
@@ -140,12 +145,16 @@
             //             select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value))).ToArray();
 
             var array = (from key in queryParams.AllKeys
-                         from value in queryParams.GetValues(key)
-                         select string.Format("{0}={1}",key, value)).ToArray(); 
-            
+                from value in queryParams.GetValues(key)
+                select string.Format("{0}={1}", key, value)).ToArray();
+
             return "?" + string.Join("&", array);
 
         }
+
+        #endregion
+
+
 
     }
 }

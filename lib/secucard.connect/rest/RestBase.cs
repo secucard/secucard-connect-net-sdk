@@ -34,8 +34,15 @@
 
         public T RestPost<T>(RestRequest request)
         {
-            request.Method = WebRequestMethods.Http.Post;
             var ret = RestPost(request);
+            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Execption
+
+            return JsonSerializer.DeserializeJson<T>(ret);
+        }
+
+        public T RestPut<T>(RestRequest request)
+        {
+            var ret = RestPut(request);
             if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Execption
 
             return JsonSerializer.DeserializeJson<T>(ret);
@@ -45,14 +52,13 @@
         public string RestPost(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Post;
+            PrepareBody(request);
             var webRequest = FactoryWebRequest(request);
-            webRequest.ContentType = ContentTypeFrom;
 
-            var postBytes = BuildPostData(request.BodyParameter).ToUTF8Bytes();
-            webRequest.ContentLength = postBytes.Length;
+            webRequest.ContentLength = request.BodyBytes.Length;
 
             var reqStream = webRequest.GetRequestStream();
-            reqStream.Write(postBytes, 0, postBytes.Length);
+            reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
 
             try
             {
@@ -87,14 +93,13 @@
         public string RestPut(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Put;
+            PrepareBody(request);
+
             var webRequest = FactoryWebRequest(request);
             webRequest.ContentType = ContentTypeJson;
 
-            var bodyBytes = request.BodyJsonString.ToUTF8Bytes();
-            webRequest.ContentLength = bodyBytes.Length;
-
             var reqStream = webRequest.GetRequestStream();
-            reqStream.Write(bodyBytes, 0, bodyBytes.Length);
+            reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
 
             try
             {
@@ -167,6 +172,7 @@
         protected string RestDelete(RestRequest request)
         {
             request.Method = "DELETE";
+
             var webRequest = FactoryWebRequest(request);
             webRequest.ContentType = ContentTypeJson;
 
@@ -201,6 +207,17 @@
             return null;
         }
 
+        private static void PrepareBody(RestRequest request)
+        {
+            if (!string.IsNullOrWhiteSpace(request.BodyJsonString))
+            {
+                request.BodyBytes = request.BodyJsonString.ToUTF8Bytes();
+            }
+            else
+            {
+                request.BodyBytes = BuildPostData(request.BodyParameter).ToUTF8Bytes();
+            }
+        }
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
         {
@@ -214,6 +231,15 @@
             webRequest.Accept = ContentTypeJson;
             webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
             webRequest.Headers.Add("Accept-Charset", "utf-8");
+
+            if(string.IsNullOrWhiteSpace(request.BodyJsonString))
+                webRequest.ContentType = ContentTypeFrom;
+            else
+                webRequest.ContentType = ContentTypeJson;
+
+            if(request.Method==WebRequestMethods.Http.Put || request.Method==WebRequestMethods.Http.Post)
+                webRequest.ContentLength = request.BodyBytes.Length;
+
 
             // Set Authorization
             if (!string.IsNullOrWhiteSpace(request.Token))
