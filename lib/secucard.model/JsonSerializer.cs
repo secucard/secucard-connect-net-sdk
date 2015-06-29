@@ -15,7 +15,7 @@
             }
         }
 
-        public static string SerializeJson<T>(T data)
+        public static string SerializeJson<T>(T data) where T:SecuObject
         {
             var serializer = new DataContractJsonSerializer(typeof (T));
             using (var ms = new MemoryStream())

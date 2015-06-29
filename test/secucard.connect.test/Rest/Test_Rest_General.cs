@@ -239,7 +239,6 @@
                     Token = Token.AccessToken,
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de",
-                    Id = obj.Id,
                     Object = obj
                 };
 

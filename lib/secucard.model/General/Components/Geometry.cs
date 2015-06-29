@@ -10,17 +10,5 @@ namespace Secucard.Model.General.Components
 
         [DataMember(Name = "lon")]
         public double Lon;
-
-        //public Geometry()
-        //{
-        //}
-
-        //public Geometry(double lat, double lon)
-        //{
-        //    Lat = lat;
-        //    Lon = lon;
-        //}
-
-
     }
 }

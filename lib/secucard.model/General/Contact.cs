@@ -3,14 +3,15 @@ using System;
 namespace Secucard.Model.General
 {
     using System.Runtime.Serialization;
+    using Secucard.Model.General.Components;
 
     [DataContract]
 	public class Contact : SecuObject {
 
         public override string ServiceResourceName { get { return "general.contacts"; } }
 
-        //public const string GENDER_MALE = "MALE";
-        //public const string GENDER_FEMALE = "FEMALE";
+        public const string GENDER_MALE = "MALE";
+        public const string GENDER_FEMALE = "FEMALE";
 
 
         [DataMember(Name = "salutation")]
@@ -50,7 +51,7 @@ namespace Secucard.Model.General
         public string CompanyName { get; set; }
 
         [DataMember(Name = "email")]
-        public string Email { get; set; }
+        public Email Email { get; set; }
 
         [DataMember(Name = "phone")]
         public string Phone { get; set; }

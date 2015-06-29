@@ -43,6 +43,7 @@
     <Compile Include="Auth\AuthCodeDevice.cs" />
     <Compile Include="Auth\AuthCodeError.cs" />
     <Compile Include="General\App.cs" />
+    <Compile Include="General\Components\Email.cs" />
     <Compile Include="General\DeliveryAddress.cs" />
     <Compile Include="General\Components\NameValueItem.cs" />
     <Compile Include="General\Device.cs" />

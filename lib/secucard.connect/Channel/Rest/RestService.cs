@@ -1,6 +1,5 @@
-﻿namespace secucard.connect
+﻿namespace Secucard.Connect.Channel.Rest
 {
-    using System.Collections.Generic;
     using Secucard.Connect.Rest;
     using Secucard.Model;
 
@@ -36,6 +35,7 @@
 
         public T PutObject<T>(RestRequest request) where T : SecuObject
         {
+            request.Id = request.Object.Id;
             request.BodyJsonString = JsonSerializer.SerializeJson((T)request.Object);
             var ret = RestPut(request);
 
