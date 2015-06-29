@@ -50,6 +50,7 @@
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="ObjectList.cs" />
     <Compile Include="Linq.cs" />
+    <Compile Include="Payment\Components\Contact.cs" />
     <Compile Include="SecuObject.cs" />
     <Compile Include="Smart\Routing.cs" />
     <Compile Include="Smart\SmartPin.cs" />

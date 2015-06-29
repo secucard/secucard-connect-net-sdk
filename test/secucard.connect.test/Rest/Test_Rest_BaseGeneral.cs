@@ -13,12 +13,12 @@
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Rest_Base : Test_Base
+    public class Test_Rest_BaseGeneral : Test_Base
     {
         protected readonly AuthToken Token;
         protected readonly RestService RestService;
 
-        public  Test_Rest_Base()
+        public  Test_Rest_BaseGeneral()
         {
             var authProvider = new AuthProvider("testprovider", ConfigAuth, Tracer, Storage);
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;

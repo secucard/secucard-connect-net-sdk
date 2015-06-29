@@ -9,7 +9,7 @@
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Rest_Contacts : Test_Rest_Base
+    public class Test_Rest_General_Contacts : Test_Rest_BaseGeneral
     {
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Contacts_1_GET()
@@ -89,6 +89,7 @@
                     Object = contact,
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
+
                 };
 
                 var data = RestService.PutObject<Contact>(request);

@@ -1,14 +1,12 @@
-using System;
-
-namespace Secucard.Model.General
+namespace Secucard.Model.Payment
 {
+    using System;
     using System.Runtime.Serialization;
+    using Secucard.Model.General;
     using Secucard.Model.General.Components;
 
     [DataContract]
-	public class Contact : SecuObject {
-
-        public override string ServiceResourceName { get { return "general.contacts"; } }
+	public class Contact {
 
         public const string GENDER_MALE = "MALE";
         public const string GENDER_FEMALE = "FEMALE";
@@ -37,7 +35,7 @@ namespace Secucard.Model.General
 
         //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
         [DataMember(Name = "dob")]
-        public string FormattedUpdated
+        public string FormattedDateOfBirth
         {
             get { return DateOfBirth.ToDateTimeZone(); }
             set { DateOfBirth = value.ToDateTime(); }
@@ -51,7 +49,7 @@ namespace Secucard.Model.General
         public string CompanyName { get; set; }
 
         [DataMember(Name = "email")]
-        public Email Email { get; set; }
+        public string Email { get; set; }
 
         [DataMember(Name = "phone")]
         public string Phone { get; set; }
@@ -68,55 +66,9 @@ namespace Secucard.Model.General
         [DataMember(Name = "picture")]
         private string Picture { get; set; }
 
-        [IgnoreDataMemberAttribute]
+        [IgnoreDataMember]
         public MediaResource PictureObject { get; set; }
 
-
-        
-
-
-        /**
-   * Setting the nationality in ISO 3166 2 letter code.
-   * Case doesn't matter, will be corrected automatically.
-   *
-   * @param nationality The country code string.
-   */
-        //@JsonProperty
-        //public void setNationality(string nationality) {
-        //    Locale locale = LocaleUtil.toLocale(nationality, nationalityLocale);
-        //    if (locale == null) {
-        //        this.nationality = nationality;
-        //    } else {
-        //        setNationality(locale);
-        //    }
-        //}
-
-
-        /**
-   * Set the ISO nationality code by using a locale instance which is less error-prone then using a string
-   */
-       
-
-
-
-        //public MediaResource getPictureObject() {
-        //    return pictureObject;
-        //}
-
-        //public string getPicture() {
-        //    return picture;
-        //}
-
-        //public void setPicture(string value) {
-        //    this.picture = value;
-        //    pictureObject = MediaResource.create(picture);
-        //}
-
-       
-
-
-
-        
         public override string ToString()
         {
             return "Contact{" +

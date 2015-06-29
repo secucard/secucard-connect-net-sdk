@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading;
-    using secucard.connect;
     using Secucard.Connect.auth;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
@@ -113,6 +112,10 @@
                 Trace.Info("Retrieved codes for device auth: {0}, now polling for auth.", codes);
                 token = PollToken(codes);
             }
+            else // USER
+            {
+                token = Rest.GetToken();
+            }
 
             Trace.Info("New token retrieved: {0}", token.ToString());
 
@@ -189,7 +192,6 @@
         {
             return "token-" + Id;
         }
-
 
         //protected Dictionary<string, object> createAuthParams(ClientCredentials clientCredentials,
         //    UserCredentials userCredentials,

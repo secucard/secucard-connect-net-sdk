@@ -6,6 +6,7 @@
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect;
+    using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
     using Secucard.Model;
@@ -26,8 +27,8 @@
                 Host = ConfigAuth.Host
             };
 
-            request.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientId);
-            request.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.Secret);
+            request.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientCredentials.ClientId);
+            request.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.ClientCredentials.ClientSecret);
             request.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
             request.BodyParameter.Add(AuthConst.Uuid, ConfigAuth.Uuid);
 
@@ -49,8 +50,8 @@
             };
 
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientId);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.Secret);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientCredentials.ClientId);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.ClientCredentials.ClientSecret);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, ConfigAuth.Uuid);
 
             var authDeviceGetTokenOut = rest.RestPost<DeviceAuthCode>(reqDeviceGetToken);
@@ -85,8 +86,8 @@
             };
 
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientId);
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.Secret);
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientCredentials.ClientId);
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.ClientCredentials.ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
             var authDeviceTokenOut = rest.RestPost<AuthToken>(reqObtainAccessToken);
@@ -105,8 +106,8 @@
             };
 
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientId);
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.Secret);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id, ConfigAuth.ClientCredentials.ClientId);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.ClientCredentials.ClientSecret);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.RefreshToken, authDeviceTokenOut.RefreshToken);
 
             var authRefreshTokenOut = rest.RestPost<AuthToken>(reqRefreshExpiredToken);

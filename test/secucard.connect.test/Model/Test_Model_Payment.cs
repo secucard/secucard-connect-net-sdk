@@ -5,7 +5,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Model;
     using Secucard.Model.Payment;
-    using Customer = Secucard.Model.Loyalty.Customer;
 
     [TestClass]
     [DeploymentItem("Data\\Model", "Data\\Model")]
@@ -31,17 +30,28 @@
         public void Test_Payment_Customers_0_doc()
         {
             var json = File.ReadAllText("Data\\Model\\Payment.Customers.0.doc.json");
-            var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json); // TODO: Customer???
+           var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json);
             Assert.AreEqual(data.List.Count, 1);
             var obj = data.List.First();
-            Assert.AreEqual(obj.Id, "pcu_abc123");
-            Assert.AreEqual(obj.Merchant.Id, "mrc_abc123");
-            Assert.AreEqual(obj.ForeName, "John");
-            Assert.AreEqual(obj.SurName, "Doe");
-            Assert.AreEqual(obj.Zipcode, "01234");
-            Assert.AreEqual(obj.FormattedDateOfBirth, "1901-02-03T00:00:00+01:00");
+            Assert.AreEqual(obj.Id, "PCU_3TGCQFGCR2Y8ZHPEB5GQGYPNRQUUAE");
+            Assert.AreEqual(obj.Contact.Forename, "hans");
+            Assert.AreEqual(obj.Contact.Surname, "surname");
+            Assert.AreEqual(obj.Contact.CompanyName, "companyname");
         }
 
+
+        [TestMethod, TestCategory("Model")]
+        public void Test_Payment_Customers_1()
+        {
+            var json = File.ReadAllText("Data\\Model\\Payment.Customers.1.json");
+            var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json); 
+            Assert.AreEqual(data.List.Count, 10);
+            var obj = data.List.First();
+            Assert.AreEqual(obj.Id, "PCU_3TGCQFGCR2Y8ZHPEB5GQGYPNRQUUAE");
+            Assert.AreEqual(obj.Contact.Forename, "hans");
+            Assert.AreEqual(obj.Contact.Address.Street, "street");
+            Assert.AreEqual(obj.Contract.Id, "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7");
+        }
 
 
 

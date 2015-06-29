@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Secucard.Connect.Channel.Rest
 {
-    using secucard.connect;
     using Secucard.Connect.Rest;
 
 

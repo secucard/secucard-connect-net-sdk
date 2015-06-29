@@ -9,11 +9,10 @@
     using Secucard.Connect.Rest;
     using Secucard.Model;
     using Secucard.Model.General;
-    using Secucard.Model.Payment;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Rest_General : Test_Rest_Base
+    public class Test_Rest_General_Skeletons : Test_Rest_BaseGeneral
     {
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_1_GET()

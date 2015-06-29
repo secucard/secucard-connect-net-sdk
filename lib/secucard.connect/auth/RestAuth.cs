@@ -1,6 +1,5 @@
-﻿namespace secucard.connect
+﻿namespace Secucard.Connect.auth
 {
-    using System.Net;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
     using Secucard.Model.Auth;
@@ -32,17 +31,33 @@
             return deviceAuthCode;
         }
 
+        public AuthToken GetToken()
+        {
+            var req = new RestRequest
+            {
+                PageUrl = AuthConfig.PageOauthToken,
+                Host = AuthConfig.Host
+            };
+
+            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.ClientCredentials);
+            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientCredentials.ClientId);
+            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.ClientCredentials.ClientSecret);
+
+            var userAuthtoken = RestPost<AuthToken>(req);
+            return userAuthtoken;
+        }
+
         public AuthToken ObtainAuthToken(string deviceCode)
         {
-            var req = new RestRequest()
+            var req = new RestRequest
             {
                 PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
 
             req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
-            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
+            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientCredentials.ClientId);
+            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.ClientCredentials.ClientSecret);
             req.BodyParameter.Add(AuthConst.Code, deviceCode);
 
             try
@@ -66,8 +81,8 @@
             };
 
             req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
-            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientId);
-            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.Secret);
+            req.BodyParameter.Add(AuthConst.Client_Id, AuthConfig.ClientCredentials.ClientId);
+            req.BodyParameter.Add(AuthConst.Client_Secret, AuthConfig.ClientCredentials.ClientSecret);
             req.BodyParameter.Add(AuthConst.RefreshToken, refreshToken);
 
             var token = RestPost<AuthToken>(req);

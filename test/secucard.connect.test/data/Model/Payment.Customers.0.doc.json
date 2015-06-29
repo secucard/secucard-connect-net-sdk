@@ -3,23 +3,32 @@
     "data": [
         {
             "object": "payment.customers",
-            "id": "pcu_abc123",
-            "merchant": {
-                "object": "general.merchants",
-                "id": "mrc_abc123"
+            "id": "PCU_3TGCQFGCR2Y8ZHPEB5GQGYPNRQUUAE",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
             },
-            "forename": "John",
-            "surname": "Doe",
-            "companyname": "Example Inc.",
-            "salutation": "Mr.",
-            "title": "Dr.",
-            "street": "Example Street 6a",
-            "zipcode": "01234",
-            "city": "Examplecity",
-            "email": "example@example.com",
-            "phone": "0049-123-456789",
-            "dob": "1901-02-03T00:00:00+01:00",
-            "created": "2015-02-03T14:25:25+01:00"
+            "contact": {
+                "forename": "hans",
+                "surname": "surname",
+                "companyname": "companyname",
+                "name": "hans surname",
+                "salutation": "salutation",
+                "title": "title",
+                "address": {
+                    "street": "street",
+                    "street_number": "number",
+                    "postal_code": "88888",
+                    "city": "city",
+                    "country": "DE"
+                },
+                "email": "email",
+                "mobile": "12345",
+                "phone": "110",
+                "dob": "1888-03-31T00:00:00+01:00"
+            },
+            "created": "2015-03-25T11:30:52+01:00",
+            "updated": "2015-03-25T11:31:37+01:00"
         }
     ]
 }

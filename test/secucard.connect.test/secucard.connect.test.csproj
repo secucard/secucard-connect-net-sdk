@@ -53,9 +53,13 @@
     <Compile Include="Model\Test_Model_Smart.cs" />
     <Compile Include="Model\Test_Model_Payment.cs" />
     <Compile Include="Model\Test_Model_General.cs" />
-    <Compile Include="Rest\Test_Rest_Base.cs" />
-    <Compile Include="Rest\Test_Rest_Contacts.cs" />
-    <Compile Include="Rest\Test_Rest_General.cs" />
+    <Compile Include="Rest\Test_Rest_BasePayment.cs" />
+    <Compile Include="Rest\Test_Rest_BaseGeneral.cs" />
+    <Compile Include="Rest\Test_Rest_Payment_Customers.cs" />
+    <Compile Include="Rest\Test_Rest_Payment_Containers.cs" />
+    <Compile Include="Rest\Test_Rest_General_Deliveryadresses.cs" />
+    <Compile Include="Rest\Test_Rest_General_Contacts.cs" />
+    <Compile Include="Rest\Test_Rest_General_Skeletons.cs" />
     <Compile Include="Test_Base.cs" />
     <Compile Include="Test_OAuthProvider.cs" />
     <Compile Include="Test_Storage.cs" />
@@ -125,6 +129,9 @@
     <Content Include="Data\Model\General.Skeleton.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Data\Model\Payment.Customers.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Data\Model\Payment.Customers.0.doc.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
