@@ -4,7 +4,7 @@
     using System.IO;
     using System.Net;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using secucard.connect;
+    using secucard.connect.test.Rest;
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
@@ -14,7 +14,7 @@
     using Secucard.Model.Smart;
 
     [TestClass]
-    public class Test_OAuthProvider : Test_Base
+    public class Test_OAuthProvider : Test_Rest_Base_AuthDevice
     {
         [TestMethod, TestCategory("OAuthProvider")]
         [DeploymentItem("data", "data")]

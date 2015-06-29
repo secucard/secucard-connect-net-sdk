@@ -12,7 +12,7 @@
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Rest_General_Skeletons : Test_Rest_BaseGeneral
+    public class Test_Rest_General_Skeletons : Test_Rest_Base_AuthDevice
     {
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_1_GET()

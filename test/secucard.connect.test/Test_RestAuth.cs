@@ -5,7 +5,7 @@
     using System.Net;
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using secucard.connect;
+    using secucard.connect.test.Rest;
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
@@ -15,7 +15,7 @@
     using Secucard.Stomp;
 
     [TestClass]
-    public class Test_RestAuth : Test_Base
+    public class Test_RestAuth : Test_Rest_Base_AuthDevice
     {
         [TestMethod, TestCategory("Auth")]
         public void Test_Auth_Device_Start()

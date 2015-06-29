@@ -7,7 +7,7 @@
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Rest_Payment_Customers : Test_Rest_BasePayment
+    public class Test_Rest_Payment_Customers : Test_Rest_Base_AuthUser
     {
         [TestMethod, TestCategory("Rest")]
         public void Test_Payment_Customers_1_GET()

@@ -53,8 +53,8 @@
     <Compile Include="Model\Test_Model_Smart.cs" />
     <Compile Include="Model\Test_Model_Payment.cs" />
     <Compile Include="Model\Test_Model_General.cs" />
-    <Compile Include="Rest\Test_Rest_BasePayment.cs" />
-    <Compile Include="Rest\Test_Rest_BaseGeneral.cs" />
+    <Compile Include="Rest\Test_Rest_Base_AuthUser.cs" />
+    <Compile Include="Rest\Test_Rest_Base_AuthDevice.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Customers.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Containers.cs" />
     <Compile Include="Rest\Test_Rest_General_Deliveryadresses.cs" />
@@ -84,7 +84,7 @@
   <ItemGroup>
     <Content Include="infos.txt" />
     <None Include="App.config" />
-    <Content Include="Data\storage.sec">
+    <Content Include="Data\old_storage.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\General.Contacts.1.json">
@@ -147,6 +147,12 @@
     <Content Include="Data\Model\Smart.Routings.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\old_secucard.sec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Data\secucard.payment.sec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\secucard.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

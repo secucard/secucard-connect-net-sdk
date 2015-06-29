@@ -1,7 +1,6 @@
 ﻿namespace secucard.connect.test.Rest
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using secucard.connect;
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Channel.Rest;
@@ -15,16 +14,14 @@
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Rest_BasePayment : Test_Base
+    public class Test_Rest_Base_AuthUser : Test_Base
     {
         protected readonly AuthToken Token;
         protected readonly RestService RestService;
 
-        public Test_Rest_BasePayment()
+        public Test_Rest_Base_AuthUser()
         {
-            const string host = "core-dev10.secupay-ag.de";
-
-            var ConfigAuth = new AuthConfig
+            ConfigAuth = new AuthConfig
             {
                 Host = host,
                 AuthType = AuthTypeEnum.User,
