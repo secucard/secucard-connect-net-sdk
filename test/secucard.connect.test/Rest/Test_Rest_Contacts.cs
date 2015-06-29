@@ -1,15 +1,11 @@
 ﻿namespace secucard.connect.test.Rest
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Linq;
-    using System.Net;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Rest;
     using Secucard.Model;
     using Secucard.Model.General;
-    using Secucard.Model.Payment;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -77,23 +73,28 @@
                 Assert.AreEqual(data.List.First().Forename, contact.Forename, "object not in storage arrived.");
             }
 
-            //// Change some data
-            //contact.Forename = "Changed" + DateTime.Now.Ticks;
             
-            //// PUT
-            //{
-            //    var request = new RestRequest
-            //    {
-            //        Token = Token.AccessToken,
-            //        Object = contact,
-            //        PageUrl = "General/Contacts",
-            //        Host = "core-dev10.secupay-ag.de"
-            //    };
+            return;
+            // PUT does not work currently.
 
-            //    var data = RestService.PutObject<Contact>(request);
 
-            //    Assert.AreEqual(data.Forename, contact.Forename);
-            //}
+            // Change some data
+            contact.Forename = "Changed" + DateTime.Now.Ticks;
+
+            // PUT
+            {
+                var request = new RestRequest
+                {
+                    Token = Token.AccessToken,
+                    Object = contact,
+                    PageUrl = "General/Contacts",
+                    Host = "core-dev10.secupay-ag.de"
+                };
+
+                var data = RestService.PutObject<Contact>(request);
+
+                Assert.AreEqual(data.Forename, contact.Forename);
+            }
           
 
             //// GET with query

@@ -6,9 +6,9 @@ namespace Secucard.Model.General.Components
     public class Email 
     {
         [DataMember(Name = "type")]
-        public double Type;
+        public string Type;
 
         [DataMember(Name = "email_formatted")]
-        public double EmailFormatted;
+        public string EmailFormatted;
     }
 }
