@@ -1,5 +1,3 @@
-//@JsonInclude(JsonInclude.Include.NON_EMPTY)
-
 namespace Secucard.Model
 {
     using System.Collections.Generic;
@@ -9,8 +7,8 @@ namespace Secucard.Model
     [DataContract]
     public class QueryParams
     {
-        //public static final String SORT_ASC = "asc";
-        //public static final String SORT_DESC = "desc";
+        public static string SORT_ASC = "asc";
+        public static string SORT_DESC = "desc";
 
         [DataMember(Name = "count")]
         public int? Count;
@@ -39,24 +37,8 @@ namespace Secucard.Model
         [DataMember(Name = "geo")]
         public GeoQuery GeoQueryObj;
 
-
-
-
-        //public void setFields(String... fields) {
-        //    if (this.fields == null) {
-        //        this.fields = new ArrayList<>(fields.length);
-        //    }
-        //    this.fields.addAll(Arrays.asList(fields));
-        //}
-
-
-        //public void addSortOrder(string field, string order) {
-        //    if (sortOrder == null) {
-        //        sortOrder = new HashMap<>();
-        //    }
-        //    sortOrder.put(field, order);
-        //}
-
+        [DataMember(Name = "expand")]
+        public bool? Expand;
 
         public class GeoQuery
         {
@@ -67,22 +49,6 @@ namespace Secucard.Model
             public double? Lat;
 
             public double? Lon;
-
-            //public GeoQuery() {
-            //}
-
-            //public GeoQuery(string field, double lat, double lon, string distance) {
-            //    this.field = field;
-            //    this.distance = distance;
-            //    this.lat = lat;
-            //    this.lon = lon;
-            //}
-
-            //public GeoQuery(double lat, double lon, string distance) {
-            //    this.distance = distance;
-            //    this.lat = lat;
-            //    this.lon = lon;
-            //}
         }
     }
 }

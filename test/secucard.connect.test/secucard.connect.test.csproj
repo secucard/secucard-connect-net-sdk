@@ -53,6 +53,7 @@
     <Compile Include="Model\Test_Model_Smart.cs" />
     <Compile Include="Model\Test_Model_Payment.cs" />
     <Compile Include="Model\Test_Model_General.cs" />
+    <Compile Include="Rest\Test_Rest_Base.cs" />
     <Compile Include="Rest\Test_Rest_General.cs" />
     <Compile Include="Test_Base.cs" />
     <Compile Include="Test_OAuthProvider.cs" />

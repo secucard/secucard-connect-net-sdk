@@ -7,18 +7,17 @@
     public class ObjectList<T>
     {
         [DataMember(Name = "scroll_id")]
-        private string ScrollId;
+        public string ScrollId;
 
         [DataMember(Name = "count")]
-        public int Count { get; set; }
-
+        public int? Count { get; set; }
 
         [DataMember(Name = "data")]
         public List<T> List; //List
 
         public override string ToString()
         {
-            return "ObjectList{" + "scrollId='" + ScrollId + '\'' + ", count=" + Count + ", list=" + List + '}';
+            return "ObjectList {" + "scrollId=" + ScrollId + ", count=" + Count + ", list=" + List + '}';
         }
     }
 }

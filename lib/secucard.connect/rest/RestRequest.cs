@@ -17,16 +17,22 @@
         public string Host { get; set; }
         public string Method { get; set; }
         public string PageUrl { get; set; }
-        public NameValueCollection Header { get; set; }
-        public Dictionary<string, string> BodyParameter { get; set; }
-        public QueryParams QueyParams { get; set; }
-        public string BodyJsonString { get; set; }
         public string Token { get; set; }
+        public NameValueCollection Header { get; set; }
+
+        public string Id { get; set; }
+        public QueryParams QueyParams { get; set; }
+
+        public Dictionary<string, string> BodyParameter { get; set; }
+        public string BodyJsonString { get; set; }
 
         // TODO: Move to other class
         public string GetPathAndQueryString()
         {
-            return string.Format("{0}{1}", PageUrl.TrimStart('/'), EncodeQueryParams(QueryParamsToMap(QueyParams)));
+            if (string.IsNullOrWhiteSpace(Id))
+                return string.Format("{0}{1}", PageUrl.TrimStart('/'), EncodeQueryParams(QueryParamsToMap(QueyParams)));
+            else
+                return string.Format("{0}/{1}{2}", PageUrl.Trim('/'), Id, EncodeQueryParams(QueryParamsToMap(QueyParams)));
         }
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)
@@ -37,6 +43,8 @@
             {
                 return nvc;
             }
+
+            if(queryParams.Expand.HasValue && queryParams.Expand.Value) nvc.Add("expand", "true");
 
             bool scroll = !string.IsNullOrWhiteSpace(queryParams.ScrollId);
             bool scrollExpire = !string.IsNullOrWhiteSpace(queryParams.ScrollExpire);

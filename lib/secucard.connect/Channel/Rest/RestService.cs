@@ -1,5 +1,6 @@
 ﻿namespace secucard.connect
 {
+    using System.Collections.Generic;
     using Secucard.Connect.Rest;
     using Secucard.Model;
 
@@ -11,9 +12,16 @@
         {
         }
 
-        public T Get<T>(RestRequest request) where T : class
+        public ObjectList<T> GetList<T>(RestRequest request) where T : SecuObject
         {
-            var ret  = RestGet(request);
+            var ret = RestGet(request);
+
+            return JsonSerializer.DeserializeJson<ObjectList<T>>(ret); ;
+        }
+
+        public T GetObject<T>(RestRequest request) where T : SecuObject
+        {
+            var ret = RestGet(request);
 
             return JsonSerializer.DeserializeJson<T>(ret); ;
         }
