@@ -7,11 +7,12 @@
     public class Test_StompFrame : Test_Base
     {
         [TestMethod]
+        [TestCategory("stomp")]
         public void Test_Frame_Serialization()
         {
             var frame = new StompFrame(StompCommands.CONNECT);
 
-            frame.Headers.Add(StompHeader.Host, Config.VirtualHost);
+            frame.Headers.Add(StompHeader.Host, Config.Host);
             frame.Headers.Add(StompHeader.Login, Config.Login);
             frame.Headers.Add(StompHeader.Passcode, Config.Password);
             frame.Headers.Add(StompHeader.HeartBeat,

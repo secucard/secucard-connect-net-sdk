@@ -9,6 +9,7 @@
     public class Test_Trace : Test_Base
     {
         [TestMethod]
+        [TestCategory("trace")]
         public void Test_FileTrace()
         {
             File.Delete(fullTracePath);

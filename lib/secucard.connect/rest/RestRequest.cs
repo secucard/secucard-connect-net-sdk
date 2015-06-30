@@ -34,9 +34,9 @@
         public string GetPathAndQueryString()
         {
             if (string.IsNullOrWhiteSpace(Id))
-                return string.Format("{0}{1}", PageUrl.TrimStart('/'), EncodeQueryParams(QueryParamsToMap(QueyParams)));
+                return string.Format("{0}{1}", PageUrl, EncodeQueryParams(QueryParamsToMap(QueyParams)));
             else
-                return string.Format("{0}/{1}{2}", PageUrl.Trim('/'), Id,
+                return string.Format("{0}/{1}{2}", PageUrl, Id,
                     EncodeQueryParams(QueryParamsToMap(QueyParams)));
         }
 

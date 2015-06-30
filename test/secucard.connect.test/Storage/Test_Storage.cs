@@ -9,6 +9,7 @@
     {
         [TestMethod]
         [DeploymentItem("temp", "temp")]
+        [TestCategory("storage")]
         public void Test_MemoryDataStorage()
         {
             var storage = new MemoryDataStorage();

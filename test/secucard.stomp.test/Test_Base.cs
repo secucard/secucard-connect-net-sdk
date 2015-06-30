@@ -14,14 +14,13 @@
             Config = new StompConfig
             {
                 Host = host,
-                VirtualHost = host,
                 Port = port,
-                Login = "test",
-                Password = "test",
+                Login = "v7ad2eejbgt135q6v47vehopg7",
+                Password = "v7ad2eejbgt135q6v47vehopg7",
                 AcceptVersion = "1.2",
                 HeartbeatClientMs = 5000,
                 HeartbeatServerMs = 5000,
-                UseSsl = true
+                Ssl = true
             };
         }
     }

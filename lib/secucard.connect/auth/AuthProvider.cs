@@ -132,9 +132,9 @@
         {
             // set poll timeout, either by config or by expire time of code
             var seconds = codes.ExpiresIn;
-            if (seconds <= 0 || Config.AuthWaitTimeoutSec < seconds)
+            if (seconds <= 0 || Config.WaitTimeoutSec < seconds)
             {
-                seconds = Config.AuthWaitTimeoutSec;
+                seconds = Config.WaitTimeoutSec;
             }
             var timeout = DateTime.Now.AddSeconds(seconds);
 

@@ -62,11 +62,11 @@
     <Compile Include="Rest\Test_Rest_General_Contacts.cs" />
     <Compile Include="Rest\Test_Rest_General_Skeletons.cs" />
     <Compile Include="Test_Base.cs" />
-    <Compile Include="Test_OAuthProvider.cs" />
-    <Compile Include="Test_Storage.cs" />
-    <Compile Include="Test_RestAuth.cs" />
+    <Compile Include="Auth\Test_OAuthProvider.cs" />
+    <Compile Include="Storage\Test_Storage.cs" />
+    <Compile Include="Auth\Test_RestAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test_FileTrace.cs" />
+    <Compile Include="Trace\Test_FileTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\secucard.connect\secucard.connect.csproj">
@@ -85,9 +85,6 @@
   <ItemGroup>
     <Content Include="infos.txt" />
     <None Include="App.config" />
-    <Content Include="Data\old_storage.sec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Data\Model\General.Contacts.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -154,7 +151,10 @@
     <Content Include="Data\Model\Smart.Routings.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\old_secucard.sec">
+    <Content Include="Data\secucard.client.sec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\secucard.client.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Data\secucard.payment.sec">

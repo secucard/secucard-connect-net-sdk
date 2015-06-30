@@ -9,7 +9,7 @@
         private readonly AuthConfig AuthConfig;
 
         public RestAuth(AuthConfig authConfig)
-            : base(new RestConfig { BaseUrl = authConfig.AuthUrl })
+            : base(new RestConfig { BaseUrl = authConfig.OAuthUrl })
         {
             AuthConfig = authConfig;
         }
@@ -18,7 +18,6 @@
         {
             var req = new RestRequest
             {
-                PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
 
@@ -35,7 +34,6 @@
         {
             var req = new RestRequest
             {
-                PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
 
@@ -51,7 +49,6 @@
         {
             var req = new RestRequest
             {
-                PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
 
@@ -76,7 +73,6 @@
         {
             var req = new RestRequest
             {
-                PageUrl = AuthConfig.PageOauthToken,
                 Host = AuthConfig.Host
             };
 

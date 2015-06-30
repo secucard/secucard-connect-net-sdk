@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Rest;
     using Secucard.Model;
@@ -41,23 +42,23 @@
             {
                 Contact = new Contact
                 {
-                 Salutation  = "Herr",
-                 Title = "Dr.",
-                 Forename = "Forename-" + DateTime.Now.Ticks,
-                 Surname = "Surname-" + DateTime.Now.Ticks,
-                 CompanyName = "Company-" + DateTime.Now.Ticks,
-                 DateOfBirth = new DateTime(1970,1,1),
-                 Email = "test@hutzlibu.com",
-                 Phone = "0049-987-654321",
-                 Mobile = "0049-170-654321",
-                 Address = new Address
-                 {
-                    Street    = "Hauptstrasse",
-                    StreetNumber = "23a",
-                    PostalCode = "01234",
-                    City = "Entenhausen",
-                    Country = "Germany"
-                 }
+                    Salutation = "Herr",
+                    Title = "Dr.",
+                    Forename = "Forename-" + DateTime.Now.Ticks,
+                    Surname = "Surname-" + DateTime.Now.Ticks,
+                    CompanyName = "Company-" + DateTime.Now.Ticks,
+                    DateOfBirth = new DateTime(1970, 1, 1),
+                    Email = "test@hutzlibu.com",
+                    Phone = "0049-987-654321",
+                    Mobile = "0049-170-654321",
+                    Address = new Address
+                    {
+                        Street = "Hauptstrasse",
+                        StreetNumber = "23a",
+                        PostalCode = "01234",
+                        City = "Entenhausen",
+                        Country = "Germany"
+                    }
                 }
             };
 
@@ -85,7 +86,7 @@
                 var request = new RestRequest
                 {
                     Token = Token.AccessToken,
-                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
+                    QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -110,7 +111,7 @@
 
                 var customerPut = RestService.PutObject<Customer>(request);
 
-               // Assert.AreEqual(data, 1);
+                // Assert.AreEqual(data, 1);
             }
 
             // GET
@@ -142,6 +143,7 @@
                 // Assert.AreEqual(data, 1);
             }
 
+            Thread.Sleep(1000);
             // GET
             {
                 var request = new RestRequest
@@ -153,7 +155,7 @@
                 };
 
                 var customerGet = RestService.GetList<Customer>(request);
-                Assert.AreEqual(0,customerGet.Count);
+                Assert.AreEqual(0, customerGet.Count);
             }
 
         }

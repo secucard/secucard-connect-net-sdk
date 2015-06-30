@@ -8,6 +8,7 @@
     public class Test_StompCore : Test_Base
     {
         [TestMethod]
+        [TestCategory("stomp")]
         public void Test_Core_Connect()
         {
             Connected = false;
@@ -24,8 +25,8 @@
             using (var core = new StompCore(Config))
             {
                 core.Init();
-                core.SendFrame(frame);
                 core.StompCoreFrameArrived += ClientOnStompCoreFrameArrived;
+                core.SendFrame(frame);
 
                 while (!Connected)
                 {

@@ -25,12 +25,11 @@
             ConfigStomp = new StompConfig
             {
                 Host = host,
-                VirtualHost = host,
                 Port = 61614,
                 AcceptVersion = "1.2",
                 HeartbeatClientMs = 5000,
                 HeartbeatServerMs = 5000,
-                UseSsl = true
+                Ssl = true
             };
 
 

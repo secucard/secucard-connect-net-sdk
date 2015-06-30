@@ -8,6 +8,7 @@
     public class Test_StompClient : Test_Base
     {
         [TestMethod]
+        [TestCategory("stomp")]
         public void Test_StompClient_Connect()
         {
             using (var client = new StompClient(Config))
@@ -45,6 +46,7 @@
         }
 
         [TestMethod]
+        [TestCategory("stomp")]
         public void Test_StompClient_Connect_Dbl()
         {
             using (var client = new StompClient(Config))

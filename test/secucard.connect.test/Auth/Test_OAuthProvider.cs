@@ -7,6 +7,7 @@
     using secucard.connect.test.Rest;
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
@@ -20,8 +21,8 @@
         [DeploymentItem("data", "data")]
         public void Test_OAuthDevice()
         {
-            const string logPath = "data\\secucard.cliend.log";
-            const string storagePath = "data\\secucard.cliend.sec";
+            const string logPath = "data\\secucard.client.log";
+            const string storagePath = "data\\secucard.client.sec";
 
             // Delete storage and log
             File.Delete(storagePath);
@@ -65,15 +66,14 @@
                 var reqSmartPin = new RestRequest
                 {
                     Method = WebRequestMethods.Http.Post,
-                    PageUrl = ConfigAuth.PageSmartDevices,
                     Host = ConfigAuth.Host,
                     BodyJsonString =
                         JsonSerializer.SerializeJson(new SmartPin {UserPin = args.DeviceAuthCodes.UserCode})
                 };
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
-                var rest = new RestAuth(ConfigAuth);
-                var response = rest.RestPut(reqSmartPin);
+                var restSmart = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+                var response = restSmart.RestPut(reqSmartPin);
                 Assert.IsTrue(response.Length > 0);
             }
         }

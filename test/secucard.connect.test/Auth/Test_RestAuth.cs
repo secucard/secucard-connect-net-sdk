@@ -8,6 +8,7 @@
     using secucard.connect.test.Rest;
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Rest;
     using Secucard.Model;
     using Secucard.Model.Auth;
@@ -22,8 +23,6 @@
         {
             var request = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
-                PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
 
@@ -42,10 +41,8 @@
             var rest = new RestAuth(ConfigAuth);
 
             // AUTH: GetToken
-            var reqDeviceGetToken = new RestRequest()
+            var reqDeviceGetToken = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
-                PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
 
@@ -63,25 +60,25 @@
 
             // Set pin via SMART REST (only development)
 
-            var reqSmartPin = new RestRequest()
+            var restSmart = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+
+            var reqSmartPin = new RestRequest
             {
                 Method = WebRequestMethods.Http.Post,
-                PageUrl = ConfigAuth.PageSmartDevices,
+                PageUrl = "",//ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
             };
 
             reqDeviceGetToken.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
-            var response = rest.RestPut(reqSmartPin);
+            var response = restSmart.RestPut(reqSmartPin);
             Assert.IsTrue(response.Length > 0);
             // No need to validate response. Call needed to set PIN
 
 
             // AUTH: Obtain Access Token
-            var reqObtainAccessToken = new RestRequest()
+            var reqObtainAccessToken = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
-                PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
 
@@ -98,10 +95,8 @@
 
 
             // Refresh Token
-            var reqRefreshExpiredToken = new RestRequest()
+            var reqRefreshExpiredToken = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
-                PageUrl = ConfigAuth.PageOauthToken,
                 Host = ConfigAuth.Host
             };
 
@@ -167,16 +162,17 @@
 
 
             // Set pin via SMART REST (only development)
-            var reqSmartPin = new RestRequest()
+            var reqSmartPin = new RestRequest
             {
-                Method = WebRequestMethods.Http.Post,
-                PageUrl = ConfigAuth.PageSmartDevices,
+                PageUrl = "",//ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
             };
 
             reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
-            var response = rest.RestPut(reqSmartPin);
+            var restSmart = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+
+            var response = restSmart.RestPut(reqSmartPin);
             Assert.IsTrue(response.Length > 0);
             // No need to validate response. Call needed to set PIN
 

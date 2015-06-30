@@ -26,11 +26,9 @@
             {
                 Host = host,
                 AuthType = AuthTypeEnum.Device,
-                AuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/",
-                AuthWaitTimeoutSec = 240,
+                OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
+                WaitTimeoutSec = 240,
                 Uuid = "/vendor/unknown/cashier/dotnettest1",
-                PageOauthToken = "oauth/token",
-                PageSmartDevices = "api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin",
                 ClientCredentials =
                     new ClientCredentials("611c00ec6b2be6c77c2338774f50040b",
                         "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb")
@@ -57,15 +55,14 @@
 
                 var reqSmartPin = new RestRequest
                 {
-                    PageUrl = ConfigAuth.PageSmartDevices,
                     Host = ConfigAuth.Host,
                     BodyJsonString =
                         JsonSerializer.SerializeJson(new SmartPin { UserPin = args.DeviceAuthCodes.UserCode })
                 };
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
-                var rest = new RestAuth(ConfigAuth);
-                var response = rest.RestPut(reqSmartPin);
+                var restSmart = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+                var response = restSmart.RestPut(reqSmartPin);
                 Assert.IsTrue(response.Length > 0);
             }
         }
