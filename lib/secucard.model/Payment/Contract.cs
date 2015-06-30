@@ -28,5 +28,11 @@ namespace Secucard.Model.Payment
             set { Created = value.ToDateTime(); }
         }
         public DateTime? Created { get; set; }
+
+        [DataMember(Name = "demo")]
+        public bool? Demo;
+
+        [DataMember(Name = "allow_cloning")]
+        public bool? AllowCloning;
     }
 }

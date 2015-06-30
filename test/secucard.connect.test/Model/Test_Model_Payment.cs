@@ -1,5 +1,6 @@
 ﻿namespace Secucard.Connect.Test
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -52,6 +53,33 @@
             Assert.AreEqual(obj.Contact.Address.Street, "street");
             Assert.AreEqual(obj.Contract.Id, "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7");
         }
+
+        [TestMethod, TestCategory("Model")]
+        public void Test_Payment_Customers_2()
+        {
+            var json = File.ReadAllText("Data\\Model\\Payment.Customers.2.json");
+            var data = JsonSerializer.DeserializeJson<List<Customer>>(json);
+            //Assert.AreEqual(data.List.Count, 1);
+            //var obj = data.List.First();
+            //Assert.IsNotNull(obj);
+        }
+
+
+
+        [TestMethod, TestCategory("Model")]
+        public void Test_Payment_Contracts_1()
+        {
+            var json = File.ReadAllText("Data\\Model\\Payment.Contracts.1.json");
+            var data = JsonSerializer.DeserializeJson<ObjectList<Contract>>(json);
+            Assert.AreEqual(data.List.Count, 1);
+            var obj = data.List.First();
+            Assert.AreEqual(obj.Id, "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7");
+            Assert.AreEqual(obj.Merchant.Id, "MRC_2CNA8BY26D2GJSPCXTXDD605KEK4PK");
+            Assert.AreEqual(obj.AllowCloning, true);
+            Assert.AreEqual(obj.InternalReference, "475094");
+            Assert.AreEqual(obj.FormattedCreated, "2015-02-27T14:54:27+01:00");
+        }
+
 
 
 

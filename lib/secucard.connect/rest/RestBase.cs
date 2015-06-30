@@ -241,11 +241,11 @@
                 webRequest.ContentLength = request.BodyBytes.Length;
 
 
-            // Set Authorization
+            // Set authorization
             if (!string.IsNullOrWhiteSpace(request.Token))
                 webRequest.Headers.Add("Authorization", string.Format("Bearer {0}", request.Token));
 
-            // Other Header Infos
+            // Other header info
             webRequest.Headers.Add(request.Header);
 
             return webRequest;

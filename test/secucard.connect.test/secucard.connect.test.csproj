@@ -55,6 +55,7 @@
     <Compile Include="Model\Test_Model_General.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthUser.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthDevice.cs" />
+    <Compile Include="Rest\Test_Rest_Payment_Constracts.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Customers.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Containers.cs" />
     <Compile Include="Rest\Test_Rest_General_Deliveryadresses.cs" />
@@ -129,6 +130,12 @@
     <Content Include="Data\Model\General.Skeleton.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Data\Model\Payment.Contracts.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Model\Payment.Customers.2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Data\Model\Payment.Customers.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

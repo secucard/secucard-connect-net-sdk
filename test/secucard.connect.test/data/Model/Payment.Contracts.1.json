@@ -1,0 +1,17 @@
+﻿{
+  "count": 1,
+  "data": [
+    {
+      "object": "payment.contracts",
+      "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7",
+      "merchant": {
+        "object": "general.merchants",
+        "id": "MRC_2CNA8BY26D2GJSPCXTXDD605KEK4PK"
+      },
+      "demo": false,
+      "allow_cloning": true,
+      "internal_reference": "475094",
+      "created": "2015-02-27T14:54:27+01:00"
+    }
+  ]
+}
