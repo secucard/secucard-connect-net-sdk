@@ -9,7 +9,7 @@ namespace Secucard.Model.Smart
     {
         public override string ServiceResourceName
         {
-            get { return "smart.rountings"; }
+            get { return "smart.routings"; }
         }
 
         [DataMember(Name = "store")]

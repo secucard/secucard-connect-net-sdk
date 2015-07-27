@@ -9,9 +9,9 @@ namespace Secucard.Model.Smart
         public string Type;
 
         [DataMember(Name = "value")]
-        public string Value;
+        public ReceiptLineValue Value;
 
-        public string toString()
+        public override string ToString()
         {
             return "ReceiptLine{" +
                    "type='" + Type + '\'' +

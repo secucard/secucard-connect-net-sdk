@@ -54,6 +54,7 @@
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
     <Compile Include="Channel\Rest\RestService.cs" />
     <Compile Include="Channel\Rest\RestChannel.cs" />
+    <Compile Include="Product\General\GeneralSkeltonsService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
     <Compile Include="Product\ServiceBase.cs" />
     <Compile Include="Product\Smart\SmartService.cs" />

@@ -58,6 +58,9 @@
     <Compile Include="Model\Test_Model_General.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthUser.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthDevice.cs" />
+    <Compile Include="Rest\Test_Rest_Smart_Routing.cs" />
+    <Compile Include="Rest\Test_Rest_Smart_Transactions.cs" />
+    <Compile Include="Rest\Test_Rest_Smart_Idents.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Constracts.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Customers.cs" />
     <Compile Include="Rest\Test_Rest_Payment_Containers.cs" />

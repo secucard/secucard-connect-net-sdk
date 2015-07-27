@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Secucard.Connect.Product
 {
+    using Secucard.Connect.Channel.Rest;
+
     public abstract class ServiceBase
     {
+        public RestChannel RestChannel { get; set; }
 
     }
 }

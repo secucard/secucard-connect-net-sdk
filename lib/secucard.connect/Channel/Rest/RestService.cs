@@ -1,7 +1,10 @@
 ﻿namespace Secucard.Connect.Channel.Rest
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Secucard.Connect.Rest;
     using Secucard.Model;
+    using Secucard.Model.Smart;
 
     public class RestService : RestBase
     {
@@ -11,7 +14,7 @@
         {
         }
 
-        public ObjectList<T> GetList<T>(RestRequest request) where T : SecuObject
+        public ObjectList<T> GetList<T>(RestRequest request)
         {
             var ret = RestGet(request);
 
@@ -31,6 +34,14 @@
             var ret = RestPost(request);
 
             return JsonSerializer.DeserializeJson<T>(ret); ;
+        }
+
+        public List<T> PostObjectList<T>(RestRequest request) where T : SecuObject
+        {
+            request.BodyJsonString = JsonSerializer.SerializeJsonList<T>(request.Objects.Cast<T>().ToList());
+            var ret = RestPost(request);
+
+            return JsonSerializer.DeserializeJsonList<T>(ret); ;
         }
 
         public T PutObject<T>(RestRequest request) where T : SecuObject

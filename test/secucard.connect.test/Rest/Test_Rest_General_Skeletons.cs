@@ -123,7 +123,7 @@
                 {
                     Expand = true
                 },
-                PageUrl = "General/Skeletons",//new Skeleton().ServiceResourceName.Replace(".", "/"),
+                PageUrl = "General/Skeletons",
                 Host = "core-dev10.secupay-ag.de"
             };
 
@@ -259,9 +259,6 @@
                 var objPut = RestService.DeleteObject<Skeleton>(request);
 
             }
-
-
-
         }
 
     }

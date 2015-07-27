@@ -11,13 +11,13 @@ namespace Secucard.Model.Smart
         {
             get { return "smart.transactions"; }
         }
-
-        [DataMember(Name = "basket_info")]
-        public BasketInfo BasketInfo;
-
+        
         //  @JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "device_source")]
         public Device DeviceSource;
+
+        [DataMember(Name = "basket_info")]
+        public BasketInfo BasketInfo;
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "target_device")]

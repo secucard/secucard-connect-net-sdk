@@ -5,12 +5,9 @@
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect;
+    using Secucard.Connect.Product.General;
     using Secucard.Connect.Rest;
     using Secucard.Connect.Test;
-    using Secucard.Model;
-    using Secucard.Model.General;
-    using Secucard.Model.Payment;
-    using Contact = Secucard.Model.Payment.Contact;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -22,7 +19,7 @@
             SecucardConnect client = SecucardConnect.Create("id", ClientConfiguration);
             client.Connect();
 
-            //client.Getservice<>()
+            var service = client.Getservice<GeneralSkeltonsService>();
 
         }
 
