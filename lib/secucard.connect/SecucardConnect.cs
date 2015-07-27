@@ -31,7 +31,7 @@ namespace Secucard.Connect
 
         #region ### Factory Client ### 
 
-        public static SecucardConnect Create(string id, AuthConfig config)
+        public static SecucardConnect Create(string id, ClientConfiguration config)
         {
             // Factory
 

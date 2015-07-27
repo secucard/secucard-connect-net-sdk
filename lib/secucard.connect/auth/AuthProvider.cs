@@ -67,29 +67,24 @@
             if (token != null && token.RefreshToken != null)
             {
                 // token is expired and can be refreshed without further auth.
-                AuthToken newToken = null;
                 try
                 {
-                    newToken = Rest.RefreshToken(token.RefreshToken);
+                    var newToken = Rest.RefreshToken(token.RefreshToken);
+
+                    token.AccessToken = newToken.AccessToken;
+                    token.ExpiresIn = newToken.ExpiresIn;
+                    if (!string.IsNullOrEmpty(newToken.RefreshToken)) token.RefreshToken = newToken.RefreshToken;
+                    token.SetExpireTime();
+                    StoreToken(token);
+                    Trace.Info("Token refreshed and returned: {0}", token);
                 }
-                finally
+                catch (Exception ex)
                 {
-                    if (newToken == null)
-                    {
-                        // refreshing failed, clear the token
-                        Storage.Clear(GetTokenStoreId(), null);
-                        token = null;
-                    }
-                    else
-                    {
-                        token.AccessToken = newToken.AccessToken;
-                        token.ExpiresIn = newToken.ExpiresIn;
-                        if (!string.IsNullOrEmpty(newToken.RefreshToken)) token.RefreshToken = newToken.RefreshToken;
-                        token.SetExpireTime();
-                        StoreToken(token);
-                    }
+                    // refreshing failed, clear the token
+                    Storage.Clear(GetTokenStoreId(), null);
+                    token = null;
+                    Trace.Info("Token refreshed failed");
                 }
-                Trace.Info("Token refreshed and returned: {0}", token);
             }
             else
             {
