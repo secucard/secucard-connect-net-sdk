@@ -53,11 +53,13 @@
     <Compile Include="Client\Test_Client_Base.cs" />
     <Compile Include="Client\Test_Client_1.cs" />
     <Compile Include="Config\Test_Config.cs" />
+    <Compile Include="Model\Test_Model_Loyalty.cs" />
     <Compile Include="Model\Test_Model_Smart.cs" />
     <Compile Include="Model\Test_Model_Payment.cs" />
     <Compile Include="Model\Test_Model_General.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthUser.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthDevice.cs" />
+    <Compile Include="Rest\Test_Rest_General_Accounts.cs" />
     <Compile Include="Rest\Test_Rest_Smart_Routing.cs" />
     <Compile Include="Rest\Test_Rest_Smart_Transactions.cs" />
     <Compile Include="Rest\Test_Rest_Smart_Idents.cs" />
@@ -136,6 +138,21 @@
     <Content Include="Data\Config\SecucardConnect.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Model\General.Accounts.3.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Loyalty.Cards.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Loyalty.Beacons.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Loyalty.MerchantCards.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Loyalty.Customers.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Model\Payment.Contracts.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -167,6 +184,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\Smart.Transactions.1 - Copy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Loyalty.Cardgroups.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Data\secucard.payment.sec">

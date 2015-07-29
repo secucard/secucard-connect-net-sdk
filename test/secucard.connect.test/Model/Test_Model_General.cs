@@ -38,6 +38,13 @@
         }
 
         [TestMethod, TestCategory("Model")]
+        public void Test_General_Accounts_3()
+        {
+            string json = File.ReadAllText("Data\\Model\\General.Accounts.3.json");
+            var data_accounts = JsonSerializer.DeserializeJson<ObjectList<Account>>(json);
+        }
+
+        [TestMethod, TestCategory("Model")]
         public void Test_General_Contact_1()
         {
             string json = File.ReadAllText("Data\\Model\\General.Contacts.1.json");

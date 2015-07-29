@@ -4,10 +4,12 @@ namespace Secucard.Model.Loyalty
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Secucard.Model.General;
-    
+
     [DataContract]
     public class Customer : SecuObject
     {
+        public MediaResource pictureObject;
+
         public override string ServiceResourceName
         {
             get { return "loyalty.customers"; }
@@ -73,21 +75,13 @@ namespace Secucard.Model.Loyalty
         [DataMember(Name = "dob")]
         public string FormattedDateOfBirth
         {
-            get { return  DateOfBirth.ToDateTimeZone(); }
+            get { return DateOfBirth.ToDateTimeZone(); }
             set { DateOfBirth = value.ToDateTime(); }
         }
+
         public DateTime? DateOfBirth { get; set; }
 
         [DataMember(Name = "picture")]
         public string Picture { get; set; }
-
-
-        public MediaResource pictureObject;
-
-
-        //public void setPicture(string value) {
-        //  picture = value;
-        //  pictureObject = MediaResource.create(picture);
-        //}
     }
 }

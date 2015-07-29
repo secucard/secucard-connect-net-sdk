@@ -1,0 +1,349 @@
+﻿{
+    "count": 111,
+    "data": [
+        {
+            "object": "general.accounts",
+            "id": "ACC_WS96HS6GP2Y7ATH8R5GQG30WAN62A7",
+            "username": "info@topclean-kassel.de",
+            "contact": {
+                "name": "Dominik Urbanski",
+                "forename": "Dominik",
+                "surname": "Urbanski",
+                "salutation": "Herr",
+                "email": "info@topclean-kassel.de"
+            },
+            "assignment": [
+                {
+                    "created": "2015-02-23T13:01:10+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.merchants",
+                        "id": "MRC_2Z6RHD72D54MKNB6ADTBHD0UX6D3P4"
+                    }
+                },
+                {
+                    "created": "2015-03-03T09:53:31+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_W48KCZ7N72Y7YEQ5R5GQGFYA9K8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-03T09:59:05+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_RXUUS4SS32Y7YEVCR5GQGHHZ9K8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-03T15:44:12+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_WW5G59XZ02Y7YP2UB5GQG959PK8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-05T13:23:54+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_T6P3N4QHY2Y7X9BCR5GQGNTJ9K8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-05T15:45:59+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_2YFMDYWGD2Y7XDGJR5GQGH9SPK8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-05T15:47:57+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_X6JEMAFHK2Y7XDZER5GQGQPUPK8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-06T15:09:18+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3TKY4MQAZ2Y7PMK7B5GQGB8CPK8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-07T12:36:56+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_WJ4X9V7HN2Y7QSBCB5GQG0449K8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-13T08:23:30+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3F5FKVJS72Y82ZWPB5GQGASCWF7FA0"
+                    }
+                },
+                {
+                    "created": "2015-03-18T15:09:05+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_RV7VYY6HE2Y89GS0R5GQGHWWZW0TA9"
+                    }
+                },
+                {
+                    "created": "2015-03-23T15:06:00+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_Q4E3D7EE82Y8G3N4B5GQGNCQBQUUAE"
+                    }
+                },
+                {
+                    "created": "2015-03-30T15:07:53+02:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_2DBBVJEF42Y8P9AKR5GQGX4B7ZXWA2"
+                    }
+                },
+                {
+                    "created": "2015-05-04T17:49:40+02:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3SN3UETFE2YA7ZKAB5GQGH5X2GMZA0"
+                    }
+                },
+                {
+                    "created": "2015-06-15T18:53:24+02:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_2B44ATF522YBV0C2B5GQGZS9FPMHAQ"
+                    }
+                }
+            ]
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_2ZA4RTV492Y7BA4JR5GQGRG3QN62A7",
+            "username": "mj@bitbakers.de",
+            "contact": {
+                "name": "Michael Joos",
+                "forename": "Michael",
+                "surname": "Joos",
+                "salutation": "Herr",
+                "email": "mj@bitbakers.de"
+            },
+            "assignment": [
+                {
+                    "created": "2015-03-03T21:58:05+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_2JJF657KV2Y7M4WER5GQG5S69K8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-10T12:08:14+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_2RZ9VMFJK2Y7UQ2FB5GQGM8FWF7FA0"
+                    }
+                },
+                {
+                    "created": "2015-03-11T10:01:40+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_33D3UDBYB2Y7KGG2B5GQG9DP9K8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-11T10:03:47+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3KBWBX4UX2Y7KAZJR5GQGK4UPK8YAA"
+                    }
+                },
+                {
+                    "created": "2015-03-11T10:26:06+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_373J35UTY2Y7CJ3TB5GQG6DNQN62A6"
+                    }
+                }
+            ]
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_WQDYBPAA72Y7BEPCR5GQGQPCQN62A6",
+            "username": "test2@devid.net"
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_20EQRJTT22Y7YRN5B5GQGHP9PK8YAB",
+            "username": "test3@secucard.com",
+            "contact": {
+                "name": "Test Tester",
+                "forename": "Test",
+                "surname": "Tester",
+                "salutation": "Herr",
+                "email": "test3@secucard.com"
+            }
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_TWFEH9ZD22Y7NCSDR5GQGK4J9K8YAB",
+            "username": "ste@devid.net",
+            "contact": {
+                "name": "Steffen Schröder",
+                "forename": "Steffen",
+                "surname": "Schröder",
+                "salutation": "Herr",
+                "dob": "1900-01-01T00:00:00+01:00",
+                "email": "ste@devid.net"
+            },
+            "assignment": [
+                {
+                    "created": "2015-03-04T21:12:12+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3KBWBX4UX2Y7KAZJR5GQGK4UPK8YAA"
+                    }
+                }
+            ]
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_2PX3AAQXT2Y7SYUHR5GQGSHDHF7FAW",
+            "username": "sch@devid.net",
+            "contact": {
+                "name": "Steffen Schröder",
+                "forename": "Steffen",
+                "surname": "Schröder",
+                "salutation": "Herr",
+                "email": "sch@devid.net"
+            }
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_WCFHYKWM62Y7SM5TR5GQGBHRHF7FAW",
+            "username": "sch1@devid.net",
+            "contact": {
+                "name": "Steffen Schröder",
+                "forename": "Steffen",
+                "surname": "Schröder",
+                "salutation": "Herr",
+                "email": "sch1@devid.net"
+            },
+            "assignment": [
+                {
+                    "created": "2015-03-08T21:30:53+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3KBWBX4UX2Y7KAZJR5GQGK4UPK8YAA"
+                    }
+                }
+            ]
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_W6SCFBTJ52Y7SMD2B5GQGZ84HF7FAW",
+            "username": "sch2@devid.net",
+            "contact": {
+                "name": "Steffen Schröder",
+                "forename": "Steffen",
+                "surname": "Schröder",
+                "salutation": "Herr",
+                "email": "sch2@devid.net"
+            },
+            "assignment": [
+                {
+                    "created": "2015-03-08T21:38:29+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_3KBWBX4UX2Y7KAZJR5GQGK4UPK8YAA"
+                    }
+                }
+            ]
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_2PK36K5892Y7UR07B5GQGAHNHF7FAW",
+            "username": "ewq",
+            "contact": {
+                "name": "Steffen Schroeder",
+                "forename": "Steffen",
+                "surname": "Schroeder",
+                "salutation": "Herr",
+                "dob": "1982-03-10T12:39:56+01:00",
+                "email": "ewq"
+            },
+            "assignment": [
+                {
+                    "created": "2015-03-10T12:39:58+01:00",
+                    "type": "assignment",
+                    "owner": false,
+                    "assign": {
+                        "object": "general.accountdevices",
+                        "id": "ACD_W7Z6CUH8H2Y7UR07B5GQGAHNHF7FA2"
+                    }
+                }
+            ]
+        },
+        {
+            "object": "general.accounts",
+            "id": "ACC_MVQ4QC5AM2Y7V0XKB5GQGZXZHF7FAW",
+            "username": "wre2",
+            "contact": {
+                "name": "asd das",
+                "forename": "asd",
+                "surname": "das",
+                "salutation": "Herr",
+                "dob": "2008-03-10T12:41:34+01:00",
+                "email": "wre2"
+            }
+        }
+    ]
+}

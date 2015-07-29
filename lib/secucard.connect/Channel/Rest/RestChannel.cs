@@ -23,6 +23,11 @@
 
         #region ## IChannel ###
 
+        public void Open()
+        {
+            // No socket or http connection init in .NET
+        }
+
         public T GetObject<T>(string id) where T : SecuObject
         {
             var token = AuthProvider.GetToken(true);

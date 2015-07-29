@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Secucard.Connect
+﻿namespace Secucard.Connect
 {
+    using System;
     using Secucard.Connect.auth;
-    using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Product;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
+    using Secucard.Stomp;
 
     /// <summary>
     /// Actual Client
     /// </summary>
     public class SecucardConnect
     {
+        public string Version { get { return "0.1.development"; } }
+
         public bool IsConnected { get; set; }
 
         public event SecucardConnectEvent SecucardConnectEvent;
@@ -27,7 +24,7 @@ namespace Secucard.Connect
 
         public void Connect()
         {
-            // Start Authentification
+            // Start authentification
             Context.AuthProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             Context.AuthProvider.GetToken(false);
 

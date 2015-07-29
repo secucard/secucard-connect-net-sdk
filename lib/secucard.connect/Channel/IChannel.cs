@@ -17,7 +17,7 @@ namespace Secucard.Connect.Channel
    //     /**
    //* Open the channel and its resources.
    //*/
-   //     void open(Func<object> callback);
+     void Open();
 
    //     /**
    //* Registers a listener which gets called when a server side or other event happens.

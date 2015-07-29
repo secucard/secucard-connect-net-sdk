@@ -23,7 +23,7 @@
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 framePing.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
 
-                framePing.Body = "Testdaten";
+                framePing.Body = "Test";
 
                 StompFrame frameIn = null;
                 client.StompClientFrameArrived += (sender, args) => { frameIn = args.Frame; };
@@ -34,7 +34,7 @@
                 {
                 }
 
-                Assert.IsTrue(frameIn.Body.Contains("Testdaten"));
+                Assert.IsTrue(frameIn.Body.Contains("Test"));
 
                 // check out heartbeat in trace
                 Thread.Sleep(6000);

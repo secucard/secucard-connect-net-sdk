@@ -18,8 +18,7 @@
 
             frame.Headers.Add(StompHeader.Login, Config.Login);
             frame.Headers.Add(StompHeader.Passcode, Config.Password);
-            frame.Headers.Add(StompHeader.HeartBeat,
-                string.Format("{0},{1}", Config.HeartbeatClientMs, Config.HeartbeatServerMs));
+            frame.Headers.Add(StompHeader.HeartBeat, string.Format("{0},{1}", Config.HeartbeatClientMs, Config.HeartbeatServerMs));
             frame.Headers.Add(StompHeader.AcceptVersion, Config.AcceptVersion);
 
             using (var core = new StompCore(Config))

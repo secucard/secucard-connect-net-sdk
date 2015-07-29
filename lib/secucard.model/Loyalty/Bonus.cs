@@ -6,13 +6,14 @@ namespace Secucard.Model.Loyalty
     public class Bonus
     {
         [DataMember(Name = "amount")]
-        public int Amount;
-
-        /**   * PTS or EUR   */
-        [DataMember(Name = "currency")]
-        public string Currency;
+        public int Amount { get; set; }
 
         [DataMember(Name = "balance")]
-        public int Balance;
+        public int Balance { get; set; }
+
+        /**   * PTS or EUR   */
+
+        [DataMember(Name = "currency")]
+        public string Currency { get; set; }
     }
 }

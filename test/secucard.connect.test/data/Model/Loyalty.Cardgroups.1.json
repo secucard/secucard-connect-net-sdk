@@ -1,0 +1,125 @@
+﻿{
+    "count": 238,
+    "data": [
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_WB4NPBYDY9NUZMM5BC76Z7UW2D99S6",
+            "display_name": "Barbaras Gutscheine",
+            "display_name_raw": "Barbaras Gutscheine",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/82721ecc33429d782f7a1458f842ab9c5eadbbc7",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_WK8WZG7ZBWUT44HDMXHCTMHAN0CKPK"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_WPCCCY36RVU9795J893Z9YC6KCH9SG",
+            "display_name": "ATT Gutschein",
+            "display_name_raw": "ATT Gutschein",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/dca30f9793367105b99005a5df22e45232a286ba",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_WTUJJR5WJK67558PBZHK3YW4MGWXPW"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_C929UNE3USBBR9R0M4SB7G52D0H9SX",
+            "display_name": "Deck 11 Card",
+            "display_name_raw": "Deck 11 Card",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/0e1f6742407a2e37fe29ef9bb81b44f27ec76752",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_WAH4X5W27Y2DZFGWHZXMXKGRN2E9P8"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_WEHQ47P3ETG3772X0WT4BH794B2AS0",
+            "display_name": "KRM Card",
+            "display_name_raw": "KRM Card",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/54d87eb800a66ef33dd4447053f477424a8c4219",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_23CW366K33VY06U9XZS4WYQUN2M8PZ"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_WZA28SKRHHHHG2XBQTZRVSP2ZZ6AS8",
+            "display_name": "1Heiz Card",
+            "display_name_raw": "1Heiz Card",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/c65d5580d951cd85f2d71e50bd16be0daa897a6a",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_2UW7PTS887XF7HZGDVWKFSU3N749P8"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_ZBAC6ZZKBCYACRSWFGXMHCDJJBGAS9",
+            "display_name": "holi-Card",
+            "display_name_raw": "holi-Card",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/9e40dd2237d89dc18a9fec34f0a8f7b48767f193",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_JDDXKZEX08CXWTQTZKVHBYE4N8WJP0"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_GE9DP20FBSNZRXCKNW5S6FJ2EB7ASH",
+            "display_name": "Gutscheinkarten",
+            "display_name_raw": "Gutscheinkarten",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/ac69ed3e85bfa91153f67782e28979532ecb6c95",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_WPD0ASATUDSHHJH4P260UJWUNAK9P4"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_WVYJ6MEGHM3Z5C6NGUHQTV45P80ASK",
+            "display_name": "dialomedia Bonuskarte",
+            "display_name_raw": "dialomedia Bonuskarte",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/a440ce23f66da880319833fc568bcc5ab14dcc1c",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_2B3GR36F79BGNSCBNNMRAAMVNAXKP2"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_WX6MP20B7UU6P5E7EYTACFHGWH3BS2",
+            "display_name": "STILLOS Kundenkarte",
+            "display_name_raw": "STILLOS Kundenkarte",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/8e79737df1e2513db48908b342c3cc436edf501a",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_325YX9DJD8J43G4XAQ9TBUVNNCD9P0"
+            }
+        },
+        {
+            "object": "loyalty.cardgroups",
+            "id": "CRG_YGC37HBHG40JYJW3BXDQ2DU6XJCBS5",
+            "display_name": "Testgruppe Punkte",
+            "display_name_raw": "Testgruppe Punkte",
+            "stock_warn_limit": 0,
+            "picture": "https:\\/\\/core-dev10.secupay-ag.de\\/app.core.connector\\/ds_g\\/8e79737df1e2513db48908b342c3cc436edf501a",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_2FBZF0QZGTTXH03H06EVMQZPKZZBP6"
+            }
+        }
+    ]
+}

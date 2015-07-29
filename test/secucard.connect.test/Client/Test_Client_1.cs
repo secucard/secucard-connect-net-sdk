@@ -20,7 +20,7 @@
     public class Test_Client_1 : Test_Client_Base
     {
         [TestMethod, TestCategory("Client")]
-        public void Test_Payment_Customers_1_GET()
+        public void Test_Service_General_Skeleton_1_GET()
         {
             SecucardConnect client = SecucardConnect.Create("id", ClientConfiguration, Storage, Tracer);
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
@@ -37,14 +37,12 @@
             };
 
             var list = service.GetSkeletons(queryParams);
-
             Assert.IsTrue(list.Count > 0);
 
             var skeleton = service.GetSkeleton(list.List.First().Id);
             Assert.AreEqual(skeleton.A, "abc1");
 
             Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
-            
         }
 
         /// <summary>

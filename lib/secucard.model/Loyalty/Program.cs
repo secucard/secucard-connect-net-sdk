@@ -6,19 +6,18 @@ namespace Secucard.Model.Loyalty
     [DataContract]
     public class Program : SecuObject
     {
+        [DataMember(Name = "cardGroup")]
+        public CardGroup CardGroup { get; set; }
+
+        [DataMember(Name = "conditions")]
+        public List<Condition> conditions { get; set; }
+
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
         public override string ServiceResourceName
         {
             get { return "loyalty.program"; }
         }
-
-        [DataMember(Name = "description")]
-        public string Description;
-
-        [DataMember(Name = "cardGroup")]
-        public CardGroup CardGroup;
-
-        [DataMember(Name = "conditions")]
-        public List<Condition> conditions;
     }
 }
-

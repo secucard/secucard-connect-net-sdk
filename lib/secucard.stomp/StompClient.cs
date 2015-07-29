@@ -1,6 +1,7 @@
 ﻿namespace Secucard.Stomp
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Timers;
@@ -12,7 +13,7 @@
         private readonly StompConfig Config;
         private Timer ClientTimerHeartbeat;
         private StompCore Core;
-        public Queue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
+        public readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
         private DateTime LastServerFrame; // TODO: Heartbeat Server überwachen
         public EnumStompCoreStatus StompClientStatus;
 
@@ -22,7 +23,7 @@
             Config = config;
             StompClientStatus = EnumStompCoreStatus.NotConnected;
 
-            InQueue = new Queue<StompFrame>(20);
+            InQueue = new ConcurrentQueue<StompFrame>();
             LastServerFrame = DateTime.Now;
         }
 
@@ -47,7 +48,7 @@
 
             Core.SendFrame(CreateFrameConnect());
 
-            // Wating for STOMP to connect or timeout
+            // Waiting for STOMP to connect or timeout
             var waitUntil = DateTime.Now.AddSeconds(Config.HeartbeatServerMs/1000);
             while (StompClientStatus == EnumStompCoreStatus.Connecting)
             {
@@ -82,7 +83,7 @@
 
         private void ClientOnStompCoreFrameArrived(object sender, StompCoreFrameArrivedEventArgs args)
         {
-            // analyse frame
+            // analyze frame
             switch (args.Frame.Command)
             {
                 case StompCommands.CONNECTED:
@@ -98,7 +99,7 @@
                         StompClientStatus = EnumStompCoreStatus.Error;
                     else
                     {
-                        // pass frame updwards
+                        // pass frame upwards
                         RaiseFrameArriveEventInSeparateThread(args);
                     }
                     break;
@@ -107,7 +108,7 @@
                 {
                     if (StompClientStatus == EnumStompCoreStatus.Disconnecting)
                     {
-                        // TODO: Analyse Receipt
+                        // TODO: analyze Receipt
                         StompClientStatus = EnumStompCoreStatus.Disconnected;
                         break;
                     }
@@ -117,7 +118,7 @@
                 }
                 default:
                 {
-                    // pass frame updwards
+                    // pass frame upwards
                     RaiseFrameArriveEventInSeparateThread(args);
                     break;
                 }
@@ -135,7 +136,8 @@
             lock (InQueue)
             {
                 InQueue.Enqueue(e.Frame);
-                if (InQueue.Count > 20) InQueue.Dequeue();
+                StompFrame frame;
+                if (InQueue.Count > 20) InQueue.TryDequeue(out frame);
             }
 
             if (StompClientFrameArrived != null)

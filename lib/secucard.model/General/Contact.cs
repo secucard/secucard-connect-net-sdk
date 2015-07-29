@@ -51,7 +51,7 @@ namespace Secucard.Model.General
         public string CompanyName { get; set; }
 
         [DataMember(Name = "email")]
-        public Email Email { get; set; }
+        public string Email { get; set; }
 
         [DataMember(Name = "phone")]
         public string Phone { get; set; }

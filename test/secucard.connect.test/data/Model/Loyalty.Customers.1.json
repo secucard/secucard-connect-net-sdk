@@ -1,0 +1,294 @@
+﻿{
+    "count": 2834,
+    "data": [
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_WSG9KN96D2YATTUHR5GQGJPRR3YNAJ",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_3SN2S2DDB800DCJE4EA7JH2RKGCKP6"
+            },
+            "merchant_contact": {
+                "name": "Eric Weiß",
+                "forename": "Eric",
+                "surname": "Weiß",
+                "companyname": "POS-cash",
+                "salutation": "Herr",
+                "email": "e.weiss@secupay.ag",
+                "phone": "+49 35955 717925",
+                "address": {
+                    "street": "Goethestr.",
+                    "street_number": "6",
+                    "postal_code": "01896",
+                    "city": "Pulsnitz"
+                }
+            },
+            "contact": {
+                "name": "Eric Weiß",
+                "forename": "Eric",
+                "surname": "Weiß",
+                "companyname": "POS-cash",
+                "salutation": "Herr",
+                "email": "e.weiss@secupay.ag",
+                "phone": "+49 35955 717925",
+                "address": {
+                    "street": "Goethestr.",
+                    "street_number": "6",
+                    "postal_code": "01896",
+                    "city": "Pulsnitz"
+                }
+            },
+            "note": "Testnotiz"
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_3CVUFHC4J2YATTUZR5GQGJPRR3YNAR",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_3VAFMJMCT042637JYPGN30JFM008PG"
+            },
+            "merchant_contact": {
+                "name": "Hans Test",
+                "forename": "Hans",
+                "surname": "Test",
+                "salutation": "Herr"
+            },
+            "contact": {
+                "name": "Hans Test",
+                "forename": "Hans",
+                "surname": "Test",
+                "salutation": "Herr"
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_2ZX4WDU9B2YATTUZR5GQGJPRR3YNAT",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_3QDX7X9FRGEWA0X0UCRWYDSUY28ZP7"
+            },
+            "merchant_contact": {
+                "name": "Eric Weiß",
+                "forename": "Eric",
+                "surname": "Weiß",
+                "companyname": "Testkarte",
+                "salutation": "Herr"
+            },
+            "contact": {
+                "name": "Eric Weiß",
+                "forename": "Eric",
+                "surname": "Weiß",
+                "companyname": "Testkarte",
+                "salutation": "Herr"
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_3HQBNKZDS2YATTUJB5GQGJPRR3YXA5",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_YJ3TS2TNNEYPDJ8GVC4047P6MZZBP7"
+            },
+            "merchant_contact": {
+                "name": "Marco Düll",
+                "forename": "Marco",
+                "surname": "Düll",
+                "salutation": "Herr",
+                "email": "marco.duell@cas-md.de"
+            },
+            "contact": {
+                "name": "Marco Düll",
+                "forename": "Marco",
+                "surname": "Düll",
+                "salutation": "Herr",
+                "email": "marco.duell@cas-md.de"
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_3TW530GN52YATTUJR5GQGJPRR3YXAF",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_SSEQAEXRTQDXUPBUZQTN4R9QMJ43P5"
+            },
+            "merchant_contact": {
+                "name": "Sandra Karshüning",
+                "forename": "Sandra",
+                "surname": "Karshüning",
+                "salutation": "Frau",
+                "email": "skarshuening@web.de",
+                "address": {
+                    "street": "Schwinbrück",
+                    "street_number": "6",
+                    "postal_code": "24986",
+                    "city": "Satrup"
+                }
+            },
+            "contact": {
+                "name": "Sandra Karshüning",
+                "forename": "Sandra",
+                "surname": "Karshüning",
+                "salutation": "Frau",
+                "email": "skarshuening@web.de",
+                "address": {
+                    "street": "Schwinbrück",
+                    "street_number": "6",
+                    "postal_code": "24986",
+                    "city": "Satrup"
+                }
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_W2T2TYUXU2YATTUYR5GQGJPRR3YPAD",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_SSEQAEXRTQDXUPBUZQTN4R9QMJ43P5"
+            },
+            "merchant_contact": {
+                "name": "Nina Okholm",
+                "forename": "Nina",
+                "surname": "Okholm",
+                "salutation": "Frau",
+                "email": "stokholm.borrevej@gmail.com",
+                "address": {
+                    "street": "Borrevej",
+                    "street_number": "30",
+                    "city": "Sonderborg"
+                }
+            },
+            "contact": {
+                "name": "Nina Okholm",
+                "forename": "Nina",
+                "surname": "Okholm",
+                "salutation": "Frau",
+                "email": "stokholm.borrevej@gmail.com",
+                "address": {
+                    "street": "Borrevej",
+                    "street_number": "30",
+                    "city": "Sonderborg"
+                }
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_3VBQQZV3S2YATTUMR5GQGJPRR3YPAN",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_SSEQAEXRTQDXUPBUZQTN4R9QMJ43P5"
+            },
+            "merchant_contact": {
+                "name": "Susanne Schmarbeck",
+                "forename": "Susanne",
+                "surname": "Schmarbeck",
+                "email": "schmarbeck@foni.net",
+                "address": {
+                    "street": "Schulstr.",
+                    "street_number": "18",
+                    "postal_code": "24983",
+                    "city": "Handewitt"
+                }
+            },
+            "contact": {
+                "name": "Susanne Schmarbeck",
+                "forename": "Susanne",
+                "surname": "Schmarbeck",
+                "email": "schmarbeck@foni.net",
+                "address": {
+                    "street": "Schulstr.",
+                    "street_number": "18",
+                    "postal_code": "24983",
+                    "city": "Handewitt"
+                }
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_38X5KKZHR2YATTUTR5GQGJPRR3YSAR",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_WAH4X5W27Y2DZFGWHZXMXKGRN2E9P8"
+            },
+            "merchant_contact": {
+                "name": "Deck 11 Touristik GmbH",
+                "companyname": "Deck 11 Touristik GmbH",
+                "salutation": "Firma"
+            },
+            "contact": {
+                "name": "Deck 11 Touristik GmbH",
+                "companyname": "Deck 11 Touristik GmbH",
+                "salutation": "Firma"
+            }
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_3A923QB442YATTUXR5GQGJPRR3YQAN",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_2ZFT9B6DJNFERCE5JSJUWTM3N2HCPZ"
+            },
+            "merchant_contact": {
+                "name": "Gabriela Schuba",
+                "forename": "Gabriela",
+                "surname": "Schuba",
+                "dob": "1972-05-10T00:00:00+01:00",
+                "address": {
+                    "street": "Würzbuger Str.",
+                    "street_number": "15",
+                    "postal_code": "97337",
+                    "city": "Dettelbach"
+                }
+            },
+            "contact": {
+                "name": "Gabriela Schuba",
+                "forename": "Gabriela",
+                "surname": "Schuba",
+                "dob": "1972-05-10T00:00:00+01:00",
+                "address": {
+                    "street": "Würzbuger Str.",
+                    "street_number": "15",
+                    "postal_code": "97337",
+                    "city": "Dettelbach"
+                }
+            },
+            "age": 43,
+            "days_until_birthday": 294
+        },
+        {
+            "object": "loyalty.customers",
+            "id": "CUS_W7MH6T3AX2YATTUPB5GQGJPRR3YQAT",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "MRC_2ZFT9B6DJNFERCE5JSJUWTM3N2HCPZ"
+            },
+            "merchant_contact": {
+                "name": "Harald Ullrich",
+                "forename": "Harald",
+                "surname": "Ullrich",
+                "salutation": "Herr",
+                "dob": "1963-11-01T00:00:00+01:00",
+                "address": {
+                    "street": "Hans-Löffler Str.",
+                    "street_number": "18",
+                    "postal_code": "97337",
+                    "city": "Dettelbach"
+                }
+            },
+            "contact": {
+                "name": "Harald Ullrich",
+                "forename": "Harald",
+                "surname": "Ullrich",
+                "salutation": "Herr",
+                "dob": "1963-11-01T00:00:00+01:00",
+                "address": {
+                    "street": "Hans-Löffler Str.",
+                    "street_number": "18",
+                    "postal_code": "97337",
+                    "city": "Dettelbach"
+                }
+            },
+            "age": 51,
+            "days_until_birthday": 103
+        }
+    ]
+}
