@@ -75,15 +75,10 @@ namespace Secucard.Model.Smart
         public string Error;
 
 
+        //@JsonInclude(JsonInclude.Include.NON_NULL)
+        [DataMember(Name = "texts")]
+        public List<string> Texts;
 
-        //public Transaction() {
-        //}
-
-        //public Transaction(BasketInfo basketInfo, Basket basket, List<Ident> idents) {
-        //    this.basketInfo = basketInfo;
-        //    this.basket = basket;
-        //    this.idents = idents;
-        //}
 
 
 

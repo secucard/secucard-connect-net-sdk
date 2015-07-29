@@ -1,6 +1,7 @@
 ﻿namespace Secucard.Connect.Auth
 {
     using System;
+    using System.Globalization;
     using System.Threading;
     using Secucard.Connect.auth;
     using Secucard.Connect.Storage;
@@ -76,14 +77,14 @@
                     if (!string.IsNullOrEmpty(newToken.RefreshToken)) token.RefreshToken = newToken.RefreshToken;
                     token.SetExpireTime();
                     StoreToken(token);
-                    Trace.Info("Token refreshed and returned: {0}", token);
+                    TraceInfo("Token refreshed and returned: {0}", token);
                 }
                 catch (Exception ex)
                 {
                     // refreshing failed, clear the token
                     Storage.Clear(GetTokenStoreId(), null);
                     token = null;
-                    Trace.Info("Token refreshed failed");
+                    TraceInfo("Token refreshed failed");
                 }
             }
             else
@@ -104,7 +105,7 @@
                             DeviceAuthCodes = codes,
                             Status = AuthProviderStatusEnum.Pending
                         });
-                Trace.Info("Retrieved codes for device auth: {0}, now polling for auth.", codes);
+                TraceInfo("Retrieved codes for device auth: {0}, now polling for auth.", codes);
                 token = PollToken(codes);
             }
             else // USER
@@ -112,7 +113,7 @@
                 token = Rest.GetToken();
             }
 
-            Trace.Info("New token retrieved: {0}", token.ToString());
+            TraceInfo("New token retrieved: {0}", token.ToString());
 
             // set new expire time and store
             token.SetExpireTime();
@@ -188,48 +189,10 @@
             return "token-" + Id;
         }
 
-        //protected Dictionary<string, object> createAuthParams(ClientCredentials clientCredentials,
-        //    UserCredentials userCredentials,
-        //    string refreshToken, string deviceId, Dictionary<string, string> deviceInfo,
-        //    string deviceCode)
-        //{
-        //    var parameters = new Dictionary<string, object>();
+        private void TraceInfo(string fmt, params object[] param )
+        {
+            if(Trace!=null) Trace.Info(fmt,param);
+        }
 
-        //    // default type, client id / secret must always exist
-        //    parameters.Add("grant_type", "client_credentials");
-        //    parameters.Add("client_id", clientCredentials.ClientId);
-        //    parameters.Add("client_secret", clientCredentials.ClientSecret);
-
-        //    if (refreshToken != null)
-        //    {
-        //        parameters.Add("grant_type", "refresh_token");
-        //        parameters.Add("refresh_token", refreshToken);
-        //    }
-        //    else if (userCredentials != null)
-        //    {
-        //        parameters.Add("grant_type", "appuser");
-        //        parameters.Add("username", userCredentials.Username);
-        //        parameters.Add("password", userCredentials.Password);
-        //        if (deviceId != null) parameters.Add("device", deviceId);
-        //        if (deviceInfo != null)
-        //        {
-        //            //parameters.Add(deviceInfo);}
-        //        }
-        //        else if ("device".Equals(Config.AuthType) && (deviceId != null || deviceCode != null))
-        //        {
-        //            parameters.Add("grant_type", "device");
-        //            if (deviceId != null)
-        //            {
-        //                parameters.Add("uuid", deviceId);
-        //            }
-        //            if (deviceCode != null)
-        //            {
-        //                parameters.Add("code", deviceCode);
-        //            }
-        //        }
-        //        return parameters;
-        //    }
-        //    return null;
-        //}
     }
 }

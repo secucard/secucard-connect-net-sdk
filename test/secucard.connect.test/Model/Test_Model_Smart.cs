@@ -33,16 +33,11 @@
             var data = JsonSerializer.DeserializeJson<ObjectList<Transaction>>(json);
             Assert.IsTrue(data.List.Count> 1);
             var transaction = data.List.First();
-            Assert.AreEqual(transaction.Id, "STX_TC6Z542ZT2Y7US4VR5GQG8DMHF7FA0");
-            Assert.AreEqual(transaction.Status, "failed");
-            Assert.AreEqual(transaction.TransactionRef, "Beleg4536676");
-            Assert.AreEqual(transaction.MerchantRef, "Beleg4536676");
             Assert.IsNotNull(transaction.Basket);
-            Assert.AreEqual(transaction.FormattedCreated, "2015-03-10T13:19:11+01:00");
-            Assert.AreEqual(transaction.FormattedUpdated, "2015-03-10T13:19:40+01:00");
+            Assert.AreEqual(transaction.FormattedCreated, "2015-07-09T14:18:41+02:00");
+            Assert.AreEqual(transaction.FormattedUpdated, "2015-07-09T14:18:41+02:00");
             var product1 = data.List.First().Basket.Products.First();
-            Assert.AreEqual(product1.ArticleNumber, "70000");
-
+            Assert.AreEqual(product1.ArticleNumber, "3378");
         }
 
         [TestMethod, TestCategory("Model")]

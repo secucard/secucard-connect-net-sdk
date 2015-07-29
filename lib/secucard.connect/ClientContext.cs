@@ -1,111 +1,95 @@
-/**
- * Context instance holding all necessary beans used in client.
- */
-
-using System;
-using System.IO;
-using System.Reflection.Emit;
-using System.Runtime.Remoting.Contexts;
-using Secucard.Connect.Auth;
-using Secucard.Connect.Storage;
-
 namespace Secucard.Connect
 {
+    using System.Reflection.Emit;
+    using Secucard.Connect.Auth;
     using Secucard.Connect.Channel;
     using Secucard.Connect.Channel.Rest;
+    using Secucard.Connect.Storage;
+    using Secucard.Connect.Trace;
 
     public class ClientContext
     {
         public const string STOMP = "stomp";
         public const string REST = "rest";
 
-        protected DataStorage DataStorage;
-        protected IChannel RestChannel;
-        protected IChannel StompChannel;
-        protected AuthProvider AuthProvider;
-        protected ClientConfiguration Config;
-        protected string ClientId;
-        protected ExceptionHandler exceptionHandler;
-        protected object RuntimeContext;
+        internal DataStorage DataStorage;
+        internal ISecucardTrace SecucardTrace;
+        internal IChannel RestChannel;
+        internal IChannel StompChannel;
+        internal AuthProvider AuthProvider;
+        internal ClientConfiguration Config;
+        internal string ClientId;
+        //internal ExceptionHandler exceptionHandler;
+        //internal object RuntimeContext;
         //protected ResourceDownloader resourceDownloader;
         //protected EventDispatcher eventDispatcher;
 
-        public ClientContext(string clientId, ClientConfiguration config, object runtimeContext, DataStorage dataStorage, string clientId1, ClientConfiguration config1)
+        public ClientContext(string clientId, ClientConfiguration config, DataStorage dataStorage, ISecucardTrace secucardTrace)
         {
-            ClientId = clientId1;
-            Config = config1;
-            Init(clientId, config, runtimeContext, dataStorage);
+            ClientId = clientId;
+            Config = config;
+            Init(clientId, config, dataStorage,secucardTrace);
         }
 
-        //     /**
-        //* Obtain the current client context instance..
-        //*/
-        //     public static ClientContext get() {
-        //         return (ClientContext) ThreadLocalUtil.get(ClientContext.class.getName());
-        //     }
+   //     /**
+   //* Return a channel to the given name.
+   //*
+   //* @param name The channel name or null for default channel.
+   //*             Valid names are: {@link ClientContext#STOMP}, {@link ClientContext#REST}.
+   //* @return Null if the requested channel is not available or disabled by config, the channel instance else.
+   //* @throws java.lang.IllegalArgumentException if the name is not valid.
+   //*/
+   //     public IChannel GetChannel(string name)
+   //     {
+   //         if (name == null)
+   //         {
+   //             name = REST;// config.getDefaultChannel();
+   //         }
+   //         switch (name)
+   //         {
+   //             case REST:
+   //                 return RestChannel;
+   //             case STOMP:
+   //                 return StompChannel;
+   //             default:
+   //                 return null;
+   //             //throw new IllegalArgumentException("invalid channel name " + name);
+   //         }
+   //     }
 
-
-
-        /**
-   * Return a channel to the given name.
-   *
-   * @param name The channel name or null for default channel.
-   *             Valid names are: {@link ClientContext#STOMP}, {@link ClientContext#REST}.
-   * @return Null if the requested channel is not available or disabled by config, the channel instance else.
-   * @throws java.lang.IllegalArgumentException if the name is not valid.
-   */
-        public IChannel GetChannel(string name)
+        private void Init(string clientId, ClientConfiguration config, DataStorage dataStorage, ISecucardTrace secucardTrace)
         {
-            if (name == null)
-            {
-                name = REST;// config.getDefaultChannel();
-            }
-            switch (name)
-            {
-                case REST:
-                    return RestChannel;
-                case STOMP:
-                    return StompChannel;
-                default:
-                    return null;
-                //throw new IllegalArgumentException("invalid channel name " + name);
-            }
-        }
-
-        /**
-   * Initialize beans in this context and wiring up dependencies.
-   * Checks for androidMode config property and does special initialization.
-   */
-
-        private void Init(string clientId, ClientConfiguration config, object runtimeContext, DataStorage dataStorage)
-        {
-            //AuthProvider authProvider;
-            //RestChannelBase restChannel;
-
+            SecucardTrace = secucardTrace;
             DataStorage = dataStorage;
+            ClientId = clientId;
+            Config = config;
 
             if (dataStorage == null)
             {
-                //if (config.getCacheDir() == null) {
-                //    dataStorage = new MemoryDataStorage();
-                //} else {
-                //    try {
-                //        dataStorage = new DiskCache(config.getCacheDir() + File.separator + clientId);
-                //    } catch (IOException e) {
-                //        throw new SecuException("Error creating file storage: " + config.getCacheDir(), e);
-                //    }
-                //}
+                // In case no storage passed then goto memory storage
+
+                if (config.CacheDir == null)
+                {
+                    dataStorage = new MemoryDataStorage();
+                }
+                else
+                {
+                    // TODO: DiskDataStorage Class that save data to disk in various files.
+
+                    //try
+                    //{
+                    //    dataStorage = new DiskCache(config.CacheDir + File.separator + clientId);
+                    //}
+                    //catch (IOException e)
+                    //{
+                    //    throw new SecuException("Error creating file storage: " + config.getCacheDir(), e);
+                    //}
+                }
             }
 
-            //    restChannel = new RestChannel(clientId, config.getRestConfiguration());
-            //    authProvider = new AuthProvider(clientId, config,null,dataStorage);
-
-
-            //authProvider.setRestChannel(restChannel);
-            //this.authProvider = authProvider;
-
-            //restChannel.setAuthProvider(this.authProvider);
-            //this.restChannel = restChannel;
+            // TODO: TRACE
+            AuthProvider = new AuthProvider(clientId, config.AuthConfig, secucardTrace, dataStorage);
+            RestChannel = new RestChannel(config.RestConfig, clientId, AuthProvider);
 
             ////ResourceDownloader downloader = ResourceDownloader.get();
             ////downloader.setCache(dataStorage);
@@ -119,9 +103,7 @@ namespace Secucard.Connect
             //}
             //this.stompChannel = sc;
 
-            ClientId = clientId;
-            Config = config;
-            this.RuntimeContext = runtimeContext;
+
 
             //this.eventDispatcher = new EventDispatcher();
         }

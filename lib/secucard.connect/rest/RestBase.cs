@@ -35,7 +35,7 @@
         public T RestPost<T>(RestRequest request)
         {
             var ret = RestPost(request);
-            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Execption
+            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Exception
 
             return JsonSerializer.DeserializeJson<T>(ret);
         }
@@ -43,7 +43,7 @@
         public T RestPut<T>(RestRequest request)
         {
             var ret = RestPut(request);
-            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Execption
+            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Exception
 
             return JsonSerializer.DeserializeJson<T>(ret);
         }

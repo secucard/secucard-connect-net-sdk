@@ -166,6 +166,9 @@
     <Content Include="Data\secucard.client.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Model\Smart.Transactions.1 - Copy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\secucard.payment.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

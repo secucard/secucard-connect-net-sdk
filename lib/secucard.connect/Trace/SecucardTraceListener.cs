@@ -13,7 +13,7 @@
         {
             Write(string.Format("{0:yyyyMMdd-HHmmss.fff}", DateTime.Now));
             Write(": ");
-            base.WriteLine(message); // #1
+            base.WriteLine(message);
         }
     }
 }

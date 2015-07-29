@@ -20,7 +20,7 @@
 
         public override string ToString()
         {
-            return "SecuObject{id='" + Id + "', object='" + Object + '}';
+            return "SecuObject {id='" + Id + "', object='" + Object + '}';
         }
     }
 }

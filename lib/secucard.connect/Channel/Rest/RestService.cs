@@ -4,7 +4,6 @@
     using System.Linq;
     using Secucard.Connect.Rest;
     using Secucard.Model;
-    using Secucard.Model.Smart;
 
     public class RestService : RestBase
     {

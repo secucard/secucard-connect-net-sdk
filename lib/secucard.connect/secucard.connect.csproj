@@ -69,6 +69,7 @@
     <Compile Include="SecucardConnectException.cs" />
     <Compile Include="Storage\StorageItem.cs" />
     <Compile Include="Trace\ISecucardTrace.cs" />
+    <Compile Include="Trace\SecucardTraceMemory.cs" />
     <Compile Include="Trace\SecucardTraceFile.cs" />
     <Compile Include="Trace\SecucardTraceListener.cs" />
   </ItemGroup>
