@@ -54,9 +54,7 @@
 
         public void DeleteObject<T>(RestRequest request) where T : SecuObject
         {
-            var ret = RestDelete(request);
-            return;
-            //return JsonSerializer.DeserializeJson<T>(ret); ;
+            RestDelete(request);
         }
 
         public T Execute<T, U>(RestRequest request) where T : SecuObject
@@ -66,7 +64,6 @@
 
             return JsonSerializer.DeserializeJson<T>(ret); ;
         }
-
 
     }
 }

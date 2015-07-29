@@ -3,7 +3,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Rest;
     using Secucard.Model;
-    using Secucard.Model.services;
     using Secucard.Model.Services;
 
     [TestClass]

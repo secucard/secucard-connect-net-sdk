@@ -63,6 +63,7 @@
     <Compile Include="Rest\Test_Rest_Base_AuthUser.cs" />
     <Compile Include="Rest\Test_Rest_Base_AuthDevice.cs" />
     <Compile Include="Rest\Test_Rest_General_Accounts.cs" />
+    <Compile Include="Rest\Test_Rest_Document_Uploads.cs" />
     <Compile Include="Rest\Test_Rest_Service_Identcontracts.cs" />
     <Compile Include="Rest\Test_Rest_Services_Identresults.cs" />
     <Compile Include="Rest\Test_Rest_Service_Identrequests.cs" />

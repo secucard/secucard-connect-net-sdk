@@ -1,9 +1,8 @@
-namespace Secucard.Model.services
+namespace Secucard.Model.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using Secucard.Model.Services;
     using Secucard.Model.Services.Idresult;
 
     [DataContract]

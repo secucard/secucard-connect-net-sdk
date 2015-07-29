@@ -261,5 +261,30 @@
             }
         }
 
+
+
+        [TestMethod, TestCategory("Rest")]
+        public void Test_General_Skeleton_8_EXECUTE()
+        {
+            {
+                var request = new RestRequest
+                {
+                    Token = Token.AccessToken,
+                    Id = "12345",
+                    Object = new Demoevent
+                    {
+                        Delay = 5,
+                        Target = "xxx",
+                        Type = "xxx",
+                        Data = "{ whatever: \"whole object gets send as payload for event\"}"
+                    },
+                    Action = "Demoevent",
+                    PageUrl = "General/Skeletons",
+                    Host = "core-dev10.secupay-ag.de"
+                };
+
+                var data = RestService.Execute<ResultClass, Demoevent>(request);
+            }
+        }
     }
 }

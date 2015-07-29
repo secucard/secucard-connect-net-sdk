@@ -4,7 +4,6 @@
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Model;
-    using Secucard.Model.services;
     using Secucard.Model.Services;
 
     [TestClass]
