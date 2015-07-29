@@ -5,11 +5,11 @@
     using Secucard.Model;
     using Secucard.Model.General;
 
-    public class GeneralSkeltonsService: ServiceBase
+    public class GeneralSkeletonsService: AbstractService
     {
         public Skeleton GetSkeleton(string id)
         {
-            return RestChannel.GetObject<Skeleton>(id);
+            return GetChannel().GetObject<Skeleton>(id);
         }
 
         public IAsyncResult BeginGetSkeleton(string id, AsyncCallback callback, object asyncState)
@@ -24,7 +24,7 @@
 
         public ObjectList<Skeleton> GetSkeletons(QueryParams queryParams)
         {
-            return RestChannel.FindObjects<Skeleton>(queryParams);
+            return GetChannel().FindObjects<Skeleton>(queryParams);
         }
     }
 }

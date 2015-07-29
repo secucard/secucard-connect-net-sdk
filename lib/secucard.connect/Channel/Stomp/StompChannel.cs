@@ -26,7 +26,7 @@ public class StompChannel : StompChannelBase,IChannel {
     } catch (Exception e) {
       if (callback == null) {
         throw e;
-      } else {
+      } else { 
         onFailed(callback, e);
         return;
       }

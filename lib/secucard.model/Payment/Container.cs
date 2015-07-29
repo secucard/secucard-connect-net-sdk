@@ -12,8 +12,8 @@ namespace Secucard.Model.Payment
         {
             get { return "payment.containers"; }
         }
-        //@JsonIgnore
-        //public static final String TYPE_BANK_ACCOUNT = "bank_account";
+
+        public const string TYPE_BANK_ACCOUNT = "bank_account";
 
         [DataMember(Name = "merchant")]
         public Merchant Merchant { get; set; }

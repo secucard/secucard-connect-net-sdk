@@ -45,18 +45,28 @@
 
         public T PutObject<T>(RestRequest request) where T : SecuObject
         {
-            request.Id = request.Object.Id;
+            request.Id = ((T)request.Object).Id;
             request.BodyJsonString = JsonSerializer.SerializeJson((T)request.Object);
             var ret = RestPut(request);
 
             return JsonSerializer.DeserializeJson<T>(ret); ;
         }
 
-        public T DeleteObject<T>(RestRequest request) where T : SecuObject
+        public void DeleteObject<T>(RestRequest request) where T : SecuObject
         {
             var ret = RestDelete(request);
+            return;
+            //return JsonSerializer.DeserializeJson<T>(ret); ;
+        }
+
+        public T Execute<T, U>(RestRequest request) where T : SecuObject
+        {
+            request.BodyJsonString = JsonSerializer.SerializeJson((U)request.Object);
+            var ret = RestExecute(request);
 
             return JsonSerializer.DeserializeJson<T>(ret); ;
         }
+
+
     }
 }

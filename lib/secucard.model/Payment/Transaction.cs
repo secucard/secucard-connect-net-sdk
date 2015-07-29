@@ -16,10 +16,10 @@ namespace Secucard.Model.Payment
         public Contract Contract;
 
         [DataMember(Name = "amount")]
-        public long amount;
+        public long? Amount;
 
-        //TODO:
-        //public Currency currency;
+        [DataMember(Name = "currency")]
+        public string Currency;
 
         [DataMember(Name = "purpose")]
         public string Purpose;

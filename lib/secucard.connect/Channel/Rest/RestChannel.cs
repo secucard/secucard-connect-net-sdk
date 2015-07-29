@@ -1,5 +1,7 @@
 ﻿namespace Secucard.Connect.Channel.Rest
 {
+    using System;
+    using System.Linq;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
     using Secucard.Model;
@@ -30,34 +32,68 @@
 
         public T GetObject<T>(string id) where T : SecuObject
         {
-            var token = AuthProvider.GetToken(true);
-            var request = new RestRequest
-            {
-                Token = token.AccessToken,
-                Id = id,
-                PageUrl = "General/Skeletons", // TODO: Resolver
-                Host = "core-dev10.secupay-ag.de" // TODO: Config
-            };
-
+            var request = CreateRequest<T>();
+            request.Id = id;
             var obj = RestService.GetObject<T>(request);
-
             return obj;
         }
 
         public ObjectList<T> FindObjects<T>(QueryParams query) where T : SecuObject
         {
+            var request = CreateRequest<T>();
+            request.QueyParams = query;
+            var list = RestService.GetList<T>(request);
+            return list;
+        }
+
+        public T CreateObject<T>(T obj) where T : SecuObject
+        {
+            var request = CreateRequest<T>();
+            request.Object = obj;
+            var newObj = RestService.PostObject<T>(request);
+            return newObj;  
+        }
+
+        public T UpdateObject<T>(T obj) where T : SecuObject
+        {
+            var request = CreateRequest<T>();
+            request.Object = obj;
+            var newObj = RestService.PutObject<T>(request);
+            return newObj;
+        }
+
+        public void DeleteObject<T>(string objectId) where T:SecuObject
+        {
+            var request = CreateRequest<T>();
+            request.Id = objectId;
+            RestService.DeleteObject<T>(request);
+        }
+
+        public T Execute<T, U>(string id, string action, object arg) where T : SecuObject
+        {
+            var request = CreateRequest<T>();
+            request.Id = id;
+            request.Action = action;
+            request.Object = arg;
+            var newObj = RestService.Execute<T, U>(request);
+            return newObj;
+        }
+
+        private RestRequest CreateRequest<T>()
+        {
+            var obj = (T)Activator.CreateInstance(typeof(T)) as SecuObject;
+
+            // Path resolver for REST
+            var resourceString = string.Join("/", obj.ServiceResourceName.Split('.').ToList().Select(s => s.FirstCharToUpper()));
+
             var token = AuthProvider.GetToken(true);
             var request = new RestRequest
             {
                 Token = token.AccessToken,
-                QueyParams = query,
-                PageUrl = "General/Skeletons", // TODO: Resolver
+                PageUrl = resourceString,
                 Host = "core-dev10.secupay-ag.de" // TODO: Config
             };
-
-            var list = RestService.GetList<T>(request);
-
-            return list;
+            return request;
         }
 
         #endregion

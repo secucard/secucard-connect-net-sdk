@@ -16,6 +16,7 @@
 
         public string Host { get; set; }
         public string PageUrl { get; set; }
+        public string Action { get; set; }
         public string Token { get; set; }
         public string Method { get; set; }
         public NameValueCollection Header { get; set; }
@@ -24,7 +25,7 @@
         public QueryParams QueyParams { get; set; }
 
         public Dictionary<string, string> BodyParameter { get; set; }
-        public SecuObject Object { get; set; }
+        public Object Object { get; set; }
         public List<SecuObject> Objects { get; set; }
         public string BodyJsonString { get; set; }
         public byte[] BodyBytes { get; set; }
@@ -34,11 +35,21 @@
         // TODO: Move to other class
         public string GetPathAndQueryString()
         {
-            if (string.IsNullOrWhiteSpace(Id))
-                return string.Format("{0}{1}", PageUrl, EncodeQueryParams(QueryParamsToMap(QueyParams)));
-            else
-                return string.Format("{0}/{1}{2}", PageUrl, Id,
-                    EncodeQueryParams(QueryParamsToMap(QueyParams)));
+            string s = PageUrl;
+            // Include id in path
+            if (!string.IsNullOrWhiteSpace(Id)) s += "/" + Id;
+            // Include action in path
+            if (!string.IsNullOrWhiteSpace(Action)) s += "/" + Action;
+            // add query parameters at end
+            return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueyParams)));
+           
+
+            //if (string.IsNullOrWhiteSpace(Id))
+            //    return string.Format("{0}{1}", PageUrl, EncodeQueryParams(QueryParamsToMap(QueyParams)));
+            //else
+            //    return string.Format("{0}/{1}{2}", PageUrl, Id,
+            //        EncodeQueryParams(QueryParamsToMap(QueyParams)));
+
         }
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)

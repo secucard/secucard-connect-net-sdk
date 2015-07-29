@@ -5,9 +5,11 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class SecupayPrepay : Transaction
     {
-        [DataMember(Name = "transfer_purpose")] public string TransferPurpose;
+        [DataMember(Name = "transfer_purpose")]
+        public string TransferPurpose { get; set; }
 
-        [DataMember(Name = "transfer_account")] public TransferAccount TransferAccount;
+        [DataMember(Name = "transfer_account")]
+        public TransferAccount TransferAccount { get; set; }
 
         public override string ToString()
         {

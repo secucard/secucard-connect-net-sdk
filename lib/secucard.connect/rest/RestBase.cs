@@ -207,6 +207,47 @@
             return null;
         }
 
+        protected string RestExecute(RestRequest request)
+        {
+            request.Method = WebRequestMethods.Http.Post;
+            PrepareBody(request);
+            var webRequest = FactoryWebRequest(request);
+
+            webRequest.ContentLength = request.BodyBytes.Length;
+
+            var reqStream = webRequest.GetRequestStream();
+            reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
+
+            try
+            {
+                var webResponse = webRequest.GetResponse();
+                var respStream = webResponse.GetResponseStream();
+
+                if (respStream != null)
+                {
+                    using (var reader = new StreamReader(respStream, Encoding.UTF8))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                var wr = ex.Response as HttpWebResponse;
+                var dataStream = wr.GetResponseStream();
+                var reader = new StreamReader(dataStream, Encoding.UTF8);
+                var restException = new RestException
+                {
+                    BodyText = reader.ReadToEnd(),
+                    StatusDescription = wr.StatusDescription,
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                };
+                reader.Close();
+                throw restException;
+            }
+            return null;
+        }
+
         private static void PrepareBody(RestRequest request)
         {
             if (!string.IsNullOrWhiteSpace(request.BodyJsonString))

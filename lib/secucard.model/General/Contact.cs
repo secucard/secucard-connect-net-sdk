@@ -1,9 +1,7 @@
-using System;
-
 namespace Secucard.Model.General
 {
+    using System;
     using System.Runtime.Serialization;
-    using Secucard.Model.General.Components;
 
     [DataContract]
 	public class Contact : SecuObject {
@@ -68,7 +66,7 @@ namespace Secucard.Model.General
         [DataMember(Name = "picture")]
         private string Picture { get; set; }
 
-        [IgnoreDataMemberAttribute]
+        [IgnoreDataMember]
         public MediaResource PictureObject { get; set; }
 
 

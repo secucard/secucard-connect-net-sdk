@@ -7,7 +7,7 @@ namespace Secucard.Model.Payment
     {
 
         [DataMember(Name = "container")]
-        public Container container;
+        public Container Container { get; set; }
 
 
         public override string ServiceResourceName
@@ -18,7 +18,7 @@ namespace Secucard.Model.Payment
         public override string ToString()
         {
             return "SecupayDebit{" +
-                   "container=" + container +
+                   "container=" + Container +
                    "} " + base.ToString();
         }
     }

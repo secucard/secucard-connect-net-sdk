@@ -256,7 +256,7 @@
                     Id = obj.Id
                 };
 
-                var objPut = RestService.DeleteObject<Skeleton>(request);
+                RestService.DeleteObject<Skeleton>(request);
 
             }
         }

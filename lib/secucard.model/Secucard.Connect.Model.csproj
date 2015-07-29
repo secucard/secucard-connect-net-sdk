@@ -50,7 +50,6 @@
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="ObjectList.cs" />
     <Compile Include="Linq.cs" />
-    <Compile Include="Payment\Components\Contact.cs" />
     <Compile Include="SecuObject.cs" />
     <Compile Include="Smart\ReceiptLineValue.cs" />
     <Compile Include="Smart\Routing.cs" />
@@ -103,6 +102,7 @@
     <Compile Include="Payment\Transaction.cs" />
     <Compile Include="Payment\TransferAccount.cs" />
     <Compile Include="QueryParams.cs" />
+    <Compile Include="Payment\CloneParams.cs" />
     <Content Include="Services\Contract.java" />
     <Content Include="Services\IdentRequest.java" />
     <Content Include="Services\IdentResult.java" />
@@ -131,6 +131,9 @@
     <Content Include="Transport\Message.java" />
     <Content Include="Transport\Result.java" />
     <Compile Include="Transport\Status.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Payment\Components\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

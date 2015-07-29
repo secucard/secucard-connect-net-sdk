@@ -56,6 +56,10 @@
     <Compile Include="Channel\Rest\RestChannel.cs" />
     <Compile Include="Product\General\GeneralSkeltonsService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
+    <Compile Include="Product\Payment\ContractService.cs" />
+    <Compile Include="Product\Payment\DebitService.cs" />
+    <Compile Include="Product\Payment\ContainerService.cs" />
+    <Compile Include="Product\Payment\CustomerService.cs" />
     <Compile Include="Product\ServiceBase.cs" />
     <Compile Include="Product\Smart\SmartService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

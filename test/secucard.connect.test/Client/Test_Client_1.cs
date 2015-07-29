@@ -1,4 +1,4 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace secucard.connect.test.Client
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +11,7 @@
     using Secucard.Connect.Product.General;
     using Secucard.Connect.Rest;
     using Secucard.Connect.Test;
+    using Secucard.Connect.Test.Client;
     using Secucard.Connect.Trace;
     using Secucard.Model;
     using Secucard.Model.Smart;
@@ -22,11 +23,11 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Service_General_Skeleton_1_GET()
         {
-            SecucardConnect client = SecucardConnect.Create("id", ClientConfiguration, Storage, Tracer);
+            SecucardConnect client = SecucardConnect.Create("id", ClientConfigurationDevice, Storage, Tracer);
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var service = client.GetService<GeneralSkeltonsService>();
+            var service = client.GetService<GeneralSkeletonsService>();
 
             var queryParams = new QueryParams
             {
@@ -46,7 +47,7 @@
         }
 
         /// <summary>
-        /// Handles Device Authentification. Enter pin thru web interface
+        /// Handles Device Authentification. Enter pin thru web interface service
         /// </summary>
         private void ClientOnSecucardConnectEvent(object sender, SecucardConnectEventArgs args)
         {
@@ -56,7 +57,7 @@
 
                 var reqSmartPin = new RestRequest
                 {
-                    Host = ClientConfiguration.AuthConfig.Host,
+                    Host = ClientConfigurationDevice.AuthConfig.Host,
                     BodyJsonString = JsonSerializer.SerializeJson(new SmartPin { UserPin = args.DeviceAuthCodes.UserCode })
                 };
 

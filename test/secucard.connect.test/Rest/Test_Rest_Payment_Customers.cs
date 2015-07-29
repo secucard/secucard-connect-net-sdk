@@ -8,7 +8,6 @@
     using Secucard.Model;
     using Secucard.Model.General;
     using Secucard.Model.Payment;
-    using Contact = Secucard.Model.Payment.Contact;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -138,7 +137,7 @@
                     Host = "core-dev10.secupay-ag.de"
                 };
 
-                var customerDelete = RestService.DeleteObject<Customer>(request);
+                RestService.DeleteObject<Customer>(request);
 
                 // Assert.AreEqual(data, 1);
             }

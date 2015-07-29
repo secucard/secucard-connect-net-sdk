@@ -70,11 +70,13 @@
 
         #region ### Factory Service ###
 
-        public T GetService<T>() where T : ServiceBase
+        public T GetService<T>() where T : AbstractService
         {
             var service = (T)Activator.CreateInstance(typeof(T));
 
-            service.RestChannel = Context.RestChannel;
+            service.Context = Context;
+
+            // TODO: Service needs to register for events from stomp
 
             return service;
         }

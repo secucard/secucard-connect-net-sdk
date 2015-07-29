@@ -2,6 +2,7 @@ namespace Secucard.Model.Payment
 {
     using System;
     using System.Runtime.Serialization;
+    using Secucard.Model.General;
 
     [DataContract]
     public class Customer : SecuObject
