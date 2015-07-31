@@ -5,8 +5,11 @@ namespace Secucard.Model.General.Components
     [DataContract]
     public class OpenHours
     {
-        [DataMember(Name = "close")] public DayTime Close;
-        [DataMember(Name = "open")] public DayTime Open;
+        [DataMember(Name = "close")]
+        public DayTime Close { get; set; }
+
+        [DataMember(Name = "open")]
+        public DayTime Open { get; set; }
 
         public override string ToString()
         {

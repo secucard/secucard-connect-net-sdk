@@ -5,6 +5,11 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class SecupayPrepay : Transaction
     {
+        public override string ServiceResourceName
+        {
+            get { return "payment.secupayprepays"; }
+        }
+
         [DataMember(Name = "transfer_purpose")]
         public string TransferPurpose { get; set; }
 
@@ -18,11 +23,6 @@ namespace Secucard.Model.Payment
                    ", transactionStatus='" + TransactionStatus + '\'' +
                    ", transferAccount=" + TransferAccount +
                    "} " + base.ToString();
-        }
-
-        public override string ServiceResourceName
-        {
-            get { return "payment.secupayprepays"; }
         }
     }
 }

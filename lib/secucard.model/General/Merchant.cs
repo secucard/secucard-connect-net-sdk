@@ -7,24 +7,27 @@ namespace Secucard.Model.General
     [DataContract]
     public class Merchant : SecuObject
     {
-        public override string ServiceResourceName { get { return "general.merchants"; } }
+        public override string ServiceResourceName
+        {
+            get { return "general.merchants"; }
+        }
+
+        [DataMember(Name = "location")]
+        public Location Location { get; set; }
+
+        [DataMember(Name = "metadata")]
+        public MetaData Metadata { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "photo")]
+        public List<string> Photo { get; set; }
+
+        [DataMember(Name = "photo_main")]
+        public string PhotoMain { get; set; }
 
         [DataMember(Name = "email")]
         public string Email { get; set; }
-
-        [DataMember(Name = "location")]
-        public Location Location;
-
-        [DataMember(Name = "metadata")]
-        public MetaData Metadata;
-
-        [DataMember(Name = "name")]
-        public string Name;
-
-        [DataMember(Name = "photo")]
-        public List<string> Photo;
-
-        [DataMember(Name = "photo_main")]
-        public string PhotoMain;
     }
 }

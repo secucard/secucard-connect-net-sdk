@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2014 secucard AG. All rights reserved
- */
 namespace Secucard.Model.General.Components
 {
     using System.Collections.Generic;
@@ -9,7 +6,6 @@ namespace Secucard.Model.General.Components
     [DataContract]
     public class AddressComponent
     {
-
         [DataMember(Name = "long_name")]
         public string LongName { get; set; }
 

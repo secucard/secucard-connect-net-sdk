@@ -1,4 +1,3 @@
-
 namespace Secucard.Model.Payment
 {
     using System.Runtime.Serialization;
@@ -6,27 +5,17 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class Data
     {
-        [DataMember(Name = "owner")]
-        public string Owner;
-
-        [DataMember(Name = "iban")]
-        public string Iban;
+        [DataMember(Name = "bankname")]
+        public string Bankname { get; set; }
 
         [DataMember(Name = "bic")]
-        public string Bic;
+        public string Bic { get; set; }
 
-        [DataMember(Name = "bankname")]
-        public string Bankname;
+        [DataMember(Name = "iban")]
+        public string Iban { get; set; }
 
-        //public Data() {
-        //}
-
-        //public Data(string iban) {
-        //    this.iban = iban;
-        //}
-
-
-
+        [DataMember(Name = "owner")]
+        public string Owner { get; set; }
 
         public override string ToString()
         {

@@ -1,32 +1,42 @@
-using System.Runtime.Serialization;
-
 namespace Secucard.Model.General
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
 
     [DataContract]
     public class News : SecuObject
     {
+        public MediaResource PictureObject;
+
         public override string ServiceResourceName
         {
             get { return "general.news"; }
         }
 
-        //public static final String STATUS_READ = "read";
-        //public static final String STATUS_UNREAD = "unread";
+        [DataMember(Name = "_account_read")]
+        public string AccountRead { get; set; }
 
-        [DataMember(Name = "related")] public List<Merchant> Related;
+        [DataMember(Name = "author")]
+        public string Author { get; set; }
 
-        [DataMember(Name = "headline")] public string Headline;
+        [DataMember(Name = "document_id")]
+        public string DocumentId { get; set; }
 
-        [DataMember(Name = "text_teaser")] public string TextTeaser;
+        [DataMember(Name = "headline")]
+        public string Headline { get; set; }
 
-        [DataMember(Name = "text_full")] public string TextFull;
+        [DataMember(Name = "picture")]
+        public string Picture { get; set; }
 
-        [DataMember(Name = "author")] public string Author;
+        [DataMember(Name = "related")]
+        public List<Merchant> Related { get; set; }
 
-        [DataMember(Name = "document_id")] public string DocumentId;
+        [DataMember(Name = "text_full")]
+        public string TextFull { get; set; }
+
+        [DataMember(Name = "text_teaser")]
+        public string TextTeaser { get; set; }
 
         [DataMember(Name = "created")]
         public string FormattedCreated
@@ -35,21 +45,6 @@ namespace Secucard.Model.General
             set { Created = value.ToDateTime(); }
         }
 
-        public DateTime? Created;
-
-        [DataMember(Name = "picture")] public string Picture;
-
-        [DataMember(Name = "_account_read")] public string AccountRead;
-
-        public MediaResource PictureObject;
-
-        //@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = SecuObject.OBJECT_PROPERTY)
-        //@JsonSubTypes({
-        //    @JsonSubTypes.Type(value = Merchant.class, name = Merchant.OBJECT)})
-
-        //public void setPicture(String value) {
-        //  this.picture = value;
-        //  pictureObject = MediaResource.create(picture);
-        //}
+        public DateTime? Created { get; set; }
     }
 }

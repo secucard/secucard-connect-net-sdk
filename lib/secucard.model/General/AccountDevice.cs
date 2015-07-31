@@ -8,6 +8,8 @@ namespace Secucard.Model.General
     [DataContract]
     public class AccountDevice : SecuObject
     {
+        public bool Checkin;
+
         public override string ServiceResourceName
         {
             get { return "general.accountdevices"; }
@@ -25,18 +27,13 @@ namespace Secucard.Model.General
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
-        public DateTime? Created;
 
+        public DateTime? Created { get; set; }
 
         [DataMember(Name = "info")]
         public List<NameValueItem> Info { get; set; }
 
         [DataMember(Name = "online")]
         public bool Online { get; set; }
-
-        public bool Checkin;
-
-
     }
 }
-

@@ -5,15 +5,13 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class SecupayDebit : Transaction
     {
-
-        [DataMember(Name = "container")]
-        public Container Container { get; set; }
-
-
         public override string ServiceResourceName
         {
             get { return "payment.secupaydebits"; }
         }
+
+        [DataMember(Name = "container")]
+        public Container Container { get; set; }
 
         public override string ToString()
         {

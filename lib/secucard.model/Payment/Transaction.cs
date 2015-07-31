@@ -9,31 +9,31 @@ namespace Secucard.Model.Payment
         //public static final String STATUS_CANCELED = "canceled";
         //public static final String STATUS_PROCEED = "proceed";
 
-        [DataMember(Name = "customer")]
-        public Customer Customer;
+        [DataMember(Name = "amount")]
+        public long? Amount { get; set; }
 
         [DataMember(Name = "contract")]
-        public Contract Contract;
-
-        [DataMember(Name = "amount")]
-        public long? Amount;
+        public Contract Contract { get; set; }
 
         [DataMember(Name = "currency")]
-        public string Currency;
+        public string Currency { get; set; }
 
-        [DataMember(Name = "purpose")]
-        public string Purpose;
+        [DataMember(Name = "customer")]
+        public Customer Customer { get; set; }
 
         [DataMember(Name = "orderId")]
-        public string OrderId;
+        public string OrderId { get; set; }
 
-        [DataMember(Name = "transId")]
-        public string TransId;
+        [DataMember(Name = "purpose")]
+        public string Purpose { get; set; }
 
         [DataMember(Name = "status")]
-        public string Status;
+        public string Status { get; set; }
 
         [DataMember(Name = "transaction_status")]
-        public string TransactionStatus;
+        public string TransactionStatus { get; set; }
+
+        [DataMember(Name = "transId")]
+        public string TransId { get; set; }
     }
 }

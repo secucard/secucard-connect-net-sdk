@@ -5,7 +5,9 @@ namespace Secucard.Model.General
     [DataContract]
     public class Device : SecuObject
     {
-        public override string ServiceResourceName { get { return "general.devices"; } }
-
+        public override string ServiceResourceName
+        {
+            get { return "general.devices"; }
+        }
     }
 }

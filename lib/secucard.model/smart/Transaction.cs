@@ -12,14 +12,12 @@ namespace Secucard.Model.Smart
             get { return "smart.transactions"; }
         }
 
-        //  @JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "device_source", EmitDefaultValue = false)]
         public Device DeviceSource { get; set; }
 
         [DataMember(Name = "basket_info")]
         public BasketInfo BasketInfo { get; set; }
 
-        //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "target_device", EmitDefaultValue = false)]
         public Device TargetDevice { get; set; }
 
@@ -56,27 +54,21 @@ namespace Secucard.Model.Smart
         [DataMember(Name = "transactionRef")]
         public string TransactionRef { get; set; }
 
-        //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "payment_method", EmitDefaultValue = false)]
         public string PaymentMethod { get; set; }
 
-        //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "receipt", EmitDefaultValue = false)]
         public List<ReceiptLine> ReceiptLines { get; set; }
 
-        // @JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "payment_requested", EmitDefaultValue = false)]
         public string PaymentRequested { get; set; }
 
-        //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "payment_executed", EmitDefaultValue = false)]
         public string PaymentExecuted { get; set; }
 
-        //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "error", EmitDefaultValue = false)]
         public string Error { get; set; }
 
-        //@JsonInclude(JsonInclude.Include.NON_NULL)
         [DataMember(Name = "texts", EmitDefaultValue = false)]
         public List<string> Texts { get; set; }
 

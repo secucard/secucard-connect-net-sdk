@@ -1,11 +1,8 @@
 ﻿namespace secucard.connect.test.Rest
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Rest;
     using Secucard.Model;
-    using Secucard.Model.Payment;
     using Secucard.Model.Smart;
 
     [TestClass]
@@ -13,7 +10,7 @@
     public class Test_Rest_Smart_Routing : Test_Rest_Base_AuthUser
     {
         [TestMethod, TestCategory("Rest")]
-        public void Test_Smart_Rounting_1_GET()
+        public void Test_Smart_Routing_1_GET()
         {
             var request = new RestRequest
            {

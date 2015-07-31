@@ -7,8 +7,16 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class Customer : SecuObject
     {
+        public override string ServiceResourceName
+        {
+            get { return "payment.customers"; }
+        }
+
         [DataMember(Name = "contact")]
-        public Contact Contact;
+        public Contact Contact { get; set; }
+
+        [DataMember(Name = "contract")]
+        public Contract Contract { get; set; }
 
         [DataMember(Name = "created")]
         public string FormattedCreated
@@ -16,7 +24,8 @@ namespace Secucard.Model.Payment
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
-        public DateTime? Created;
+
+        public DateTime? Created { get; set; }
 
         [DataMember(Name = "updated")]
         public string FormattedUpdated
@@ -24,10 +33,8 @@ namespace Secucard.Model.Payment
             get { return Updated.ToDateTimeZone(); }
             set { Updated = value.ToDateTime(); }
         }
-        public DateTime? Updated;
 
-        [DataMember(Name = "contract")]
-        public Contract Contract;
+        public DateTime? Updated { get; set; }
 
         public override string ToString()
         {
@@ -37,11 +44,6 @@ namespace Secucard.Model.Payment
                    ", updated=" + Updated +
                    ", contract=" + Contract +
                    "} " + base.ToString();
-        }
-
-        public override string ServiceResourceName
-        {
-            get { return "payment.customers"; }
         }
     }
 }

@@ -54,7 +54,9 @@
     <Compile Include="Linq.cs" />
     <Compile Include="SecuObject.cs" />
     <Compile Include="Smart\ReceiptLineValue.cs" />
-    <Compile Include="Smart\Routing.cs" />
+    <Compile Include="Smart\Routing.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Smart\SmartPin.cs" />
     <Compile Include="Auth\AuthToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,7 +131,6 @@
     <Compile Include="Smart\ReceiptLine.cs" />
     <Compile Include="Smart\Text.cs" />
     <Compile Include="Smart\Transaction.cs" />
-    <Compile Include="Smart\TransactionResult.cs" />
     <Content Include="Transport\Message.java" />
     <Content Include="Transport\Result.java" />
     <Compile Include="Transport\Status.cs" />

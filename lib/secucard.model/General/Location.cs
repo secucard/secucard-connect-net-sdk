@@ -5,7 +5,6 @@ namespace Secucard.Model.General
     [DataContract]
     public class Location
     {
-
         [DataMember(Name = "lat")]
         public double Lat { get; set; }
 
@@ -14,16 +13,5 @@ namespace Secucard.Model.General
 
         [DataMember(Name = "accuracy")]
         public float Accuracy { get; set; }
-
-        //public Location() {
-        //}
-
-        //public Location(double lat, double lon, float accuracy) {
-        //    this.lat = lat;
-        //    this.lon = lon;
-        //    this.accuracy = accuracy;
-        //}
-
-
     }
 }

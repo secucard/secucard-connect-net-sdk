@@ -5,9 +5,11 @@ namespace Secucard.Model.General.Components
     [DataContract]
     public class DayTime
     {
-        [DataMember(Name = "day")] public int Day;
+        [DataMember(Name = "day")]
+        public int Day { get; set; }
 
-        [DataMember(Name = "time")] public string Time;
+        [DataMember(Name = "time")]
+        public string Time { get; set; }
 
         public override string ToString()
         {

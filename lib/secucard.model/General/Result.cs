@@ -5,13 +5,15 @@ namespace Secucard.Model.General
     [DataContract]
     public class ResultClass : SecuObject
     {
-        [DataMember(Name = "result")]
-        public bool? Result;
-
 
         public override string ServiceResourceName
         {
             get { return "general.result"; }
         }
+
+        [DataMember(Name = "result")]
+        public bool? Result { get; set; }
+
+
     }
 }

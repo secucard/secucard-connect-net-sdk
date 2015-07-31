@@ -10,6 +10,7 @@ namespace Secucard.Model.General
             get { return "general.apps"; }
         }
 
-        [DataMember(Name = "name")] public string Name;
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
     }
 }

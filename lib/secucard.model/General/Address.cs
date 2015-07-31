@@ -5,7 +5,6 @@ namespace Secucard.Model.General
     [DataContract]
     public class Address
     {
-
         [DataMember(Name = "street")]
         public string Street { get; set; }
 

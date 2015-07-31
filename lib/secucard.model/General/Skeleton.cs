@@ -7,35 +7,40 @@ namespace Secucard.Model.General
     public class Skeleton : SecuObject
     {
 
+        public override string ServiceResourceName
+        {
+            get { return "general.skeletons"; }
+        }       
+        
         [DataMember(Name = "a")]
-        public string A;
-
-        [DataMember(Name = "b")]
-        public string B;
-
-        [DataMember(Name = "c")]
-        public string C;
+        public string A { get; set; }
 
         [DataMember(Name = "amount")]
-        public int Amount;
+        public int Amount { get; set; }
+
+        [DataMember(Name = "b")]
+        public string B { get; set; }
+
+        [DataMember(Name = "c")]
+        public string C { get; set; }
 
         [DataMember(Name = "date")]
-        public string Date;
-
-        [DataMember(Name = "picture")]
-        public string Picture;
-
-        [DataMember(Name = "type")]
-        public string Type;
+        public string Date { get; set; }
 
         [DataMember(Name = "location")]
-        public Location Location;
+        public Location Location { get; set; }
 
-        [DataMember(Name = "skeleton")]
-        public Skeleton SkeletonObj;
+        [DataMember(Name = "picture")]
+        public string Picture { get; set; }
 
         [DataMember(Name = "skeleton_list")]
-        public List<Skeleton> SkeletonList;
+        public List<Skeleton> SkeletonList { get; set; }
+
+        [DataMember(Name = "skeleton")]
+        public Skeleton SkeletonObj { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
 
 
         public override string ToString()
@@ -53,11 +58,6 @@ namespace Secucard.Model.General
                    ", skeleton=" + SkeletonObj +
                    ", skeleton_list=" + SkeletonList +
                    '}';
-        }
-
-        public override string ServiceResourceName
-        {
-            get { return "general.skeletons"; }
         }
     }
 }

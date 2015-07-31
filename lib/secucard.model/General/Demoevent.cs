@@ -3,23 +3,18 @@ namespace Secucard.Model.General
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class Demoevent 
+    public class Demoevent
     {
+        [DataMember(Name = "data")]
+        public string Data { get; set; }
+
         [DataMember(Name = "delay")]
-        public int Delay;
+        public int Delay { get; set; }
 
         [DataMember(Name = "target")]
-        public string Target;
+        public string Target { get; set; }
 
         [DataMember(Name = "type")]
-        public string Type;
-
-        [DataMember(Name = "data")]
-        public string Data;
-
-        //public override string ServiceResourceName
-        //{
-        //    get { return "general.demoevent"; }
-        //}
+        public string Type { get; set; }
     }
 }

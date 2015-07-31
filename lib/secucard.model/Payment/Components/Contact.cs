@@ -33,7 +33,6 @@ namespace Secucard.Model.Payment
         [DataMember(Name = "nationality")]
         public string Nationality { get; set; }  // ISO 3166 country code like DE
 
-        //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
         [DataMember(Name = "dob")]
         public string FormattedDateOfBirth
         {

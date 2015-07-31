@@ -1,8 +1,8 @@
 namespace Secucard.Model.Payment
 {
     using System;
-    using Secucard.Model.General;
     using System.Runtime.Serialization;
+    using Secucard.Model.General;
 
     [DataContract]
     public class Contract : SecuObject
@@ -12,14 +12,20 @@ namespace Secucard.Model.Payment
             get { return "payment.contracts"; }
         }
 
-        [DataMember(Name = "contract_id")]
-        public string ContractId;
+        [DataMember(Name = "allow_cloning")]
+        public bool? AllowCloning { get; set; }
 
-        [DataMember(Name = "merchant")]
-        public Merchant Merchant;
+        [DataMember(Name = "contract_id")]
+        public string ContractId { get; set; }
+
+        [DataMember(Name = "demo")]
+        public bool? Demo { get; set; }
 
         [DataMember(Name = "internal_reference")]
-        public string InternalReference;
+        public string InternalReference { get; set; }
+
+        [DataMember(Name = "merchant")]
+        public Merchant Merchant { get; set; }
 
         [DataMember(Name = "created")]
         public string FormattedCreated
@@ -27,12 +33,7 @@ namespace Secucard.Model.Payment
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
+
         public DateTime? Created { get; set; }
-
-        [DataMember(Name = "demo")]
-        public bool? Demo;
-
-        [DataMember(Name = "allow_cloning")]
-        public bool? AllowCloning;
     }
 }

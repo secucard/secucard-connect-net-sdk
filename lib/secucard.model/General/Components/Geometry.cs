@@ -6,9 +6,9 @@ namespace Secucard.Model.General.Components
     public class Geometry
     {
         [DataMember(Name = "lat")]
-        public double Lat;
+        public double Lat { get; set; }
 
         [DataMember(Name = "lon")]
-        public double Lon;
+        public double Lon { get; set; }
     }
 }

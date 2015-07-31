@@ -4,13 +4,15 @@ namespace Secucard.Model.General
     using System.Runtime.Serialization;
 
     [DataContract]
-	public class Contact : SecuObject {
-
-        public override string ServiceResourceName { get { return "general.contacts"; } }
-
+    public class Contact : SecuObject
+    {
         public const string GENDER_MALE = "MALE";
         public const string GENDER_FEMALE = "FEMALE";
 
+        public override string ServiceResourceName
+        {
+            get { return "general.contacts"; }
+        }
 
         [DataMember(Name = "salutation")]
         public string Salutation { get; set; }
@@ -31,15 +33,15 @@ namespace Secucard.Model.General
         public string Gender { get; set; }
 
         [DataMember(Name = "nationality")]
-        public string Nationality { get; set; }  // ISO 3166 country code like DE
+        public string Nationality { get; set; } // ISO 3166 country code like DE
 
-        //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
         [DataMember(Name = "dob")]
         public string FormattedUpdated
         {
             get { return DateOfBirth.ToDateTimeZone(); }
             set { DateOfBirth = value.ToDateTime(); }
         }
+
         public DateTime? DateOfBirth { get; set; }
 
         [DataMember(Name = "birthplace")]
@@ -58,7 +60,7 @@ namespace Secucard.Model.General
         public string Mobile { get; set; }
 
         [DataMember(Name = "address")]
-        public Address Address  { get; set; }
+        public Address Address { get; set; }
 
         [DataMember(Name = "url_website")]
         public string UrlWebsite { get; set; }
@@ -68,10 +70,6 @@ namespace Secucard.Model.General
 
         [IgnoreDataMember]
         public MediaResource PictureObject { get; set; }
-
-
-        
-
 
         /**
    * Setting the nationality in ISO 3166 2 letter code.
@@ -93,8 +91,6 @@ namespace Secucard.Model.General
         /**
    * Set the ISO nationality code by using a locale instance which is less error-prone then using a string
    */
-       
-
 
 
         //public MediaResource getPictureObject() {
@@ -110,11 +106,7 @@ namespace Secucard.Model.General
         //    pictureObject = MediaResource.create(picture);
         //}
 
-       
 
-
-
-        
         public override string ToString()
         {
             return "Contact{" +
@@ -136,5 +128,5 @@ namespace Secucard.Model.General
                    ", picture='" + Picture + '\'' +
                    "} " + base.ToString();
         }
-	}
+    }
 }

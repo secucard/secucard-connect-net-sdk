@@ -7,13 +7,15 @@ namespace Secucard.Model.Payment
     [DataContract]
     public class Container : SecuObject
     {
+        public const string TYPE_BANK_ACCOUNT = "bank_account";
 
         public override string ServiceResourceName
         {
             get { return "payment.containers"; }
         }
 
-        public const string TYPE_BANK_ACCOUNT = "bank_account";
+        [DataMember(Name = "contract")]
+        public Contract Contract { get; set; }
 
         [DataMember(Name = "merchant")]
         public Merchant Merchant { get; set; }
@@ -36,7 +38,8 @@ namespace Secucard.Model.Payment
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
-        public DateTime? Created;
+
+        public DateTime? Created { get; set; }
 
         [DataMember(Name = "updated")]
         public string FormattedUpdated
@@ -44,10 +47,8 @@ namespace Secucard.Model.Payment
             get { return Updated.ToDateTimeZone(); }
             set { Updated = value.ToDateTime(); }
         }
-        public DateTime? Updated;
 
-        [DataMember(Name = "contract")]
-        public Contract Contract;
+        public DateTime? Updated { get; set; }
 
         public override string ToString()
         {
