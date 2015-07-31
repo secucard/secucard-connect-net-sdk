@@ -7,6 +7,7 @@
 
 namespace Secucard.Connect.Channel
 {
+    using System.Collections.Generic;
     using Secucard.Model;
 
     public interface IChannel
@@ -146,7 +147,7 @@ namespace Secucard.Connect.Channel
         //* @param callback   The callback for async invocation.
         //* @return The result of the execution, never null. An exception is thrown if the action cannot be executed.
         //*/
-        T Execute<T, U>(string appId, string action, object arg) where T : SecuObject;
+        T Execute<T, U>(string appId, string action, List<string> actionParameter, object arg) where T : SecuObject;
 
         //     /**
         //* Close channel and release resources.

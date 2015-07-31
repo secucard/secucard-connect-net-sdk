@@ -66,10 +66,6 @@
 
         }
 
-        private void ClientOnSecucardConnectEvent(object sender, SecucardConnectEventArgs args)
-        {
-            Tracer.Info("ClientOnSecucardConnectEvent Status={0}", args.Status);
-        }
 
 
     }

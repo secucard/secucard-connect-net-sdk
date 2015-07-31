@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Client\Test_Client_CustomerService.cs" />
+    <Compile Include="Client\Test_Client_SmartTransaction.cs" />
     <Compile Include="Client\Test_Client_PaymentDemo.cs" />
     <Compile Include="Client\Test_Client_Base.cs" />
     <Compile Include="Client\Test_Client_1.cs" />
@@ -200,6 +201,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\Services.Identcontracts.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Smart.Transactions.1 - Copy.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Data\secucard.payment.sec">

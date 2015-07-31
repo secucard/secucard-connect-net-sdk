@@ -11,29 +11,29 @@ namespace Secucard.Model.Smart
             get { return "smart.idents"; }
         }
 
+        [DataMember(Name = "merchantcard")]
+        public MerchantCard MerchantCard { get; set; }
+
         [DataMember(Name = "type")]
-        public string Type;
+        public string Type { get; set; }
 
         [DataMember(Name = "name")]
-        public string Name;
+        public string Name { get; set; }
 
         [DataMember(Name = "length")]
-        public int? Length;
+        public int? Length { get; set; }
 
         [DataMember(Name = "prefix")]
-        public string Prefix;
+        public string Prefix { get; set; }
 
         [DataMember(Name = "value")]
-        public string Value;
+        public string Value { get; set; }
 
         [DataMember(Name = "customer")]
-        public Customer Customer;
-
-        [DataMember(Name = "merchantcard")]
-        public MerchantCard MerchantCard;
+        public Customer Customer { get; set; }
 
         [DataMember(Name = "valid")]
-        public bool? Valid;
+        public bool? Valid { get; set; }
 
         public override string ToString()
         {
@@ -48,6 +48,5 @@ namespace Secucard.Model.Smart
                    ", valid=" + Valid +
                    "} " + base.ToString();
         }
-
     }
 }

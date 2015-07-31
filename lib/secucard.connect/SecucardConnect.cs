@@ -39,6 +39,11 @@
         {
         }
 
+        public void Disconnect()
+        {
+           //TODO: Teardown
+        }
+
         private void AuthProviderOnAuthProviderStatusUpdate(object sender, AuthProviderStatusUpdateEventArgs args)
         {
             // Send Events vom Auth Provider 
@@ -82,6 +87,7 @@
         }
 
         #endregion
+
 
     }
 

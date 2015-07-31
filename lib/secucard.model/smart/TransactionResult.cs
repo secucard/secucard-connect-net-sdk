@@ -2,22 +2,19 @@ namespace Secucard.Model.Smart
 {
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using Secucard.Model.Payment;
     using Secucard.Model.Transport;
 
     [DataContract]
     public class TransactionResult : Status
     {
-
-        [DataMember(Name = "transaction")]
-        public Transaction Transaction;
-
         [DataMember(Name = "payment_method")]
-        public string PaymentMethod;
+        public string PaymentMethod { get; set; }
 
         [DataMember(Name = "receipt")]
-        public List<ReceiptLine> ReceiptLines;
+        public List<ReceiptLine> ReceiptLines { get; set; }
 
+        [DataMember(Name = "transaction")]
+        public Transaction Transaction { get; set; }
 
         public override string ToString()
         {

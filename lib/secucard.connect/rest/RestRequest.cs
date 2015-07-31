@@ -12,11 +12,13 @@
         {
             Header = new NameValueCollection();
             BodyParameter = new Dictionary<string, string>();
+            ActionParameter = new List<string>();
         }
 
         public string Host { get; set; }
         public string PageUrl { get; set; }
         public string Action { get; set; }
+        public List<String> ActionParameter { get; set; }
         public string Token { get; set; }
         public string Method { get; set; }
         public NameValueCollection Header { get; set; }
@@ -40,16 +42,10 @@
             if (!string.IsNullOrWhiteSpace(Id)) s += "/" + Id;
             // Include action in path
             if (!string.IsNullOrWhiteSpace(Action)) s += "/" + Action;
+            // Include actionParmater in path
+            if (ActionParameter!=null && ActionParameter.Any()) s += "/" +  string.Join("/", ActionParameter);
             // add query parameters at end
             return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueyParams)));
-           
-
-            //if (string.IsNullOrWhiteSpace(Id))
-            //    return string.Format("{0}{1}", PageUrl, EncodeQueryParams(QueryParamsToMap(QueyParams)));
-            //else
-            //    return string.Format("{0}/{1}{2}", PageUrl, Id,
-            //        EncodeQueryParams(QueryParamsToMap(QueyParams)));
-
         }
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)

@@ -5,25 +5,14 @@ namespace Secucard.Model.Smart
     [DataContract]
     public class ProductGroup
     {
+        [DataMember(Name = "desc")]
+        public string Desc { get; set; }
 
         [DataMember(Name = "id")]
-        public string Id;
-
-        [DataMember(Name = "desc")]
-        public string Desc;
+        public string Id { get; set; }
 
         [DataMember(Name = "level")]
-        public int Level;
-
-        //public ProductGroup() {
-        //}
-
-        //public ProductGroup(string id, string desc, int level) {
-        //    this.id = id;
-        //    this.desc = desc;
-        //    this.level = level;
-        //}
-
+        public int Level { get; set; }
 
         public override string ToString()
         {

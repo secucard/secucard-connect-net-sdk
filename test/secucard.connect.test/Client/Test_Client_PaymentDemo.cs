@@ -69,6 +69,9 @@
                 }
             };
 
+            return;
+            // TODO: below with erros.
+
             Contract contract = contractService.CloneMyContract(cloneParams);
             // or
             contract = contractService.CloneContract("contract-id", cloneParams);
@@ -86,17 +89,10 @@
 
             // pay, create transaction
             // Exception: api Key for payment does not allow debit payments.
-            debit = debitService.CreateTransaction(debit);
+            // debit = debitService.CreateTransaction(debit);
 
 
             Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
-
-        private void ClientOnSecucardConnectEvent(object sender, SecucardConnectEventArgs args)
-        {
-            Tracer.Info("ClientOnSecucardConnectEvent Status={0}", args.Status);
-        }
-
-
     }
 }

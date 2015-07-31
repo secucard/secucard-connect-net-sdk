@@ -8,6 +8,11 @@ namespace Secucard.Model.Smart
     [DataContract]
     public class Checkin : SecuObject
     {
+        public override string ServiceResourceName
+        {
+            get { return "smart.checkins"; }
+        }
+
         [DataMember(Name = "account")]
         public Account Account { get; set; }
 
@@ -23,11 +28,6 @@ namespace Secucard.Model.Smart
         public string Picture { get; set; }
 
         public MediaResource PictureObject { get; set; }
-
-        public override string ServiceResourceName
-        {
-            get { return "smart.checkins"; }
-        }
 
         [DataMember(Name = "created")]
         public string FormattedCreated

@@ -11,28 +11,29 @@ namespace Secucard.Model.Smart
         {
             get { return "smart.transactions"; }
         }
-        
+
         //  @JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "device_source")]
-        public Device DeviceSource;
+        [DataMember(Name = "device_source", EmitDefaultValue = false)]
+        public Device DeviceSource { get; set; }
 
         [DataMember(Name = "basket_info")]
-        public BasketInfo BasketInfo;
+        public BasketInfo BasketInfo { get; set; }
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "target_device")]
-        public Device TargetDevice;
+        [DataMember(Name = "target_device", EmitDefaultValue = false)]
+        public Device TargetDevice { get; set; }
 
         [DataMember(Name = "status")]
-        public string Status;
+        public string Status { get; set; }
 
         [DataMember(Name = "created")]
         public string FormattedCreated
         {
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
-        } 
-        public DateTime? Created;
+        }
+
+        public DateTime? Created { get; set; }
 
         [DataMember(Name = "updated")]
         public string FormattedUpdated
@@ -40,47 +41,44 @@ namespace Secucard.Model.Smart
             get { return Updated.ToDateTimeZone(); }
             set { Updated = value.ToDateTime(); }
         }
-        public DateTime? Updated;
+
+        public DateTime? Updated { get; set; }
 
         [DataMember(Name = "idents")]
-        public List<Ident> Idents;
+        public List<Ident> Idents { get; set; }
 
         [DataMember(Name = "basket")]
-        public Basket Basket;
+        public Basket Basket { get; set; }
 
         [DataMember(Name = "merchantRef")]
-        public string MerchantRef;
+        public string MerchantRef { get; set; }
 
         [DataMember(Name = "transactionRef")]
-        public string TransactionRef;
+        public string TransactionRef { get; set; }
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "payment_method")]
-        public string PaymentMethod;
+        [DataMember(Name = "payment_method", EmitDefaultValue = false)]
+        public string PaymentMethod { get; set; }
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "receipt")]
-        public List<ReceiptLine> ReceiptLines;
+        [DataMember(Name = "receipt", EmitDefaultValue = false)]
+        public List<ReceiptLine> ReceiptLines { get; set; }
 
         // @JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "payment_requested")]
-        public string PaymentRequested;
+        [DataMember(Name = "payment_requested", EmitDefaultValue = false)]
+        public string PaymentRequested { get; set; }
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "payment_executed")]
-        public string PaymentExecuted;
+        [DataMember(Name = "payment_executed", EmitDefaultValue = false)]
+        public string PaymentExecuted { get; set; }
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "error")]
-        public string Error;
-
+        [DataMember(Name = "error", EmitDefaultValue = false)]
+        public string Error { get; set; }
 
         //@JsonInclude(JsonInclude.Include.NON_NULL)
-        [DataMember(Name = "texts")]
-        public List<string> Texts;
-
-
-
+        [DataMember(Name = "texts", EmitDefaultValue = false)]
+        public List<string> Texts { get; set; }
 
         public override string ToString()
         {
@@ -96,7 +94,5 @@ namespace Secucard.Model.Smart
                    ", transactionRef='" + TransactionRef + '\'' +
                    "} " + base.ToString();
         }
-
-
     }
 }

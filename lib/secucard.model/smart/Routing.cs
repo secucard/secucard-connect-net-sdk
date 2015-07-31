@@ -13,12 +13,12 @@ namespace Secucard.Model.Smart
         }
 
         [DataMember(Name = "store")]
-        public Store Store;
+        public Store Store { get; set; }
 
         [DataMember(Name = "description")]
-        public string Description;
+        public string Description { get; set; }
 
         [DataMember(Name = "assign")]
-        public List<Device> Assign;
-}
+        public List<Device> Assign { get; set; }
+    }
 }

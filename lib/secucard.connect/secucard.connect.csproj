@@ -54,14 +54,15 @@
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
     <Compile Include="Channel\Rest\RestService.cs" />
     <Compile Include="Channel\Rest\RestChannel.cs" />
-    <Compile Include="Product\General\GeneralSkeltonsService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
+    <Compile Include="Product\General\GeneralSkeltonsService.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
     <Compile Include="Product\Payment\DebitService.cs" />
     <Compile Include="Product\Payment\ContainerService.cs" />
     <Compile Include="Product\Payment\CustomerService.cs" />
     <Compile Include="Product\ServiceBase.cs" />
-    <Compile Include="Product\Smart\SmartService.cs" />
+    <Compile Include="Product\Smart\SmartIdentsService.cs" />
+    <Compile Include="Product\Smart\SmartTransactionsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\RestBase.cs" />
     <Compile Include="Rest\RestConfig.cs" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Channel\Stomp\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

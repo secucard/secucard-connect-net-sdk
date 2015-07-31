@@ -1,6 +1,7 @@
 ﻿namespace Secucard.Connect.Channel.Rest
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
@@ -69,11 +70,12 @@
             RestService.DeleteObject<T>(request);
         }
 
-        public T Execute<T, U>(string id, string action, object arg) where T : SecuObject
+        public T Execute<T, U>(string id, string action, List<string> actionParameter,  object arg) where T : SecuObject
         {
             var request = CreateRequest<T>();
             request.Id = id;
             request.Action = action;
+            request.ActionParameter = actionParameter;
             request.Object = arg;
             var newObj = RestService.Execute<T, U>(request);
             return newObj;

@@ -7,39 +7,39 @@ namespace Secucard.Model.Smart
     [DataContract]
     public class Device : SecuObject
     {
+        public DateTime? Created;
+
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        [DataMember(Name = "device")]
+        public General.Device GenralDevice { get; set; }
+
+        [DataMember(Name = "merchant")]
+        public Merchant Merchant { get; set; }
+
+        [DataMember(Name = "online")]
+        public bool Online { get; set; }
+
+        [DataMember(Name = "store")]
+        public Store Store { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "user_pin")]
+        public string UserPin { get; set; }
+
+        [DataMember(Name = "vendor")]
+        public string Vendor { get; set; }
+
+        [DataMember(Name = "vendor_uid")]
+        public string VendorUid { get; set; }
 
         public override string ServiceResourceName
         {
             get { return "smart.devices"; }
         }
-
-        [DataMember(Name = "type")]
-        public string Type;
-
-        [DataMember(Name = "merchant")]
-        public Merchant Merchant;
-
-        [DataMember(Name = "store")]
-        public Store Store;
-
-        [DataMember(Name = "vendor")]
-        public string Vendor;
-
-        [DataMember(Name = "vendor_uid")]
-        public string VendorUid;
-
-        [DataMember(Name = "device")]
-        public General.Device GenralDevice;
-
-        [DataMember(Name = "user_pin")]
-        public string UserPin;
-
-        [DataMember(Name = "description")]
-        public string Description;
-
-
-        [DataMember(Name = "online")]
-        public bool Online;
 
         [DataMember(Name = "created")]
         public string FormattedCreated
@@ -47,19 +47,6 @@ namespace Secucard.Model.Smart
             get { return Created.ToDateTimeZone(); }
             set { Created = value.ToDateTime(); }
         }
-        public DateTime? Created;
-
-        //public Device() {
-        //}
-
-        //public Device(String id) {
-        //    this.id = id;
-        //}
-
-        //public Device(String id, String type) {
-        //    this.id = id;
-        //    this.type = type;
-        //}
 
         public override string ToString()
         {
@@ -67,6 +54,5 @@ namespace Secucard.Model.Smart
                    "type='" + Type + '\'' +
                    '}';
         }
-
     }
 }

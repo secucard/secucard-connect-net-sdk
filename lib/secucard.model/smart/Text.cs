@@ -5,20 +5,14 @@ namespace Secucard.Model.Smart
     [DataContract]
     public class Text
     {
-
-        [DataMember(Name = "parentId")]
-        public string ParentId;
+        [DataMember(Name = "id")]
+        public int? Id { get; set; }
 
         [DataMember(Name = "desc")]
-        public string Desc;
+        public string Desc { get; set; }
 
-        //public Text() {
-        //}
-
-        //public Text(String parentId, String desc) {
-        //    this.parentId = parentId;
-        //    this.desc = desc;
-        //}
+        [DataMember(Name = "parent", EmitDefaultValue = false)]
+        public int? ParentId { get; set; }
 
         public override string ToString()
         {

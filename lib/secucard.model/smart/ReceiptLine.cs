@@ -6,10 +6,10 @@ namespace Secucard.Model.Smart
     public class ReceiptLine
     {
         [DataMember(Name = "type")]
-        public string Type;
+        public string Type { get; set; }
 
         [DataMember(Name = "value")]
-        public ReceiptLineValue Value;
+        public ReceiptLineValue Value { get; set; }
 
         public override string ToString()
         {

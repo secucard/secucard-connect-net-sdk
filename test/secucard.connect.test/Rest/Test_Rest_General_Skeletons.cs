@@ -257,11 +257,8 @@
                 };
 
                 RestService.DeleteObject<Skeleton>(request);
-
             }
         }
-
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_8_EXECUTE()

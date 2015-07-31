@@ -4,34 +4,36 @@ namespace Secucard.Model.Smart
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class Basket {
+    public class Basket
+    {
+        public Basket()
+        {
+            Products = new List<Product>();
+            Texts = new List<Text>();
+        }
 
         [DataMember(Name = "products")]
-        public List<Product> Products = new List<Product>();
+        public List<Product> Products { get; set; }
 
         [DataMember(Name = "texts")]
-        public List<Text> Texts = new List<Text>();
+        public List<Text> Texts { get; set; }
 
-       
-        //// Returns a mixed list of products followed by belonging texts.
-        //public List<object> getProductsWithText() 
-        //{
-        //    var merged = new List<object>();
-
-        //    foreach (Product product  in products) {
-        //        var id = product.Id;
-        //        merged.Add(product);
-        //        merged.AddRange(texts.Where(text => text.ParentId == id.ToString()).Cast<object>());
-        //    }
-        //    return merged;
-        //}
-
-        
-        public override string ToString() {
+        public override string ToString()
+        {
             return "Basket{" +
                    "products=" + Products +
                    ", texts=" + Texts +
                    '}';
+        }
+
+        public void AddProduct(Product product)
+        {
+            Products.Add(product);
+        }
+
+        public void AddProduct(Text text)
+        {
+            Texts.Add(text);
         }
     }
 }
