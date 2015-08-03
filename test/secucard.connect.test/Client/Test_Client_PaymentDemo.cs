@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect;
     using Secucard.Connect.Product.General;
+    using Secucard.Connect.Product.Payment;
     using Secucard.Connect.Test.Client;
     using Secucard.Connect.Trace;
     using Secucard.Model.General;
@@ -20,10 +21,10 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var customerService = client.GetService<CustomerService>();
-            var containerService = client.GetService<ContainerService>();
-            var debitService = client.GetService<DebitService>();
-            var contractService =client.GetService<ContractService>();
+            var customerService = client.GetService<CustomerService,Customer>();
+            var containerService = client.GetService<ContainerService,Container>();
+            var debitService = client.GetService<DebitService, SecupayDebit>();
+            var contractService =client.GetService<ContractService, Contract>();
 
             var customer = new Customer
             {
@@ -41,7 +42,7 @@
             };
 
             // create customer and get back filled up
-            customer = customerService.CreateCustomer(customer);
+            customer = customerService.Create(customer);
 
 
             Container container = new Container
@@ -51,7 +52,7 @@
             };
 
             // create container and get back filled up
-            container = containerService.CreateContainer(container);
+            container = containerService.Create(container);
 
 
 
@@ -72,24 +73,24 @@
             return;
             // TODO: below with erros.
 
-            Contract contract = contractService.CloneMyContract(cloneParams);
-            // or
-            contract = contractService.CloneContract("contract-id", cloneParams);
+            //Contract contract = contractService.CloneMyContract(cloneParams);
+            //// or
+            //contract = contractService.CloneContract("contract-id", cloneParams);
 
 
-            SecupayDebit debit = new SecupayDebit
-            {
-                Container = container,
-                Customer = customer,
-                Amount = 1,
-                Currency = "EUR",
-                OrderId = "order1",
-                Purpose = "food"
-            };
+            //SecupayDebit debit = new SecupayDebit
+            //{
+            //    Container = container,
+            //    Customer = customer,
+            //    Amount = 1,
+            //    Currency = "EUR",
+            //    OrderId = "order1",
+            //    Purpose = "food"
+            //};
 
-            // pay, create transaction
-            // Exception: api Key for payment does not allow debit payments.
-            // debit = debitService.CreateTransaction(debit);
+            //// pay, create transaction
+            //// Exception: api Key for payment does not allow debit payments.
+            //// debit = debitService.CreateTransaction(debit);
 
 
             Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());

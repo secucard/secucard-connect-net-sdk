@@ -8,36 +8,37 @@
     {
         public ClientContext Context;
 
-        protected IChannel GetChannel()
-        {
-            // TODO: Make a choice
-            return Context.RestChannel;
-        }
 
-        protected T Create<T>(T obj) where T : SecuObject
-        {
-            return GetChannel().CreateObject(obj);
-        }
+        //protected Channel GetChannel()
+        //{
+        //    // TODO: Make a choice
+        //    return Context.Channels["REST"];
+        //}
 
-        protected T Update<T>(T obj) where T : SecuObject
-        {
-            return GetChannel().UpdateObject(obj);
-        }
+        //protected T Create<T>(T obj) where T : SecuObject
+        //{
+        //    return GetChannel().CreateObject(obj);
+        //}
 
-        protected void Delete<T>(string objectId) where T : SecuObject
-        {
-            GetChannel().DeleteObject<T>(objectId);
-        }
+        //protected T Update<T>(T obj) where T : SecuObject
+        //{
+        //    return GetChannel().UpdateObject(obj);
+        //}
 
-        protected ObjectList<T> GetList<T>(QueryParams queryParams) where T : SecuObject
-        {
-            return GetChannel().FindObjects<T>(queryParams);
-        }
+        //protected void Delete<T>(string objectId) where T : SecuObject
+        //{
+        //    GetChannel().DeleteObject<T>(objectId);
+        //}
 
-        protected T Execute<T, U>(string appId, string action, List<string> actionParameter, U obj) where T : SecuObject
-        {
-            return GetChannel().Execute<T, U>(appId, action, actionParameter, obj);
-        }
+        //protected ObjectList<T> GetList<T>(QueryParams queryParams) where T : SecuObject
+        //{
+        //    return GetChannel().FindObjects<T>(queryParams);
+        //}
+
+        //protected T Execute<T, U>(string appId, string action, List<string> actionParameter, U obj) where T : SecuObject
+        //{
+        //    return GetChannel().Execute<T, U>(appId, action, actionParameter, obj);
+        //}
 
     }
 }

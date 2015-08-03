@@ -1,13 +1,20 @@
 ﻿namespace Secucard.Connect.Product.General
 {
+    using Secucard.Connect.Client;
     using Secucard.Model;
     using Secucard.Model.Smart;
 
-    public class SmartIdentsService: AbstractService
+    public class SmartIdentsService : ProductService<Ident>
     {
-        public ObjectList<Ident> GetIdents()
+        protected override ServiceMetaData<Ident> CreateMetaData()
         {
-            return GetList<Ident>(null);
+            return new ServiceMetaData<Ident>("payment", "debits");
         }
+
+
+        //public ObjectList<Ident> GetIdents()
+        //{
+        //    return GetList<Ident>(null);
+        //}
     }
 }

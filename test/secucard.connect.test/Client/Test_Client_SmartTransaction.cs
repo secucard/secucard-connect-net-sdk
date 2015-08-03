@@ -22,11 +22,11 @@
             client.Connect();
 
 
-            var transactionService = client.GetService<SmartTransactionsService>();
-            var identService = client.GetService<SmartIdentsService>();
+            var transactionService = client.GetService<SmartTransactionsService, Transaction>();
+            var identService = client.GetService<SmartIdentsService,Ident>();
 
             // select an ident
-            var availableIdents = identService.GetIdents();
+            var availableIdents = identService.GetList(null);
             if (availableIdents == null || availableIdents.Count == 0)
             {
                 throw new Exception("No idents found.");
@@ -89,13 +89,14 @@
                 TransactionRef = "transaction99"
             };
 
-            var transaction = transactionService.CreateTransaction(newTrans);
+            var transaction = transactionService.Create(newTrans);
 
             var type = "demo"; // demo|auto|cash
             // demo instructs the server to simulate a different (random) transaction for each invocation of startTransaction
 
-            var result = transactionService.StartTransaction(transaction.Id, type);
-            Console.WriteLine("Transaction finished: " + result);
+            // TODO Execute
+            //var result = transactionService.StartTransaction(transaction.Id, type);
+            //Console.WriteLine("Transaction finished: " + result);
 
             client.Disconnect();
 

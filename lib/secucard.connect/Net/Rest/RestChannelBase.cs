@@ -4,14 +4,14 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using Secucard.Connect.Auth;
+using Secucard.Connect.Channel;
 using Secucard.Connect.Rest;
 using Secucard.Model;
 
-public abstract class RestChannelBase : AbstractChannel {
+public abstract class RestChannelBase : Channel {
 
   protected RestConfig configuration;
   public bool secure = true;
-  //protected JsonMapper jsonMapper = JsonMapper.get();
   protected string id;
   public AuthProvider AuthProvider;
 

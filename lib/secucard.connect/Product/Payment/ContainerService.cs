@@ -1,13 +1,19 @@
 ﻿namespace Secucard.Connect.Product.General
 {
+    using Secucard.Connect.Client;
     using Secucard.Model.Payment;
 
-    public class ContainerService : AbstractService
+    public class ContainerService : ProductService<Container>
     {
-        public Container CreateContainer(Container container)
+        protected override ServiceMetaData<Container> CreateMetaData()
         {
-            return Create(container);
+            return new ServiceMetaData<Container>("payment", "containers");
         }
+
+        //public Container CreateContainer(Container container)
+        //{
+        //    return Create(container);
+        //}
 
         
     }

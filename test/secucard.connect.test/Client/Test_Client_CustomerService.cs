@@ -22,7 +22,7 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var customerService = client.GetService<CustomerService>();
+            var customerService = client.GetService<CustomerService,Customer>();
 
             var customer = new Customer
             {
@@ -48,20 +48,20 @@
                 }
             };
 
-            var customerPost = customerService.CreateCustomer(customer);
+            var customerPost = customerService.Create(customer);
 
-            var customerGet = customerService.GetCustomers(new QueryParams { Query = "id:" + customerPost.Id }).List.First();
+            var customerGet = customerService.GetList(new QueryParams { Query = "id:" + customerPost.Id }).List.First();
 
             customerGet.Contact.Forename = "ChangedForename-" + DateTime.Now.Ticks;
-            var customerUpdate = customerService.UpdateCustomer(customerGet);
+            var customerUpdate = customerService.Update(customerGet);
 
-            var customerGetUpdate = customerService.GetCustomers(new QueryParams { Query = "id:" + customerPost.Id }).List.First();
+            var customerGetUpdate = customerService.GetList(new QueryParams { Query = "id:" + customerPost.Id }).List.First();
             Assert.AreEqual(customerGetUpdate.Contact.Forename, customerGet.Contact.Forename);
-            customerService.DeleteCustomer(customerGetUpdate.Id);
+            customerService.Delete<Customer>(customerGetUpdate.Id); 
 
             Thread.Sleep(1000);
 
-            var customerGetWithout = customerService.GetCustomers(new QueryParams { Query = "id:" + customerPost.Id });
+            var customerGetWithout = customerService.GetList(new QueryParams { Query = "id:" + customerPost.Id });
             Assert.AreEqual(customerGetWithout.Count,0);
 
         }

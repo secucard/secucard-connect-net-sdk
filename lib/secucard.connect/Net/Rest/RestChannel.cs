@@ -4,17 +4,19 @@
     using System.Collections.Generic;
     using System.Linq;
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Net;
     using Secucard.Connect.Rest;
     using Secucard.Model;
 
-    public class RestChannel : AbstractChannel, IChannel
+    public class RestChannel : Channel
     {
         private RestConfig RestConfig;
         private string ChannelId;
         private RestService RestService;
         private AuthProvider AuthProvider;
 
-        public RestChannel(RestConfig restConfig, string channelId, AuthProvider authProvider)
+        public RestChannel(RestConfig restConfig, string channelId, AuthProvider authProvider, ClientContext clientContext)
+            : base(clientContext)
         {
             RestConfig = restConfig;
             ChannelId = channelId;// TODO: Needed?
@@ -24,14 +26,45 @@
         }
 
 
-        #region ## IChannel ###
+        #region ## Channel ###
 
-        public void Open()
+        public override T Request<T>(ChannelRequest channelRequest)
+        {
+            switch (channelRequest.Method)
+            {
+                case ChannelMethod.GET:
+                    return GetObject<T>(channelRequest.ObjectId);
+                case ChannelMethod.CREATE:
+                    return CreateObject<T>((T)channelRequest.Object);
+                case ChannelMethod.UPDATE:
+                    return UpdateObject((T)channelRequest.Object);
+                case ChannelMethod.DELETE:
+                    DeleteObject<T>(channelRequest.ObjectId);
+                    break;
+            }
+            return null;
+        }
+
+        public override ObjectList<T> RequestList<T>(ChannelRequest channelRequest)
+        {
+            switch (channelRequest.Method)
+            {
+                case ChannelMethod.GET:
+                    return FindObjects<T>(channelRequest.QueyParams);
+            }
+            return null;
+        }
+
+        public override void Open()
         {
             // No socket or http connection init in .NET
         }
 
-        public T GetObject<T>(string id) where T : SecuObject
+        public override void Close()
+        {
+        }
+
+        private T GetObject<T>(string id) where T:SecuObject
         {
             var request = CreateRequest<T>();
             request.Id = id;
@@ -47,12 +80,12 @@
             return list;
         }
 
-        public T CreateObject<T>(T obj) where T : SecuObject
+        private T CreateObject<T>(T obj) where T : SecuObject
         {
             var request = CreateRequest<T>();
             request.Object = obj;
             var newObj = RestService.PostObject<T>(request);
-            return newObj;  
+            return newObj;
         }
 
         public T UpdateObject<T>(T obj) where T : SecuObject
@@ -63,14 +96,14 @@
             return newObj;
         }
 
-        public void DeleteObject<T>(string objectId) where T:SecuObject
+        public void DeleteObject<T>(string objectId) where T : SecuObject
         {
             var request = CreateRequest<T>();
             request.Id = objectId;
             RestService.DeleteObject<T>(request);
         }
 
-        public T Execute<T, U>(string id, string action, List<string> actionParameter,  object arg) where T : SecuObject
+        public T Execute<T, U>(string id, string action, List<string> actionParameter, object arg) where T : SecuObject
         {
             var request = CreateRequest<T>();
             request.Id = id;

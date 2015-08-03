@@ -1,16 +1,22 @@
 ﻿namespace Secucard.Connect.Product.General
 {
+    using Secucard.Connect.Client;
     using Secucard.Model.Payment;
 
-    public class DebitService : AbstractService
+    public class DebitService : ProductService<SecupayDebit>
     {
-        /// <summary>
-        /// Create a new debit transaction
-        /// </summary>
-        public SecupayDebit CreateTransaction(SecupayDebit secupayDebit)
+        protected override ServiceMetaData<SecupayDebit> CreateMetaData()
         {
-            return Create(secupayDebit);
+            return new ServiceMetaData<SecupayDebit>("payment", "debits");
         }
+
+        ///// <summary>
+        ///// Create a new debit transaction
+        ///// </summary>
+        //public SecupayDebit CreateTransaction(SecupayDebit secupayDebit)
+        //{
+        //    return Create(secupayDebit);
+        //}
 
         
     }

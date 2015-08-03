@@ -1,30 +1,23 @@
 ﻿namespace Secucard.Connect.Product.General
 {
-    using System;
-    using System.Runtime.Remoting.Messaging;
-    using Secucard.Model;
+    using Secucard.Connect.Client;
     using Secucard.Model.General;
 
-    public class GeneralSkeletonsService: AbstractService
+    public class GeneralSkeletonsService: ProductService<Skeleton>
     {
-        public Skeleton GetSkeleton(string id)
+        protected override ServiceMetaData<Skeleton> CreateMetaData()
         {
-            return GetChannel().GetObject<Skeleton>(id);
+            return new ServiceMetaData<Skeleton>("general", "skeletons");
         }
 
-        public IAsyncResult BeginGetSkeleton(string id, AsyncCallback callback, object asyncState)
-        {
-            return null;
-        }
+        //public Skeleton GetSkeleton(string id)
+        //{
+        //    return GetChannel().GetObject<Skeleton>(id);
+        //}
 
-        public Skeleton EndGetSkeleton(IAsyncResult result)
-        {
-            return null;
-        }
-
-        public ObjectList<Skeleton> GetSkeletons(QueryParams queryParams)
-        {
-            return GetChannel().FindObjects<Skeleton>(queryParams);
-        }
+        //public ObjectList<Skeleton> GetSkeletons(QueryParams queryParams)
+        //{
+        //    return GetChannel().FindObjects<Skeleton>(queryParams);
+        //}
     }
 }

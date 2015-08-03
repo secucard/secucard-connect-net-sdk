@@ -1,8 +1,7 @@
 namespace Secucard.Connect
 {
-    using System.Reflection.Emit;
+    using System.Collections.Generic;
     using Secucard.Connect.Auth;
-    using Secucard.Connect.Channel;
     using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
@@ -14,11 +13,12 @@ namespace Secucard.Connect
 
         internal DataStorage DataStorage;
         internal ISecucardTrace SecucardTrace;
-        internal IChannel RestChannel;
-        internal IChannel StompChannel;
+        internal Dictionary<string, Channel.Channel> Channels; 
         internal AuthProvider AuthProvider;
         internal ClientConfiguration Config;
         internal string ClientId;
+        public string DefaultChannel { get; set; }
+
         //internal ExceptionHandler exceptionHandler;
         //internal object RuntimeContext;
         //protected ResourceDownloader resourceDownloader;
@@ -28,34 +28,11 @@ namespace Secucard.Connect
         {
             ClientId = clientId;
             Config = config;
+            Channels = new Dictionary<string, Channel.Channel>();
             Init(clientId, config, dataStorage,secucardTrace);
+            DefaultChannel = "rest";
         }
 
-   //     /**
-   //* Return a channel to the given name.
-   //*
-   //* @param name The channel name or null for default channel.
-   //*             Valid names are: {@link ClientContext#STOMP}, {@link ClientContext#REST}.
-   //* @return Null if the requested channel is not available or disabled by config, the channel instance else.
-   //* @throws java.lang.IllegalArgumentException if the name is not valid.
-   //*/
-   //     public IChannel GetChannel(string name)
-   //     {
-   //         if (name == null)
-   //         {
-   //             name = REST;// config.getDefaultChannel();
-   //         }
-   //         switch (name)
-   //         {
-   //             case REST:
-   //                 return RestChannel;
-   //             case STOMP:
-   //                 return StompChannel;
-   //             default:
-   //                 return null;
-   //             //throw new IllegalArgumentException("invalid channel name " + name);
-   //         }
-   //     }
 
         private void Init(string clientId, ClientConfiguration config, DataStorage dataStorage, ISecucardTrace secucardTrace)
         {
@@ -89,7 +66,8 @@ namespace Secucard.Connect
 
             // TODO: TRACE
             AuthProvider = new AuthProvider(clientId, config.AuthConfig, secucardTrace, dataStorage);
-            RestChannel = new RestChannel(config.RestConfig, clientId, AuthProvider);
+            var restChannel = new RestChannel(config.RestConfig, clientId, AuthProvider,this);
+            Channels.Add("rest", restChannel);
 
             ////ResourceDownloader downloader = ResourceDownloader.get();
             ////downloader.setCache(dataStorage);

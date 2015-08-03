@@ -2,9 +2,11 @@
 {
     using System;
     using Secucard.Connect.auth;
+    using Secucard.Connect.Client;
     using Secucard.Connect.Product;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
+    using Secucard.Model;
     using Secucard.Stomp;
 
     /// <summary>
@@ -75,11 +77,13 @@
 
         #region ### Factory Service ###
 
-        public T GetService<T>() where T : AbstractService
+        public T GetService<T, S>()
+            where T : ProductService<S>
+            where S : SecuObject
         {
             var service = (T)Activator.CreateInstance(typeof(T));
 
-            service.Context = Context;
+            service.SetContext(Context);
 
             // TODO: Service needs to register for events from stomp
 

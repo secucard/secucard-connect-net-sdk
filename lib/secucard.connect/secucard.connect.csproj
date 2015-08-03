@@ -52,10 +52,14 @@
     <Compile Include="Auth\AuthProvider.cs" />
     <Compile Include="Auth\RestAuth.cs" />
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
-    <Compile Include="Channel\Rest\RestService.cs" />
-    <Compile Include="Channel\Rest\RestChannel.cs" />
+    <Compile Include="Net\ChannelMethodEnum.cs" />
+    <Compile Include="Net\ChannelRequest.cs" />
+    <Compile Include="Net\Rest\RestService.cs" />
+    <Compile Include="Net\Rest\RestChannel.cs" />
+    <Compile Include="Client\ServiceMetaData.cs" />
     <Compile Include="Product\Document\DocumentService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
+    <Compile Include="Product\General\MerchantsService.cs" />
     <Compile Include="Product\General\GeneralSkeltonsService.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
     <Compile Include="Product\Payment\DebitService.cs" />
@@ -71,8 +75,8 @@
     <Compile Include="Rest\RestHelp.cs" />
     <Compile Include="Rest\RestRequest.cs" />
     <Compile Include="SecucardConnect.cs" />
-    <Compile Include="SecucardConnectEvent.cs" />
-    <Compile Include="SecucardConnectException.cs" />
+    <Compile Include="Client\SecucardConnectEvent.cs" />
+    <Compile Include="Client\SecucardConnectException.cs" />
     <Compile Include="Storage\StorageItem.cs" />
     <Compile Include="Trace\ISecucardTrace.cs" />
     <Compile Include="Trace\SecucardTraceMemory.cs" />
@@ -96,24 +100,24 @@
     <Compile Include="Storage\MemoryDataStorage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Channel\Rest\UserAgentProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Auth\ClientCredentials.cs" />
     <Compile Include="Auth\UserCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Channel\AbstractChannel.cs" />
-    <Compile Include="Channel\IChannel.cs" />
-    <Content Include="Channel\JsonMapper.java" />
-    <Content Include="Channel\PathResolver.java" />
-    <Compile Include="ClientContext.cs" />
-    <Compile Include="ClientConfiguration.cs" />
-    <Compile Include="Channel\Rest\RestChannelBase.cs" />
+    <Compile Include="Net\Channel.cs" />
+    <Compile Include="Client\ClientContext.cs" />
+    <Compile Include="Client\ClientConfiguration.cs" />
+    <Content Include="Channel\Stomp\StompChannel.java" />
+    <Compile Include="Client\ProductService.cs" />
+    <Compile Include="Net\ApiOptions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Channel\Stomp\" />
+    <Folder Include="Channel\Rest\" />
+    <Folder Include="Net\Stomp\" />
+    <Folder Include="Net\Util\" />
     <Folder Include="obj\" />
+    <Folder Include="Product\Loyalty\" />
+    <Folder Include="Product\Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

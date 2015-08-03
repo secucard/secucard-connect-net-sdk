@@ -20,14 +20,14 @@
             return JsonSerializer.DeserializeJson<ObjectList<T>>(ret); ;
         }
 
-        public T GetObject<T>(RestRequest request) where T : SecuObject
+        public T GetObject<T>(RestRequest request) 
         {
             var ret = RestGet(request);
 
             return JsonSerializer.DeserializeJson<T>(ret); ;
         }
 
-        public T PostObject<T>(RestRequest request) where T : SecuObject
+        public T PostObject<T>(RestRequest request) 
         {
             request.BodyJsonString  = JsonSerializer.SerializeJson((T)request.Object);
             var ret = RestPost(request);

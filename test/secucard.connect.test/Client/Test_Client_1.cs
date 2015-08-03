@@ -14,6 +14,7 @@
     using Secucard.Connect.Test.Client;
     using Secucard.Connect.Trace;
     using Secucard.Model;
+    using Secucard.Model.General;
     using Secucard.Model.Smart;
 
     [TestClass]
@@ -27,7 +28,7 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var service = client.GetService<GeneralSkeletonsService>();
+            var service = client.GetService<GeneralSkeletonsService, Skeleton>();
 
             var queryParams = new QueryParams
             {
@@ -37,10 +38,10 @@
                 Fields = new List<string> { "id", "a", "b" }
             };
 
-            var list = service.GetSkeletons(queryParams);
+            var list = service.GetList(queryParams);
             Assert.IsTrue(list.Count > 0);
 
-            var skeleton = service.GetSkeleton(list.List.First().Id);
+            var skeleton = service.Get(list.List.First().Id);
             Assert.AreEqual(skeleton.A, "abc1");
 
             Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
