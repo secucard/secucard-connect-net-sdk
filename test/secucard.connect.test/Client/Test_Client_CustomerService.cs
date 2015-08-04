@@ -22,7 +22,7 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var customerService = client.GetService<CustomerService,Customer>();
+            var customerService = client.GetService<CustomerService>();
 
             var customer = new Customer
             {

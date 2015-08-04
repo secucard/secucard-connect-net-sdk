@@ -49,7 +49,6 @@
     <Compile Include="General\Result.cs" />
     <Compile Include="General\Device.cs" />
     <Compile Include="General\Demoevent.cs" />
-    <Compile Include="JsonSerializer.cs" />
     <Compile Include="ObjectList.cs" />
     <Compile Include="Linq.cs" />
     <Compile Include="SecuObject.cs" />

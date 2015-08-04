@@ -22,8 +22,8 @@
             client.Connect();
 
 
-            var transactionService = client.GetService<SmartTransactionsService, Transaction>();
-            var identService = client.GetService<SmartIdentsService,Ident>();
+            var transactionService = client.GetService<SmartTransactionsService>();
+            var identService = client.GetService<SmartIdentsService>();
 
             // select an ident
             var availableIdents = identService.GetList(null);

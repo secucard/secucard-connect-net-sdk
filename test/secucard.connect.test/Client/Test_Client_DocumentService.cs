@@ -17,7 +17,7 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var documentService = client.GetService<DocumentService,Document>();
+            var documentService = client.GetService<DocumentService>();
 
             var document = new Document
             {

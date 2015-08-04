@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Net.Util;
     using Secucard.Model;
     using Secucard.Model.Smart;
 

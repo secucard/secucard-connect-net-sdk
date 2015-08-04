@@ -13,15 +13,22 @@
 namespace Secucard.Connect.Client
 {
     using System;
-    using System.Web.UI.WebControls;
+    using System.Collections.Generic;
     using Secucard.Connect.Channel;
     using Secucard.Connect.Net;
     using Secucard.Model;
 
-    public abstract class ProductService<T> where T : SecuObject
+    public interface IService
+    {
+        ClientContext Context { get; set; }
+
+    }
+
+    public abstract class ProductService<T>:IService where T : SecuObject
     {
         private ServiceMetaData<T> MetaData;
-        private ClientContext Context;
+        public ClientContext Context {  get;set; }
+        private T ProductType;
 
         public ProductService()
         {
@@ -29,10 +36,10 @@ namespace Secucard.Connect.Client
         }
 
 
-        public void SetContext(ClientContext context)
-        {
-            Context = context;
-        }
+        //public void SetContext(ClientContext context)
+        //{
+        //    Context = context;
+        //}
 
         /**
    * Creates meta data associated with this product service.
@@ -227,11 +234,19 @@ namespace Secucard.Connect.Client
 
         // execute -----------------------------------------------------------------------------------------------------------
 
-        //protected <R> R execute(string id, string action, string actionArg, object object, Class<R> returnType, Options options,
-        //Callback<R> callback) {
-        //    return request(Connect.Channel.Method.EXECUTE,
-        //        new Connect.Channel.Params(getObject(), id, action, actionArg, object, returnType, options), options, callback);
-        //}
+        protected R Execute<R>(string id, string action, string actionArg, object obj, ChannelOptions options) where R : SecuObject
+        {
+            return Request<R>(new ChannelRequest
+                 {
+                     Method = ChannelMethod.DELETE,
+                     Product = MetaData.Product,
+                     Resource = MetaData.Resource,
+                     Action = action,
+                     ActionParameter = new List<string>() { actionArg },
+                     ObjectId = id,
+                     Object = obj
+                 }, options);
+        }
 
         //protected <R> R execute(string action, object object, Class<R> returnType, Options options, Callback<R> callback) {
         //    return execute(getAppId(), action, object, returnType, options, callback);

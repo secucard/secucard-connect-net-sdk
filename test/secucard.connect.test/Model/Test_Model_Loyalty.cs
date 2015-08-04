@@ -2,6 +2,7 @@
 {
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Net.Util;
     using Secucard.Model;
     using Secucard.Model.Loyalty;
 

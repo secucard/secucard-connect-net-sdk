@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Secucard.Connect.Client;
+    using Secucard.Connect.Net;
     using Secucard.Model.Smart;
 
     public class SmartTransactionsService : ProductService<Transaction>
@@ -20,11 +21,11 @@
         //    return Update(trans);
         //}
 
-        //public Transaction StartTransaction(string transactionId, string type)
-        //{
-        //    // TODO: Call on STOMP
-        //    return Execute<Transaction, object>(transactionId, "start", new List<string> { type }, null);
-        //}
+        public Transaction Start(string transactionId, string type)
+        {
+            // TODO: Call on STOMP
+            return Execute<Transaction>(transactionId, "start", type, null, new ChannelOptions { Channel = ChannelOptions.CHANNEL_REST });
+        }
 
         // TODO: Event onCashierDisplayChanged
     }

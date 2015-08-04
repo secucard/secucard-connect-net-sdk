@@ -4,6 +4,7 @@
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Channel.Rest;
+    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Test;

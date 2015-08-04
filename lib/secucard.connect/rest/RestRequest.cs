@@ -28,6 +28,7 @@
 
         public Dictionary<string, string> BodyParameter { get; set; }
         public Object Object { get; set; }
+        public Type ObjetType { get; set; }
         public List<SecuObject> Objects { get; set; }
         public string BodyJsonString { get; set; }
         public byte[] BodyBytes { get; set; }

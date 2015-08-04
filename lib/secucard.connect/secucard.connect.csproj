@@ -52,11 +52,13 @@
     <Compile Include="Auth\AuthProvider.cs" />
     <Compile Include="Auth\RestAuth.cs" />
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
+    <Compile Include="Client\ServiceFactory.cs" />
     <Compile Include="Net\ChannelMethodEnum.cs" />
     <Compile Include="Net\ChannelRequest.cs" />
     <Compile Include="Net\Rest\RestService.cs" />
     <Compile Include="Net\Rest\RestChannel.cs" />
     <Compile Include="Client\ServiceMetaData.cs" />
+    <Compile Include="Net\Util\JsonSerializer.cs" />
     <Compile Include="Product\Document\DocumentService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
     <Compile Include="Product\General\MerchantsService.cs" />
@@ -110,14 +112,14 @@
     <Content Include="Channel\Stomp\StompChannel.java" />
     <Compile Include="Client\ProductService.cs" />
     <Compile Include="Net\ApiOptions.cs" />
+    <Content Include="Net\Stomp\StompChannel.java" />
+    <Compile Include="Product\Loyalty\CustomersService.cs" />
+    <Compile Include="Product\Loyalty\MerchantCardsService.cs" />
+    <Content Include="Product\Service\IdentResultsService.java" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Channel\Rest\" />
-    <Folder Include="Net\Stomp\" />
-    <Folder Include="Net\Util\" />
     <Folder Include="obj\" />
-    <Folder Include="Product\Loyalty\" />
-    <Folder Include="Product\Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

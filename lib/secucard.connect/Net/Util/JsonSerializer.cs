@@ -1,4 +1,4 @@
-﻿namespace Secucard.Model
+﻿namespace Secucard.Connect.Net.Util
 {
     using System.Collections.Generic;
     using System.IO;
@@ -27,7 +27,7 @@
 
         public static string SerializeJson<T>(T data) 
         {
-            var serializer = new DataContractJsonSerializer(typeof(T));
+            var serializer = new DataContractJsonSerializer(data.GetType());
             using (var ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, data);
@@ -37,7 +37,7 @@
 
         public static string SerializeJsonList<T>(List<T> data) 
         {
-            var serializer = new DataContractJsonSerializer(typeof(List<T>));
+            var serializer = new DataContractJsonSerializer(data.GetType());
             using (var ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, data);

@@ -275,12 +275,13 @@
                         Type = "xxx",
                         Data = "{ whatever: \"whole object gets send as payload for event\"}"
                     },
+                    ObjetType = typeof(Demoevent),
                     Action = "Demoevent",
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
                 };
 
-                var data = RestService.Execute<ResultClass, Demoevent>(request);
+                var data = RestService.Execute<ResultClass>(request);
             }
         }
     }

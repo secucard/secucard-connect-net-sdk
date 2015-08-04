@@ -1,7 +1,9 @@
 ﻿namespace Secucard.Connect.Channel.Rest
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Rest;
     using Secucard.Model;
 
@@ -57,9 +59,9 @@
             RestDelete(request);
         }
 
-        public T Execute<T, U>(RestRequest request) where T : SecuObject
+        public T Execute<T>(RestRequest request) where T : SecuObject
         {
-            request.BodyJsonString = JsonSerializer.SerializeJson((U)request.Object);
+            request.BodyJsonString = JsonSerializer.SerializeJson(request.Object);
             var ret = RestExecute(request);
 
             return JsonSerializer.DeserializeJson<T>(ret); ;

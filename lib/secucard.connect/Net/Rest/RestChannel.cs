@@ -38,6 +38,8 @@
                     return CreateObject<T>((T)channelRequest.Object);
                 case ChannelMethod.UPDATE:
                     return UpdateObject((T)channelRequest.Object);
+                case ChannelMethod.EXECUTE:
+                    return Execute<T>(channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionParameter, channelRequest.Object);
                 case ChannelMethod.DELETE:
                     DeleteObject<T>(channelRequest.ObjectId);
                     break;
@@ -103,14 +105,14 @@
             RestService.DeleteObject<T>(request);
         }
 
-        public T Execute<T, U>(string id, string action, List<string> actionParameter, object arg) where T : SecuObject
+        public T Execute<T>(string id, string action, List<string> actionParameter, object arg) where T : SecuObject
         {
             var request = CreateRequest<T>();
             request.Id = id;
             request.Action = action;
             request.ActionParameter = actionParameter;
             request.Object = arg;
-            var newObj = RestService.Execute<T, U>(request);
+            var newObj = RestService.Execute<T>(request);
             return newObj;
         }
 

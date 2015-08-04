@@ -28,7 +28,7 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var service = client.GetService<GeneralSkeletonsService, Skeleton>();
+            var service = client.GetService<GeneralSkeletonsService>();
 
             var queryParams = new QueryParams
             {

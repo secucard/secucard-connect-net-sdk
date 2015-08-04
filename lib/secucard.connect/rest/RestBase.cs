@@ -9,6 +9,7 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using System.Web;
+    using Secucard.Connect.Net.Util;
     using Secucard.Model;
 
     public class RestBase

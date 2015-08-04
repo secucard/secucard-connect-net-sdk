@@ -1,5 +1,6 @@
 ﻿namespace secucard.connect.test.Rest
 {
+    using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Rest;
     using Secucard.Model.Document;
@@ -28,6 +29,8 @@
 
             var docPost = RestService.PostObject<Document>(request);
 
+
+            Thread.Sleep(1000);
 
             // GET by id
             var requestGet = new RestRequest

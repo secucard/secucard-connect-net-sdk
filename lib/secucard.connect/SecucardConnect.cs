@@ -1,6 +1,7 @@
 ﻿namespace Secucard.Connect
 {
     using System;
+    using System.Collections.Generic;
     using Secucard.Connect.auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Product;
@@ -21,6 +22,8 @@
         public event SecucardConnectEvent SecucardConnectEvent;
 
         private ClientContext Context;
+
+        private Dictionary<string, IService> Services; 
 
         #region ### Start / Stop ###
 
@@ -60,6 +63,8 @@
         private SecucardConnect(ClientContext context)
         {
             this.Context = context;
+            Services = ServiceFactory.CreateServices(context);
+
         }
 
 
@@ -69,7 +74,6 @@
             ClientContext context = new ClientContext(id, config, dataStorage, secucardTrace);
 
 
-
             return new SecucardConnect(context);
         }
 
@@ -77,17 +81,9 @@
 
         #region ### Factory Service ###
 
-        public T GetService<T, S>()
-            where T : ProductService<S>
-            where S : SecuObject
+        public T GetService<T>()
         {
-            var service = (T)Activator.CreateInstance(typeof(T));
-
-            service.SetContext(Context);
-
-            // TODO: Service needs to register for events from stomp
-
-            return service;
+            return (T)Services[typeof (T).Name];
         }
 
         #endregion

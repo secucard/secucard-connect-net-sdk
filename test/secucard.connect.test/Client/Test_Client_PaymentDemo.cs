@@ -21,10 +21,10 @@
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 
-            var customerService = client.GetService<CustomerService,Customer>();
-            var containerService = client.GetService<ContainerService,Container>();
-            var debitService = client.GetService<DebitService, SecupayDebit>();
-            var contractService =client.GetService<ContractService, Contract>();
+            var customerService = client.GetService<CustomerService>();
+            var containerService = client.GetService<ContainerService>();
+            var debitService = client.GetService<DebitService>();
+            var contractService =client.GetService<ContractService>();
 
             var customer = new Customer
             {
