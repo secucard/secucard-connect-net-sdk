@@ -13,14 +13,11 @@
         private RestConfig RestConfig;
         private string ChannelId;
         private RestService RestService;
-        private AuthProvider AuthProvider;
 
-        public RestChannel(RestConfig restConfig, string channelId, AuthProvider authProvider, ClientContext clientContext)
+        public RestChannel(RestConfig restConfig, ClientContext clientContext)
             : base(clientContext)
         {
             RestConfig = restConfig;
-            ChannelId = channelId;// TODO: Needed?
-            AuthProvider = authProvider;
 
             RestService = new RestService(RestConfig);
         }
@@ -39,7 +36,7 @@
                 case ChannelMethod.UPDATE:
                     return UpdateObject((T)channelRequest.Object);
                 case ChannelMethod.EXECUTE:
-                    return Execute<T>(channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionParameter, channelRequest.Object);
+                    return Execute<T>(channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs, channelRequest.Object);
                 case ChannelMethod.DELETE:
                     DeleteObject<T>(channelRequest.ObjectId);
                     break;
@@ -52,7 +49,7 @@
             switch (channelRequest.Method)
             {
                 case ChannelMethod.GET:
-                    return FindObjects<T>(channelRequest.QueyParams);
+                    return FindObjects<T>(channelRequest.QueryParams);
             }
             return null;
         }
@@ -123,7 +120,7 @@
             // Path resolver for REST
             var resourceString = string.Join("/", obj.ServiceResourceName.Split('.').ToList().Select(s => s.FirstCharToUpper()));
 
-            var token = AuthProvider.GetToken(true);
+            var token = Context.TokenManager.GetToken(true);
             var request = new RestRequest
             {
                 Token = token.AccessToken,

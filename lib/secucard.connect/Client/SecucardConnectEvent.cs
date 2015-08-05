@@ -2,6 +2,7 @@
 {
     using Secucard.Connect.Auth;
     using Secucard.Model.Auth;
+    using DeviceAuthCode = Secucard.Connect.auth.Model.DeviceAuthCode;
 
     public delegate void SecucardConnectEvent(object sender, SecucardConnectEventArgs args);
 

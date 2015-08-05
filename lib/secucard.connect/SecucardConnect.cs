@@ -2,12 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.InteropServices;
     using Secucard.Connect.auth;
+    using Secucard.Connect.Auth;
+    using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Client;
+    using Secucard.Connect.Net;
     using Secucard.Connect.Product;
+    using Secucard.Connect.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
     using Secucard.Model;
+    using Secucard.Model.Document;
     using Secucard.Stomp;
 
     /// <summary>
@@ -15,23 +21,35 @@
     /// </summary>
     public class SecucardConnect
     {
-        public string Version { get { return "0.1.development"; } }
+        public const string VERSION = "0.1.development"; 
 
-        public bool IsConnected { get; set; }
+        internal ClientConfiguration Configuration;
+        internal bool IsConnected { get; set; }
 
         public event SecucardConnectEvent SecucardConnectEvent;
 
-        private ClientContext Context;
+        internal ClientContext Context;
 
-        private Dictionary<string, IService> Services; 
+        internal Dictionary<string, IService> Services;
+
+        // provide service instances for easy access ------------------------------------------------------------------------
+
+        //public Document document;
+        //public General general;
+        //public Payment payment;
+        //public Loyalty loyalty;
+        //public Services services;
+        //public Smart smart;
+
+
 
         #region ### Start / Stop ###
 
         public void Connect()
         {
             // Start authentification
-            Context.AuthProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            Context.AuthProvider.GetToken(false);
+            Context.TokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            Context.TokenManager.GetToken(false);
 
             //TODO: Start Stomp
 
@@ -60,36 +78,69 @@
 
         #region ### Factory Client ###
 
-        private SecucardConnect(ClientContext context)
+        private SecucardConnect(){}
+
+        public static SecucardConnect Create(ClientConfiguration config)
         {
-            this.Context = context;
-            Services = ServiceFactory.CreateServices(context);
+            if (config == null) 
+                config = ClientConfiguration.GetDefault();
 
-        }
+            if(config.DataStorage==null)
+                throw new Exception("Missing cache implementation found in config.");
 
+            var client = new SecucardConnect {Configuration = config};
 
-        public static SecucardConnect Create(string id, ClientConfiguration config, DataStorage dataStorage, ISecucardTrace secucardTrace)
-        {
-            // Factory
-            ClientContext context = new ClientContext(id, config, dataStorage, secucardTrace);
+            var context = new ClientContext
+            {
+                AppId = config.AppId,
+                SecucardTrace = config.SecucardTrace
+            };
+            // context.DataStorage = dataStorage;
 
+            client.Context = context;
 
-            return new SecucardConnect(context);
+            AuthConfig authConfig = config.AuthConfig;
+            StompConfig stompConfig = config.StompConfig;
+            RestConfig restConfig = config.RestConfig;
+
+            //    LOG.info("Creating client with configuration: ", config, "; ", authCfg, "; ", stompCfg, "; ", restConfig);
+            if (config.ClientAuthDetails == null)
+            {
+                //TODO:
+            }
+            context.DefaultChannel = config.DefaultChannel;
+
+            var restChannel = new RestChannel(restConfig, context);
+            context.Channels.Add(ChannelOptions.CHANNEL_REST, restChannel);
+
+            if (config.StompEnabled)
+            {
+                var sc = new StompChannel(stompConfig, context);
+                context.Channels.Add(ChannelOptions.CHANNEL_STOMP, sc);
+            }
+
+            // TODO: Setup Event Listener for channels
+            // TODO: Setup Event Dispater for incoming events from channels
+
+            var restAuth = new RestAuth(authConfig)
+            {
+                UserAgentInfo = "secucardconnect-net-" + VERSION + "/net:" + Environment.OSVersion + " " + Environment.Version
+            };
+            context.TokenManager = new TokenManager(authConfig, config.ClientAuthDetails, restAuth) {Context = context};
+
+            client.Services =  ServiceFactory.CreateServices(context);
+
+            // TODO: WireServiceInstance
+
+            return client;
         }
 
         #endregion
 
-        #region ### Factory Service ###
 
         public T GetService<T>()
         {
             return (T)Services[typeof (T).Name];
         }
-
-        #endregion
-
-
     }
-
-
 }

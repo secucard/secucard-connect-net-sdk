@@ -1,7 +1,9 @@
 ﻿namespace secucard.connect.test.Rest
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect;
     using Secucard.Connect.auth;
+    using Secucard.Connect.auth.Model;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Net.Util;
@@ -9,15 +11,13 @@
     using Secucard.Connect.Storage;
     using Secucard.Connect.Test;
     using Secucard.Connect.Trace;
-    using Secucard.Model;
-    using Secucard.Model.Auth;
     using Secucard.Model.Smart;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
     public class Test_Rest_Base_AuthUser : Test_Base
     {
-        protected readonly AuthToken Token;
+        protected readonly Token Token;
         protected readonly RestService RestService;
 
         public Test_Rest_Base_AuthUser()
@@ -36,12 +36,14 @@
 
             Tracer = new SecucardTraceFile(logPath);
             Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");
+            IClientAuthDetails clientAuthDetails = new ClientAuthDetailsUserTest();
 
+            var authProvider = new TokenManager(ConfigAuth, clientAuthDetails, new RestAuth(ConfigAuth));
+            authProvider.Context = new ClientContext() { SecucardTrace = Tracer };
 
-            var authProvider = new AuthProvider("testprovider", ConfigAuth, Tracer, Storage);
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             Token = authProvider.GetToken(true);
-            Storage.SaveToFile("data\\secucard.payment.sec"); // Save new token 
+            //Storage.SaveToFile("data\\secucard.payment.sec"); // Save new token 
 
             RestService = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/" });
 

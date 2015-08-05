@@ -66,33 +66,35 @@ namespace Secucard.Connect.Client
 
         public T Get(string id)
         {
-            return Get(id, null);
+            return Get(id, GetDefaultOptions());
         }
 
-        protected T Get(string id, ChannelOptions options)
+        private T Get(string id, ChannelOptions options)
         {
             return Request<T>(new ChannelRequest
             {
                 Method = ChannelMethod.GET,
                 Product = MetaData.Product,
                 Resource = MetaData.Resource,
-                ObjectId = id
+                ObjectId = id,
+                ChannelOptions = options
             }, options);
         }
 
         public ObjectList<T> GetList(QueryParams queryParams)
         {
-            return GetList(queryParams, null);
+            return GetList(queryParams, GetDefaultOptions());
         }
 
-        protected ObjectList<T> GetList(QueryParams queryParams, ChannelOptions options)
+        private ObjectList<T> GetList(QueryParams queryParams, ChannelOptions options)
         {
             return RequestList<T>(new ChannelRequest
             {
                 Method = ChannelMethod.GET,
                 Product = MetaData.Product,
                 Resource = MetaData.Resource,
-                QueyParams = queryParams
+                QueryParams = queryParams,
+                ChannelOptions = options
             }, options);
         }
 
@@ -242,7 +244,7 @@ namespace Secucard.Connect.Client
                      Product = MetaData.Product,
                      Resource = MetaData.Resource,
                      Action = action,
-                     ActionParameter = new List<string>() { actionArg },
+                     ActionArgs = new List<string>() { actionArg },
                      ObjectId = id,
                      Object = obj
                  }, options);
@@ -287,10 +289,10 @@ namespace Secucard.Connect.Client
             {
                 options = GetDefaultOptions();
             }
-            //if (p.Options == null)
-            //{
-            //    p.Options = options;
-            //}
+            if (channelRequest.ChannelOptions == null)
+            {
+                channelRequest.ChannelOptions = options;
+            }
             //final Callback.Notify pre = options.resultProcessing;
             var channel = GetChannelByOptions(options);
             try

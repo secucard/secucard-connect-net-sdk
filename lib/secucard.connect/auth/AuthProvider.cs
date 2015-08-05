@@ -1,58 +1,54 @@
 ﻿namespace Secucard.Connect.Auth
 {
     using System;
-    using System.Globalization;
     using System.Threading;
     using Secucard.Connect.auth;
-    using Secucard.Connect.Storage;
-    using Secucard.Connect.Trace;
-    using Secucard.Model.Auth;
+    using Secucard.Connect.auth.Model;
+    using AuthToken = Secucard.Connect.auth.Model.Token;
 
     /// <summary>
     ///     Implementation of the AuthProvider interface which gets an OAuth token via REST channel.
     ///     The retrieved token is also cached and refreshed.
     /// </summary>
-    public class AuthProvider : IAuthProvider
+    public class TokenManager 
     {
         public delegate void AuthProviderStatusUpdateDelegate(object sender, AuthProviderStatusUpdateEventArgs args);
 
         private readonly AuthConfig Config;
         private readonly string Id;
         private readonly RestAuth Rest;
-        private readonly DataStorage Storage;
-        private readonly ISecucardTrace Trace;
         private bool CancelAuthFlag { get; set; }
+        private IClientAuthDetails ClientAuthDetails { get; set; }
+        public ClientContext Context { get; set; }
         //private readonly UserAgentProvider userAgentProvider = new UserAgentProvider();
 
-        public AuthProvider(string id, AuthConfig config, ISecucardTrace trace, DataStorage storage)
+        public TokenManager(AuthConfig config, IClientAuthDetails clientAuthDetails, RestAuth restAuth)
         {
-            Id = id;
             Config = config;
-            Trace = trace;
-            Storage = storage;
-            Rest = new RestAuth(config);
+            ClientAuthDetails = clientAuthDetails;
+            Rest = restAuth;
         }
 
-        public void CancelAuth()
-        {
-            CancelAuthFlag = true;
-        }
+        //public void CancelAuth()
+        //{
+        //    CancelAuthFlag = true;
+        //}
 
-        public void ClearAuthCache()
-        {
-            Storage.Clear(GetTokenStoreId(), null);
-        }
+        //public void ClearAuthCache()
+        //{
+        //    Storage.Clear(GetTokenStoreId(), null);
+        //}
 
-        //TODO: synchronized
-        public AuthToken GetToken()
-        {
-            return GetToken(true);
-        }
+        ////TODO: synchronized
+        //public AuthToken GetToken()
+        //{
+        //    return GetToken(true);
+        //}
 
         //TODO: synchronized
         public AuthToken GetToken(bool extendToken)
         {
-            var token = (AuthToken) Storage.Get(GetTokenStoreId());
+            var token = ClientAuthDetails.GetCurrent();
 
             if (token != null && !token.IsExpired())
             {
@@ -82,7 +78,7 @@
                 catch (Exception ex)
                 {
                     // refreshing failed, clear the token
-                    Storage.Clear(GetTokenStoreId(), null);
+                    //Storage.Clear(GetTokenStoreId(), null);
                     token = null;
                     TraceInfo("Token refreshed failed");
                 }
@@ -181,7 +177,7 @@
 
         private void StoreToken(AuthToken token)
         {
-            Storage.Save(GetTokenStoreId(), token);
+            ClientAuthDetails.OnTokenChanged(token);
         }
 
         private string GetTokenStoreId()
@@ -191,7 +187,7 @@
 
         private void TraceInfo(string fmt, params object[] param )
         {
-            if(Trace!=null) Trace.Info(fmt,param);
+            if (Context.SecucardTrace != null) Context.SecucardTrace.Info(fmt, param);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿namespace Secucard.Connect.Test.Client
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using secucard.connect.test;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Net.Util;
@@ -24,6 +25,10 @@
 
         protected Test_Client_Base()
         {
+            Tracer = new SecucardTraceMemory();
+            Storage = MemoryDataStorage.LoadFromFile(storagePath);
+
+
             ClientConfigurationDevice = new ClientConfiguration
                {
                    AndroidMode = false,
@@ -58,8 +63,10 @@
                                        {
                                            Host = "core-dev10.secupay-ag.de",
                                            BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/"
-                                       }
-
+                                       },
+                   ClientAuthDetails = new ClientAuthDetailsDeviceTest(),
+                   SecucardTrace = Tracer,
+                   DataStorage = Storage
                };
 
             ClientConfigurationUser = new ClientConfiguration
@@ -96,14 +103,11 @@
                 {
                     Host = "core-dev10.secupay-ag.de",
                     BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/"
-                }
-
+                },
+                ClientAuthDetails = new ClientAuthDetailsUserTest(),
+                SecucardTrace = Tracer,
+                DataStorage = Storage
             };
-
-
-
-            Tracer = new SecucardTraceMemory();
-            Storage = MemoryDataStorage.LoadFromFile(storagePath);
         }
 
         /// <summary>

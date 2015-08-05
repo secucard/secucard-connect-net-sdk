@@ -3,8 +3,11 @@ namespace Secucard.Connect
     using System;
     using System.IO;
     using System.Xml.Serialization;
+    using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
+    using Secucard.Connect.Storage;
+    using Secucard.Connect.Trace;
     using Secucard.Stomp;
 
     public class ClientConfiguration
@@ -15,6 +18,7 @@ namespace Secucard.Connect
         public string CacheDir { get; set; }
         public bool AndroidMode { get; set; }
         public string DeviceId { get; set; }
+        public string AppId { get; set; }
 
         [XmlIgnore]
         public RestConfig RestConfig { get; set; }
@@ -23,6 +27,9 @@ namespace Secucard.Connect
         [XmlIgnore]
         public AuthConfig AuthConfig { get; set; }
 
+        public ISecucardTrace SecucardTrace;
+        public DataStorage DataStorage;
+        public IClientAuthDetails ClientAuthDetails;
 
         public void Save(string filename)
         {
@@ -42,6 +49,11 @@ namespace Secucard.Connect
                 streamReader.Close();
             }
             return clientConfiguration;
+        }
+
+        public static ClientConfiguration GetDefault()
+        {
+            throw new NotImplementedException();
         }
     }
 }

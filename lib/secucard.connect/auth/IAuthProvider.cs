@@ -1,5 +1,6 @@
 ﻿namespace Secucard.Connect.Auth
 {
+    using Secucard.Connect.auth.Model;
     using Secucard.Model.Auth;
 
     /// <summary>
@@ -13,8 +14,8 @@
          */
 
 
-        AuthToken GetToken();
-        AuthToken GetToken(bool extendToken);
+        Token GetToken();
+        Token GetToken(bool extendToken);
         /**
          * Cancel a pending authorization request. Only useful for auth processes which involves token polling step.
          * Provider throws {@link com.Secucard.Connect.Auth.AuthCanceledException} if successfully canceled.

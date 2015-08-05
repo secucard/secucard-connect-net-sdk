@@ -20,12 +20,12 @@ namespace Secucard.Connect.Net
     {
         public static string CHANNEL_REST = "rest";
         public static string CHANNEL_STOMP = "stomp";
-        public bool anonymous = false;
-        public bool expand = false;
-        public bool eventListening = false;
+        public bool Anonymous = false;
+        public bool Expand = false;
+        public bool EventListening = false;
         public string Channel;
-        public string clientId = null;
-        public int? timeOutSec = null;
+        public string ClientId = null;
+        public int? TimeOutSec = null;
 
         /**
      * Set an callback to be executed after a resource was successfully retrieved.
@@ -34,7 +34,7 @@ namespace Secucard.Connect.Net
 
         public static ChannelOptions GetDefault()
         {
-            return new ChannelOptions();
+            return new ChannelOptions { Channel = CHANNEL_REST, TimeOutSec =100 }; // TODO:Test for Reset
         }
 
         public ChannelOptions()

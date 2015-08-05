@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.JScript" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -47,9 +48,11 @@
     <Compile Include="Auth\AuthGrantTypeConst.cs" />
     <Compile Include="Auth\AuthConst.cs" />
     <Compile Include="Auth\AuthProviderStatusEnum.cs" />
-    <Compile Include="Auth\AutTypeEnum.cs" />
-    <Compile Include="Auth\IAuthProvider.cs" />
+    <Compile Include="Auth\AuthTypeEnum.cs" />
     <Compile Include="Auth\AuthProvider.cs" />
+    <Compile Include="Auth\Model\DeviceAuthCode.cs" />
+    <Compile Include="Auth\Model\AuthCodeError.cs" />
+    <Compile Include="Auth\Model\AuthToken.cs" />
     <Compile Include="Auth\RestAuth.cs" />
     <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
     <Compile Include="Client\ServiceFactory.cs" />
@@ -58,6 +61,8 @@
     <Compile Include="Net\Rest\RestService.cs" />
     <Compile Include="Net\Rest\RestChannel.cs" />
     <Compile Include="Client\ServiceMetaData.cs" />
+    <Compile Include="Net\Stomp\StompDestination.cs" />
+    <Compile Include="Net\Stomp\StompMessage.cs" />
     <Compile Include="Net\Util\JsonSerializer.cs" />
     <Compile Include="Product\Document\DocumentService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
@@ -102,23 +107,27 @@
     <Compile Include="Storage\MemoryDataStorage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth\ClientCredentials.cs" />
+    <Compile Include="Auth\Model\ClientCredentials.cs" />
     <Compile Include="Auth\UserCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Net\Channel.cs" />
     <Compile Include="Client\ClientContext.cs" />
     <Compile Include="Client\ClientConfiguration.cs" />
-    <Content Include="Channel\Stomp\StompChannel.java" />
     <Compile Include="Client\ProductService.cs" />
-    <Compile Include="Net\ApiOptions.cs" />
-    <Content Include="Net\Stomp\StompChannel.java" />
+    <Compile Include="Net\ChannelOptions.cs" />
+    <Compile Include="Net\Stomp\StompChannel.cs" />
     <Compile Include="Product\Loyalty\CustomersService.cs" />
     <Compile Include="Product\Loyalty\MerchantCardsService.cs" />
+    <Compile Include="Auth\ClientAuthDetails.cs" />
+    <Compile Include="Auth\Model\OAuthCredentials.cs" />
+    <Compile Include="Auth\Model\DeviceCredentials.cs" />
+    <Compile Include="Auth\Model\AnonymousCredentials.cs" />
+    <Compile Include="Auth\Model\AppUserCredentials.cs" />
+    <Compile Include="Auth\AbstractClientAuthDetails.cs" />
     <Content Include="Product\Service\IdentResultsService.java" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Channel\Rest\" />
     <Folder Include="obj\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

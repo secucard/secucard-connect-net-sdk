@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth\AuthCodeDevice.cs" />
-    <Compile Include="Auth\AuthCodeError.cs" />
     <Compile Include="General\App.cs" />
     <Compile Include="General\Components\Email.cs" />
     <Compile Include="General\DeliveryAddress.cs" />
@@ -57,7 +55,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Smart\SmartPin.cs" />
-    <Compile Include="Auth\AuthToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +132,7 @@
     <Compile Include="Transport\Status.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Auth\" />
     <Folder Include="Payment\Components\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

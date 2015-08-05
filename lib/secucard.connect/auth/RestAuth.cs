@@ -3,10 +3,13 @@
     using Secucard.Connect.Auth;
     using Secucard.Connect.Rest;
     using Secucard.Model.Auth;
+    using AuthToken = Secucard.Connect.auth.Model.Token;
+    using DeviceAuthCode = Secucard.Connect.auth.Model.DeviceAuthCode;
 
     public class RestAuth : RestBase
     {
         private readonly AuthConfig AuthConfig;
+        public string UserAgentInfo { get; set; }
 
         public RestAuth(AuthConfig authConfig)
             : base(new RestConfig { BaseUrl = authConfig.OAuthUrl })

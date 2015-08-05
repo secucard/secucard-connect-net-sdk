@@ -7,6 +7,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect.test.Rest;
     using Secucard.Connect.auth;
+    using Secucard.Connect.auth.Model;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Net.Util;
@@ -88,7 +89,7 @@
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.ClientCredentials.ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
-            var authDeviceTokenOut = rest.RestPost<AuthToken>(reqObtainAccessToken);
+            var authDeviceTokenOut = rest.RestPost<Token>(reqObtainAccessToken);
 
             Assert.AreEqual(authDeviceTokenOut.TokenType, TokenTypeBearer);
             Assert.AreEqual(authDeviceTokenOut.ExpiresIn, 1200);
@@ -106,7 +107,7 @@
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret, ConfigAuth.ClientCredentials.ClientSecret);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.RefreshToken, authDeviceTokenOut.RefreshToken);
 
-            var authRefreshTokenOut = rest.RestPost<AuthToken>(reqRefreshExpiredToken);
+            var authRefreshTokenOut = rest.RestPost<Token>(reqRefreshExpiredToken);
 
             Assert.AreEqual(authRefreshTokenOut.AccessToken.Length, 26);
             Assert.AreEqual(authRefreshTokenOut.ExpiresIn, 1200);

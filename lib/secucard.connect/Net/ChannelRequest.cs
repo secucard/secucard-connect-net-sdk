@@ -12,7 +12,7 @@
         {
             Header = new NameValueCollection();
             BodyParameter = new Dictionary<string, string>();
-            ActionParameter = new List<string>();
+            ActionArgs = new List<string>();
         }
 
         public ChannelMethod Method { get; set; }
@@ -20,17 +20,20 @@
         public string Product { get; set; }
         public string Resource { get; set; }
         public string Action { get; set; }
-        public List<String> ActionParameter { get; set; }
+        public List<String> ActionArgs { get; set; }
         public NameValueCollection Header { get; set; }
 
         public string ObjectId { get; set; }
-        public QueryParams QueyParams { get; set; }
+        public QueryParams QueryParams { get; set; }
 
         public Dictionary<string, string> BodyParameter { get; set; }
         public Object Object { get; set; }
         public List<SecuObject> Objects { get; set; }
         public string BodyJsonString { get; set; }
         public byte[] BodyBytes { get; set; }
+        public string AppId { get; set; }
+
+        public ChannelOptions ChannelOptions { get; set; }
 
         #region Handle Parameters
 
@@ -43,9 +46,9 @@
             // Include action in path
             if (!string.IsNullOrWhiteSpace(Action)) s += "/" + Action;
             // Include actionParmater in path
-            if (ActionParameter!=null && ActionParameter.Any()) s += "/" +  string.Join("/", ActionParameter);
+            if (ActionArgs!=null && ActionArgs.Any()) s += "/" +  string.Join("/", ActionArgs);
             // add query parameters at end
-            return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueyParams)));
+            return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueryParams)));
         }
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)

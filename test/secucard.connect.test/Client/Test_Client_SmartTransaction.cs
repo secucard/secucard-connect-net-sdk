@@ -17,7 +17,7 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_SmartTransaction_1()
         {
-            var client = SecucardConnect.Create("id", ClientConfigurationDevice, Storage, Tracer);
+            var client = SecucardConnect.Create(ClientConfigurationDevice);
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 

@@ -10,7 +10,7 @@
 
     public class StompClient : IDisposable
     {
-        private readonly StompConfig Config;
+        public StompConfig Config;
         private Timer ClientTimerHeartbeat;
         private StompCore Core;
         public readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden

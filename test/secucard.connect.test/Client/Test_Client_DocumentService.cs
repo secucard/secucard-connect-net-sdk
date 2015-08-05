@@ -13,7 +13,8 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_DocumentService_1()
         {
-            var client = SecucardConnect.Create("id", ClientConfigurationUser, Storage, Tracer);
+
+            var client = SecucardConnect.Create(ClientConfigurationUser);
             client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
             client.Connect();
 

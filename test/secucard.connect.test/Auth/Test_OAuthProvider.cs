@@ -12,7 +12,6 @@
     using Secucard.Connect.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
-    using Secucard.Model;
     using Secucard.Model.Smart;
 
     [TestClass]
@@ -29,20 +28,29 @@
             File.Delete(storagePath);
             File.Delete(logPath);
 
+            RestAuth restAuth = new RestAuth(ConfigAuth);
+
             var tracer = new SecucardTraceFile(logPath);
             var storage = MemoryDataStorage.LoadFromFile("data\\storage.sec");
             storage.Clear();
             // first run with empty storage
-            var authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
-            authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            var token = authProvider.GetToken(true);
+            var tokenManager = new TokenManager(ConfigAuth, clientAuthDetails, restAuth)
+            {
+                Context = new ClientContext {SecucardTrace = Tracer}
+            };
+
+            tokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            var token = tokenManager.GetToken(true);
             Assert.IsNotNull(token.AccessToken);
             storage.SaveToFile(fullStoragePath);
 
             // second run with token in storage still valid
-            authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
-            authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            token = authProvider.GetToken(true);
+            tokenManager = new TokenManager(ConfigAuth, clientAuthDetails, restAuth)
+            {
+                Context = new ClientContext {SecucardTrace = Tracer}
+            };
+            tokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            token = tokenManager.GetToken(true);
             Assert.IsNotNull(token.AccessToken);
             storage.SaveToFile(fullStoragePath);
 
@@ -50,9 +58,12 @@
             // second run with token in storage still valid
             token.ExpireTime = DateTime.Now.AddMinutes(-1);
             storage.Save("token-" + "testprovider", token);
-            authProvider = new AuthProvider("testprovider", ConfigAuth, tracer, storage);
-            authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            token = authProvider.GetToken(true);
+            tokenManager = new TokenManager(ConfigAuth, clientAuthDetails, restAuth)
+            {
+                Context = new ClientContext {SecucardTrace = Tracer}
+            };
+            tokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            token = tokenManager.GetToken(true);
             Assert.IsNotNull(token.AccessToken);
             storage.SaveToFile(fullStoragePath);
 
