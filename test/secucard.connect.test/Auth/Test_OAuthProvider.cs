@@ -34,7 +34,7 @@
             var storage = MemoryDataStorage.LoadFromFile("data\\storage.sec");
             storage.Clear();
             // first run with empty storage
-            var tokenManager = new TokenManager(ConfigAuth, clientAuthDetails, restAuth)
+            var tokenManager = new TokenManager(ConfigAuth, ClientAuthDetails, restAuth)
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
@@ -45,7 +45,7 @@
             storage.SaveToFile(fullStoragePath);
 
             // second run with token in storage still valid
-            tokenManager = new TokenManager(ConfigAuth, clientAuthDetails, restAuth)
+            tokenManager = new TokenManager(ConfigAuth, ClientAuthDetails, restAuth)
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
@@ -58,7 +58,7 @@
             // second run with token in storage still valid
             token.ExpireTime = DateTime.Now.AddMinutes(-1);
             storage.Save("token-" + "testprovider", token);
-            tokenManager = new TokenManager(ConfigAuth, clientAuthDetails, restAuth)
+            tokenManager = new TokenManager(ConfigAuth, ClientAuthDetails, restAuth)
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };

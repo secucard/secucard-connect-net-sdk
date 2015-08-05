@@ -66,7 +66,7 @@
                 // token is expired and can be refreshed without further auth.
                 try
                 {
-                    var newToken = Rest.RefreshToken(token.RefreshToken);
+                    var newToken = Rest.RefreshToken(token.RefreshToken, ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
 
                     token.AccessToken = newToken.AccessToken;
                     token.ExpiresIn = newToken.ExpiresIn;
@@ -93,7 +93,7 @@
             // no token yet, a new one must be created
             if (Config.AuthType == AuthTypeEnum.Device)
             {
-                var codes = Rest.GetDeviceAuthCode();
+                var codes = Rest.GetDeviceAuthCode(ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
                 if (AuthProviderStatusUpdate != null)
                     AuthProviderStatusUpdate.Invoke(this,
                         new AuthProviderStatusUpdateEventArgs
@@ -106,7 +106,7 @@
             }
             else // USER
             {
-                token = Rest.GetToken();
+                token = Rest.GetToken(ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
             }
 
             TraceInfo("New token retrieved: {0}", token.ToString());
@@ -149,7 +149,7 @@
 
                 Thread.Sleep(pollIntervalInMs);
 
-                var newToken = Rest.ObtainAuthToken(codes.DeviceCode);
+                var newToken = Rest.ObtainAuthToken(codes.DeviceCode, ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
 
                 if (newToken != null)
                 {

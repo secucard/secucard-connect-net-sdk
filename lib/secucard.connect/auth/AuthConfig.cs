@@ -8,7 +8,7 @@
         public string Uuid { get; set; }
         public string DeviceId { get; set; }
         public int WaitTimeoutSec { get; set; }
-        public ClientCredentials ClientCredentials { get; set; }
-        public UserCredentials UserCredentials { get; set; }
+        //public ClientCredentials ClientCredentials { get; set; }
+        //public UserCredentials UserCredentials { get; set; }
     }
 }

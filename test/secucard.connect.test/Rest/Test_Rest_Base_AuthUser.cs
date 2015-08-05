@@ -28,18 +28,17 @@
                 AuthType = AuthTypeEnum.User,
                 OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
                 WaitTimeoutSec = 240,
-                Uuid = "/vendor/unknown/cashier/dotnettest1",
-                ClientCredentials =
-                    new ClientCredentials("f0478f73afe218e8b5f751a07c978ecf",
-                        "30644327cfbde722ad2ad12bb9c0a2f86a2bee0a2d8de8d862210112af3d01bb")
+                Uuid = "/vendor/unknown/cashier/dotnettest1"
             };
 
             Tracer = new SecucardTraceFile(logPath);
             Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");
             IClientAuthDetails clientAuthDetails = new ClientAuthDetailsUserTest();
 
-            var authProvider = new TokenManager(ConfigAuth, clientAuthDetails, new RestAuth(ConfigAuth));
-            authProvider.Context = new ClientContext() { SecucardTrace = Tracer };
+            var authProvider = new TokenManager(ConfigAuth, clientAuthDetails, new RestAuth(ConfigAuth))
+            {
+                Context = new ClientContext() {SecucardTrace = Tracer}
+            };
 
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
             Token = authProvider.GetToken(true);

@@ -43,10 +43,7 @@
                                            AuthType = AuthTypeEnum.Device,
                                            OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
                                            WaitTimeoutSec = 240,
-                                           Uuid = "/vendor/unknown/cashier/dotnettest1",
-                                           ClientCredentials =
-                                               new ClientCredentials("611c00ec6b2be6c77c2338774f50040b",
-                                                   "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb")
+                                           Uuid = "/vendor/unknown/cashier/dotnettest1"
                                        },
                    StompConfig = new StompConfig
                                        {
@@ -83,10 +80,7 @@
                     AuthType = AuthTypeEnum.User,
                     OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
                     WaitTimeoutSec = 240,
-                    Uuid = "/vendor/unknown/cashier/dotnettest1",
-                    ClientCredentials =
-                        new ClientCredentials("f0478f73afe218e8b5f751a07c978ecf",
-                            "30644327cfbde722ad2ad12bb9c0a2f86a2bee0a2d8de8d862210112af3d01bb")
+                    Uuid = "/vendor/unknown/cashier/dotnettest1"
                 },
                 StompConfig = new StompConfig
                 {

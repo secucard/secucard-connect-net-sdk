@@ -2,18 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
     using Secucard.Connect.auth;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
-    using Secucard.Connect.Product;
     using Secucard.Connect.Rest;
-    using Secucard.Connect.Storage;
-    using Secucard.Connect.Trace;
-    using Secucard.Model;
-    using Secucard.Model.Document;
     using Secucard.Stomp;
 
     /// <summary>
