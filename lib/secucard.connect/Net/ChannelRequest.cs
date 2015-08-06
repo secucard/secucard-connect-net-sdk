@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
-    using Secucard.Model;
+    using Secucard.Connect.Product.Common.Model;
 
     public class ChannelRequest
     {

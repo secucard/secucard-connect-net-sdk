@@ -1,8 +1,6 @@
-﻿namespace Secucard.Connect.Auth
+﻿namespace Secucard.Connect.auth
 {
-    using System;
-
-    public class AuthCanceledException : Exception
+    public class AuthCanceledException : System.Exception
     {
         public AuthCanceledException(string message) : base(message)
         {

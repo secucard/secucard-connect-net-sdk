@@ -1,7 +1,6 @@
-namespace Secucard.Connect.Auth
+namespace Secucard.Connect.auth.Model
 {
     using System.Collections.Generic;
-    using Secucard.Connect.auth.Model;
 
     public class ClientCredentials : OAuthCredentials
     {

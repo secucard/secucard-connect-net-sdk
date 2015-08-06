@@ -5,8 +5,8 @@
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Net.Util;
-    using Secucard.Model;
-    using Secucard.Model.General;
+    using Secucard.Connect.Product.Common.Model;
+    using Secucard.Connect.Product.General.Model;
 
     [TestClass]
     [DeploymentItem("Data\\Model", "Data\\Model")]

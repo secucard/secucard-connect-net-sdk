@@ -1,9 +1,8 @@
-﻿namespace Secucard.Connect.Product.General
+﻿namespace Secucard.Connect.Product.Smart
 {
-    using System.Collections.Generic;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
-    using Secucard.Model.Smart;
+    using Secucard.Connect.Product.Smart.Model;
 
     public class SmartTransactionsService : ProductService<Transaction>
     {

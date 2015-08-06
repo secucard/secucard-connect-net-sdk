@@ -1,7 +1,7 @@
-﻿namespace Secucard.Connect.Product.General
+﻿namespace Secucard.Connect.Product.Document
 {
     using Secucard.Connect.Client;
-    using Secucard.Model.Document;
+    using Secucard.Connect.Product.Document.Model;
 
     public class DocumentService : ProductService<Document>
     {

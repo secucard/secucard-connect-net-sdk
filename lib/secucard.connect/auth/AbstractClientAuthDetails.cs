@@ -20,7 +20,6 @@ using Secucard.Connect.auth.Model;
 
 namespace Secucard.Connect.auth
 {
-    using Secucard.Connect.Auth;
     using Secucard.Connect.Storage;
 
     public abstract class AbstractClientAuthDetails  {

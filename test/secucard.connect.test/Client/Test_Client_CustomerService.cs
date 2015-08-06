@@ -5,11 +5,12 @@
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect;
+    using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General;
+    using Secucard.Connect.Product.General.Model;
+    using Secucard.Connect.Product.Payment;
+    using Secucard.Connect.Product.Payment.Model;
     using Secucard.Connect.Test.Client;
-    using Secucard.Model;
-    using Secucard.Model.General;
-    using Secucard.Model.Payment;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

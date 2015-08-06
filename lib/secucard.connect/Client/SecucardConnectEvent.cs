@@ -1,7 +1,6 @@
-﻿namespace Secucard.Connect
+﻿namespace Secucard.Connect.Client
 {
-    using Secucard.Connect.Auth;
-    using Secucard.Model.Auth;
+    using Secucard.Connect.auth;
     using DeviceAuthCode = Secucard.Connect.auth.Model.DeviceAuthCode;
 
     public delegate void SecucardConnectEvent(object sender, SecucardConnectEventArgs args);

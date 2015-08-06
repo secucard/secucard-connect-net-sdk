@@ -14,9 +14,8 @@ namespace Secucard.Connect.Client
 {
     using System;
     using System.Collections.Generic;
-    using Secucard.Connect.Channel;
     using Secucard.Connect.Net;
-    using Secucard.Model;
+    using Secucard.Connect.Product.Common.Model;
 
     public interface IService
     {

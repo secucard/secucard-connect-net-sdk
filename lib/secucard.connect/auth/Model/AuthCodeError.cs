@@ -1,4 +1,4 @@
-﻿namespace Secucard.Model.Auth
+﻿namespace Secucard.Connect.auth.Model
 {
     using System.Runtime.Serialization;
 

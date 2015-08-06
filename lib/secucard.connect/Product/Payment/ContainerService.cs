@@ -1,7 +1,7 @@
-﻿namespace Secucard.Connect.Product.General
+﻿namespace Secucard.Connect.Product.Payment
 {
     using Secucard.Connect.Client;
-    using Secucard.Model.Payment;
+    using Secucard.Connect.Product.Payment.Model;
 
     public class ContainerService : ProductService<Container>
     {

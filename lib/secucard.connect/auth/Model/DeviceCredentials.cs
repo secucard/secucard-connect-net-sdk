@@ -13,7 +13,6 @@
 namespace Secucard.Connect.auth.Model
 {
     using System.Collections.Generic;
-    using Secucard.Connect.Auth;
 
     public class DeviceCredentials : ClientCredentials
     {

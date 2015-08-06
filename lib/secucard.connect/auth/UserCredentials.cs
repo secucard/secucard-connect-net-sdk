@@ -1,4 +1,4 @@
-namespace Secucard.Connect.Auth
+namespace Secucard.Connect.auth
 {
     public sealed class UserCredentials
     {

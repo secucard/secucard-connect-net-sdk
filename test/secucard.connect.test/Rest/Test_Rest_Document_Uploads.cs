@@ -2,8 +2,8 @@
 {
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect.Rest;
-    using Secucard.Model.Document;
+    using Secucard.Connect.Product.Document.Model;
+    using Secucard.Connect.rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

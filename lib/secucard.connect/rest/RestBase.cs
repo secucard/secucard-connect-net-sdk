@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Rest
+﻿namespace Secucard.Connect.rest
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,6 @@
     using System.Text;
     using System.Web;
     using Secucard.Connect.Net.Util;
-    using Secucard.Model;
 
     public class RestBase
     {

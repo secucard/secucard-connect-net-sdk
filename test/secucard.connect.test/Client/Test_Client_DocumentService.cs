@@ -2,9 +2,10 @@
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect;
+    using Secucard.Connect.Product.Document;
+    using Secucard.Connect.Product.Document.Model;
     using Secucard.Connect.Product.General;
     using Secucard.Connect.Test.Client;
-    using Secucard.Model.Document;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

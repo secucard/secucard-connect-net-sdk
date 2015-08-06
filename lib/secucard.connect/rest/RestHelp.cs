@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Rest
+﻿namespace Secucard.Connect.rest
 {
     using System.Text;
 

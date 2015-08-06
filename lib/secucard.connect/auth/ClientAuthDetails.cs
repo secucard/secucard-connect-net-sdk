@@ -19,7 +19,6 @@
 namespace Secucard.Connect.auth
 {
     using Secucard.Connect.auth.Model;
-    using Secucard.Connect.Auth;
 
     public interface IClientAuthDetails {
         /**

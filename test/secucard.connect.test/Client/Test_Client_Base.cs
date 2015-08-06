@@ -2,14 +2,14 @@
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using secucard.connect.test;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Channel.Rest;
+    using Secucard.Connect.auth;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.Product.Smart.Model;
+    using Secucard.Connect.rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
-    using Secucard.Model;
-    using Secucard.Model.Smart;
     using Secucard.Stomp;
 
     public class Test_Client_Base
@@ -26,7 +26,7 @@
         protected Test_Client_Base()
         {
             Tracer = new SecucardTraceMemory();
-            Storage = MemoryDataStorage.LoadFromFile(storagePath);
+            Storage = new MemoryDataStorage();
 
 
             ClientConfigurationDevice = new ClientConfiguration

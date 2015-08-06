@@ -2,7 +2,7 @@
 {
     using System.Diagnostics;
     using Secucard.Connect.Client;
-    using Secucard.Model.Payment;
+    using Secucard.Connect.Product.Payment.Model;
 
     public class ContractService : ProductService<Contract>
     {

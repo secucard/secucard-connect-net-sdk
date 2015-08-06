@@ -3,11 +3,11 @@
     using System;
     using System.Collections.Generic;
     using Secucard.Connect.auth;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Channel.Rest;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Net.Stomp;
+    using Secucard.Connect.rest;
     using Secucard.Stomp;
 
     /// <summary>

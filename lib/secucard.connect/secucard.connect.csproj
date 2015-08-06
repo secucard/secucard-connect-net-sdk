@@ -64,15 +64,91 @@
     <Compile Include="Net\Stomp\StompDestination.cs" />
     <Compile Include="Net\Stomp\StompMessage.cs" />
     <Compile Include="Net\Util\JsonSerializer.cs" />
+    <Compile Include="Product\Common\Model\Linq.cs" />
+    <Compile Include="Product\Common\Model\MediaResource.cs" />
+    <Compile Include="Product\Common\Model\ObjectList.cs" />
+    <Compile Include="Product\Common\Model\QueryParams.cs" />
+    <Compile Include="Product\Common\Model\SecuObject.cs" />
+    <Compile Include="Product\Common\Model\Status.cs" />
     <Compile Include="Product\Document\DocumentService.cs" />
+    <Compile Include="Product\Document\Model\Document.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
     <Compile Include="Product\General\MerchantsService.cs" />
     <Compile Include="Product\General\GeneralSkeltonsService.cs" />
+    <Compile Include="Product\General\Model\Account.cs" />
+    <Compile Include="Product\General\Model\AccountDevice.cs" />
+    <Compile Include="Product\General\Model\Address.cs" />
+    <Compile Include="Product\General\Model\AddressComponent.cs" />
+    <Compile Include="Product\General\Model\App.cs" />
+    <Compile Include="Product\General\Model\Assign.cs" />
+    <Compile Include="Product\General\Model\Assignment.cs" />
+    <Compile Include="Product\General\Model\Contact.cs" />
+    <Compile Include="Product\General\Model\DayTime.cs" />
+    <Compile Include="Product\General\Model\DeliveryAddress.cs" />
+    <Compile Include="Product\General\Model\Demoevent.cs" />
+    <Compile Include="Product\General\Model\Device.cs" />
+    <Compile Include="Product\General\Model\Email.cs" />
+    <Compile Include="Product\General\Model\Geometry.cs" />
+    <Compile Include="Product\General\Model\Location.cs" />
+    <Compile Include="Product\General\Model\Merchant.cs" />
+    <Compile Include="Product\General\Model\MetaData.cs" />
+    <Compile Include="Product\General\Model\NameValueItem.cs" />
+    <Compile Include="Product\General\Model\News.cs" />
+    <Compile Include="Product\General\Model\OpenHours.cs" />
+    <Compile Include="Product\General\Model\PublicMerchant.cs" />
+    <Compile Include="Product\General\Model\Result.cs" />
+    <Compile Include="Product\General\Model\Skeleton.cs" />
+    <Compile Include="Product\General\Model\Store.cs" />
+    <Compile Include="Product\General\Model\Transaction.cs" />
+    <Compile Include="Product\Loyalty\Model\Bonus.cs" />
+    <Compile Include="Product\Loyalty\Model\Condition.cs" />
+    <Compile Include="Product\Loyalty\Model\Card.cs" />
+    <Compile Include="Product\Loyalty\Model\CardGroup.cs" />
+    <Compile Include="Product\Loyalty\Model\Customer.cs" />
+    <Compile Include="Product\Loyalty\Model\MerchantCard.cs" />
+    <Compile Include="Product\Loyalty\Model\Program.cs" />
+    <Compile Include="Product\Loyalty\Model\Sale.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
     <Compile Include="Product\Payment\DebitService.cs" />
     <Compile Include="Product\Payment\ContainerService.cs" />
     <Compile Include="Product\Payment\CustomerService.cs" />
+    <Compile Include="Product\Payment\Model\CloneParams.cs" />
+    <Compile Include="Product\Payment\Model\Container.cs" />
+    <Compile Include="Product\Payment\Model\Contract.cs" />
+    <Compile Include="Product\Payment\Model\Customer.cs" />
+    <Compile Include="Product\Payment\Model\Data.cs" />
+    <Compile Include="Product\Payment\Model\SecupayDebit.cs" />
+    <Compile Include="Product\Payment\Model\SecupayPrepay.cs" />
+    <Compile Include="Product\Payment\Model\Transaction.cs" />
+    <Compile Include="Product\Payment\Model\TransferAccount.cs" />
     <Compile Include="Product\ServiceBase.cs" />
+    <Compile Include="Product\Service\Model\services\IdentContract.cs" />
+    <Compile Include="Product\Service\Model\services\IdentRequest.cs" />
+    <Compile Include="Product\Service\Model\services\IdentResult.cs" />
+    <Compile Include="Product\Service\Model\services\idrequest\Person.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\Address.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\Attachment.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\ContactData.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\CustomData.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\IdentificationDocument.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\IdentificationProcess.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\Person.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\UserData.cs" />
+    <Compile Include="Product\Service\Model\services\idresult\ValueClass.cs" />
+    <Compile Include="Product\Smart\Model\Basket.cs" />
+    <Compile Include="Product\Smart\Model\BasketInfo.cs" />
+    <Compile Include="Product\Smart\Model\CashierDisplay.cs" />
+    <Compile Include="Product\Smart\Model\Checkin.cs" />
+    <Compile Include="Product\Smart\Model\Device.cs" />
+    <Compile Include="Product\Smart\Model\Ident.cs" />
+    <Compile Include="Product\Smart\Model\Product.cs" />
+    <Compile Include="Product\Smart\Model\ProductGroup.cs" />
+    <Compile Include="Product\Smart\Model\ReceiptLine.cs" />
+    <Compile Include="Product\Smart\Model\ReceiptLineValue.cs" />
+    <Compile Include="Product\Smart\Model\Routing.cs" />
+    <Compile Include="Product\Smart\Model\SmartPin.cs" />
+    <Compile Include="Product\Smart\Model\Text.cs" />
+    <Compile Include="Product\Smart\Model\Transaction.cs" />
     <Compile Include="Product\Smart\SmartIdentsService.cs" />
     <Compile Include="Product\Smart\SmartTransactionsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,10 +167,6 @@
     <Compile Include="Trace\SecucardTraceListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\secucard.model\Secucard.Connect.Model.csproj">
-      <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
-      <Name>Secucard.Connect.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\secucard.stomp\Secucard.Stomp.csproj">
       <Project>{092CECFF-F04B-4DBF-AF77-1D56CF80E49B}</Project>
       <Name>Secucard.Stomp</Name>
@@ -130,6 +202,14 @@
     <Compile Include="Auth\Exception\AuthFailedException.cs" />
     <Compile Include="Auth\Exception\AuthTimeoutException.cs" />
     <Compile Include="Client\AuthError.cs" />
+    <Content Include="Product\Common\Model\Message.java" />
+    <Content Include="Product\Common\Model\Result.java" />
+    <Content Include="Product\General\Model\BeaconEnvironment.java" />
+    <Content Include="Product\General\Model\Event.java" />
+    <Content Include="Product\General\Model\MerchantDetails.java" />
+    <Content Include="Product\General\Model\MerchantList.java" />
+    <Content Include="Product\General\Model\Notification.java" />
+    <Content Include="Product\General\Model\StoreSetDefault.java" />
     <Content Include="Product\Service\IdentResultsService.java" />
   </ItemGroup>
   <ItemGroup>

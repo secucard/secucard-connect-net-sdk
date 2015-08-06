@@ -1,11 +1,10 @@
-namespace Secucard.Connect
+namespace Secucard.Connect.Client
 {
     using System;
     using System.IO;
     using System.Xml.Serialization;
     using Secucard.Connect.auth;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
     using Secucard.Stomp;

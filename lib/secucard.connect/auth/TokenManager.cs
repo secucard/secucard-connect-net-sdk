@@ -1,10 +1,10 @@
-﻿namespace Secucard.Connect.Auth
+﻿namespace Secucard.Connect.auth
 {
     using System;
     using System.Threading;
-    using Secucard.Connect.auth;
     using Secucard.Connect.auth.Exception;
     using Secucard.Connect.auth.Model;
+    using Secucard.Connect.Client;
     using AuthToken = Secucard.Connect.auth.Model.Token;
 
     /// <summary>
@@ -30,7 +30,7 @@
         }
 
 
-        private Token GetCurrent()
+        private AuthToken GetCurrent()
         {
             if (ClientAuthDetails != null)
             {
@@ -68,7 +68,7 @@
                         Refresh(token, ClientAuthDetails.GetClientCredentials());
                         SetCurrentToken(token);
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
                         TraceInfo("Token refresh failed, try obtain new. {0}", ex);
                         authenticate = true;
@@ -114,7 +114,7 @@
 
         private void Refresh(Token token, ClientCredentials credentials)
         {
-            if (credentials == null) { throw new Exception("Missing credentials"); }
+            if (credentials == null) { throw new System.Exception("Missing credentials"); }
 
             TraceInfo("Refresh token: {0}", credentials);
             Token refreshToken = Rest.RefreshToken(token.RefreshToken, credentials.ClientId, credentials.ClientSecret);
@@ -197,7 +197,7 @@
                         token = Rest.GetToken(clientCredentials.ClientId, clientCredentials.ClientSecret);
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex)
                 {
                     throw ex;
                 }
@@ -220,7 +220,7 @@
                 throw new AuthTimeoutException();
             }
 
-            throw new Exception("Unexpected failure of authentication.");
+            throw new System.Exception("Unexpected failure of authentication.");
         }
 
         private void FireEvent(AuthProviderStatusUpdateEventArgs args)

@@ -1,11 +1,10 @@
-﻿namespace Secucard.Connect.Channel.Rest
+﻿namespace Secucard.Connect.Net.Rest
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Secucard.Connect.Net.Util;
-    using Secucard.Connect.Rest;
-    using Secucard.Model;
+    using Secucard.Connect.Product.Common.Model;
+    using Secucard.Connect.rest;
 
     public class RestService : RestBase
     {

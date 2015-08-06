@@ -1,13 +1,16 @@
-using Secucard.Connect.Client;
-using Secucard.Model.Loyalty;
-
-public class CustomersService : ProductService<Customer>
+namespace Secucard.Connect.Product.Loyalty
 {
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Loyalty.Model;
 
-    protected override ServiceMetaData<Customer> CreateMetaData()
+    public class CustomersService : ProductService<Customer>
     {
-        return new ServiceMetaData<Customer>("loyalty", "customers");
+
+        protected override ServiceMetaData<Customer> CreateMetaData()
+        {
+            return new ServiceMetaData<Customer>("loyalty", "customers");
+        }
+
+
     }
-
-
 }

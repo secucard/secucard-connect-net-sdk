@@ -1,8 +1,7 @@
-﻿namespace Secucard.Connect.Product.General
+﻿namespace Secucard.Connect.Product.Payment
 {
     using Secucard.Connect.Client;
-    using Secucard.Model;
-    using Secucard.Model.Payment;
+    using Secucard.Connect.Product.Payment.Model;
 
     public class CustomerService : ProductService<Customer>
     {

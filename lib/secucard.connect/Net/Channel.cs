@@ -1,9 +1,7 @@
-namespace Secucard.Connect.Channel
+namespace Secucard.Connect.Net
 {
-    using System;
-    using System.Collections.Generic;
-    using Secucard.Connect.Net;
-    using Secucard.Model;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Common.Model;
 
     public abstract class Channel
     {

@@ -3,8 +3,9 @@
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.auth;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.rest;
     using Secucard.Stomp;
 
     [TestClass]

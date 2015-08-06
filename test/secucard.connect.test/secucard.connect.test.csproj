@@ -93,10 +93,6 @@
       <Project>{067cc76b-1657-49aa-92a7-3cb2ba6586e9}</Project>
       <Name>secucard.connect</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\secucard.model\Secucard.Connect.Model.csproj">
-      <Project>{f133b76f-6e03-448d-afae-f5cca3ab986f}</Project>
-      <Name>Secucard.Connect.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\lib\secucard.stomp\Secucard.Stomp.csproj">
       <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
       <Name>Secucard.Stomp</Name>

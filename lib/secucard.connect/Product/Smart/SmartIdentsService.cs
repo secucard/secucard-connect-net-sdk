@@ -1,8 +1,7 @@
-﻿namespace Secucard.Connect.Product.General
+﻿namespace Secucard.Connect.Product.Smart
 {
     using Secucard.Connect.Client;
-    using Secucard.Model;
-    using Secucard.Model.Smart;
+    using Secucard.Connect.Product.Smart.Model;
 
     public class SmartIdentsService : ProductService<Ident>
     {

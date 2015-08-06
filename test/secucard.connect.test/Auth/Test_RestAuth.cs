@@ -8,13 +8,10 @@
     using secucard.connect.test.Rest;
     using Secucard.Connect.auth;
     using Secucard.Connect.auth.Model;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Channel.Rest;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
-    using Secucard.Connect.Rest;
-    using Secucard.Model;
-    using Secucard.Model.Auth;
-    using Secucard.Model.Smart;
+    using Secucard.Connect.Product.Smart.Model;
+    using Secucard.Connect.rest;
     using Secucard.Stomp;
 
     [TestClass]

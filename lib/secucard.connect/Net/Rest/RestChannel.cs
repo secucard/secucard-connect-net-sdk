@@ -1,12 +1,11 @@
-﻿namespace Secucard.Connect.Channel.Rest
+﻿namespace Secucard.Connect.Net.Rest
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Net;
-    using Secucard.Connect.Rest;
-    using Secucard.Model;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Common.Model;
+    using Secucard.Connect.rest;
 
     public class RestChannel : Channel
     {

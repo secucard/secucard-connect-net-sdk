@@ -2,8 +2,7 @@
 {
     using System.Collections.Specialized;
     using Secucard.Connect.auth.Model;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.rest;
 
     public class RestAuth : RestBase
     {

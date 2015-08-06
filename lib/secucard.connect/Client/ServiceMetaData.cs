@@ -1,6 +1,6 @@
 ﻿namespace Secucard.Connect.Client
 {
-    using Secucard.Model;
+    using Secucard.Connect.Product.Common.Model;
 
     /**
    * Meta data describing the service.

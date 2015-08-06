@@ -2,7 +2,6 @@
 {
     using Secucard.Connect.auth;
     using Secucard.Connect.auth.Model;
-    using Secucard.Connect.Auth;
 
     public class ClientAuthDetailsUserTest: AbstractClientAuthDetails,IClientAuthDetails
     {

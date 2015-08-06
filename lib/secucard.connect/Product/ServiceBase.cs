@@ -1,8 +1,7 @@
 ﻿namespace Secucard.Connect.Product
 {
     using System.Collections.Generic;
-    using Secucard.Connect.Channel;
-    using Secucard.Model;
+    using Secucard.Connect.Client;
 
     public abstract class AbstractService
     {

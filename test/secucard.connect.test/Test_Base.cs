@@ -1,6 +1,6 @@
 ﻿namespace Secucard.Connect.Test
 {
-    using Secucard.Connect.Auth;
+    using Secucard.Connect.auth;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
     using Secucard.Stomp;

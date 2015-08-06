@@ -3,10 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect.Rest;
-    using Secucard.Model;
-    using Secucard.Model.Payment;
-    using Secucard.Model.Smart;
+    using Secucard.Connect.Product.Common.Model;
+    using Secucard.Connect.Product.Smart.Model;
+    using Secucard.Connect.rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

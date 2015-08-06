@@ -2,7 +2,6 @@
 {
     using System;
     using Secucard.Connect.auth.Model;
-    using Secucard.Connect.Auth;
 
     public class AuthProviderStatusUpdateEventArgs : EventArgs
     {

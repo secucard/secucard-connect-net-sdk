@@ -3,8 +3,8 @@
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Net.Util;
-    using Secucard.Model;
-    using Secucard.Model.Loyalty;
+    using Secucard.Connect.Product.Common.Model;
+    using Secucard.Connect.Product.Loyalty.Model;
 
     [TestClass]
     [DeploymentItem("Data\\Model", "Data\\Model")]

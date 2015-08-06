@@ -11,46 +11,48 @@
  */
 
 using System.Collections.Generic;
-using Secucard.Connect.Auth;
 
-public class AppUserCredentials : ClientCredentials
+namespace Secucard.Connect.auth.Model
 {
-    public AppUserCredentials(string clientId, string clientSecret, string userName, string password, string deviceId) :
-        base(clientId, clientSecret)
+    public class AppUserCredentials : ClientCredentials
     {
-        UserName = userName;
-        Password = password;
-        DeviceId = deviceId;
-    }
+        public AppUserCredentials(string clientId, string clientSecret, string userName, string password, string deviceId) :
+            base(clientId, clientSecret)
+        {
+            UserName = userName;
+            Password = password;
+            DeviceId = deviceId;
+        }
 
-    public AppUserCredentials(ClientCredentials clientCredentials, string userName, string password, string deviceId) :
-        this(clientCredentials.ClientId, clientCredentials.ClientSecret, userName, password, deviceId)
-    {
-    }
+        public AppUserCredentials(ClientCredentials clientCredentials, string userName, string password, string deviceId) :
+            this(clientCredentials.ClientId, clientCredentials.ClientSecret, userName, password, deviceId)
+        {
+        }
 
-    public string UserName { get; set; }
-    public string Password { get; set; }
-    /**
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        /**
      * A unique device id like UUID. May be optional for some credential types.
      */
-    public string DeviceId { get; set; }
+        public string DeviceId { get; set; }
 
-    public override string GrantType
-    {
-        get { return "appuser"; }
-    }
+        public override string GrantType
+        {
+            get { return "appuser"; }
+        }
 
-    public override string Id
-    {
-        get { return GrantType + ClientId + ClientSecret + UserName + Password + (DeviceId ?? ""); }
-    }
+        public override string Id
+        {
+            get { return GrantType + ClientId + ClientSecret + UserName + Password + (DeviceId ?? ""); }
+        }
 
-    public override Dictionary<string, object> AsMap()
-    {
-        var map = base.AsMap();
-        map.Add("username", UserName);
-        map.Add("password", Password);
-        map.Add("device", DeviceId);
-        return map;
+        public override Dictionary<string, object> AsMap()
+        {
+            var map = base.AsMap();
+            map.Add("username", UserName);
+            map.Add("password", Password);
+            map.Add("device", DeviceId);
+            return map;
+        }
     }
 }

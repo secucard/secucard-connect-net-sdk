@@ -4,14 +4,14 @@
     using Secucard.Connect;
     using Secucard.Connect.auth;
     using Secucard.Connect.auth.Model;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Channel.Rest;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.Product.Smart.Model;
+    using Secucard.Connect.rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Test;
     using Secucard.Connect.Trace;
-    using Secucard.Model.Smart;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -32,7 +32,7 @@
             };
 
             Tracer = new SecucardTraceFile(logPath);
-            Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");
+            //Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");
             IClientAuthDetails clientAuthDetails = new ClientAuthDetailsUserTest();
 
             var authProvider = new TokenManager(ConfigAuth, clientAuthDetails, new RestAuth(ConfigAuth))
