@@ -16,11 +16,9 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Service_General_Skeleton_1_GET()
         {
-            var client = SecucardConnect.Create(ClientConfigurationDevice);
-            client.AuthEvent += ClientOnAuthEvent;
-            client.Connect();
+            StartupClientDevice();
 
-            var service = client.GetService<GeneralSkeletonsService>();
+            var service = Client.GetService<GeneralSkeletonsService>();
 
             var queryParams = new QueryParams
             {

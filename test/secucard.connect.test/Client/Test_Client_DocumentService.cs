@@ -11,11 +11,9 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_DocumentService_1()
         {
-            var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.AuthEvent += ClientOnAuthEvent;
-            client.Connect();
+            StartupClientUser();
 
-            var documentService = client.GetService<DocumentService>();
+            var documentService = Client.GetService<DocumentService>();
 
             var document = new Document
             {

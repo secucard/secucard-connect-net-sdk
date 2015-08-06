@@ -53,7 +53,7 @@
     <Compile Include="Auth\Model\AuthCodeError.cs" />
     <Compile Include="Auth\Model\AuthToken.cs" />
     <Compile Include="Auth\RestAuth.cs" />
-    <Compile Include="Auth\AuthManagerStatusUpdateEventArgs.cs" />
+    <Compile Include="Auth\TokenManagerStatusUpdateEvent.cs" />
     <Compile Include="Client\ConnectionStateChangedEvent.cs" />
     <Compile Include="Client\ServiceFactory.cs" />
     <Compile Include="Net\ChannelMethodEnum.cs" />
@@ -72,7 +72,13 @@
     <Compile Include="Product\Common\Model\Status.cs" />
     <Compile Include="Product\Document\DocumentService.cs" />
     <Compile Include="Product\Document\Model\Document.cs" />
+    <Compile Include="Product\General\StoresService.cs" />
+    <Compile Include="Product\General\TransactionsService .cs" />
+    <Compile Include="Product\General\PublicMerchantsService.cs" />
+    <Compile Include="Product\General\NewsService.cs" />
+    <Compile Include="Product\General\AccountsService.cs" />
     <Compile Include="Product\General\GeneralService.cs" />
+    <Compile Include="Product\General\AccountDevicesService.cs" />
     <Compile Include="Product\General\MerchantsService.cs" />
     <Compile Include="Product\General\GeneralSkeltonsService.cs" />
     <Compile Include="Product\General\Model\Account.cs" />
@@ -204,6 +210,7 @@
     <Compile Include="Client\AuthError.cs" />
     <Content Include="Product\Common\Model\Message.java" />
     <Content Include="Product\Common\Model\Result.java" />
+    <Compile Include="Product\General\General.cs" />
     <Content Include="Product\General\Model\BeaconEnvironment.java" />
     <Content Include="Product\General\Model\Event.java" />
     <Content Include="Product\General\Model\MerchantDetails.java" />

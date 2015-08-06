@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect
 {
     using System;
@@ -18,70 +19,111 @@ namespace Secucard.Connect
     using Secucard.Connect.Net;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
-    using Secucard.Connect.Rest;
-    using Secucard.Stomp;
+    using Secucard.Connect.Product.General;
 
     /// <summary>
-    /// Actual Client
+    ///     Actual Client
     /// </summary>
     public class SecucardConnect
     {
         public const string VERSION = "0.1.development";
-
-        public event AuthEvent AuthEvent;
-        public event ConnectionStateChangedEvent ConnectionStateChangedEvent;
-
-        internal bool IsConnected { get; set; }
-
-        private ClientConfiguration Configuration;
-        private ClientContext Context;
-        private Dictionary<string, IService> Services;
-
+        private readonly ClientConfiguration Configuration;
+        private readonly ClientContext Context;
+        private readonly Dictionary<string, IService> Services;
+        private volatile bool IsConnected;
         // provide service instances for easy access ------------------------------------------------------------------------
 
         //public Document document;
-        //public General general;
+        public General General { get; set; }
+        public event AuthEvent AuthEvent;
+        public event ConnectionStateChangedEventHandler ConnectionStateChangedEvent;
+
+        private void TraceInfo(string fmt, params object[] param)
+        {
+            if (Context.SecucardTrace != null) Context.SecucardTrace.Info(fmt, param);
+        }
+
         //public Payment payment;
         //public Loyalty loyalty;
         //public Services services;
         //public Smart smart;
 
-
-
         #region ### Start / Stop ###
 
-        public void Connect()
+        public void Open()
         {
-            // Start authentication
-            Context.TokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            Context.TokenManager.GetToken(true);
+            if (IsConnected)
+            {
+                return;
+            }
 
-            //TODO: Start Stomp
+            //if (disconnectTimerTask != null)
+            //{
+            //    disconnectTimerTask.cancel();
+            //}
+
+            try
+            {
+                Context.TokenManager.GetToken(true);
+            }
+            catch (AuthError e)
+            {
+                Close();
+                throw e;
+            }
+
+            try
+            {
+                foreach (var channel in Context.Channels.Values)
+                {
+                    channel.Open();
+                }
+            }
+            catch (Exception e)
+            {
+                Close();
+                throw e;
+            }
 
             IsConnected = true;
+            OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = IsConnected});
 
-            // TODO:Fire Event Connected
+            TraceInfo("Secucard connect client opened.");
         }
 
-        public void CancelAuth()
+
+        /**
+   * Gracefully closes this instance and releases all resources.
+   */
+
+        public void Close()
         {
-        }
+            IsConnected = false;
+            try
+            {
+                foreach (var channel in Context.Channels.Values)
+                {
+                    channel.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                TraceInfo(e.ToString());
+            }
 
-        public void Disconnect()
-        {
-           //TODO: Teardown
-        }
+            OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = IsConnected});
 
+            TraceInfo("Secucard connect client closed.");
+        }
 
         #endregion
 
-
         #region ### Events ###
 
-        private void AuthProviderOnAuthProviderStatusUpdate(object sender, AuthManagerStatusUpdateEventArgs args)
+        private void TokenManagerOnTokenManagerStatusUpdateEvent(object sender, TokenManagerStatusUpdateEventArgs args)
         {
             // Send Events vom Auth Provider an pass it up to client
-            OnAuthEvent(new AuthEventArgs { Status = args.Status, DeviceAuthCodes = args.DeviceAuthCodes });
+            OnAuthEvent(new AuthEventArgs {Status = args.Status, DeviceAuthCodes = args.DeviceAuthCodes});
         }
 
         private void OnAuthEvent(AuthEventArgs args)
@@ -94,74 +136,118 @@ namespace Secucard.Connect
             if (ConnectionStateChangedEvent != null) ConnectionStateChangedEvent(this, args);
         }
 
-        #endregion
+        private void HandelChannelEvents()
+        {
+            // Raise connection state changed on client
+            // Raise channel events to interested services.
+        }
 
+        #endregion
 
         #region ### Factory Client ###
 
-        private SecucardConnect(){}
-
-        public static SecucardConnect Create(ClientConfiguration config)
+        private SecucardConnect(ClientConfiguration configuration)
         {
-            if (config == null) 
-                config = ClientConfiguration.GetDefault();
-
-            if(config.DataStorage==null)
-                throw new Exception("Missing cache implementation found in config.");
-
-            var client = new SecucardConnect {Configuration = config};
+            Configuration = configuration;
 
             var context = new ClientContext
             {
-                AppId = config.AppId,
-                SecucardTrace = config.SecucardTrace
+                AppId = Configuration.AppId,
+                SecucardTrace = Configuration.SecucardTrace
             };
             // context.DataStorage = dataStorage;
 
-            client.Context = context;
+            Context = context;
 
-            AuthConfig authConfig = config.AuthConfig;
-            StompConfig stompConfig = config.StompConfig;
-            RestConfig restConfig = config.RestConfig;
+            var authConfig = Configuration.AuthConfig;
+            var stompConfig = Configuration.StompConfig;
+            var restConfig = Configuration.RestConfig;
 
             //    LOG.info("Creating client with configuration: ", config, "; ", authCfg, "; ", stompCfg, "; ", restConfig);
-            if (config.ClientAuthDetails == null)
+            if (Configuration.ClientAuthDetails == null)
             {
                 //TODO:
             }
-            context.DefaultChannel = config.DefaultChannel;
+
+            context.DefaultChannel = Configuration.DefaultChannel;
 
             var restChannel = new RestChannel(restConfig, context);
             context.Channels.Add(ChannelOptions.CHANNEL_REST, restChannel);
 
-            if (config.StompEnabled)
+
+            if (Configuration.StompEnabled)
             {
-                var sc = new StompChannel(stompConfig, context);
-                context.Channels.Add(ChannelOptions.CHANNEL_STOMP, sc);
+                var stompChannel = new StompChannel(stompConfig, context);
+                context.Channels.Add(ChannelOptions.CHANNEL_STOMP, stompChannel);
+                // TODO: Listen to Events stompChannel.
             }
 
-            // TODO: Setup Event Listener for channels
-            // TODO: Setup Event Dispater for incoming events from channels
+            // TODO: Setup Event listener for channels
+            // TODO: Setup Event dispatcher for incoming events from channels
 
             var restAuth = new RestAuth(authConfig)
             {
-                UserAgentInfo = "secucardconnect-net-" + VERSION + "/net:" + Environment.OSVersion + " " + Environment.Version
+                UserAgentInfo =
+                    "secucardconnect-net-" + VERSION + "/net:" + Environment.OSVersion + " " + Environment.Version
             };
-            context.TokenManager = new TokenManager(authConfig, config.ClientAuthDetails, restAuth) {Context = context};
+            context.TokenManager = new TokenManager(authConfig, Configuration.ClientAuthDetails, restAuth)
+            {
+                Context = context
+            };
+            context.TokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
 
-            client.Services =  ServiceFactory.CreateServices(context);
+            Services = ServiceFactory.CreateServices(context);
+            WireServiceInstances();
+        }
 
-            // TODO: WireServiceInstance
+        public static SecucardConnect Create(ClientConfiguration configuration)
+        {
+            if (configuration == null)
+                configuration = ClientConfiguration.GetDefault();
+
+            if (configuration.DataStorage == null)
+                throw new Exception("Missing cache implementation found in config.");
+
+            var client = new SecucardConnect(configuration);
 
             return client;
         }
 
         #endregion
 
+        #region ### Services ###
 
         public T GetService<T>()
         {
-            return (T)Services[typeof (T).Name];
+            return (T) Services[typeof (T).Name];
         }
+
+        private void WireServiceInstances()
+        {
+            //document = new Document(service(Document.Uploads));
+
+            General = new General
+            {
+                News = GetService<NewsService>(),
+                Accountdevices = GetService<AccountDevicesService>(),
+                Accounts = GetService<AccountsService>(),
+                Merchants = GetService<MerchantsService>(),
+                Publicmerchants = GetService<PublicMerchantsService>(),
+                Stores = GetService<StoresService>(),
+                Transactions = GetService<TransactionsService>()
+            };
+
+
+            //payment = new Payment(service(Payment.Containers), service(Payment.Customers), service(Payment.Secupaydebits),
+            //    service(Payment.Secupayprepays), service(Payment.Contracts));
+
+            //loyalty = new Loyalty(service(Loyalty.Cards), service(Loyalty.Customers), service(Loyalty.Merchantcards));
+
+            //services = new Services(service(Services.Identrequests), service(Services.Identresults));
+
+            //smart = new Smart(service(Smart.Checkins), service(Smart.Idents), service(Smart.Transactions));
+        }
+
+        #endregion
     }
 }

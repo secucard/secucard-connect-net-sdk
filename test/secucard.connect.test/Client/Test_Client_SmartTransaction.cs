@@ -15,13 +15,10 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_SmartTransaction_1()
         {
-            var client = SecucardConnect.Create(ClientConfigurationDevice);
-            client.AuthEvent += ClientOnAuthEvent;
-            client.Connect();
+            StartupClientDevice();
 
-
-            var transactionService = client.GetService<SmartTransactionsService>();
-            var identService = client.GetService<SmartIdentsService>();
+            var transactionService = Client.GetService<SmartTransactionsService>();
+            var identService = Client.GetService<SmartIdentsService>();
 
             // select an ident
             var availableIdents = identService.GetList(null);
@@ -95,10 +92,6 @@
             // TODO Execute
             //var result = transactionService.StartTransaction(transaction.Id, type);
             //Console.WriteLine("Transaction finished: " + result);
-
-            client.Disconnect();
-
-            Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
     }
 }

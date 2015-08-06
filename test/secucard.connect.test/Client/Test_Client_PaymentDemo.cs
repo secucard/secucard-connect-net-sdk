@@ -14,14 +14,13 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_PaymentDemo_1()
         {
-            var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.AuthEvent += ClientOnAuthEvent;
-            client.Connect();
+            StartupClientUser();
 
-            var customerService = client.GetService<CustomerService>();
-            var containerService = client.GetService<ContainerService>();
-            var debitService = client.GetService<DebitService>();
-            var contractService = client.GetService<ContractService>();
+
+            var customerService = Client.GetService<CustomerService>();
+            var containerService = Client.GetService<ContainerService>();
+            var debitService = Client.GetService<DebitService>();
+            var contractService = Client.GetService<ContractService>();
 
             var customer = new Customer
             {
@@ -87,9 +86,6 @@
             //// pay, create transaction
             //// Exception: api Key for payment does not allow debit payments.
             //// debit = debitService.CreateTransaction(debit);
-
-
-            Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
     }
 }

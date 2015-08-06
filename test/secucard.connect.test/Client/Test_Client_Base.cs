@@ -1,5 +1,7 @@
 ﻿namespace Secucard.Connect.Test.Client
 {
+    using System;
+    using System.Diagnostics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
@@ -15,10 +17,12 @@
     {
         protected const string logPath = "data\\secucard.cliend.log";
         protected const string storagePath = "data\\secucard.sec";
-        protected ClientConfiguration ClientConfigurationDevice;
-        protected ClientConfiguration ClientConfigurationUser;
-        protected MemoryDataStorage Storage;
-        protected ISecucardTrace Tracer;
+        protected readonly ClientConfiguration ClientConfigurationDevice;
+        protected readonly ClientConfiguration ClientConfigurationUser;
+        protected readonly MemoryDataStorage Storage;
+        protected readonly ISecucardTrace Tracer;
+
+        protected SecucardConnect Client;
 
         protected Test_Client_Base()
         {
@@ -100,11 +104,28 @@
                 DataStorage = Storage
             };
         }
+        
+        protected void StartupClientDevice()
+        {
+            Client = SecucardConnect.Create(ClientConfigurationDevice);
+            Client.AuthEvent += ClientOnAuthEvent;
+            Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
+            Client.Open();
+        }
+
+        protected void StartupClientUser()
+        {
+            Client = SecucardConnect.Create(ClientConfigurationUser);
+            Client.AuthEvent += ClientOnAuthEvent;
+            Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
+            Client.Open();
+        }
+
 
         /// <summary>
-        ///     Handles Device Authentification. Enter pin thru web interface service
+        ///     Handles device authentication. Enter pin thru web interface service
         /// </summary>
-        public void ClientOnAuthEvent(object sender, AuthEventArgs args)
+        protected void ClientOnAuthEvent(object sender, AuthEventArgs args)
         {
             Tracer.Info("ClientOnSecucardConnectEvent Status={0}", args.Status);
 
@@ -129,6 +150,22 @@
                 var response = restSmart.RestPut(reqSmartPin);
                 Assert.IsTrue(response.Length > 0);
             }
+        }
+
+        /// <summary>
+        ///     Handles connect and disconnect events
+        /// </summary>
+        protected void ClientOnConnectionStateChangedEvent(object sender, ConnectionStateChangedEventArgs args)
+        {
+            Tracer.Info("Client Connected={0}", args.Connected);
+        }
+
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if(Client!=null) Client.Close();
+            Debug.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
     }
 }

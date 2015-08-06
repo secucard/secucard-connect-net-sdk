@@ -5,22 +5,22 @@
     using Secucard.Connect.Auth.Exception;
     using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Client;
-    using AuthToken = Secucard.Connect.Auth.Model.Token;
 
     /// <summary>
-    ///     Implementation of the AuthProvider interface which gets an OAuth token via REST channel.
+    ///     Implementation of the TokenManager which gets an OAuth token via REST.
     ///     The retrieved token is also cached and refreshed.
     /// </summary>
     public class TokenManager
     {
-        public delegate void AuthProviderStatusUpdateDelegate(object sender, AuthManagerStatusUpdateEventArgs args);
+        public event TokenManagerStatusUpdateEventHandler TokenManagerStatusUpdateEvent;
+
+        public ClientContext Context { get; set; }
 
         private readonly AuthConfig Config;
         private readonly string Id;
         private readonly RestAuth Rest;
         private bool CancelAuthFlag { get; set; }
         private IClientAuthDetails ClientAuthDetails { get; set; }
-        public ClientContext Context { get; set; }
 
         public TokenManager(AuthConfig config, IClientAuthDetails clientAuthDetails, RestAuth restAuth)
         {
@@ -29,8 +29,7 @@
             Rest = restAuth;
         }
 
-
-        private AuthToken GetCurrent()
+        private Token GetCurrent()
         {
             if (ClientAuthDetails != null)
             {
@@ -141,9 +140,9 @@
             if (isDeviceAuth)
             {
                 codes = Rest.GetDeviceAuthCode(devicesCredentials.ClientId, devicesCredentials.ClientSecret);
-                if (AuthProviderStatusUpdate != null)
-                    AuthProviderStatusUpdate.Invoke(this,
-                        new AuthManagerStatusUpdateEventArgs
+                if (TokenManagerStatusUpdateEvent != null)
+                    TokenManagerStatusUpdateEvent.Invoke(this,
+                        new TokenManagerStatusUpdateEventArgs
                         {
                             DeviceAuthCodes = codes,
                             Status = AuthStatusEnum.Pending
@@ -184,7 +183,7 @@
                         token = Rest.ObtainAuthToken(codes.DeviceCode, devicesCredentials.ClientId, devicesCredentials.ClientSecret);
                         if (token == null) // auth not completed yet
                         {
-                            FireEvent(new AuthManagerStatusUpdateEventArgs
+                            OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
                             {
                                 DeviceAuthCodes = codes,
                                 Status = AuthStatusEnum.Pending
@@ -204,7 +203,7 @@
 
                 if (token != null)
                 {
-                    FireEvent(new AuthManagerStatusUpdateEventArgs
+                    OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
                             {
                                 DeviceAuthCodes = codes,
                                 Status = AuthStatusEnum.Ok,
@@ -223,144 +222,13 @@
             throw new System.Exception("Unexpected failure of authentication.");
         }
 
-        private void FireEvent(AuthManagerStatusUpdateEventArgs args)
+        private void OnTokenManagerStatusUpdateEvent(TokenManagerStatusUpdateEventArgs args)
         {
-            if (AuthProviderStatusUpdate != null) AuthProviderStatusUpdate.Invoke(this, args);
+            if (TokenManagerStatusUpdateEvent != null) TokenManagerStatusUpdateEvent.Invoke(this, args);
         }
+ 
 
-
-
-
-        //public AuthToken GetToken(bool extendToken)
-        //{
-        //    var token = ClientAuthDetails.GetCurrent();
-
-        //    if (token != null && !token.IsExpired())
-        //    {
-        //        if (extendToken)
-        //        {
-        //            // extend expire time on every token access, assuming the token is used, if not this could cause auth failure
-        //            token.SetExpireTime();
-        //            StoreToken(token);
-        //        }
-        //        return token;
-        //    }
-
-        //    if (token != null && token.RefreshToken != null)
-        //    {
-        //        // token is expired and can be refreshed without further auth.
-        //        try
-        //        {
-        //            var newToken = Rest.RefreshToken(token.RefreshToken, ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
-
-        //            token.AccessToken = newToken.AccessToken;
-        //            token.ExpiresIn = newToken.ExpiresIn;
-        //            if (!string.IsNullOrEmpty(newToken.RefreshToken)) token.RefreshToken = newToken.RefreshToken;
-        //            token.SetExpireTime();
-        //            StoreToken(token);
-        //            TraceInfo("Token refreshed and returned: {0}", token);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // refreshing failed, clear the token
-        //            //Storage.Clear(GetTokenStoreId(), null);
-        //            token = null;
-        //            TraceInfo("Token refreshed failed");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        token = null;
-        //    }
-
-        //    if (token != null) return token;
-
-        //    // no token yet, a new one must be created
-        //    if (Config.AuthType == AuthTypeEnum.Device)
-        //    {
-        //        var codes = Rest.GetDeviceAuthCode(ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
-        //        if (AuthProviderStatusUpdate != null)
-        //            AuthProviderStatusUpdate.Invoke(this,
-        //                new AuthProviderStatusUpdateEventArgs
-        //                {
-        //                    DeviceAuthCodes = codes,
-        //                    Status = AuthProviderStatusEnum.Pending
-        //                });
-        //        TraceInfo("Retrieved codes for device auth: {0}, now polling for auth.", codes);
-        //        token = PollToken(codes);
-        //    }
-        //    else // USER
-        //    {
-        //        token = Rest.GetToken(ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
-        //    }
-
-        //    TraceInfo("New token retrieved: {0}", token.ToString());
-
-        //    // set new expire time and store
-        //    token.SetExpireTime();
-        //    StoreToken(token);
-
-        //    return token;
-        //}
-
-        public event AuthProviderStatusUpdateDelegate AuthProviderStatusUpdate;
-
-        //private AuthToken PollToken(DeviceAuthCode codes)
-        //{
-        //    // set poll timeout, either by config or by expire time of code
-        //    var seconds = codes.ExpiresIn;
-        //    if (seconds <= 0 || Config.AuthWaitTimeoutSec < seconds)
-        //    {
-        //        seconds = Config.AuthWaitTimeoutSec;
-        //    }
-        //    var timeout = DateTime.Now.AddSeconds(seconds);
-
-        //    var pollIntervalInMs = codes.Interval * 1000;
-        //    if (pollIntervalInMs <= 0)
-        //    {
-        //        pollIntervalInMs = 5000; // poll default 5s
-        //    }
-
-        //    // reset flag to stop polling from external
-        //    CancelAuthFlag = false;
-
-        //    // poll server and send events to client accordingly
-        //    while (DateTime.Now < timeout)
-        //    {
-        //        if (CancelAuthFlag)
-        //        {
-        //            throw new AuthCanceledException("Authorization canceled by request.");
-        //        }
-
-        //        Thread.Sleep(pollIntervalInMs);
-
-        //        var newToken = Rest.ObtainAuthToken(codes.DeviceCode, ClientAuthDetails.GetClientCredentials().ClientId, ClientAuthDetails.GetClientCredentials().ClientSecret);
-
-        //        if (newToken != null)
-        //        {
-        //            if (AuthProviderStatusUpdate != null)
-        //                AuthProviderStatusUpdate.Invoke(this,
-        //                    new AuthProviderStatusUpdateEventArgs
-        //                    {
-        //                        DeviceAuthCodes = codes,
-        //                        Status = AuthProviderStatusEnum.Ok
-        //                    });
-        //            return newToken;
-        //        }
-
-        //        if (AuthProviderStatusUpdate != null)
-        //            AuthProviderStatusUpdate.Invoke(this,
-        //                new AuthProviderStatusUpdateEventArgs
-        //                {
-        //                    DeviceAuthCodes = codes,
-        //                    Status = AuthProviderStatusEnum.Pending
-        //                });
-        //    }
-
-        //    throw new AuthCanceledException("Authorization canceled by timeout or authorization code was expired.");
-        //}
-
-        private void SetCurrentToken(AuthToken token)
+        private void SetCurrentToken(Token token)
         {
             if (ClientAuthDetails != null) ClientAuthDetails.OnTokenChanged(token);
         }

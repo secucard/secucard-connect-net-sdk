@@ -38,7 +38,7 @@
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
 
-            tokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             var token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);
             storage.SaveToFile(fullStoragePath);
@@ -48,7 +48,7 @@
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
-            tokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);
             storage.SaveToFile(fullStoragePath);
@@ -61,13 +61,13 @@
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
-            tokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);
             storage.SaveToFile(fullStoragePath);
         }
 
-        private void AuthProviderOnAuthProviderStatusUpdate(object sender, AuthManagerStatusUpdateEventArgs args)
+        private void TokenManagerOnTokenManagerStatusUpdateEvent(object sender, TokenManagerStatusUpdateEventArgs args)
         {
             if (args.Status == AuthStatusEnum.Pending)
             {

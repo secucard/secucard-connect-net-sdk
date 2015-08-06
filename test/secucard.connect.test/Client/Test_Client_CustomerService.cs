@@ -16,11 +16,9 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_CustomerService_1()
         {
-            var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.AuthEvent += ClientOnAuthEvent;
-            client.Connect();
+            StartupClientUser();
 
-            var customerService = client.GetService<CustomerService>();
+            var customerService = Client.GetService<CustomerService>();
 
             var customer = new Customer
             {

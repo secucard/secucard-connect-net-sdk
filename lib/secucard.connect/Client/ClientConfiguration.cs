@@ -1,6 +1,7 @@
 namespace Secucard.Connect.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Xml.Serialization;
     using Secucard.Connect.Auth;
@@ -11,6 +12,8 @@ namespace Secucard.Connect.Client
 
     public class ClientConfiguration
     {
+        private Dictionary<string, string> Properties { get; set; }
+
         public string DefaultChannel { get; set; }
         public int? HeartBeatSec { get; set; }
         public bool StompEnabled { get; set; }

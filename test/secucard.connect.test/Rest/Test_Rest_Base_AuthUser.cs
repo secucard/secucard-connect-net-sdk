@@ -36,7 +36,7 @@
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
 
-            authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
+            authProvider.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             Token = authProvider.GetToken(true);
             //Storage.SaveToFile("data\\secucard.payment.sec"); // Save new token 
 
@@ -44,7 +44,7 @@
                 new RestService(new RestConfig {BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/"});
         }
 
-        private void AuthProviderOnAuthProviderStatusUpdate(object sender, AuthManagerStatusUpdateEventArgs args)
+        private void TokenManagerOnTokenManagerStatusUpdateEvent(object sender, TokenManagerStatusUpdateEventArgs args)
         {
             if (args.Status == AuthStatusEnum.Pending)
             {

@@ -2,6 +2,7 @@
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Client;
     using Secucard.Connect.Product.General;
     using Secucard.Connect.Trace;
 
@@ -12,18 +13,14 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_GeneralSkeleton_1()
         {
-            var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.AuthEvent += ClientOnAuthEvent;
-            client.Connect();
+            StartupClientUser();
 
-            var skeletonService = client.GetService<GeneralSkeletonsService>();
+            var skeletonService = Client.GetService<GeneralSkeletonsService>();
 
             // select an ident
             var skeletons = skeletonService.GetList(null);
-
-            client.Disconnect();
-
-            Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
+
+
     }
 }
