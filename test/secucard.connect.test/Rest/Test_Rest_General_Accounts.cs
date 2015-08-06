@@ -1,11 +1,9 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
-    using System;
-    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -15,16 +13,16 @@
         public void Test_General_Accounts_1_GET()
         {
             var request = new RestRequest
-           {
-               Token = Token,
-               QueyParams = new QueryParams
-               {
-                   Count = 10,
-                   Offset = 0
-               },
-               PageUrl = "General/Accounts",
-               Host = "core-dev10.secupay-ag.de"
-           };
+            {
+                Token = Token,
+                QueyParams = new QueryParams
+                {
+                    Count = 10,
+                    Offset = 0
+                },
+                PageUrl = "General/Accounts",
+                Host = "core-dev10.secupay-ag.de"
+            };
 
             var data = RestService.GetList<Account>(request);
 

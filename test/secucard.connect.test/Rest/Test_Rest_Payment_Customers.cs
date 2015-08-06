@@ -1,4 +1,4 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using System;
     using System.Linq;
@@ -7,7 +7,7 @@
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Payment.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -17,22 +17,21 @@
         public void Test_Payment_Customers_1_GET()
         {
             var request = new RestRequest
-           {
-               Token = Token,
-               QueyParams = new QueryParams
-               {
-                   Count = 10,
-                   Offset = 0
-               },
-               PageUrl = "Payment/Customers",
-               Host = "core-dev10.secupay-ag.de"
-           };
+            {
+                Token = Token,
+                QueyParams = new QueryParams
+                {
+                    Count = 10,
+                    Offset = 0
+                },
+                PageUrl = "Payment/Customers",
+                Host = "core-dev10.secupay-ag.de"
+            };
 
             var data = RestService.GetList<Customer>(request);
 
             Assert.IsTrue(data.Count > 0);
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_Payment_Customers_2_POST_PUT_GET_DEL()
@@ -85,7 +84,7 @@
                 var request = new RestRequest
                 {
                     Token = Token,
-                    QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
+                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -118,7 +117,7 @@
                 var request = new RestRequest
                 {
                     Token = Token,
-                    QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
+                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -148,7 +147,7 @@
                 var request = new RestRequest
                 {
                     Token = Token,
-                    QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
+                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -156,7 +155,6 @@
                 var customerGet = RestService.GetList<Customer>(request);
                 Assert.AreEqual(0, customerGet.Count);
             }
-
         }
     }
 }

@@ -4,7 +4,7 @@
     using System.Linq;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     public class RestService : RestBase
     {

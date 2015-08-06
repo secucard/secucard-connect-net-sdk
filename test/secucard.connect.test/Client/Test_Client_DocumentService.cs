@@ -1,11 +1,8 @@
-﻿namespace secucard.connect.test.Client
+﻿namespace Secucard.Connect.Test.Client
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect;
     using Secucard.Connect.Product.Document;
     using Secucard.Connect.Product.Document.Model;
-    using Secucard.Connect.Product.General;
-    using Secucard.Connect.Test.Client;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -14,9 +11,8 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_DocumentService_1()
         {
-
             var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
+            client.AuthEvent += ClientOnAuthEvent;
             client.Connect();
 
             var documentService = client.GetService<DocumentService>();
@@ -31,7 +27,6 @@
 
             var docGet = documentService.Get(docPost.Id);
             Assert.IsNotNull(docGet);
-
         }
     }
 }

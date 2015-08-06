@@ -31,7 +31,6 @@
             var identResult = data.List.First();
             Assert.AreEqual(identResult.Id, "SIS_WZPEW6AVX2YAJ5V6R5GQGJHXXMHBA7");
             Assert.IsTrue(identResult.Demo.Value);
-
         }
 
         [TestMethod, TestCategory("Model")]
@@ -43,8 +42,6 @@
             var contract = data.List.First();
             Assert.AreEqual(contract.Id, "SIC_WNVNAA62B2Y7GEJVR5GQGW8EAN62A6");
             Assert.IsFalse(contract.Demo.Value);
-
         }
-
     }
 }

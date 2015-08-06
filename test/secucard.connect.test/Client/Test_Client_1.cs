@@ -1,14 +1,12 @@
-﻿namespace secucard.connect.test.Client
+﻿namespace Secucard.Connect.Test.Client
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General;
-    using Secucard.Connect.Test.Client;
     using Secucard.Connect.Trace;
 
     [TestClass]
@@ -18,8 +16,8 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Service_General_Skeleton_1_GET()
         {
-            SecucardConnect client = SecucardConnect.Create(ClientConfigurationDevice);
-            client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
+            var client = SecucardConnect.Create(ClientConfigurationDevice);
+            client.AuthEvent += ClientOnAuthEvent;
             client.Connect();
 
             var service = client.GetService<GeneralSkeletonsService>();
@@ -28,8 +26,8 @@
             {
                 Count = 10,
                 ScrollExpire = "5m",
-                SortOrder = new NameValueCollection { { "a", QueryParams.SORT_ASC } },
-                Fields = new List<string> { "id", "a", "b" }
+                SortOrder = new NameValueCollection {{"a", QueryParams.SORT_ASC}},
+                Fields = new List<string> {"id", "a", "b"}
             };
 
             var list = service.GetList(queryParams);

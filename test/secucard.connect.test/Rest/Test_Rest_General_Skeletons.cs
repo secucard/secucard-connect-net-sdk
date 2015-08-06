@@ -1,4 +1,4 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -26,8 +26,8 @@
                 {
                     Count = 10,
                     Offset = 0,
-                    SortOrder = new NameValueCollection { { "a", QueryParams.SORT_ASC } },
-                    Fields = new List<string> { "a", "b" }
+                    SortOrder = new NameValueCollection {{"a", QueryParams.SORT_ASC}},
+                    Fields = new List<string> {"a", "b"}
                 },
                 PageUrl = "General/Skeletons",
                 Host = "core-dev10.secupay-ag.de"
@@ -37,7 +37,6 @@
 
             Assert.IsTrue(list.Count > 0);
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_2_GET()
@@ -54,8 +53,8 @@
                     {
                         Count = 10,
                         ScrollExpire = "5m",
-                        SortOrder = new NameValueCollection { { "a", QueryParams.SORT_ASC } },
-                        Fields = new List<string> { "a", "b" }
+                        SortOrder = new NameValueCollection {{"a", QueryParams.SORT_ASC}},
+                        Fields = new List<string> {"a", "b"}
                     },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
@@ -77,7 +76,7 @@
                     Token = AccessToken,
                     QueyParams = new QueryParams
                     {
-                        ScrollId = scrollId,
+                        ScrollId = scrollId
                     },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
@@ -87,9 +86,7 @@
                 Assert.IsNotNull(list.ScrollId);
                 Assert.IsTrue(list.List.Any());
             }
-
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_3_GET()
@@ -110,7 +107,6 @@
 
             Assert.IsTrue(list.Count > 0);
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_4_GET()
@@ -145,7 +141,7 @@
                     QueyParams = new QueryParams
                     {
                         Count = 2,
-                        Fields = new List<string> { "id"}
+                        Fields = new List<string> {"id"}
                     },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
@@ -163,10 +159,10 @@
                 {
                     Token = AccessToken,
                     Id = id,
-                        QueyParams = new QueryParams
-                        {
-                            Expand = true
-                        },
+                    QueyParams = new QueryParams
+                    {
+                        Expand = true
+                    },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -174,10 +170,9 @@
                 Assert.IsTrue(request.GetPathAndQueryString().Contains("expand"));
                 var list = RestService.GetObject<Skeleton>(request);
 
-                Assert.AreEqual(list.Id,id);
+                Assert.AreEqual(list.Id, id);
             }
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_6_POST()
@@ -192,15 +187,13 @@
                     Token = AccessToken,
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de",
-                    Object = new Skeleton { A = "value Test A", B = "value Test B", Id = id }
+                    Object = new Skeleton {A = "value Test A", B = "value Test B", Id = id}
                 };
 
                 var obj = RestService.PostObject<Skeleton>(request);
                 Assert.AreEqual(obj.Id, id);
-                
             }
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Skeleton_7_PUT()
@@ -219,7 +212,7 @@
                     {
                         Count = 10,
                         Offset = 0,
-                        SortOrder = new NameValueCollection { { "id", QueryParams.SORT_ASC } }
+                        SortOrder = new NameValueCollection {{"id", QueryParams.SORT_ASC}}
                     },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
@@ -275,7 +268,7 @@
                         Type = "xxx",
                         Data = "{ whatever: \"whole object gets send as payload for event\"}"
                     },
-                    ObjetType = typeof(Demoevent),
+                    ObjetType = typeof (Demoevent),
                     Action = "Demoevent",
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"

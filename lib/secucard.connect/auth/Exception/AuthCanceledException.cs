@@ -9,14 +9,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Indicates an authentication was canceled by user request.
  */
-
 using Secucard.Connect.Client;
 
-namespace Secucard.Connect.auth.Exception
+namespace Secucard.Connect.Auth.Exception
 {
     public class AuthCanceledException : AuthError {
     }

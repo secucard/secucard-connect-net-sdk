@@ -20,7 +20,7 @@
 
 using Secucard.Connect.Client;
 
-namespace Secucard.Connect.auth.Exception
+namespace Secucard.Connect.Auth.Exception
 {
     public class AuthDeniedException : AuthError
     {

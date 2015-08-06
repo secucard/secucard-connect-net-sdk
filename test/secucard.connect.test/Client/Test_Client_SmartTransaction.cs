@@ -1,14 +1,11 @@
-﻿namespace secucard.connect.test.Client
+﻿namespace Secucard.Connect.Test.Client
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect;
-    using Secucard.Connect.Product.General;
     using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.Test.Client;
     using Secucard.Connect.Trace;
 
     [TestClass]
@@ -19,7 +16,7 @@
         public void Test_Client_SmartTransaction_1()
         {
             var client = SecucardConnect.Create(ClientConfigurationDevice);
-            client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
+            client.AuthEvent += ClientOnAuthEvent;
             client.Connect();
 
 
@@ -35,7 +32,7 @@
             var ident = availableIdents.List.First(o => o.Id == "smi_1");
             ident.Value = "pdo28hdal";
 
-            var selectedIdents = new List<Ident> { ident };
+            var selectedIdents = new List<Ident> {ident};
 
             var groups = new List<ProductGroup>
             {
@@ -65,8 +62,8 @@
                 Tax = 19,
                 Groups = groups
             });
-            basket.AddProduct(new Text { Id = 1, ParentId = 2, Desc = "text1" });
-            basket.AddProduct(new Text { Id = 2, ParentId = 2, Desc = "text2" });
+            basket.AddProduct(new Text {Id = 1, ParentId = 2, Desc = "text1"});
+            basket.AddProduct(new Text {Id = 2, ParentId = 2, Desc = "text2"});
             basket.AddProduct(new Product
             {
                 Id = 3,
@@ -79,7 +76,7 @@
                 Groups = null
             });
 
-            var basketInfo = new BasketInfo { Sum = 1, Currency = "EUR" };
+            var basketInfo = new BasketInfo {Sum = 1, Currency = "EUR"};
 
             var newTrans = new Transaction
             {
@@ -103,6 +100,5 @@
 
             Console.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
-
     }
 }

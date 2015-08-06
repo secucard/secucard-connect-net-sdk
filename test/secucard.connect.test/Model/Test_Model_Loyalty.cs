@@ -15,7 +15,7 @@
         {
             var json = File.ReadAllText("Data\\Model\\Loyalty.Cardgroups.1.json");
             var data = JsonSerializer.DeserializeJson<ObjectList<CardGroup>>(json);
-            Assert.IsTrue(data.List.Count>0);
+            Assert.IsTrue(data.List.Count > 0);
         }
 
         [TestMethod, TestCategory("Model")]
@@ -41,7 +41,5 @@
             var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json);
             Assert.IsTrue(data.List.Count > 0);
         }
-
-
     }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -9,16 +9,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
-/**
- * Indicates an authentication was aborted due a timeout.
- */
-using Secucard.Connect.Client;
-
-namespace Secucard.Connect.Auth.Exception
+namespace Secucard.Connect.Auth
 {
-    public class AuthTimeoutException : AuthError {
+    using System;
+    using Secucard.Connect.Auth.Model;
 
+    public class AuthManagerStatusUpdateEventArgs : EventArgs
+    {
+        public DeviceAuthCode DeviceAuthCodes { get; set; }
+        public AuthStatusEnum Status { get; set; }
+        public Token Token { get; set; }
     }
 }

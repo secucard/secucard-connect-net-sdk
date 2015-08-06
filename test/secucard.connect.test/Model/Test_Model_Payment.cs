@@ -27,12 +27,11 @@
             Assert.AreEqual(paymentContainer.FormattedCreated, "2015-02-03T14:22:19+01:00");
         }
 
-
         [TestMethod, TestCategory("Model")]
         public void Test_Payment_Customers_0_doc()
         {
             var json = File.ReadAllText("Data\\Model\\Payment.Customers.0.doc.json");
-           var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json);
+            var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json);
             Assert.AreEqual(data.List.Count, 1);
             var obj = data.List.First();
             Assert.AreEqual(obj.Id, "PCU_3TGCQFGCR2Y8ZHPEB5GQGYPNRQUUAE");
@@ -41,12 +40,11 @@
             Assert.AreEqual(obj.Contact.CompanyName, "companyname");
         }
 
-
         [TestMethod, TestCategory("Model")]
         public void Test_Payment_Customers_1()
         {
             var json = File.ReadAllText("Data\\Model\\Payment.Customers.1.json");
-            var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json); 
+            var data = JsonSerializer.DeserializeJson<ObjectList<Customer>>(json);
             Assert.AreEqual(data.List.Count, 10);
             var obj = data.List.First();
             Assert.AreEqual(obj.Id, "PCU_3TGCQFGCR2Y8ZHPEB5GQGYPNRQUUAE");
@@ -65,8 +63,6 @@
             //Assert.IsNotNull(obj);
         }
 
-
-
         [TestMethod, TestCategory("Model")]
         public void Test_Payment_Contracts_1()
         {
@@ -80,9 +76,5 @@
             Assert.AreEqual(obj.InternalReference, "475094");
             Assert.AreEqual(obj.FormattedCreated, "2015-02-27T14:54:27+01:00");
         }
-
-
-
-
     }
 }

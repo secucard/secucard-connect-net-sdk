@@ -1,11 +1,11 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using System;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -15,22 +15,21 @@
         public void Test_General_Contacts_1_GET()
         {
             var request = new RestRequest
-           {
-               Token = AccessToken,
-               QueyParams = new QueryParams
-               {
-                   Count = 10,
-                   Offset = 0
-               },
-               PageUrl = "General/Contacts",
-               Host = "core-dev10.secupay-ag.de"
-           };
+            {
+                Token = AccessToken,
+                QueyParams = new QueryParams
+                {
+                    Count = 10,
+                    Offset = 0
+                },
+                PageUrl = "General/Contacts",
+                Host = "core-dev10.secupay-ag.de"
+            };
 
             var data = RestService.GetList<Contact>(request);
 
             Assert.IsTrue(data.Count > 0);
         }
-
 
         [TestMethod, TestCategory("Rest")]
         public void Test_General_Contacts_2_POST()
@@ -40,8 +39,7 @@
                 Id = "CNT_" + Guid.NewGuid(),
                 Forename = "TestForename" + DateTime.Now.Ticks,
                 Surname = "TestSurename" + DateTime.Now.Ticks,
-                Gender = Contact.GENDER_MALE,
-
+                Gender = Contact.GENDER_MALE
             };
 
             // POST 
@@ -63,7 +61,7 @@
                 var request = new RestRequest
                 {
                     Token = AccessToken,
-                    QueyParams = new QueryParams { Query = "forename:" + contact.Forename },
+                    QueyParams = new QueryParams {Query = "forename:" + contact.Forename},
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -73,7 +71,7 @@
                 Assert.AreEqual(data.List.First().Forename, contact.Forename, "object not in storage arrived.");
             }
 
-            
+
             return;
             // PUT does not work currently.
 
@@ -89,14 +87,13 @@
                     Object = contact,
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
-
                 };
 
                 var data = RestService.PutObject<Contact>(request);
 
                 Assert.AreEqual(data.Forename, contact.Forename);
             }
-          
+
 
             //// GET with query
             //{
@@ -112,10 +109,6 @@
 
             //    Assert.AreEqual(data.List.First().Forename, contact.Forename, "changes not in storage arrived.");
             //}
-
-
         }
-
-
     }
 }

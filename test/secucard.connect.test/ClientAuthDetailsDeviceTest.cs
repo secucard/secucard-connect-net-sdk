@@ -1,7 +1,7 @@
-﻿namespace secucard.connect.test
+﻿namespace Secucard.Connect.Test
 {
-    using Secucard.Connect.auth;
-    using Secucard.Connect.auth.Model;
+    using Secucard.Connect.Auth;
+    using Secucard.Connect.Auth.Model;
 
     public class ClientAuthDetailsDeviceTest : AbstractClientAuthDetails, IClientAuthDetails
     {

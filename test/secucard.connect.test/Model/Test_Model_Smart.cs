@@ -26,13 +26,12 @@
             Assert.AreEqual(smartIdent.Name, "secucard Kundenkarte");
         }
 
-
         [TestMethod, TestCategory("Model")]
         public void Test_Smart_Transactions_1()
         {
             var json = File.ReadAllText("Data\\Model\\Smart.Transactions.1.json");
             var data = JsonSerializer.DeserializeJson<ObjectList<Transaction>>(json);
-            Assert.IsTrue(data.List.Count> 1);
+            Assert.IsTrue(data.List.Count > 1);
             var transaction = data.List.First();
             Assert.IsNotNull(transaction.Basket);
             Assert.AreEqual(transaction.FormattedCreated, "2015-07-09T14:18:41+02:00");
@@ -56,7 +55,6 @@
             Assert.AreEqual(device.GenralDevice.Id, "DEV_2P2WSRMA63DRT4A9H2A8DDYBH00PPG");
             Assert.AreEqual(device.FormattedCreated, "2015-03-09T16:39:18+01:00");
             Assert.AreEqual(device.Online, false);
-
         }
 
         [TestMethod, TestCategory("Model")]
@@ -65,9 +63,6 @@
             var json = File.ReadAllText("Data\\Model\\Smart.Routings.1.json");
             var data = JsonSerializer.DeserializeJson<ObjectList<List<Routing>>>(json);
             Assert.IsTrue(data.List.Count > 1);
-            
-
         }
-
     }
 }

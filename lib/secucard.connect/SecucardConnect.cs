@@ -1,13 +1,24 @@
-﻿namespace Secucard.Connect
+﻿/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+namespace Secucard.Connect
 {
     using System;
     using System.Collections.Generic;
-    using Secucard.Connect.auth;
+    using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
     using Secucard.Stomp;
 
     /// <summary>
@@ -15,16 +26,16 @@
     /// </summary>
     public class SecucardConnect
     {
-        public const string VERSION = "0.1.development"; 
+        public const string VERSION = "0.1.development";
 
-        internal ClientConfiguration Configuration;
+        public event AuthEvent AuthEvent;
+        public event ConnectionStateChangedEvent ConnectionStateChangedEvent;
+
         internal bool IsConnected { get; set; }
 
-        public event SecucardConnectEvent SecucardConnectEvent;
-
-        internal ClientContext Context;
-
-        internal Dictionary<string, IService> Services;
+        private ClientConfiguration Configuration;
+        private ClientContext Context;
+        private Dictionary<string, IService> Services;
 
         // provide service instances for easy access ------------------------------------------------------------------------
 
@@ -61,14 +72,30 @@
            //TODO: Teardown
         }
 
-        private void AuthProviderOnAuthProviderStatusUpdate(object sender, AuthProviderStatusUpdateEventArgs args)
+
+        #endregion
+
+
+        #region ### Events ###
+
+        private void AuthProviderOnAuthProviderStatusUpdate(object sender, AuthManagerStatusUpdateEventArgs args)
         {
-            // Send Events vom Auth Provider 
-            if(SecucardConnectEvent!=null) 
-                SecucardConnectEvent.Invoke(this,new SecucardConnectEventArgs {Status = args.Status,DeviceAuthCodes = args.DeviceAuthCodes});
+            // Send Events vom Auth Provider an pass it up to client
+            OnAuthEvent(new AuthEventArgs { Status = args.Status, DeviceAuthCodes = args.DeviceAuthCodes });
+        }
+
+        private void OnAuthEvent(AuthEventArgs args)
+        {
+            if (AuthEvent != null) AuthEvent(this, args);
+        }
+
+        private void OnConnectionStateChangedEvent(ConnectionStateChangedEventArgs args)
+        {
+            if (ConnectionStateChangedEvent != null) ConnectionStateChangedEvent(this, args);
         }
 
         #endregion
+
 
         #region ### Factory Client ###
 

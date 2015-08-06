@@ -1,10 +1,10 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.Payment.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -14,16 +14,16 @@
         public void Test_Payment_Contracts_1_GET()
         {
             var request = new RestRequest
-           {
-               Token = Token,
-               QueyParams = new QueryParams
-               {
-                   Count = 10,
-                   Offset = 0
-               },
-               PageUrl = "Payment/Contracts",
-               Host = "core-dev10.secupay-ag.de"
-           };
+            {
+                Token = Token,
+                QueyParams = new QueryParams
+                {
+                    Count = 10,
+                    Offset = 0
+                },
+                PageUrl = "Payment/Contracts",
+                Host = "core-dev10.secupay-ag.de"
+            };
 
             var data = RestService.GetList<Contract>(request);
 
@@ -71,8 +71,6 @@
             };
 
             // var contract = RestService.Execute<Contract, CloneParams>(requestClone);
-
-
         }
     }
 }

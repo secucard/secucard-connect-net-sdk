@@ -1,9 +1,9 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Document.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

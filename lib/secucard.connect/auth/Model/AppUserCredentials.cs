@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace Secucard.Connect.auth.Model
+namespace Secucard.Connect.Auth.Model
 {
     public class AppUserCredentials : ClientCredentials
     {

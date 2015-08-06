@@ -22,7 +22,7 @@ using System;
 using Microsoft.JScript;
 using Secucard.Connect.Client;
 
-namespace Secucard.Connect.auth.Exception
+namespace Secucard.Connect.Auth.Exception
 {
     using Exception = System.Exception;
 

@@ -1,11 +1,10 @@
-﻿namespace secucard.connect.test.Config
+﻿namespace Secucard.Connect.Test.Config
 {
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect;
-    using Secucard.Connect.auth;
+    using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
     using Secucard.Stomp;
 
     [TestClass]
@@ -28,31 +27,29 @@
                 StompEnabled = true,
                 HeartBeatSec = 30,
                 AuthConfig = new AuthConfig
-                                    {
-                                        Host = "core-dev10.secupay-ag.de",
-                                        AuthType = AuthTypeEnum.Device,
-                                        OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
-                                        AuthWaitTimeoutSec = 240,
-                                        Uuid = "/vendor/unknown/cashier/dotnettest1"
-                                    },
+                {
+                    Host = "core-dev10.secupay-ag.de",
+                    AuthType = AuthTypeEnum.Device,
+                    OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
+                    AuthWaitTimeoutSec = 240,
+                    Uuid = "/vendor/unknown/cashier/dotnettest1"
+                },
                 StompConfig = new StompConfig
-                                    {
-                                        Host = "dev10.secupay-ag.de",
-                                        Port = 61614,
-                                        Login = "v7ad2eejbgt135q6v47vehopg7",
-                                        Password = "v7ad2eejbgt135q6v47vehopg7",
-                                        AcceptVersion = "1.2",
-                                        HeartbeatClientMs = 5000,
-                                        HeartbeatServerMs = 5000,
-                                        Ssl = true
-                                    },
+                {
+                    Host = "dev10.secupay-ag.de",
+                    Port = 61614,
+                    Login = "v7ad2eejbgt135q6v47vehopg7",
+                    Password = "v7ad2eejbgt135q6v47vehopg7",
+                    AcceptVersion = "1.2",
+                    HeartbeatClientMs = 5000,
+                    HeartbeatServerMs = 5000,
+                    Ssl = true
+                },
                 RestConfig = new RestConfig
-                                    {
-                                        BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/"
-                                    }
-
+                {
+                    BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/"
+                }
             };
-
 
 
             config.Save(configPath);

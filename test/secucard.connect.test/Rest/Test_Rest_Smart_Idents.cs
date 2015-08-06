@@ -1,11 +1,11 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -15,16 +15,16 @@
         public void Test_Smart_Idents_1_GET()
         {
             var request = new RestRequest
-           {
-               Token = Token,
-               QueyParams = new QueryParams
-               {
-                   Count = 10,
-                   Offset = 0
-               },
-               PageUrl = "Smart/Idents",
-               Host = "core-dev10.secupay-ag.de"
-           };
+            {
+                Token = Token,
+                QueyParams = new QueryParams
+                {
+                    Count = 10,
+                    Offset = 0
+                },
+                PageUrl = "Smart/Idents",
+                Host = "core-dev10.secupay-ag.de"
+            };
 
             var data = RestService.GetList<Ident>(request);
 
@@ -37,7 +37,7 @@
             var request = new RestRequest
             {
                 Token = Token,
-                Objects = new List<SecuObject> { new Ident { Value = "9276123456789012", Type = "card" } },
+                Objects = new List<SecuObject> {new Ident {Value = "9276123456789012", Type = "card"}},
                 PageUrl = "Smart/Idents/notused/validate",
                 Host = "core-dev10.secupay-ag.de"
             };
@@ -46,6 +46,5 @@
 
             Assert.AreEqual(data.First().Id, "smi_1");
         }
-
     }
 }

@@ -1,16 +1,13 @@
-﻿namespace secucard.connect.test.Client
+﻿namespace Secucard.Connect.Test.Client
 {
     using System;
     using System.Linq;
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect;
     using Secucard.Connect.Product.Common.Model;
-    using Secucard.Connect.Product.General;
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Payment;
     using Secucard.Connect.Product.Payment.Model;
-    using Secucard.Connect.Test.Client;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -20,7 +17,7 @@
         public void Test_Client_CustomerService_1()
         {
             var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
+            client.AuthEvent += ClientOnAuthEvent;
             client.Connect();
 
             var customerService = client.GetService<CustomerService>();
@@ -51,23 +48,20 @@
 
             var customerPost = customerService.Create(customer);
 
-            var customerGet = customerService.GetList(new QueryParams { Query = "id:" + customerPost.Id }).List.First();
+            var customerGet = customerService.GetList(new QueryParams {Query = "id:" + customerPost.Id}).List.First();
 
             customerGet.Contact.Forename = "ChangedForename-" + DateTime.Now.Ticks;
             var customerUpdate = customerService.Update(customerGet);
 
-            var customerGetUpdate = customerService.GetList(new QueryParams { Query = "id:" + customerPost.Id }).List.First();
+            var customerGetUpdate =
+                customerService.GetList(new QueryParams {Query = "id:" + customerPost.Id}).List.First();
             Assert.AreEqual(customerGetUpdate.Contact.Forename, customerGet.Contact.Forename);
-            customerService.Delete<Customer>(customerGetUpdate.Id); 
+            customerService.Delete<Customer>(customerGetUpdate.Id);
 
             Thread.Sleep(1000);
 
-            var customerGetWithout = customerService.GetList(new QueryParams { Query = "id:" + customerPost.Id });
-            Assert.AreEqual(customerGetWithout.Count,0);
-
+            var customerGetWithout = customerService.GetList(new QueryParams {Query = "id:" + customerPost.Id});
+            Assert.AreEqual(customerGetWithout.Count, 0);
         }
-
-
-
     }
 }

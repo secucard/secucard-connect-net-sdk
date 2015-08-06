@@ -1,13 +1,10 @@
-﻿namespace secucard.connect.test.Client
+﻿namespace Secucard.Connect.Test.Client
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect;
-    using Secucard.Connect.Product.General;
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Payment;
     using Secucard.Connect.Product.Payment.Model;
-    using Secucard.Connect.Test.Client;
     using Secucard.Connect.Trace;
 
     [TestClass]
@@ -18,13 +15,13 @@
         public void Test_Client_PaymentDemo_1()
         {
             var client = SecucardConnect.Create(ClientConfigurationUser);
-            client.SecucardConnectEvent += ClientOnSecucardConnectEvent;
+            client.AuthEvent += ClientOnAuthEvent;
             client.Connect();
 
             var customerService = client.GetService<CustomerService>();
             var containerService = client.GetService<ContainerService>();
             var debitService = client.GetService<DebitService>();
-            var contractService =client.GetService<ContractService>();
+            var contractService = client.GetService<ContractService>();
 
             var customer = new Customer
             {
@@ -45,19 +42,18 @@
             customer = customerService.Create(customer);
 
 
-            Container container = new Container
+            var container = new Container
             {
                 Type = Container.TYPE_BANK_ACCOUNT,
-                PrivateData = new Data { Owner = "John Doe", Iban = "DE12500105170648489890", Bic = "INGDDEFFXXX" }
+                PrivateData = new Data {Owner = "John Doe", Iban = "DE12500105170648489890", Bic = "INGDDEFFXXX"}
             };
 
             // create container and get back filled up
             container = containerService.Create(container);
 
 
-
-                  // clone contract either mine or another contract when allowed
-            CloneParams cloneParams = new CloneParams
+            // clone contract either mine or another contract when allowed
+            var cloneParams = new CloneParams
             {
                 Project = "project",
                 AllowTransactions = true,

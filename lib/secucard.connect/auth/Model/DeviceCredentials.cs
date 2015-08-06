@@ -10,7 +10,7 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.auth.Model
+namespace Secucard.Connect.Auth.Model
 {
     using System.Collections.Generic;
 

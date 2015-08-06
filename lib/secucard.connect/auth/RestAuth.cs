@@ -1,11 +1,14 @@
-﻿namespace Secucard.Connect.auth
+﻿namespace Secucard.Connect.Auth
 {
-    using System.Collections.Specialized;
-    using Secucard.Connect.auth.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Auth.Model;
+    using Secucard.Connect.Rest;
 
     public class RestAuth : RestBase
     {
+        public const string DEVICE = "device";
+        public const string RREFRESHTOKEN = "refresh_token";
+        public const string CLIENTCREDENTIALS = "client_credentials";
+
         private readonly AuthConfig AuthConfig;
 
         public RestAuth(AuthConfig authConfig)
@@ -24,7 +27,7 @@
                 UserAgent = UserAgentInfo
             };
 
-            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
+            req.BodyParameter.Add(AuthConst.Grant_Type, DEVICE);
             req.BodyParameter.Add(AuthConst.Client_Id, clientId);
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
             req.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
@@ -41,7 +44,7 @@
                 UserAgent = UserAgentInfo
             };
 
-            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.ClientCredentials);
+            req.BodyParameter.Add(AuthConst.Grant_Type, CLIENTCREDENTIALS);
             req.BodyParameter.Add(AuthConst.Client_Id, clientId);
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
 
@@ -57,7 +60,7 @@
                 UserAgent = UserAgentInfo
             };
 
-            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
+            req.BodyParameter.Add(AuthConst.Grant_Type, DEVICE);
             req.BodyParameter.Add(AuthConst.Client_Id, clientId);
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
             req.BodyParameter.Add(AuthConst.Code, deviceCode);
@@ -81,7 +84,7 @@
                 Host = AuthConfig.Host,
                 UserAgent = UserAgentInfo
             };
-            req.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
+            req.BodyParameter.Add(AuthConst.Grant_Type, RREFRESHTOKEN);
             req.BodyParameter.Add(AuthConst.Client_Id, clientId);
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
             req.BodyParameter.Add(AuthConst.RefreshToken, refreshToken);

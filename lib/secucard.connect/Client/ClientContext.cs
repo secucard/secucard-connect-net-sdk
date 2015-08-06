@@ -1,7 +1,7 @@
 namespace Secucard.Connect.Client
 {
     using System.Collections.Generic;
-    using Secucard.Connect.auth;
+    using Secucard.Connect.Auth;
     using Secucard.Connect.Net;
     using Secucard.Connect.Trace;
 

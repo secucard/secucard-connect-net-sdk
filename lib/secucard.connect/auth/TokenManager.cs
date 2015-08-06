@@ -1,11 +1,11 @@
-﻿namespace Secucard.Connect.auth
+﻿namespace Secucard.Connect.Auth
 {
     using System;
     using System.Threading;
-    using Secucard.Connect.auth.Exception;
-    using Secucard.Connect.auth.Model;
+    using Secucard.Connect.Auth.Exception;
+    using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Client;
-    using AuthToken = Secucard.Connect.auth.Model.Token;
+    using AuthToken = Secucard.Connect.Auth.Model.Token;
 
     /// <summary>
     ///     Implementation of the AuthProvider interface which gets an OAuth token via REST channel.
@@ -13,7 +13,7 @@
     /// </summary>
     public class TokenManager
     {
-        public delegate void AuthProviderStatusUpdateDelegate(object sender, AuthProviderStatusUpdateEventArgs args);
+        public delegate void AuthProviderStatusUpdateDelegate(object sender, AuthManagerStatusUpdateEventArgs args);
 
         private readonly AuthConfig Config;
         private readonly string Id;
@@ -143,10 +143,10 @@
                 codes = Rest.GetDeviceAuthCode(devicesCredentials.ClientId, devicesCredentials.ClientSecret);
                 if (AuthProviderStatusUpdate != null)
                     AuthProviderStatusUpdate.Invoke(this,
-                        new AuthProviderStatusUpdateEventArgs
+                        new AuthManagerStatusUpdateEventArgs
                         {
                             DeviceAuthCodes = codes,
-                            Status = AuthProviderStatusEnum.Pending
+                            Status = AuthStatusEnum.Pending
                         });
 
                 TraceInfo("Retrieved codes for device auth: {0}, now polling for auth.", codes);
@@ -184,10 +184,10 @@
                         token = Rest.ObtainAuthToken(codes.DeviceCode, devicesCredentials.ClientId, devicesCredentials.ClientSecret);
                         if (token == null) // auth not completed yet
                         {
-                            FireEvent(new AuthProviderStatusUpdateEventArgs
+                            FireEvent(new AuthManagerStatusUpdateEventArgs
                             {
                                 DeviceAuthCodes = codes,
-                                Status = AuthProviderStatusEnum.Pending
+                                Status = AuthStatusEnum.Pending
                             });
                         }
                     }
@@ -204,10 +204,10 @@
 
                 if (token != null)
                 {
-                    FireEvent(new AuthProviderStatusUpdateEventArgs
+                    FireEvent(new AuthManagerStatusUpdateEventArgs
                             {
                                 DeviceAuthCodes = codes,
-                                Status = AuthProviderStatusEnum.Ok,
+                                Status = AuthStatusEnum.Ok,
                                 Token = token
                             });
                     return token;
@@ -223,7 +223,7 @@
             throw new System.Exception("Unexpected failure of authentication.");
         }
 
-        private void FireEvent(AuthProviderStatusUpdateEventArgs args)
+        private void FireEvent(AuthManagerStatusUpdateEventArgs args)
         {
             if (AuthProviderStatusUpdate != null) AuthProviderStatusUpdate.Invoke(this, args);
         }

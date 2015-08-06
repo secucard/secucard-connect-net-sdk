@@ -5,13 +5,13 @@
     using System.Net;
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using secucard.connect.test.Rest;
-    using Secucard.Connect.auth;
-    using Secucard.Connect.auth.Model;
+    using Secucard.Connect.Auth;
+    using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
+    using Secucard.Connect.Test.Rest;
     using Secucard.Stomp;
 
     [TestClass]
@@ -27,7 +27,7 @@
 
             request.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
             request.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetails.GetClientCredentials().ClientSecret);
-            request.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
+            request.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
             request.BodyParameter.Add(AuthConst.Uuid, ConfigAuth.Uuid);
 
             var rest = new RestAuth(ConfigAuth);
@@ -45,9 +45,10 @@
                 Host = ConfigAuth.Host
             };
 
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret,
+                ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, ConfigAuth.Uuid);
 
             var authDeviceGetTokenOut = rest.RestPost<DeviceAuthCode>(reqDeviceGetToken);
@@ -59,12 +60,17 @@
 
             // Set pin via SMART REST (only development)
 
-            var restSmart = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+            var restSmart =
+                new RestService(new RestConfig
+                {
+                    BaseUrl =
+                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin"
+                });
 
             var reqSmartPin = new RestRequest
             {
                 Method = WebRequestMethods.Http.Post,
-                PageUrl = "",//ConfigAuth.PageSmartDevices,
+                PageUrl = "", //ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
             };
@@ -81,9 +87,11 @@
                 Host = ConfigAuth.Host
             };
 
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.Device);
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Id,
+                ClientAuthDetails.GetClientCredentials().ClientId);
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret,
+                ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
             var authDeviceTokenOut = rest.RestPost<Token>(reqObtainAccessToken);
@@ -99,9 +107,11 @@
                 Host = ConfigAuth.Host
             };
 
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, AuthGrantTypeConst.RrefreshToken);
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.RREFRESHTOKEN);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id,
+                ClientAuthDetails.GetClientCredentials().ClientId);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret,
+                ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.RefreshToken, authDeviceTokenOut.RefreshToken);
 
             var authRefreshTokenOut = rest.RestPost<Token>(reqRefreshExpiredToken);
@@ -154,7 +164,8 @@
         {
             var rest = new RestAuth(ConfigAuth);
 
-            var authDeviceGetTokenOut = rest.GetDeviceAuthCode(ClientAuthDetails.GetClientCredentials().ClientSecret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            var authDeviceGetTokenOut = rest.GetDeviceAuthCode(ClientAuthDetails.GetClientCredentials().ClientSecret,
+                ClientAuthDetails.GetClientCredentials().ClientSecret);
             Assert.AreEqual(authDeviceGetTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authDeviceGetTokenOut.Interval, 5);
             Assert.AreEqual(authDeviceGetTokenOut.VerificationUrl, VerificationUrl);
@@ -163,24 +174,33 @@
             // Set pin via SMART REST (only development)
             var reqSmartPin = new RestRequest
             {
-                PageUrl = "",//ConfigAuth.PageSmartDevices,
+                PageUrl = "", //ConfigAuth.PageSmartDevices,
                 Host = ConfigAuth.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
             };
 
             reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
-            var restSmart = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+            var restSmart =
+                new RestService(new RestConfig
+                {
+                    BaseUrl =
+                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin"
+                });
 
             var response = restSmart.RestPut(reqSmartPin);
             Assert.IsTrue(response.Length > 0);
             // No need to validate response. Call needed to set PIN
 
-            var authDeviceTokenOut = rest.ObtainAuthToken(authDeviceGetTokenOut.DeviceCode, ClientAuthDetails.GetClientCredentials().ClientSecret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            var authDeviceTokenOut = rest.ObtainAuthToken(authDeviceGetTokenOut.DeviceCode,
+                ClientAuthDetails.GetClientCredentials().ClientSecret,
+                ClientAuthDetails.GetClientCredentials().ClientSecret);
             Assert.AreEqual(authDeviceTokenOut.TokenType, TokenTypeBearer);
             Assert.AreEqual(authDeviceTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authDeviceTokenOut.RefreshToken.Length, 40);
 
-            var authRefreshTokenOut = rest.RefreshToken(authDeviceTokenOut.RefreshToken, ClientAuthDetails.GetClientCredentials().ClientSecret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            var authRefreshTokenOut = rest.RefreshToken(authDeviceTokenOut.RefreshToken,
+                ClientAuthDetails.GetClientCredentials().ClientSecret,
+                ClientAuthDetails.GetClientCredentials().ClientSecret);
             Assert.AreEqual(authRefreshTokenOut.AccessToken.Length, 26);
             Assert.AreEqual(authRefreshTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authRefreshTokenOut.TokenType, TokenTypeBearer);

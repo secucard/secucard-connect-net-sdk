@@ -1,6 +1,6 @@
-﻿namespace Secucard.Connect.auth
+﻿namespace Secucard.Connect.Auth
 {
-    public enum AuthProviderStatusEnum
+    public enum AuthStatusEnum
     {
         Pending = 1,
         Canceled = 2,

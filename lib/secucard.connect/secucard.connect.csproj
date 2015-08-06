@@ -45,16 +45,16 @@
   <ItemGroup>
     <Compile Include="Auth\AuthCanceledException.cs" />
     <Compile Include="Auth\AuthConfig.cs" />
-    <Compile Include="Auth\AuthGrantTypeConst.cs" />
     <Compile Include="Auth\AuthConst.cs" />
-    <Compile Include="Auth\AuthProviderStatusEnum.cs" />
+    <Compile Include="Auth\AuthStatusEnum.cs" />
     <Compile Include="Auth\AuthTypeEnum.cs" />
     <Compile Include="Auth\TokenManager.cs" />
     <Compile Include="Auth\Model\DeviceAuthCode.cs" />
     <Compile Include="Auth\Model\AuthCodeError.cs" />
     <Compile Include="Auth\Model\AuthToken.cs" />
     <Compile Include="Auth\RestAuth.cs" />
-    <Compile Include="Auth\AuthProviderStatusUpdateEventArgs.cs" />
+    <Compile Include="Auth\AuthManagerStatusUpdateEventArgs.cs" />
+    <Compile Include="Client\ConnectionStateChangedEvent.cs" />
     <Compile Include="Client\ServiceFactory.cs" />
     <Compile Include="Net\ChannelMethodEnum.cs" />
     <Compile Include="Net\ChannelRequest.cs" />
@@ -158,7 +158,7 @@
     <Compile Include="Rest\RestHelp.cs" />
     <Compile Include="Rest\RestRequest.cs" />
     <Compile Include="SecucardConnect.cs" />
-    <Compile Include="Client\SecucardConnectEvent.cs" />
+    <Compile Include="Client\AuthEvent.cs" />
     <Compile Include="Client\SecucardConnectException.cs" />
     <Compile Include="Storage\StorageItem.cs" />
     <Compile Include="Trace\ISecucardTrace.cs" />

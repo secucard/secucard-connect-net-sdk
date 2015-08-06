@@ -1,9 +1,9 @@
-﻿namespace secucard.connect.test.Rest
+﻿namespace Secucard.Connect.Test.Rest
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.Service.Model.services;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -13,22 +13,20 @@
         public void Test_Services_Identcontracts_1_GET()
         {
             var request = new RestRequest
-           {
-               Token = Token,
-               QueyParams = new QueryParams
-               {
-                   Count = 10,
-                   Offset = 0
-               },
-               PageUrl = "Services/Identcontracts",
-               Host = "core-dev10.secupay-ag.de"
-           };
+            {
+                Token = Token,
+                QueyParams = new QueryParams
+                {
+                    Count = 10,
+                    Offset = 0
+                },
+                PageUrl = "Services/Identcontracts",
+                Host = "core-dev10.secupay-ag.de"
+            };
 
             var data = RestService.GetList<IdentContract>(request);
 
             Assert.IsTrue(data.Count > 0);
         }
-
-        
     }
 }

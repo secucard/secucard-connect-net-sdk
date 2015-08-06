@@ -21,7 +21,7 @@ namespace Secucard.Connect.Net.Stomp
 {
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Common.Model;
-    using Secucard.Connect.rest;
+    using Secucard.Connect.Rest;
 
     public class StompChannel : Channel
     {

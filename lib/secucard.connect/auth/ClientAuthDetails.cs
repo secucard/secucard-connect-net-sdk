@@ -16,9 +16,9 @@
  * Administration of confidential data is delegated to the client through this interface.
  */
 
-namespace Secucard.Connect.auth
+namespace Secucard.Connect.Auth
 {
-    using Secucard.Connect.auth.Model;
+    using Secucard.Connect.Auth.Model;
 
     public interface IClientAuthDetails {
         /**
