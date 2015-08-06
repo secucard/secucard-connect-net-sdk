@@ -65,7 +65,7 @@
 
         public void Disconnect()
         {
-            // graecefull shutdown
+            // graceful shutdown
             // Frame DISCONNECT + Receipt
             StompClientStatus = EnumStompCoreStatus.Disconnecting;
             ClientTimerHeartbeat.Dispose();

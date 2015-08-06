@@ -15,8 +15,8 @@
             {
                 Host = host,
                 Port = port,
-                Login = "g96ueln6ml9op8svaed002if61",//
-                Password = "g96ueln6ml9op8svaed002if61", //fvv6vsup13frjpj8nr6gju0691
+                Login = "b5005kdkm7tl0f9t9a6514b3i5",//
+                Password = "b5005kdkm7tl0f9t9a6514b3i5", //fvv6vsup13frjpj8nr6gju0691
                 AcceptVersion = "1.2",
                 HeartbeatClientMs = 5000,
                 HeartbeatServerMs = 5000,

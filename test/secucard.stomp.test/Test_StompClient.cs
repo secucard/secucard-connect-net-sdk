@@ -30,11 +30,22 @@
                 client.SendFrame(framePing);
 
                 // waiting for frame to come
-                while (frameIn == null)
-                {
-                }
-
+                while (frameIn == null){}
                 Assert.IsTrue(frameIn.Body.Contains("Test"));
+
+                
+                frameIn = null;
+
+                var frameRefresh = new StompFrame(StompCommands.SEND);
+                frameRefresh.Headers.Add(StompHeader.UserId, Config.Login);
+                frameRefresh.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:exec:auth.sessions.refresh");
+                frameRefresh.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
+                frameRefresh.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
+                frameRefresh.Body = "{ \"pid\":\"me\"}";
+                client.SendFrame(frameRefresh);
+                while (frameIn == null) { }
+                Assert.IsTrue(frameIn.Body.Contains("Test"));
+
 
                 // check out heartbeat in trace
                 Thread.Sleep(6000);

@@ -208,7 +208,7 @@
     <Compile Include="Auth\Exception\AuthFailedException.cs" />
     <Compile Include="Auth\Exception\AuthTimeoutException.cs" />
     <Compile Include="Client\AuthError.cs" />
-    <Content Include="Product\Common\Model\Message.java" />
+    <Compile Include="Product\Common\Model\Message.cs" />
     <Content Include="Product\Common\Model\Result.java" />
     <Compile Include="Product\General\General.cs" />
     <Content Include="Product\General\Model\BeaconEnvironment.java" />

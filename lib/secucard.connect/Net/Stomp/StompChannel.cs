@@ -64,7 +64,7 @@ namespace Secucard.Connect.Net.Stomp
      */
         public override void Open()
         {
-            // StartSessionRefresh();
+            Connect(GetToken());
         }
 
         public override void Close()
@@ -148,10 +148,12 @@ namespace Secucard.Connect.Net.Stomp
         }
 
 
-        /**
-     * Provides the token used as login and password for  STOMP connect.
-     */
-        protected string GetToken()
+
+        
+        /// <summary>
+        /// Provides the token used as login and password for STOMP connect.
+        /// </summary>
+        private string GetToken()
         {
             return Context.TokenManager.GetToken(false);
         }
@@ -170,6 +172,7 @@ namespace Secucard.Connect.Net.Stomp
             if (token == null) token = Configuration.Login;
 
             Stomp.Config.Login = token;
+            Stomp.Config.Password = token;
             Stomp.Connect();
             ConnectToken = token;
 

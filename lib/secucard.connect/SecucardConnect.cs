@@ -31,10 +31,18 @@ namespace Secucard.Connect
         private readonly ClientContext Context;
         private readonly Dictionary<string, IService> Services;
         private volatile bool IsConnected;
-        // provide service instances for easy access ------------------------------------------------------------------------
 
-        //public Document document;
+        #region ### easy access services ### 
+
         public General General { get; set; }
+        //public Document document;
+        //public Payment payment;
+        //public Loyalty loyalty;
+        //public Services services;
+        //public Smart smart;
+
+        #endregion
+
         public event AuthEvent AuthEvent;
         public event ConnectionStateChangedEventHandler ConnectionStateChangedEvent;
 
@@ -43,24 +51,15 @@ namespace Secucard.Connect
             if (Context.SecucardTrace != null) Context.SecucardTrace.Info(fmt, param);
         }
 
-        //public Payment payment;
-        //public Loyalty loyalty;
-        //public Services services;
-        //public Smart smart;
 
-        #region ### Start / Stop ###
+        #region ### Open / Close ###
 
+        /// <summary>
+        ///    Authenticate and open internal resources
+        /// </summary>
         public void Open()
         {
-            if (IsConnected)
-            {
-                return;
-            }
-
-            //if (disconnectTimerTask != null)
-            //{
-            //    disconnectTimerTask.cancel();
-            //}
+            if (IsConnected) return;
 
             try
             {
@@ -74,10 +73,7 @@ namespace Secucard.Connect
 
             try
             {
-                foreach (var channel in Context.Channels.Values)
-                {
-                    channel.Open();
-                }
+                foreach (var channel in Context.Channels.Values) channel.Open();
             }
             catch (Exception e)
             {
@@ -91,11 +87,9 @@ namespace Secucard.Connect
             TraceInfo("Secucard connect client opened.");
         }
 
-
-        /**
-   * Gracefully closes this instance and releases all resources.
-   */
-
+        /// <summary>
+        ///    Gracefully closes this instance and releases all resources.
+        /// </summary>
         public void Close()
         {
             IsConnected = false;

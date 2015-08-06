@@ -17,9 +17,9 @@
     {
         protected const string logPath = "data\\secucard.cliend.log";
         protected const string storagePath = "data\\secucard.sec";
-        protected readonly ClientConfiguration ClientConfigurationDevice;
-        protected readonly ClientConfiguration ClientConfigurationUser;
-        protected readonly MemoryDataStorage Storage;
+        private readonly ClientConfiguration ClientConfigurationDevice;
+        private readonly ClientConfiguration ClientConfigurationUser;
+        private readonly MemoryDataStorage Storage;
         protected readonly ISecucardTrace Tracer;
 
         protected SecucardConnect Client;
@@ -125,7 +125,7 @@
         /// <summary>
         ///     Handles device authentication. Enter pin thru web interface service
         /// </summary>
-        protected void ClientOnAuthEvent(object sender, AuthEventArgs args)
+        private void ClientOnAuthEvent(object sender, AuthEventArgs args)
         {
             Tracer.Info("ClientOnSecucardConnectEvent Status={0}", args.Status);
 
@@ -155,7 +155,7 @@
         /// <summary>
         ///     Handles connect and disconnect events
         /// </summary>
-        protected void ClientOnConnectionStateChangedEvent(object sender, ConnectionStateChangedEventArgs args)
+        private void ClientOnConnectionStateChangedEvent(object sender, ConnectionStateChangedEventArgs args)
         {
             Tracer.Info("Client Connected={0}", args.Connected);
         }
