@@ -42,7 +42,7 @@
                                            Host = "core-dev10.secupay-ag.de",
                                            AuthType = AuthTypeEnum.Device,
                                            OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
-                                           WaitTimeoutSec = 240,
+                                           AuthWaitTimeoutSec = 240,
                                            Uuid = "/vendor/unknown/cashier/dotnettest1"
                                        },
                    StompConfig = new StompConfig
@@ -79,7 +79,7 @@
                     Host = "core-dev10.secupay-ag.de",
                     AuthType = AuthTypeEnum.User,
                     OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
-                    WaitTimeoutSec = 240,
+                    AuthWaitTimeoutSec = 240,
                     Uuid = "/vendor/unknown/cashier/dotnettest1"
                 },
                 StompConfig = new StompConfig

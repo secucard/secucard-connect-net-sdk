@@ -17,7 +17,7 @@
     [DeploymentItem("Data", "Data")]
     public class Test_Rest_Base_AuthUser : Test_Base
     {
-        protected readonly Token Token;
+        protected readonly string Token;
         protected readonly RestService RestService;
 
         public Test_Rest_Base_AuthUser()
@@ -27,7 +27,7 @@
                 Host = host,
                 AuthType = AuthTypeEnum.User,
                 OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
-                WaitTimeoutSec = 240,
+                AuthWaitTimeoutSec = 240,
                 Uuid = "/vendor/unknown/cashier/dotnettest1"
             };
 

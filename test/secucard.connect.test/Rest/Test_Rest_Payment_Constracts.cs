@@ -15,7 +15,7 @@
         {
             var request = new RestRequest
            {
-               Token = Token.AccessToken,
+               Token = Token,
                QueyParams = new QueryParams
                {
                    Count = 10,
@@ -35,7 +35,7 @@
         {
             var request = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = Token,
                 QueyParams = new QueryParams
                 {
                     Count = 10,
@@ -51,7 +51,7 @@
 
             var requestClone = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = Token,
                 Action = "clone",
                 Id = data.List.First().Id,
                 Object = new CloneParams

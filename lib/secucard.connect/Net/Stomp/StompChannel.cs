@@ -157,7 +157,7 @@ public class StompChannel : Channel
      */
     protected string GetToken()
     {
-        return Context.TokenManager.GetToken(false).AccessToken;
+        return Context.TokenManager.GetToken(false);
     }
 
 

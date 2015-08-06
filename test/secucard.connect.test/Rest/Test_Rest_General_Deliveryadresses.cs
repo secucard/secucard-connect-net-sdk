@@ -16,7 +16,7 @@
         {
             var request = new RestRequest
            {
-               Token = Token.AccessToken,
+               Token = AccessToken,
                QueyParams = new QueryParams
                {
                    Count = 10,

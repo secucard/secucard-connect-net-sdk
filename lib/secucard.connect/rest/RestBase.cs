@@ -14,7 +14,7 @@
 
     public class RestBase
     {
-        private const string UserAgent = "secucard client";
+        //private const string UserAgent = "secucard client";
         private const string ContentTypeFrom = "application/x-www-form-urlencoded";
         private const string ContentTypeJson = "application/json";
 
@@ -268,11 +268,11 @@
             var webRequest = (HttpWebRequest) WebRequest.Create(uri);
 
             webRequest.Method = request.Method;
-            webRequest.UserAgent = UserAgent;
             webRequest.Host = request.Host;
             webRequest.Accept = ContentTypeJson;
             webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
             webRequest.Headers.Add("Accept-Charset", "utf-8");
+            webRequest.UserAgent = request.UserAgent;
 
             if(string.IsNullOrWhiteSpace(request.BodyJsonString))
                 webRequest.ContentType = ContentTypeFrom;
@@ -287,8 +287,7 @@
             if (!string.IsNullOrWhiteSpace(request.Token))
                 webRequest.Headers.Add("Authorization", string.Format("Bearer {0}", request.Token));
 
-            // Other header info
-            webRequest.Headers.Add(request.Header);
+            webRequest.Headers.Add(request.Header);            // Other header info like user-agent
 
             return webRequest;
         }

@@ -17,7 +17,7 @@
     [DeploymentItem("Data", "Data")]
     public class Test_Rest_Base_AuthDevice : Test_Base
     {
-        protected readonly Token Token;
+        protected readonly string AccessToken;
         protected readonly RestService RestService;
         protected IClientAuthDetails ClientAuthDetails;
 
@@ -30,7 +30,7 @@
                 Host = host,
                 AuthType = AuthTypeEnum.Device,
                 OAuthUrl = "https://core-dev10.secupay-ag.de/app.core.connector/oauth/token",
-                WaitTimeoutSec = 240,
+                AuthWaitTimeoutSec = 240,
                 Uuid = "/vendor/unknown/cashier/dotnettest1"
             };
 
@@ -41,10 +41,12 @@
             Storage = MemoryDataStorage.LoadFromFile(storagePath);
 
 
-            var authProvider = new TokenManager(ConfigAuth, ClientAuthDetails, new RestAuth(ConfigAuth));
-            authProvider.Context = new ClientContext() {SecucardTrace = Tracer};
+            var authProvider = new TokenManager(ConfigAuth, ClientAuthDetails, new RestAuth(ConfigAuth))
+            {
+                Context = new ClientContext() {SecucardTrace = Tracer}
+            };
             authProvider.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            Token = authProvider.GetToken(true);
+            AccessToken = authProvider.GetToken(true);
             //Storage.SaveToFile(storagePath); // Save new token 
 
             RestService = new RestService(new RestConfig { BaseUrl = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/" });

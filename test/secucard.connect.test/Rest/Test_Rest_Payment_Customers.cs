@@ -18,7 +18,7 @@
         {
             var request = new RestRequest
            {
-               Token = Token.AccessToken,
+               Token = Token,
                QueyParams = new QueryParams
                {
                    Count = 10,
@@ -66,7 +66,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = Token,
                     Object = customer,
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
@@ -84,7 +84,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = Token,
                     QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
@@ -102,7 +102,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = Token,
                     Object = customerPost,
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
@@ -117,7 +117,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = Token,
                     QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
@@ -131,7 +131,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = Token,
                     Id = customerPost.Id,
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
@@ -147,7 +147,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = Token,
                     QueyParams = new QueryParams { Query = "id:" + customerPost.Id },
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"

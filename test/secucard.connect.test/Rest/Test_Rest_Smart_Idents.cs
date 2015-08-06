@@ -17,7 +17,7 @@
         {
             var request = new RestRequest
            {
-               Token = Token.AccessToken,
+               Token = Token,
                QueyParams = new QueryParams
                {
                    Count = 10,
@@ -37,7 +37,7 @@
         {
             var request = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = Token,
                 Objects = new List<SecuObject> { new Ident { Value = "9276123456789012", Type = "card" } },
                 PageUrl = "Smart/Idents/notused/validate",
                 Host = "core-dev10.secupay-ag.de"

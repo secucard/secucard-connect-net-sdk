@@ -123,7 +123,7 @@
             var token = Context.TokenManager.GetToken(true);
             var request = new RestRequest
             {
-                Token = token.AccessToken,
+                Token = token,
                 PageUrl = resourceString,
                 Host = "core-dev10.secupay-ag.de" // TODO: Config
             };

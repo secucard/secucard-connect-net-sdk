@@ -22,6 +22,7 @@
         public string Token { get; set; }
         public string Method { get; set; }
         public NameValueCollection Header { get; set; }
+        public string UserAgent { get; set; }
 
         public string Id { get; set; }
         public QueryParams QueyParams { get; set; }

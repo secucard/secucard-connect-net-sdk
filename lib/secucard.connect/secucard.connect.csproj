@@ -49,7 +49,7 @@
     <Compile Include="Auth\AuthConst.cs" />
     <Compile Include="Auth\AuthProviderStatusEnum.cs" />
     <Compile Include="Auth\AuthTypeEnum.cs" />
-    <Compile Include="Auth\AuthProvider.cs" />
+    <Compile Include="Auth\TokenManager.cs" />
     <Compile Include="Auth\Model\DeviceAuthCode.cs" />
     <Compile Include="Auth\Model\AuthCodeError.cs" />
     <Compile Include="Auth\Model\AuthToken.cs" />
@@ -125,6 +125,11 @@
     <Compile Include="Auth\Model\AnonymousCredentials.cs" />
     <Compile Include="Auth\Model\AppUserCredentials.cs" />
     <Compile Include="Auth\AbstractClientAuthDetails.cs" />
+    <Compile Include="Auth\Exception\AuthCanceledException.cs" />
+    <Compile Include="Auth\Exception\AuthDeniedException.cs" />
+    <Compile Include="Auth\Exception\AuthFailedException.cs" />
+    <Compile Include="Auth\Exception\AuthTimeoutException.cs" />
+    <Compile Include="Client\AuthError.cs" />
     <Content Include="Product\Service\IdentResultsService.java" />
   </ItemGroup>
   <ItemGroup>

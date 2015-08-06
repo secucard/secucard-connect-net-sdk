@@ -21,7 +21,7 @@
             var request = new RestRequest
             {
                 Method = WebRequestMethods.Http.Get,
-                Token = Token.AccessToken,
+                Token = AccessToken,
                 QueyParams = new QueryParams
                 {
                     Count = 10,
@@ -49,7 +49,7 @@
                 var request = new RestRequest
                 {
                     Method = WebRequestMethods.Http.Get,
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     QueyParams = new QueryParams
                     {
                         Count = 10,
@@ -74,7 +74,7 @@
                 var request = new RestRequest
                 {
                     Method = WebRequestMethods.Http.Get,
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     QueyParams = new QueryParams
                     {
                         ScrollId = scrollId,
@@ -97,7 +97,7 @@
             // {{host}}General/Skeletons?q=a:abc1? OR (b:*0 AND NOT c:???1??)
             var request = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = AccessToken,
                 QueyParams = new QueryParams
                 {
                     Query = "a:abc1? OR (b:*0 AND NOT c:???1??)"
@@ -118,7 +118,7 @@
             // {{host}}General/Skeletons?expand=true
             var request = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = AccessToken,
                 QueyParams = new QueryParams
                 {
                     Expand = true
@@ -141,7 +141,7 @@
                 // Get Id prerequesit for test
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     QueyParams = new QueryParams
                     {
                         Count = 2,
@@ -161,7 +161,7 @@
                 // {{host}}General/Skeletons/skl_xxxxx?expand=true
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     Id = id,
                         QueyParams = new QueryParams
                         {
@@ -189,7 +189,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de",
                     Object = new Skeleton { A = "value Test A", B = "value Test B", Id = id }
@@ -214,7 +214,7 @@
                 var request = new RestRequest
                 {
                     Method = WebRequestMethods.Http.Get,
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     QueyParams = new QueryParams
                     {
                         Count = 10,
@@ -235,7 +235,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de",
                     Object = obj
@@ -250,7 +250,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de",
                     Id = obj.Id
@@ -266,7 +266,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     Id = "12345",
                     Object = new Demoevent
                     {

@@ -41,9 +41,9 @@
 
         public void Connect()
         {
-            // Start authentification
+            // Start authentication
             Context.TokenManager.AuthProviderStatusUpdate += AuthProviderOnAuthProviderStatusUpdate;
-            Context.TokenManager.GetToken(false);
+            Context.TokenManager.GetToken(true);
 
             //TODO: Start Stomp
 

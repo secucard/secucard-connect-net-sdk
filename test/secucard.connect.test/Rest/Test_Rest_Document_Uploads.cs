@@ -4,7 +4,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Rest;
     using Secucard.Model.Document;
-    using Secucard.Model.General;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -21,7 +20,7 @@
             // POST 
             var request = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = AccessToken,
                 Object = document,
                 PageUrl = "Document/Uploads",
                 Host = "core-dev10.secupay-ag.de"
@@ -35,7 +34,7 @@
             // GET by id
             var requestGet = new RestRequest
             {
-                Token = Token.AccessToken,
+                Token = AccessToken,
                 Id = docPost.Id,
                 PageUrl = "Document/Uploads",
                 Host = "core-dev10.secupay-ag.de"

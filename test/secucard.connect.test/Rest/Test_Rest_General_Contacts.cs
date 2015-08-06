@@ -16,7 +16,7 @@
         {
             var request = new RestRequest
            {
-               Token = Token.AccessToken,
+               Token = AccessToken,
                QueyParams = new QueryParams
                {
                    Count = 10,
@@ -48,7 +48,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     Object = contact,
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
@@ -62,7 +62,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     QueyParams = new QueryParams { Query = "forename:" + contact.Forename },
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
@@ -85,7 +85,7 @@
             {
                 var request = new RestRequest
                 {
-                    Token = Token.AccessToken,
+                    Token = AccessToken,
                     Object = contact,
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
@@ -102,7 +102,7 @@
             //{
             //    var request = new RestRequest
             //    {
-            //        Token = Token.AccessToken,
+            //        Token = Token,
             //        QueyParams = new QueryParams { Query = "forename:" + contact.Forename },
             //        PageUrl = "General/Contacts",
             //        Host = "core-dev10.secupay-ag.de"

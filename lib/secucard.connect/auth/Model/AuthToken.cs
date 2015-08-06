@@ -26,10 +26,11 @@
 
         public DateTime? ExpireTime { get; set; }
         public DateTime? OrigExpireTime { get; set; }
+        public string Id { get; set; }
 
         public void SetExpireTime()
         {
-            ExpireTime = DateTime.Now.AddMilliseconds(ExpiresIn*1000);
+            ExpireTime = DateTime.Now.AddMilliseconds(ExpiresIn * 1000);
             if (OrigExpireTime == null) OrigExpireTime = ExpireTime;
         }
 
