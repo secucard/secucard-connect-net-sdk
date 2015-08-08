@@ -1,6 +1,6 @@
 ﻿namespace Secucard.Stomp
 {
-    public enum EnumStompCoreStatus
+    public enum EnumStompClientStatus
     {
         NotConnected = 1,
         Connecting = 2,

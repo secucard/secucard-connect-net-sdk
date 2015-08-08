@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Security.Cryptography;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
@@ -10,6 +9,9 @@
 
     public class StompClient : IDisposable
     {
+        public event StompClientFrameArrivedHandler StompClientFrameArrivedEvent;
+        public event StompClientStatusChangedEventHandler StompClientChangedEvent;
+
         public readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
         private readonly ConcurrentDictionary<string, DateTime> Receipts;
         private Timer ClientTimerHeartbeat;
@@ -17,18 +19,16 @@
         private StompCore Core;
         private StompFrame Error;
         private bool IsConnected;
-        private DateTime LastServerFrame; // TODO: Heartbeat Server 
-        public EnumStompCoreStatus StompClientStatus;
+        public EnumStompClientStatus StompClientStatus;
 
         public StompClient(StompConfig config)
         {
             StompTrace.ClientTrace("StompClient Create '{0}'", config.Host);
             Config = config;
             Receipts = new ConcurrentDictionary<string, DateTime>();
-            StompClientStatus = EnumStompCoreStatus.NotConnected;
+            StompClientStatus = EnumStompClientStatus.NotConnected;
 
             InQueue = new ConcurrentQueue<StompFrame>();
-            LastServerFrame = DateTime.Now;
         }
 
         public void Dispose()
@@ -36,8 +36,6 @@
             if (ClientTimerHeartbeat != null) ClientTimerHeartbeat.Dispose();
             if (Core != null) Core.Dispose();
         }
-
-        public event StompClientFrameArrivedHandler StompClientFrameArrivedEvent;
 
         /// <summary>
         ///     sync connect
@@ -48,18 +46,19 @@
             Core = new StompCore(Config);
             Core.Init();
             Core.StompCoreFrameArrived += ClientOnStompCoreFrameArrived;
-            StompClientStatus = EnumStompCoreStatus.Connecting;
+            OnStatusChanged(EnumStompClientStatus.Connecting);
 
             Core.SendFrame(CreateFrameConnect());
 
             // Waiting for STOMP to connect or timeout
             var waitUntil = DateTime.Now.AddSeconds(Config.HeartbeatServerMs/1000);
-            while (StompClientStatus == EnumStompCoreStatus.Connecting)
+            while (StompClientStatus == EnumStompClientStatus.Connecting)
             {
-                if (waitUntil < DateTime.Now) StompClientStatus = EnumStompCoreStatus.Timeout;
+                if (waitUntil < DateTime.Now)
+                    OnStatusChanged(EnumStompClientStatus.Timeout);
             }
 
-            if (StompClientStatus == EnumStompCoreStatus.Connected)
+            if (StompClientStatus == EnumStompClientStatus.Connected)
             {
                 IsConnected = true;
                 CreateClientHeartBeat();
@@ -73,10 +72,17 @@
             // graceful shutdown
             // Frame DISCONNECT + Receipt
             IsConnected = false;
-            StompClientStatus = EnumStompCoreStatus.Disconnecting;
+            OnStatusChanged(EnumStompClientStatus.Disconnecting);
             ClientTimerHeartbeat.Dispose();
             var frame = CreateFrameDisconnect();
             SendFrame(frame);
+            OnStatusChanged(EnumStompClientStatus.Disconnected);
+        }
+
+        private void OnStatusChanged(EnumStompClientStatus status)
+        {
+            StompClientStatus = status;
+            if(StompClientChangedEvent!=null) StompClientChangedEvent(this,new StompClientStatusChangedEventArgs{Status = status,Time = DateTime.Now});
         }
 
         public void SendFrame(StompFrame frame)
@@ -148,40 +154,23 @@
                 case StompCommands.CONNECTED:
                 {
                     // CONNECTED FRAME received set core as connected
-                    StompClientStatus = EnumStompCoreStatus.Connected;
+                    OnStatusChanged(EnumStompClientStatus.Connected);
                     break;
                 }
                 case StompCommands.DISCONNECT:
                 {
                     // CONNECTED FRAME received set core as connected
-                    StompClientStatus = EnumStompCoreStatus.Disconnected;
+                    OnStatusChanged(EnumStompClientStatus.Disconnected);
                     break;
                 }
                 case StompCommands.ERROR:
                 {
                     OnError(Error);
-
-                    if (StompClientStatus == EnumStompCoreStatus.Connecting)
-                        StompClientStatus = EnumStompCoreStatus.Error;
-                    else
-                    {
-                        // pass frame upwards
-                        RaiseFrameArriveEventInSeparateThread(args);
-                    }
                     break;
                 }
                 case StompCommands.RECEIPT:
                 {
                     OnReceipt(args.Frame);
-
-                    if (StompClientStatus == EnumStompCoreStatus.Disconnecting)
-                    {
-                        // TODO: analyze Receipt
-                        StompClientStatus = EnumStompCoreStatus.Disconnected;
-                        break;
-                    }
-
-                    RaiseFrameArriveEventInSeparateThread(args);
                     break;
                 }
                 case StompCommands.MESSAGE:
@@ -236,6 +225,8 @@
         private void OnError(StompFrame frame)
         {
             Error = frame;
+            OnStatusChanged(EnumStompClientStatus.Error);
+
         }
 
         private StompFrame CreateFrameConnect()

@@ -148,10 +148,10 @@ namespace Secucard.Connect.Net.Stomp
         private void CheckConnection(string token)
         {
             // auto-connect or reconnect if token has changed since last connect
-            if (Stomp.StompClientStatus != EnumStompCoreStatus.Connected || 
+            if (Stomp.StompClientStatus != EnumStompClientStatus.Connected || 
                 (token != null && !token.Equals(ConnectToken)))
             {
-                if (Stomp.StompClientStatus == EnumStompCoreStatus.Connected)
+                if (Stomp.StompClientStatus == EnumStompClientStatus.Connected)
                 {
                     Trace("Reconnect due token change.");
                 }

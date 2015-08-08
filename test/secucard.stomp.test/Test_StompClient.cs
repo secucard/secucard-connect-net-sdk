@@ -15,7 +15,7 @@
             {
                 var connect = client.Connect();
                 Assert.IsTrue(connect);
-                Assert.AreEqual(client.StompClientStatus, EnumStompCoreStatus.Connected);
+                Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
                 var framePing = new StompFrame(StompCommands.SEND);
                 framePing.Headers.Add(StompHeader.UserId, Config.Login);
@@ -59,11 +59,11 @@
                 Assert.IsTrue(frameIn.Body.Contains("skeletons"));
 
                 // check out heartbeat in trace
-                Thread.Sleep(6000);
+                Thread.Sleep(3000);
 
                 client.Disconnect();
                 Thread.Sleep(3000); // Wait for Disconnect Receipt to arrive
-                Assert.IsTrue(client.StompClientStatus == EnumStompCoreStatus.Disconnected);
+                Assert.IsTrue(client.StompClientStatus == EnumStompClientStatus.Disconnected);
             }
         }
 
@@ -77,7 +77,7 @@
                 Assert.IsTrue(connect1);
                 var connect2 = client.Connect();
                 Assert.IsTrue(connect2);
-                Assert.AreEqual(client.StompClientStatus, EnumStompCoreStatus.Connected);
+                Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
             }
         }
     }

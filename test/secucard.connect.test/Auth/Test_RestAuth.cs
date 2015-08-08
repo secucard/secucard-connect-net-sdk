@@ -128,7 +128,7 @@
             {
                 var connect = client.Connect();
                 Assert.IsTrue(connect);
-                Assert.AreEqual(client.StompClientStatus, EnumStompCoreStatus.Connected);
+                Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
                 var framePing = new StompFrame(StompCommands.SEND);
                 framePing.Headers.Add(StompHeader.UserId, ConfigStomp.Login);
@@ -154,7 +154,7 @@
 
                 client.Disconnect();
                 Thread.Sleep(3000); // Wait for Disconnect Receipt to arrive
-                Assert.IsTrue(client.StompClientStatus == EnumStompCoreStatus.Disconnected);
+                Assert.IsTrue(client.StompClientStatus == EnumStompClientStatus.Disconnected);
             }
         }
 

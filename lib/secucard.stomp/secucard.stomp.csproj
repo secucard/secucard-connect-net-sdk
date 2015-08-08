@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumStompCoreStatus.cs" />
+    <Compile Include="EnumStompClientStatus.cs" />
     <Compile Include="StompClient.cs" />
+    <Compile Include="StompClientStatusChangedEvent.cs" />
     <Compile Include="StompCore.cs" />
     <Compile Include="StompCommands.cs" />
     <Compile Include="StompConfig.cs" />
