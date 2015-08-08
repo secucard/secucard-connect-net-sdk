@@ -76,15 +76,15 @@
             }
         }
 
-        public void SendHeartBeat()
-        {
-            if (tcpClient.Connected)
-            {
-                StompTrace.ClientTrace("SendHeartBeat: {0}", DateTime.Now);
-                var bytes = Encoding.UTF8.GetBytes("\n\0"); // NULL Terminated
-                sslStream.Write(bytes, 0, bytes.Length);
-            }
-        }
+        //public void SendHeartBeat()
+        //{
+        //    if (tcpClient.Connected)
+        //    {
+        //        StompTrace.ClientTrace("SendHeartBeat: {0}", DateTime.Now);
+        //        var bytes = Encoding.UTF8.GetBytes("\n\0"); // NULL Terminated
+        //        sslStream.Write(bytes, 0, bytes.Length);
+        //    }
+        //}
 
         private void Receive(SslStream stream)
         {

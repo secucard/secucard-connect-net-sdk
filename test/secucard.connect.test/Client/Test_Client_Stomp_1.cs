@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General;
@@ -24,6 +25,9 @@
                 SortOrder = new Dictionary<string, string>() { { "a", QueryParams.SORT_ASC } },
                 Fields = new List<string> { "id", "a", "b" }
             };
+
+            //TEST Heartbeat
+            Thread.Sleep(20000);
 
             var list = service.GetList(queryParams);
             Assert.IsTrue(list.Count > 0);

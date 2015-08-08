@@ -61,7 +61,7 @@
             if (StompClientStatus == EnumStompClientStatus.Connected)
             {
                 IsConnected = true;
-                CreateClientHeartBeat();
+                //CreateClientHeartBeat();
                 return true;
             }
             return false;
@@ -252,18 +252,6 @@
             frame.Headers.Add(StompHeader.Login, Config.Login);
             frame.Headers.Add(StompHeader.Passcode, Config.Password);
             return frame;
-        }
-
-        private void CreateClientHeartBeat()
-        {
-            ClientTimerHeartbeat = new Timer(Config.HeartbeatClientMs) {AutoReset = true};
-            ClientTimerHeartbeat.Elapsed += ClientTimerOnElapsed;
-            ClientTimerHeartbeat.Start();
-        }
-
-        private void ClientTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            Core.SendHeartBeat();
         }
 
         #endregion

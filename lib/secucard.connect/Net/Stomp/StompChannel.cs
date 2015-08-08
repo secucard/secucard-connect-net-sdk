@@ -19,6 +19,7 @@ using Secucard.Stomp;
 
 namespace Secucard.Connect.Net.Stomp
 {
+    using System.Timers;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Product.Common.Model;
@@ -36,6 +37,9 @@ namespace Secucard.Connect.Net.Stomp
         private volatile bool StopRefresh;
         private Thread refreshThread;
         private string ChannelId;
+        private Timer ClientTimerHeartbeat;
+        private object lockSend = new object();
+
 
         public StompChannel(StompConfig configuration, ClientContext context)
             : base(context)
@@ -68,40 +72,19 @@ namespace Secucard.Connect.Net.Stomp
             // TOOD: Connect an start listening
             Connect(GetToken());
 
-            SendSessionRefresh();
+            StartSessionRefresh();
         }
 
         public override void Close()
         {
             StopRefresh = true;
+            ClientTimerHeartbeat.Dispose();
             Stomp.Disconnect();
             Trace("STOMP channel closed.");
         }
 
         #endregion
 
-
-        #region ### Stomp Refresh Heartbeat ###
-        
-        private bool? SendSessionRefresh()
-        {
-            ChannelRequest channelRequest = new ChannelRequest
-            {
-                Method = ChannelMethod.EXECUTE,
-                Product = "auth",
-                Resource = "sessions",
-                Action = "refresh",
-                ObjectId = "me"
-            };
-
-            StompRequest stompRequest = StompRequest.Create(channelRequest, ChannelId, Configuration.ReplyTo, Configuration.Destination);
-            var returnMessage = SendMessage(stompRequest);
-
-            var response = new Response(returnMessage);
-            return JsonSerializer.DeserializeJson<StompResult>(response.Data).Result;
-        }
-
-        #endregion
 
 
         public override T Request<T>(ChannelRequest request)
@@ -170,9 +153,9 @@ namespace Secucard.Connect.Net.Stomp
         
         private string SendMessage(StompRequest stompRequest) 
         {
+            
             var token = GetToken();
 
-            CheckConnection(token);
 
             var frame = new StompFrame(StompCommands.SEND);
             frame.Headers.Add(StompHeader.ReplyTo, stompRequest.ReplayTo);
@@ -189,7 +172,12 @@ namespace Secucard.Connect.Net.Stomp
                 frame.Headers.Add(StompHeader.ContentLength, frame.Body.ToUTF8Bytes().Length.ToString());
             }
 
-            Stomp.SendFrame(frame);
+            lock (lockSend)
+            {
+
+                CheckConnection(token);
+                Stomp.SendFrame(frame);
+            }
 
             // TODO: simple wait for message 
             // TODO: consider Timeout (awaitanswer)
@@ -203,6 +191,58 @@ namespace Secucard.Connect.Net.Stomp
 
             return message;
         }
+
+
+
+
+        #region ### Stomp Refresh Heartbeat ###
+
+        private bool? SendSessionRefresh()
+        {
+            ChannelRequest channelRequest = new ChannelRequest
+            {
+                Method = ChannelMethod.EXECUTE,
+                Product = "auth",
+                Resource = "sessions",
+                Action = "refresh",
+                ObjectId = "me"
+            };
+
+            StompRequest stompRequest = StompRequest.Create(channelRequest, ChannelId, Configuration.ReplyTo, Configuration.Destination);
+            var returnMessage = SendMessage(stompRequest);
+
+            var response = new Response(returnMessage);
+            return JsonSerializer.DeserializeJson<StompResult>(response.Data).Result;
+        }
+
+
+        private void StartSessionRefresh()
+        {
+            ClientTimerHeartbeat = new Timer(Configuration.HeartbeatClientMs) { AutoReset = true };
+            ClientTimerHeartbeat.Elapsed += ClientTimerOnElapsed;
+            ClientTimerHeartbeat.Start();
+        }
+
+        private void ClientTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            if (!StopRefresh)
+            {
+                if (IsConfirmed)
+                {
+                    // There has been a message on Stomp within the cycle. No need to send refresh
+                    IsConfirmed = false;
+                }
+                else
+                {
+                    // Send new session refresh message to keep stomp connection alive.
+                    IsConfirmed = false;
+                    SendSessionRefresh();
+
+                }
+            }
+        }
+
+        #endregion
 
         ///**
         // * Starts the session refresh loop thread. Blocks until the loop is really running and returns after that.
