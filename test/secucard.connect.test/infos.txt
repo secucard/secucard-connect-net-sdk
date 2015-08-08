@@ -1,6 +1,8 @@
 ﻿
 https://github.com/secucard/secucard-connect-doc/wiki/sdk-dev-guide
 
+http://developer.secucard.com/api/
+
 
 
 Payment

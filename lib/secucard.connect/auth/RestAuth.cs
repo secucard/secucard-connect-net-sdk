@@ -1,7 +1,7 @@
 ﻿namespace Secucard.Connect.Auth
 {
     using Secucard.Connect.Auth.Model;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.Net.Rest;
 
     public class RestAuth : RestBase
     {

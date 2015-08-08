@@ -5,7 +5,6 @@
     using System.Linq;
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Common.Model;
-    using Secucard.Connect.Rest;
 
     public class RestChannel : Channel
     {

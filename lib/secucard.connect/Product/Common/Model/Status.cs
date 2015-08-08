@@ -1,5 +1,4 @@
 //@JsonInclude(JsonInclude.Include.NON_EMPTY)
-
 namespace Secucard.Connect.Product.Common.Model
 {
     using System.Runtime.Serialization;
@@ -27,15 +26,6 @@ namespace Secucard.Connect.Product.Common.Model
 
         [DataMember(Name = "supportId")]
         public string SupportId;
-
-        //public Status() {
-        //}
-
-        //public Status(string status, string error, string errorDetails) {
-        //  this.status = status;
-        //  this.error = error;
-        //  this.errorDetails = errorDetails;
-        //}
 
         public override string ToString()
         {

@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Rest
+﻿namespace Secucard.Connect.Net.Rest
 {
     using System;
     using System.Collections.Generic;
@@ -100,7 +100,7 @@
             var sortOrder = queryParams.SortOrder;
             if (!scroll && sortOrder != null)
             {
-                foreach (var key in sortOrder.AllKeys)
+                foreach (var key in sortOrder.Keys)
                 {
                     nvc.Add("sort[" + key + "]", sortOrder[key]);
                 }

@@ -8,10 +8,10 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
 
-    public delegate void StompCoreFrameArrived(object sender, StompCoreFrameArrivedEventArgs args);
-
     public class StompCore : IDisposable
     {
+        public event StompCoreFrameArrivedEventHandler StompCoreFrameArrived;
+
         private readonly StompConfig Config;
         private SslStream sslStream;
         private bool Stop;
@@ -30,7 +30,6 @@
             if (tcpClient != null) tcpClient.Close();
         }
 
-        public event StompCoreFrameArrived StompCoreFrameArrived;
 
         private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain,
             SslPolicyErrors sslPolicyErrors)
@@ -149,10 +148,7 @@
         private void OnFrameArrived(StompCoreFrameArrivedEventArgs e)
         {
             if (StompCoreFrameArrived != null)
-            {
-                StompTrace.ClientTrace("Frame arrived: {0}", e.Frame.GetFrame());
                 StompCoreFrameArrived(this, e);
-            }
         }
     }
 }

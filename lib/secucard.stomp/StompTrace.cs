@@ -13,7 +13,7 @@
 
         internal static void ClientTrace(string fmt, params object[] param)
         {
-            Trace.WriteLine(string.Format("{0:yyyy-MM-dd-HHmmss}: ", DateTime.Now) + string.Format(fmt, param));
+            Trace.WriteLine(string.Format("{0:yyyyMMdd-HHmmss.fff}: ", DateTime.Now) + string.Format(fmt, param));
         }
     }
 }

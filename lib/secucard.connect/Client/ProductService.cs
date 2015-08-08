@@ -47,7 +47,7 @@ namespace Secucard.Connect.Client
         protected abstract ServiceMetaData<T> CreateMetaData();
 
 
-        protected ChannelOptions GetDefaultOptions()
+        protected virtual ChannelOptions GetDefaultOptions()
         {
             return ChannelOptions.GetDefault();
         }

@@ -25,8 +25,9 @@
             }
         }
 
-        public static string SerializeJson<T>(T data) 
+        public static string SerializeJson<T>(T data)
         {
+            if (data == null) return null;
             var serializer = new DataContractJsonSerializer(data.GetType());
             using (var ms = new MemoryStream())
             {
@@ -37,6 +38,7 @@
 
         public static string SerializeJsonList<T>(List<T> data) 
         {
+            if (data == null) return null;
             var serializer = new DataContractJsonSerializer(data.GetType());
             using (var ms = new MemoryStream())
             {

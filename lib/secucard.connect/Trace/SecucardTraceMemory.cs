@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Linq;
     using System.Text;
 
     public class SecucardTraceMemory : ISecucardTrace
     {
-        private ConcurrentQueue<string> MessageQueue;
-        private int Limit;
+        private readonly ConcurrentQueue<string> MessageQueue;
+        private readonly int Limit;
 
         public SecucardTraceMemory()
         {
@@ -48,13 +49,20 @@
         public string GetAllTrace()
         {
             var sb = new StringBuilder();
-            while (!MessageQueue.IsEmpty)
+            foreach (var line in  MessageQueue.ToArray().OrderBy(o => o))
             {
-                string line;
-                MessageQueue.TryDequeue(out line);
                 sb.AppendLine(line);
             }
             return sb.ToString();
+        
+
+            //while (!MessageQueue.IsEmpty)
+            //{
+            //    string line;
+            //    MessageQueue.TryDequeue(out line);
+            //    sb.AppendLine(line);
+            //}
+            //return sb.ToString();
         }
 
     }

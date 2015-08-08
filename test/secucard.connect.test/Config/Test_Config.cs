@@ -4,7 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Stomp;
 
     [TestClass]
@@ -20,7 +20,6 @@
 
             var config = new ClientConfiguration
             {
-                AndroidMode = false,
                 CacheDir = null,
                 DefaultChannel = "REST",
                 DeviceId = "",
@@ -57,7 +56,6 @@
             var config2 = ClientConfiguration.Load(configPath);
 
             Assert.AreEqual(config2.DefaultChannel, config.DefaultChannel);
-            Assert.AreEqual(config2.AndroidMode, config.AndroidMode);
             Assert.AreEqual(config2.CacheDir, config.CacheDir);
             Assert.AreEqual(config2.DeviceId, config.DeviceId);
         }

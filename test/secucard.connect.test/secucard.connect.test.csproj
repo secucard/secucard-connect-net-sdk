@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -58,8 +59,9 @@
     <Compile Include="Client\Test_Client_SmartTransaction.cs" />
     <Compile Include="Client\Test_Client_PaymentDemo.cs" />
     <Compile Include="Client\Test_Client_Base.cs" />
-    <Compile Include="Client\Test_Client_1.cs" />
+    <Compile Include="Client\Test_Client_Stomp_1.cs" />
     <Compile Include="Config\Test_Config.cs" />
+    <Compile Include="Model\Test_Stomp_Model.cs" />
     <Compile Include="Model\Test_Model_Loyalty.cs" />
     <Compile Include="Model\Test_Model_Service.cs" />
     <Compile Include="Model\Test_Model_Smart.cs" />
@@ -201,6 +203,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\Services.Identcontracts.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Stomp.Response.1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Model\Stomp.Response.2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Data\secucard.payment.sec">

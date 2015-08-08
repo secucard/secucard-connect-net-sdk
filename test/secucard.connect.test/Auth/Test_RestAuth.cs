@@ -10,7 +10,6 @@
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.Rest;
     using Secucard.Connect.Test.Rest;
     using Secucard.Stomp;
 
@@ -140,7 +139,7 @@
                 framePing.Body = "Testdaten";
 
                 StompFrame frameIn = null;
-                client.StompClientFrameArrived += (sender, args) => { frameIn = args.Frame; };
+                client.StompClientFrameArrivedEvent += (sender, args) => { frameIn = args.Frame; };
                 client.SendFrame(framePing);
 
                 // waiting for frame to come

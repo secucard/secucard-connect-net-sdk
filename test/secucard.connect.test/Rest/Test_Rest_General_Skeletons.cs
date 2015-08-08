@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Net;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
-    using Secucard.Connect.Rest;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -26,7 +26,7 @@
                 {
                     Count = 10,
                     Offset = 0,
-                    SortOrder = new NameValueCollection {{"a", QueryParams.SORT_ASC}},
+                    SortOrder = new Dictionary<string, string>() { { "a", QueryParams.SORT_ASC } },
                     Fields = new List<string> {"a", "b"}
                 },
                 PageUrl = "General/Skeletons",
@@ -53,7 +53,7 @@
                     {
                         Count = 10,
                         ScrollExpire = "5m",
-                        SortOrder = new NameValueCollection {{"a", QueryParams.SORT_ASC}},
+                        SortOrder = new Dictionary<string, string>() { { "a", QueryParams.SORT_ASC } },
                         Fields = new List<string> {"a", "b"}
                     },
                     PageUrl = "General/Skeletons",
@@ -212,7 +212,7 @@
                     {
                         Count = 10,
                         Offset = 0,
-                        SortOrder = new NameValueCollection {{"id", QueryParams.SORT_ASC}}
+                        SortOrder = new Dictionary<string, string>() { { "id", QueryParams.SORT_ASC } }
                     },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"

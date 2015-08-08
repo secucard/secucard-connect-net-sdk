@@ -5,7 +5,7 @@ namespace Secucard.Connect.Client
     using System.IO;
     using System.Xml.Serialization;
     using Secucard.Connect.Auth;
-    using Secucard.Connect.Rest;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
     using Secucard.Stomp;
@@ -18,7 +18,6 @@ namespace Secucard.Connect.Client
         public int? HeartBeatSec { get; set; }
         public bool StompEnabled { get; set; }
         public string CacheDir { get; set; }
-        public bool AndroidMode { get; set; }
         public string DeviceId { get; set; }
         public string AppId { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Rest
+﻿namespace Secucard.Connect.Net.Rest
 {
     using System;
     using System.Collections.Generic;

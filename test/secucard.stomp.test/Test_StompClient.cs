@@ -26,7 +26,7 @@
                 framePing.Body = "Test";
 
                 StompFrame frameIn = null;
-                client.StompClientFrameArrived += (sender, args) => { frameIn = args.Frame; };
+                client.StompClientFrameArrivedEvent += (sender, args) => { frameIn = args.Frame; };
                 client.SendFrame(framePing);
 
                 // waiting for frame to come
@@ -44,8 +44,19 @@
                 frameRefresh.Body = "{ \"pid\":\"me\"}";
                 client.SendFrame(frameRefresh);
                 while (frameIn == null) { }
-                Assert.IsTrue(frameIn.Body.Contains("Test"));
+                Assert.IsTrue(frameIn.Body.Contains("data"));
 
+                frameIn = null;
+
+                var frameSkeleton = new StompFrame(StompCommands.SEND);
+                frameSkeleton.Headers.Add(StompHeader.UserId, Config.Login);
+                frameSkeleton.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:get:general.skeletons");
+                frameSkeleton.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
+                frameSkeleton.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
+                //frameSkeleton.Body = "{ \"pid\":\"me\"}";
+                client.SendFrame(frameSkeleton);
+                while (frameIn == null) { }
+                Assert.IsTrue(frameIn.Body.Contains("skeletons"));
 
                 // check out heartbeat in trace
                 Thread.Sleep(6000);

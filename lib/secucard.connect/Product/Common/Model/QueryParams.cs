@@ -1,7 +1,6 @@
 namespace Secucard.Connect.Product.Common.Model
 {
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Runtime.Serialization;
 
     [DataContract]
@@ -10,45 +9,42 @@ namespace Secucard.Connect.Product.Common.Model
         public static string SORT_ASC = "asc";
         public static string SORT_DESC = "desc";
 
-        [DataMember(Name = "count")]
-        public int? Count;
+        [DataMember(Name = "count", EmitDefaultValue = false)]
+        public int? Count { get; set; }
 
-        [DataMember(Name = "offset")]
-        public int? Offset;
+        [DataMember(Name = "offset", EmitDefaultValue = false)]
+        public int? Offset { get; set; }
 
-        [DataMember(Name = "scroll_id")]
-        public string ScrollId;
+        [DataMember(Name = "scroll_id", EmitDefaultValue = false)]
+        public string ScrollId { get; set; }
 
-        [DataMember(Name = "scroll_expire")]
-        public string ScrollExpire;
+        [DataMember(Name = "scroll_expire", EmitDefaultValue = false)]
+        public string ScrollExpire { get; set; }
 
-        [DataMember(Name = "fields")]
-        public List<string> Fields;
+        [DataMember(Name = "fields", EmitDefaultValue = false)]
+        public List<string> Fields { get; set; }
 
-        [DataMember(Name = "sort")]
-        public NameValueCollection SortOrder;
+        [DataMember(Name = "sort", EmitDefaultValue = false)]
+        public Dictionary<string, string> SortOrder { get; set; }
 
-        [DataMember(Name = "q")]
-        public string Query;
+        [DataMember(Name = "q", EmitDefaultValue = false)]
+        public string Query { get; set; }
 
-        [DataMember(Name = "preset")]
-        public string Preset;
+        [DataMember(Name = "preset", EmitDefaultValue = false)]
+        public string Preset { get; set; }
 
-        [DataMember(Name = "geo")]
-        public GeoQuery GeoQueryObj;
+        [DataMember(Name = "geo", EmitDefaultValue = false)]
+        public GeoQuery GeoQueryObj { get; set; }
 
-        [DataMember(Name = "expand")]
-        public bool? Expand;
+        [DataMember(Name = "expand", EmitDefaultValue = false)]
+        public bool? Expand { get; set; }
 
         public class GeoQuery
         {
-            public string Field;
-
-            public string Distance;
-
-            public double? Lat;
-
-            public double? Lon;
+            public string Field { get; set; }
+            public string Distance { get; set; }
+            public double? Lat { get; set; }
+            public double? Lon { get; set; }
         }
     }
 }

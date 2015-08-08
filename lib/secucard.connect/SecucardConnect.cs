@@ -63,7 +63,8 @@ namespace Secucard.Connect
 
             try
             {
-                Context.TokenManager.GetToken(true);
+                var token = Context.TokenManager.GetToken(true);
+                TraceInfo("Auth successfull. Token = {0}", token);
             }
             catch (AuthError e)
             {

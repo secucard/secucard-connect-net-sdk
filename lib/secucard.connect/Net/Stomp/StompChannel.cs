@@ -20,8 +20,8 @@ using Secucard.Stomp;
 namespace Secucard.Connect.Net.Stomp
 {
     using Secucard.Connect.Client;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Product.Common.Model;
-    using Secucard.Connect.Rest;
 
     public class StompChannel : Channel
     {
@@ -30,27 +30,30 @@ namespace Secucard.Connect.Net.Stomp
 
         private readonly ConcurrentDictionary<string, StompMessage> Messages = new ConcurrentDictionary<string, StompMessage>();
         private readonly StompConfig Configuration;
-        private StompClient Stomp;
+        private readonly StompClient Stomp;
         private string ConnectToken;
         private volatile bool IsConfirmed;
         private volatile bool StopRefresh;
         private Thread refreshThread;
-        private string Id;
-
-        //private final StatusHandler defaultStatusHandler = new StatusHandler() {
-        //  @Override
-        //  public boolean hasError(Message message) {
-        //    return !message.getStatus().equalsIgnoreCase(STATUS_OK);
-        //  }
-        //};
+        private string ChannelId;
 
         public StompChannel(StompConfig configuration, ClientContext context)
             : base(context)
         {
             Configuration = configuration;
 
-            Id = Guid.NewGuid().ToString();
+            ChannelId = Guid.NewGuid().ToString();
             Stomp = new StompClient(Configuration);
+            Stomp.StompClientFrameArrivedEvent += StompOnStompClientFrameArrivedEvent;
+        }
+
+        private void StompOnStompClientFrameArrivedEvent(object sender, StompClientFrameArrivedArgs args)
+        {
+            var frame = args.Frame;
+            if (frame.Headers.ContainsKey(StompHeader.CorrelationId))
+            {
+                PutMessage(frame.Headers[StompHeader.CorrelationId], frame.Body);
+            }
         }
 
         private void Trace(string fmt, params object[] args)
@@ -58,13 +61,14 @@ namespace Secucard.Connect.Net.Stomp
             Context.SecucardTrace.Info(fmt,args);
         }
 
-        /**
-     * Must not be synchronized, because of session refresh in separate thread.
-     * Just used one time when client is opened.
-     */
+        #region ### Open / Close ###
+
         public override void Open()
         {
+            // TOOD: Connect an start listening
             Connect(GetToken());
+
+            SendSessionRefresh();
         }
 
         public override void Close()
@@ -74,81 +78,47 @@ namespace Secucard.Connect.Net.Stomp
             Trace("STOMP channel closed.");
         }
 
-        public override T Request<T>(ChannelRequest request)
-        {
-            StompDestination dest = CreateDestination(request);
-            // StompMessage message = new StompMessage(request.ObjectId, request.ActionArgs, request.QueryParams, request.Object);
+        #endregion
 
-            return SendMessage<T>(dest, request, request.ChannelOptions.TimeOutSec);
+
+        #region ### Stomp Refresh Heartbeat ###
+        
+        private bool? SendSessionRefresh()
+        {
+            ChannelRequest channelRequest = new ChannelRequest
+            {
+                Method = ChannelMethod.EXECUTE,
+                Product = "auth",
+                Resource = "sessions",
+                Action = "refresh",
+                ObjectId = "me"
+            };
+
+            StompRequest stompRequest = StompRequest.Create(channelRequest, ChannelId, Configuration.ReplyTo, Configuration.Destination);
+            var returnMessage = SendMessage(stompRequest);
+
+            var response = new Response(returnMessage);
+            return JsonSerializer.DeserializeJson<StompResult>(response.Data).Result;
         }
 
+        #endregion
+
+
+        public override T Request<T>(ChannelRequest request)
+        {
+            var stompRequest = StompRequest.Create(request, ChannelId, Configuration.ReplyTo, Configuration.Destination);
+            var returnMessage = SendMessage(stompRequest);
+            var response = new Response(returnMessage);
+            return JsonSerializer.DeserializeJson<T>(response.Data);
+        }
 
         public override ObjectList<T> RequestList<T>(ChannelRequest request)
         {
-            StompDestination dest = CreateDestination(request);
-            return SendMessage<ObjectList<T>>(dest, request, request.ChannelOptions.TimeOutSec);
-
-            //StompMessage message = new StompMessage<>(params.objectId, params.actionArg, params.queryParams, params.data);
-
-            //StatusHandler statusHandler = new StatusHandler() {
-            //  @Override
-            //  public boolean hasError(Message message) {
-            //    // treat not found as ok here, no matches for query
-            //    return !(STATUS_OK.equalsIgnoreCase(message.getStatus())
-            //        || "ProductNotFoundException".equalsIgnoreCase(message.getError()));
-            //  }
-            //};
-
-            //return sendMessage(dest, message, new MessageListTypeRef(params.returnType), statusHandler, callback,
-            //    params.options.timeOutSec);
-            return null;
+            var stompRequest = StompRequest.Create(request, ChannelId, Configuration.ReplyTo, Configuration.Destination);
+            var returnMessage = SendMessage(stompRequest);
+            var response = new Response(returnMessage);
+           return JsonSerializer.DeserializeJson<ObjectList<T>>(response.Data);
         }
-
-
-        private static StompDestination CreateDestination(ChannelRequest request)
-        {
-            StompDestination dest;
-
-            dest = new StompDestination(request.Product, request.Resource);
-            dest.Obj = request.Object;
-
-            //if (request.Object != null) {
-            //  dest = new StompDestination(request.Product, request.Resource);
-            //  dest.Obj = request.Object;
-            //} else if (request.AppId != null) {
-            //  //dest = new AppDestination(params.appId);
-            //} else {
-            //  //throw new IllegalArgumentException("Missing object spec or app id.");
-            //}
-
-            switch (request.Method)
-            {
-                case ChannelMethod.GET:
-                    dest.Command = "get:";
-                    break;
-                case ChannelMethod.CREATE:
-                    dest.Command = "add:";
-                    break;
-                case ChannelMethod.EXECUTE:
-                    dest.Command = "exec:";
-                    break;
-                case ChannelMethod.UPDATE:
-                    dest.Command = "update:";
-                    break;
-                case ChannelMethod.DELETE:
-                    dest.Command = "delete:";
-                    break;
-                default:
-                    // throw new IllegalArgumentException("Invalid method arg");
-                    break;
-            }
-
-            dest.Action = request.Action;
-            return dest;
-        }
-
-
-
         
         /// <summary>
         /// Provides the token used as login and password for STOMP connect.
@@ -158,15 +128,9 @@ namespace Secucard.Connect.Net.Stomp
             return Context.TokenManager.GetToken(false);
         }
 
-
-        /**
-     * Connect to STOMP Server.
-     * If the connection fails all resources are closed.
-     *
-     * @param token The token used as login/password. May be null.
-     * @throws IllegalStateException If no connect credentials available.
-     * @throws ClientError           If any  error happens.
-     */
+        /// <summary>
+        /// Connect to STOMP Server.  If the connection fails all resources are closed.
+        /// </summary>
         private void Connect(string token)
         {
             if (token == null) token = Configuration.Login;
@@ -181,25 +145,11 @@ namespace Secucard.Connect.Net.Stomp
             //}
         }
 
-        private T SendMessage<T>(StompDestination destination, ChannelRequest request, int? timeoutSec) 
+        private void CheckConnection(string token)
         {
-
-            return DoSendMessage<T>(destination, request.Object, timeoutSec, false);
-            //return new Execution<T>() {
-            //  @Override
-            //  protected T execute() {
-            //    return DoSendMessage(destinationSpec, arg, returnType, statusHandler, timeout);
-            //  }
-            //}.start(callback);
-        }
-
-        private T DoSendMessage<T>(StompDestination destination, object obj, int? timeoutSec, bool isConfirmed) 
-        {
-            IsConfirmed = isConfirmed;
-            string token = GetToken();
-
             // auto-connect or reconnect if token has changed since last connect
-            if (Stomp.StompClientStatus != EnumStompCoreStatus.Connected || (token != null && !token.Equals(ConnectToken)))
+            if (Stomp.StompClientStatus != EnumStompCoreStatus.Connected || 
+                (token != null && !token.Equals(ConnectToken)))
             {
                 if (Stomp.StompClientStatus == EnumStompCoreStatus.Connected)
                 {
@@ -216,50 +166,42 @@ namespace Secucard.Connect.Net.Stomp
                 }
                 Connect(token);
             }
+        }
+        
+        private string SendMessage(StompRequest stompRequest) 
+        {
+            var token = GetToken();
 
-            StompFrame frame = new StompFrame(destination.Command);
-            frame.Headers.Add(StompHeader.ReplyTo, Configuration.ReplyQueue);
+            CheckConnection(token);
+
+            var frame = new StompFrame(StompCommands.SEND);
+            frame.Headers.Add(StompHeader.ReplyTo, stompRequest.ReplayTo);
             frame.Headers.Add(StompHeader.ContentType, "application/json");
             frame.Headers.Add(StompHeader.UserId, token);
-            frame.Headers.Add(StompHeader.CorrelationId, CreateCorrelationId());
-            frame.Headers.Add(StompHeader.Destination, destination.ToString());
+            frame.Headers.Add(StompHeader.CorrelationId, stompRequest.CorrelationId);
+            frame.Headers.Add(StompHeader.Destination, stompRequest.Destination);
+            
+            if (!string.IsNullOrWhiteSpace(stompRequest.AppId)) frame.Headers.Add(StompHeader.AppId, stompRequest.AppId);
 
-            //if (destinationSpec instanceof AppDestination) {
-            //  header.put("app-id", ((AppDestination) destinationSpec).appId);
-            //}
-
-            try
-            {
-                frame.Body = JsonSerializer.SerializeJson(obj);
-                frame.Headers.Add("content-length", frame.Body.ToUTF8Bytes().ToString());
-            }
-            catch (Exception e)
-            {
-                Trace("error {0}", e);
+            if(!string.IsNullOrWhiteSpace(stompRequest.Body))
+            { 
+                frame.Body = stompRequest.Body;
+                frame.Headers.Add(StompHeader.ContentLength, frame.Body.ToUTF8Bytes().Length.ToString());
             }
 
-            //    Stomp.SendFrame(destination.ToString(), body, header, timeoutSec);
             Stomp.SendFrame(frame);
 
-            //string answer = awaitAnswer(corrId, timeoutSec);
-            //Message<T> msg;
-            //try {
-            //  msg = context.jsonMapper.map(answer, returnType);
-            //} catch (Exception e) {
-            //  throw new ClientError("Error unmarshalling message.", e);
-            //}
+            // TODO: simple wait for message 
+            // TODO: consider Timeout (awaitanswer)
+            string message = null;
+            DateTime endWaitAt = DateTime.Now.AddSeconds(Configuration.MessageTimeoutSec);
+            while (message == null && DateTime.Now < endWaitAt)
+            {
+                message = PullMessage(stompRequest.CorrelationId, Configuration.MaxMessageAgeSec);
+                Thread.Sleep(500);
+            }
 
-            //if (msg == null) {
-            //  return null;
-            //}
-
-            //statusHandler.check(msg);
-
-            //isConfirmed = true;
-
-            //return msg.getData();
-
-            return (T) new object() ;
+            return message;
         }
 
         ///**
@@ -379,7 +321,7 @@ namespace Secucard.Connect.Net.Stomp
         /// </summary>
         private string PullMessage(string id, int maxMessageAgeSec)
         {
-            DateTime t = System.DateTime.Now.AddSeconds(-maxMessageAgeSec);
+            DateTime t = DateTime.Now.AddSeconds(-maxMessageAgeSec);
             StompMessage message;
 
             var toOld = Messages.Where(o => o.Value.ReceiveTime < t).ToList();
@@ -392,17 +334,7 @@ namespace Secucard.Connect.Net.Stomp
             {
                 return message.Body ?? "";
             }
-            else
-            {
-                return null;
-            }
-
-
-        }
-
-        private string CreateCorrelationId()
-        {
-            return Id + "-" + Guid.NewGuid() + "-" + DateTime.Now.Ticks;
+            return null;
         }
 
         //private string awaitAnswer(final String id, Integer timeoutSec) {

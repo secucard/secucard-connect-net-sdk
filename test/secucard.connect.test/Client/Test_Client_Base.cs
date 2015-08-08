@@ -8,7 +8,6 @@
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.Rest;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
     using Secucard.Stomp;
@@ -32,7 +31,6 @@
 
             ClientConfigurationDevice = new ClientConfiguration
             {
-                AndroidMode = false,
                 CacheDir = null,
                 DefaultChannel = "REST",
                 DeviceId = "",
@@ -55,6 +53,14 @@
                     AcceptVersion = "1.2",
                     HeartbeatClientMs = 5000,
                     HeartbeatServerMs = 5000,
+                    MaxMessageAgeSec = 10,
+                    MessageTimeoutSec=10,
+                    ReplyTo = "/temp-queue/main",
+                    Destination = "/exchange/connect.api/",
+                    ReceiptTimeoutSec = 10,
+                    RequestSENDReceipt = true,
+                    DisconnectOnSENDReceiptTimeout =10,
+                    DisconnectOnError = true,
                     Ssl = true
                 },
                 RestConfig = new RestConfig
@@ -69,7 +75,6 @@
 
             ClientConfigurationUser = new ClientConfiguration
             {
-                AndroidMode = false,
                 CacheDir = null,
                 DefaultChannel = "REST",
                 DeviceId = "",
@@ -92,6 +97,14 @@
                     AcceptVersion = "1.2",
                     HeartbeatClientMs = 5000,
                     HeartbeatServerMs = 5000,
+                    MaxMessageAgeSec = 10,
+                    MessageTimeoutSec = 10,
+                    ReplyTo = "/temp-queue/main",
+                    Destination = "/exchange/connect.api/",
+                    ReceiptTimeoutSec = 10,
+                    RequestSENDReceipt = true,
+                    DisconnectOnSENDReceiptTimeout = 10,
+                    DisconnectOnError = true,
                     Ssl = true
                 },
                 RestConfig = new RestConfig

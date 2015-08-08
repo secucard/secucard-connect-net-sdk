@@ -2,25 +2,29 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
+    using System.Security.Cryptography;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
-
-    public delegate void StompClientFrameArrived(object sender, StompClientFrameArrivedEventArgs args);
+    using Timer = System.Timers.Timer;
 
     public class StompClient : IDisposable
     {
-        public StompConfig Config;
-        private Timer ClientTimerHeartbeat;
-        private StompCore Core;
         public readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
-        private DateTime LastServerFrame; // TODO: Heartbeat Server überwachen
+        private readonly ConcurrentDictionary<string, DateTime> Receipts;
+        private Timer ClientTimerHeartbeat;
+        public StompConfig Config;
+        private StompCore Core;
+        private StompFrame Error;
+        private bool IsConnected;
+        private DateTime LastServerFrame; // TODO: Heartbeat Server 
         public EnumStompCoreStatus StompClientStatus;
 
         public StompClient(StompConfig config)
         {
             StompTrace.ClientTrace("StompClient Create '{0}'", config.Host);
             Config = config;
+            Receipts = new ConcurrentDictionary<string, DateTime>();
             StompClientStatus = EnumStompCoreStatus.NotConnected;
 
             InQueue = new ConcurrentQueue<StompFrame>();
@@ -33,7 +37,7 @@
             if (Core != null) Core.Dispose();
         }
 
-        public event StompClientFrameArrived StompClientFrameArrived;
+        public event StompClientFrameArrivedHandler StompClientFrameArrivedEvent;
 
         /// <summary>
         ///     sync connect
@@ -57,6 +61,7 @@
 
             if (StompClientStatus == EnumStompCoreStatus.Connected)
             {
+                IsConnected = true;
                 CreateClientHeartBeat();
                 return true;
             }
@@ -67,16 +72,70 @@
         {
             // graceful shutdown
             // Frame DISCONNECT + Receipt
+            IsConnected = false;
             StompClientStatus = EnumStompCoreStatus.Disconnecting;
             ClientTimerHeartbeat.Dispose();
             var frame = CreateFrameDisconnect();
-            frame.Headers.Add(StompHeader.Receipt, Guid.NewGuid().ToString());
             SendFrame(frame);
         }
 
         public void SendFrame(StompFrame frame)
         {
+            var rcptId = "rcpt-" + Guid.NewGuid();
+
+            if (Config.RequestSENDReceipt) frame.Headers.Add(StompHeader.Receipt, rcptId);
             Core.SendFrame(frame);
+
+            if (Config.RequestSENDReceipt)
+                AwaitReceipt(rcptId, frame.TimeoutSec);
+        }
+
+        private void AwaitReceipt(string rcptId, int? timeoutSec)
+        {
+            if (timeoutSec == null)
+            {
+                timeoutSec = Config.ReceiptTimeoutSec;
+            }
+
+            var found = false;
+            var maxWaitTime = DateTime.Now.AddSeconds(timeoutSec.Value);
+
+            while (DateTime.Now <= maxWaitTime && IsConnected && Error == null)
+            {
+                DateTime rcptDateTime;
+                if (Receipts.TryRemove(rcptId, out rcptDateTime))
+                {
+                    found = true;
+                    break;
+                }
+                Thread.Sleep(200);
+            }
+
+            // we can treat error as reason to disconnect
+            if (Error != null || !found)
+            {
+                if (IsConnected)
+                {
+                    try
+                    {
+                        Disconnect();
+                    }
+                    catch (Exception ex)
+                    {
+                        // ignore all
+                        //LOG.error("Error disconnecting due receipt timeout or error.", t);
+                    }
+                }
+                if (Error != null)
+                {
+                    var body = Error.Body;
+                    var headers = Error.Headers;
+                    Error = null;
+                    throw new StompError(body, headers);
+                }
+                throw new NoReceiptException("No receipt frame received for sent message.");
+            }
+            // consider receipt as successful disconnect
         }
 
         #region ### Private ###
@@ -92,9 +151,16 @@
                     StompClientStatus = EnumStompCoreStatus.Connected;
                     break;
                 }
-                case StompCommands.ERROR:
+                case StompCommands.DISCONNECT:
                 {
                     // CONNECTED FRAME received set core as connected
+                    StompClientStatus = EnumStompCoreStatus.Disconnected;
+                    break;
+                }
+                case StompCommands.ERROR:
+                {
+                    OnError(Error);
+
                     if (StompClientStatus == EnumStompCoreStatus.Connecting)
                         StompClientStatus = EnumStompCoreStatus.Error;
                     else
@@ -106,6 +172,8 @@
                 }
                 case StompCommands.RECEIPT:
                 {
+                    OnReceipt(args.Frame);
+
                     if (StompClientStatus == EnumStompCoreStatus.Disconnecting)
                     {
                         // TODO: analyze Receipt
@@ -116,6 +184,12 @@
                     RaiseFrameArriveEventInSeparateThread(args);
                     break;
                 }
+                case StompCommands.MESSAGE:
+                {
+                    RaiseFrameArriveEventInSeparateThread(args);
+                    break;
+                }
+
                 default:
                 {
                     // pass frame upwards
@@ -140,11 +214,28 @@
                 if (InQueue.Count > 20) InQueue.TryDequeue(out frame);
             }
 
-            if (StompClientFrameArrived != null)
+            if (StompClientFrameArrivedEvent != null)
             {
                 StompTrace.ClientTrace("Stomp Client Frame arrived: {0}", e.Frame.GetFrame());
-                StompClientFrameArrived(this, new StompClientFrameArrivedEventArgs {Frame = e.Frame, Time = e.Time});
+                StompClientFrameArrivedEvent(this, new StompClientFrameArrivedArgs {Frame = e.Frame, Time = e.Time});
             }
+        }
+
+        /// <summary>
+        ///     Store receipts in local dictionary. Send is looking for receipts there.
+        /// </summary>
+        private void OnReceipt(StompFrame frame)
+        {
+            if (frame.Headers.ContainsKey(StompHeader.ReceiptId))
+            {
+                var receipt = frame.Headers[StompHeader.ReceiptId];
+                Receipts.TryAdd(receipt, DateTime.Now);
+            }
+        }
+
+        private void OnError(StompFrame frame)
+        {
+            Error = frame;
         }
 
         private StompFrame CreateFrameConnect()

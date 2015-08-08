@@ -16,8 +16,6 @@
                 return d;
             }
             return null;
-            //var d = DateTime.ParseExact(s, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal );
-            //return d;
         }
 
         public static string ToDateTimeZone(this DateTime? d)

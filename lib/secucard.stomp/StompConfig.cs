@@ -5,7 +5,7 @@
         public string Host { get; set; }
         public int Port { get; set; }
         public string Destination { get; set; }
-        public string ReplyQueue { get; set; }
+        public string ReplyTo { get; set; }
         public bool Ssl { get; set; }
 
         public string AcceptVersion { get; set; }
@@ -19,5 +19,8 @@
         public bool DisconnectOnError { get; set; }
         public int HeartbeatClientMs { get; set; }
         public int HeartbeatServerMs { get; set; }
+        public bool RequestDISCONNECTReceipt { get; set; }
+        public int DisconnectOnSENDReceiptTimeout { get; set; }
+        public bool RequestSENDReceipt { get; set; }
     }
 }

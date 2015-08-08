@@ -17,6 +17,7 @@
         }
 
         public DateTime CreatedAt { get; set; }
+        public int? TimeoutSec { get; set; }
         public string Command { get; set; }
         public Dictionary<string, string> Headers { get; set; }
         public string Body { get; set; }

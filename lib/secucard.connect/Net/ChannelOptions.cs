@@ -9,17 +9,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * Holds all options for an API call.
- */
-
 namespace Secucard.Connect.Net
 {
+    /// <summary>
+    ///   Hold all options for the channel
+    /// </summary>
     public class ChannelOptions
     {
-        public static string CHANNEL_REST = "rest";
-        public static string CHANNEL_STOMP = "stomp";
+        public const string CHANNEL_REST = "rest";
+        public const string CHANNEL_STOMP = "stomp";
         public bool Anonymous = false;
         public bool Expand = false;
         public bool EventListening = false;
@@ -34,7 +32,8 @@ namespace Secucard.Connect.Net
 
         public static ChannelOptions GetDefault()
         {
-            return new ChannelOptions { Channel = CHANNEL_REST, TimeOutSec =100 }; // TODO:Test for Reset
+            // TODO: Default Channel aus config
+            return new ChannelOptions { Channel = CHANNEL_REST, TimeOutSec =100 }; 
         }
 
         public ChannelOptions()
