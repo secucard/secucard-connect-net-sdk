@@ -15,13 +15,13 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using Secucard.Connect.Net.Util;
-using Secucard.Stomp;
 
 namespace Secucard.Connect.Net.Stomp
 {
     using System.Timers;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Product.Common.Model;
 
     public class StompChannel : Channel

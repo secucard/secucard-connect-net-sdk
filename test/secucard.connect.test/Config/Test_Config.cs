@@ -5,7 +5,7 @@
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net.Rest;
-    using Secucard.Stomp;
+    using Secucard.Connect.Net.Stomp.Client;
 
     [TestClass]
     public class Test_Config

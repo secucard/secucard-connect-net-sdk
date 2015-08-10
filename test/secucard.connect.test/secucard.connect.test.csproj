@@ -6,8 +6,8 @@
     <ProjectGuid>{DDAD2300-F102-4A0C-AC85-4B39B7C93454}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>secucard.connect.test</RootNamespace>
-    <AssemblyName>secucard.connect.test</AssemblyName>
+    <RootNamespace>Secucard.Connect.Test</RootNamespace>
+    <AssemblyName>Secucard.Connect.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -83,6 +83,10 @@
     <Compile Include="Rest\Test_Rest_General_Deliveryadresses.cs" />
     <Compile Include="Rest\Test_Rest_General_Contacts.cs" />
     <Compile Include="Rest\Test_Rest_General_Skeletons.cs" />
+    <Compile Include="StompClient\Test_Base.cs" />
+    <Compile Include="StompClient\Test_StompClient.cs" />
+    <Compile Include="StompClient\Test_StompCore.cs" />
+    <Compile Include="StompClient\Test_StompFrame.cs" />
     <Compile Include="Test_Base.cs" />
     <Compile Include="Auth\Test_OAuthProvider.cs" />
     <Compile Include="Storage\Test_Storage.cs" />
@@ -91,13 +95,9 @@
     <Compile Include="Trace\Test_FileTrace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\secucard.connect\secucard.connect.csproj">
+    <ProjectReference Include="..\..\lib\secucard.connect\Secucard.Connect.csproj">
       <Project>{067cc76b-1657-49aa-92a7-3cb2ba6586e9}</Project>
-      <Name>secucard.connect</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\secucard.stomp\Secucard.Stomp.csproj">
-      <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
-      <Name>Secucard.Stomp</Name>
+      <Name>Secucard.Connect</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

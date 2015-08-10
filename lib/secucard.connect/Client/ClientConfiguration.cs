@@ -6,9 +6,9 @@ namespace Secucard.Connect.Client
     using System.Xml.Serialization;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
-    using Secucard.Stomp;
 
     public class ClientConfiguration
     {

@@ -1,10 +1,7 @@
 ﻿namespace Secucard.Connect.Test.Client
 {
-    using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect.Client;
     using Secucard.Connect.Product.General;
-    using Secucard.Connect.Trace;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

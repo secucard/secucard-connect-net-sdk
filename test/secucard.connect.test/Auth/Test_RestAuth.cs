@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Test
+﻿namespace Secucard.Connect.Test.Auth
 {
     using System;
     using System.Diagnostics;
@@ -8,10 +8,10 @@
     using Secucard.Connect.Auth;
     using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
     using Secucard.Connect.Test.Rest;
-    using Secucard.Stomp;
 
     [TestClass]
     public class Test_RestAuth : Test_Rest_Base_AuthDevice

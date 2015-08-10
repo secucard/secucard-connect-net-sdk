@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -9,30 +9,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Secucard.Connect.Auth
+namespace Secucard.Connect.Net.Stomp.Client
 {
-    using Secucard.Connect.Auth.Model;
-    using Secucard.Connect.Storage;
-    /// <summary>
-    /// Abstract implementation which just delegates the token persistence to a file based cache.
-    /// </summary>
-    public abstract class AbstractClientAuthDetails
+    using System;
+    using System.Diagnostics;
+
+    internal class StompTrace
     {
-        private readonly DataStorage storage;
-
-        public AbstractClientAuthDetails()
+        internal static void ClientTrace(Exception e)
         {
-            storage = new MemoryDataStorage();
+            ClientTrace("Exception: {0}", e.Message);
+            if (e.InnerException != null) ClientTrace("Inner exception: {0}", e.InnerException.Message);
         }
 
-        public Token GetCurrent()
+        internal static void ClientTrace(string fmt, params object[] param)
         {
-            return (Token) storage.Get("token");
-        }
-
-        public void OnTokenChanged(Token token)
-        {
-            storage.Save("token", token);
+            Trace.WriteLine(string.Format("{0:yyyyMMdd-HHmmss.fff}: ", DateTime.Now) + string.Format(fmt, param));
         }
     }
 }

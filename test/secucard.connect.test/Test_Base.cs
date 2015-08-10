@@ -1,9 +1,9 @@
 ﻿namespace Secucard.Connect.Test
 {
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
-    using Secucard.Stomp;
 
     public class Test_Base
     {

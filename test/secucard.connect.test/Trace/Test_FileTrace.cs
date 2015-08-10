@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Test
+﻿namespace Secucard.Connect.Test.Trace
 {
     using System.Diagnostics;
     using System.IO;

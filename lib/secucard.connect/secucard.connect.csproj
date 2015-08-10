@@ -61,6 +61,20 @@
     <Compile Include="Net\Rest\RestService.cs" />
     <Compile Include="Net\Rest\RestChannel.cs" />
     <Compile Include="Client\ServiceMetaData.cs" />
+    <Compile Include="Net\Stomp\Client\EnumStompClientStatus.cs" />
+    <Compile Include="Net\Stomp\Client\NoReceiptException.cs" />
+    <Compile Include="Net\Stomp\Client\StompClient.cs" />
+    <Compile Include="Net\Stomp\Client\StompClientFrameArrivedEvent.cs" />
+    <Compile Include="Net\Stomp\Client\StompClientStatusChangedEvent.cs" />
+    <Compile Include="Net\Stomp\Client\StompCommands.cs" />
+    <Compile Include="Net\Stomp\Client\StompConfig.cs" />
+    <Compile Include="Net\Stomp\Client\StompCore.cs" />
+    <Compile Include="Net\Stomp\Client\StompCoreFrameArrivedEvent.cs" />
+    <Compile Include="Net\Stomp\Client\StompError.cs" />
+    <Compile Include="Net\Stomp\Client\StompFrame.cs" />
+    <Compile Include="Net\Stomp\Client\StompHeaders.cs" />
+    <Compile Include="Net\Stomp\Client\StompTrace.cs" />
+    <Compile Include="Net\Stomp\Client\StreamStateObject.cs" />
     <Compile Include="Net\Stomp\StompDestination.cs" />
     <Compile Include="Net\Stomp\StompMessage.cs" />
     <Compile Include="Net\Stomp\StompRequest.cs" />
@@ -176,12 +190,6 @@
     <Compile Include="Trace\SecucardTraceMemory.cs" />
     <Compile Include="Trace\SecucardTraceFile.cs" />
     <Compile Include="Trace\SecucardTraceListener.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\secucard.stomp\Secucard.Stomp.csproj">
-      <Project>{092CECFF-F04B-4DBF-AF77-1D56CF80E49B}</Project>
-      <Name>Secucard.Stomp</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Storage\DataStorage.cs" />

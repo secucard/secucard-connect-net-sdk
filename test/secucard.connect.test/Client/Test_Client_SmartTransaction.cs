@@ -6,7 +6,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.Trace;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]

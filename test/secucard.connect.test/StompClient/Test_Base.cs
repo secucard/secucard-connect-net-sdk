@@ -1,4 +1,4 @@
-﻿namespace Secucard.Stomp.test
+﻿namespace Secucard.Connect.Test.StompClient
 {
     using Secucard.Connect.Net.Stomp.Client;
 

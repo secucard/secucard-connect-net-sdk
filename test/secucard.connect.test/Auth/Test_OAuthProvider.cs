@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.Test
+﻿namespace Secucard.Connect.Test.Auth
 {
     using System.IO;
     using System.Net;

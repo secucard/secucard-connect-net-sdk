@@ -9,30 +9,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Secucard.Connect.Auth
+namespace Secucard.Connect.Net.Stomp.Client
 {
-    using Secucard.Connect.Auth.Model;
-    using Secucard.Connect.Storage;
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
-    /// Abstract implementation which just delegates the token persistence to a file based cache.
+    ///     Exception wrapping a STOMP error frame.
     /// </summary>
-    public abstract class AbstractClientAuthDetails
+    public class StompError : Exception
     {
-        private readonly DataStorage storage;
+        public string Body { get; set; }
+        public Dictionary<string, string> Headers { get; set; }
 
-        public AbstractClientAuthDetails()
+        public StompError(string body, Dictionary<string, string> headers)
         {
-            storage = new MemoryDataStorage();
-        }
-
-        public Token GetCurrent()
-        {
-            return (Token) storage.Get("token");
-        }
-
-        public void OnTokenChanged(Token token)
-        {
-            storage.Save("token", token);
+            Body = body;
+            Headers = headers;
         }
     }
 }

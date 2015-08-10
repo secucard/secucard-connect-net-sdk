@@ -1,16 +1,16 @@
 ﻿namespace Secucard.Connect.Test.Client
 {
-    using System;
     using System.Diagnostics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
     using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
-    using Secucard.Stomp;
 
     public class Test_Client_Base
     {

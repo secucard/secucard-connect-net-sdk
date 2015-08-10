@@ -57,13 +57,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\secucard.stomp\Secucard.Stomp.csproj">
-      <Project>{092cecff-f04b-4dbf-af77-1d56cf80e49b}</Project>
-      <Name>Secucard.Stomp</Name>
-    </ProjectReference>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\..\lib\secucard.connect\secucard.connect.csproj">
+      <Project>{067cc76b-1657-49aa-92a7-3cb2ba6586e9}</Project>
+      <Name>secucard.connect</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

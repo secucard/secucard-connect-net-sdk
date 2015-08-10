@@ -1,4 +1,4 @@
-﻿namespace Secucard.Connect.test
+﻿namespace Secucard.Connect.Test.Storage
 {
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
