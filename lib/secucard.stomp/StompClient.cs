@@ -4,15 +4,11 @@
     using System.Collections.Concurrent;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Timers;
     using Timer = System.Timers.Timer;
 
     public class StompClient : IDisposable
     {
-        public event StompClientFrameArrivedHandler StompClientFrameArrivedEvent;
-        public event StompClientStatusChangedEventHandler StompClientChangedEvent;
-
-        public readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
+        private readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
         private readonly ConcurrentDictionary<string, DateTime> Receipts;
         private Timer ClientTimerHeartbeat;
         public StompConfig Config;
@@ -36,6 +32,9 @@
             if (ClientTimerHeartbeat != null) ClientTimerHeartbeat.Dispose();
             if (Core != null) Core.Dispose();
         }
+
+        public event StompClientFrameArrivedHandler StompClientFrameArrivedEvent;
+        public event StompClientStatusChangedEventHandler StompClientChangedEvent;
 
         /// <summary>
         ///     sync connect
@@ -73,7 +72,7 @@
             // Frame DISCONNECT + Receipt
             IsConnected = false;
             OnStatusChanged(EnumStompClientStatus.Disconnecting);
-            ClientTimerHeartbeat.Dispose();
+            if (ClientTimerHeartbeat != null) ClientTimerHeartbeat.Dispose();
             var frame = CreateFrameDisconnect();
             SendFrame(frame);
             OnStatusChanged(EnumStompClientStatus.Disconnected);
@@ -82,7 +81,9 @@
         private void OnStatusChanged(EnumStompClientStatus status)
         {
             StompClientStatus = status;
-            if(StompClientChangedEvent!=null) StompClientChangedEvent(this,new StompClientStatusChangedEventArgs{Status = status,Time = DateTime.Now});
+            if (StompClientChangedEvent != null)
+                StompClientChangedEvent(this,
+                    new StompClientStatusChangedEventArgs {Status = status, Time = DateTime.Now});
         }
 
         public void SendFrame(StompFrame frame)
@@ -226,7 +227,6 @@
         {
             Error = frame;
             OnStatusChanged(EnumStompClientStatus.Error);
-
         }
 
         private StompFrame CreateFrameConnect()
