@@ -12,16 +12,19 @@
 
 using System;
 
-/// <summary>
-///     Indicates that no receipt for a message was received in time.
-/// </summary>
-public class NoReceiptException : Exception
+namespace Secucard.Connect.Net.Stomp.Client
 {
-    public NoReceiptException()
+    /// <summary>
+    ///     Indicates that no receipt for a message was received in time.
+    /// </summary>
+    public class NoReceiptException : Exception
     {
-    }
+        public NoReceiptException()
+        {
+        }
 
-    public NoReceiptException(string message) : base(message)
-    {
+        public NoReceiptException(string message) : base(message)
+        {
+        }
     }
 }
