@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
@@ -56,6 +57,8 @@
     <Compile Include="Auth\TokenManagerStatusUpdateEvent.cs" />
     <Compile Include="Client\ConnectionStateChangedEvent.cs" />
     <Compile Include="Client\ServiceFactory.cs" />
+    <Compile Include="Client\Config\Property.cs" />
+    <Compile Include="Client\Config\Properties.cs" />
     <Compile Include="Net\ChannelMethodEnum.cs" />
     <Compile Include="Net\ChannelRequest.cs" />
     <Compile Include="Net\Rest\RestService.cs" />
@@ -234,6 +237,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\Config\SecucardConnect.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

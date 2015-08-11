@@ -2,6 +2,7 @@
 {
     using Secucard.Connect.Net.Stomp.Client;
 
+  
     public class Test_Base
     {
         protected readonly StompConfig Config;

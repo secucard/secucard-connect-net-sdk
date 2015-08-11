@@ -17,7 +17,7 @@
         {
             RestConfig = restConfig;
 
-            RestService = new RestService(RestConfig);
+            RestService = new RestService(RestConfig.BaseUrl);
         }
 
 

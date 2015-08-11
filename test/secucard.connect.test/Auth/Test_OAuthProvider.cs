@@ -26,13 +26,13 @@
             File.Delete(storagePath);
             File.Delete(logPath);
 
-            var restAuth = new RestAuth(ConfigAuth);
+            var restAuth = new RestAuth(AuthConfig);
 
             var tracer = new SecucardTraceFile(logPath);
             var storage = MemoryDataStorage.LoadFromFile("data\\storage.sec");
             storage.Clear();
             // first run with empty storage
-            var tokenManager = new TokenManager(ConfigAuth, ClientAuthDetails, restAuth)
+            var tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth)
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
@@ -43,7 +43,7 @@
             storage.SaveToFile(fullStoragePath);
 
             // second run with token in storage still valid
-            tokenManager = new TokenManager(ConfigAuth, ClientAuthDetails, restAuth)
+            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth)
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
@@ -56,7 +56,7 @@
             // second run with token in storage still valid
             //token.ExpireTime = DateTime.Now.AddMinutes(-1);
             storage.Save("token-" + "testprovider", token);
-            tokenManager = new TokenManager(ConfigAuth, ClientAuthDetails, restAuth)
+            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth)
             {
                 Context = new ClientContext {SecucardTrace = Tracer}
             };
@@ -75,18 +75,14 @@
                 var reqSmartPin = new RestRequest
                 {
                     Method = WebRequestMethods.Http.Post,
-                    Host = ConfigAuth.Host,
+                    Host = AuthConfig.Host,
                     BodyJsonString =
                         JsonSerializer.SerializeJson(new SmartPin {UserPin = args.DeviceAuthCodes.UserCode})
                 };
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
                 var restSmart =
-                    new RestService(new RestConfig
-                    {
-                        BaseUrl =
-                            "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin"
-                    });
+                    new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
                 var response = restSmart.RestPut(reqSmartPin);
                 Assert.IsTrue(response.Length > 0);
             }

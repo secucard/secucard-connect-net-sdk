@@ -17,14 +17,14 @@
         private const string ContentTypeFrom = "application/x-www-form-urlencoded";
         private const string ContentTypeJson = "application/json";
 
-        protected RestConfig Config { get; set; }
+        protected string BaseUrl { get; set; }
 
 
         #region  ### Ctor ###
 
-        protected RestBase(RestConfig config)
+        protected RestBase(string baseUrl)
         {
-            Config = config;
+            BaseUrl = baseUrl;
             ServicePointManager.ServerCertificateValidationCallback = AcceptAllCertifications;
         }
 
@@ -262,7 +262,7 @@
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
         {
-            var uri = string.Format("{0}{1}", Config.BaseUrl, request.GetPathAndQueryString());
+            var uri = string.Format("{0}{1}", BaseUrl, request.GetPathAndQueryString());
 
             var webRequest = (HttpWebRequest) WebRequest.Create(uri);
 

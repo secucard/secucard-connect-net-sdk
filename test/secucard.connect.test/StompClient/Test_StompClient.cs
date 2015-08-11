@@ -12,14 +12,14 @@
         [TestCategory("stomp")]
         public void Test_StompClient_Connect()
         {
-            using (var client = new StompClient(Config))
+            using (var client = new StompClient(StompConfig))
             {
                 var connect = client.Connect();
                 Assert.IsTrue(connect);
                 Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
                 var framePing = new StompFrame(StompCommands.SEND);
-                framePing.Headers.Add(StompHeader.UserId, Config.Login);
+                framePing.Headers.Add(StompHeader.UserId, StompConfig.Login);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 framePing.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -38,7 +38,7 @@
                 frameIn = null;
 
                 var frameRefresh = new StompFrame(StompCommands.SEND);
-                frameRefresh.Headers.Add(StompHeader.UserId, Config.Login);
+                frameRefresh.Headers.Add(StompHeader.UserId, StompConfig.Login);
                 frameRefresh.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:exec:auth.sessions.refresh");
                 frameRefresh.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 frameRefresh.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -50,7 +50,7 @@
                 frameIn = null;
 
                 var frameSkeleton = new StompFrame(StompCommands.SEND);
-                frameSkeleton.Headers.Add(StompHeader.UserId, Config.Login);
+                frameSkeleton.Headers.Add(StompHeader.UserId, StompConfig.Login);
                 frameSkeleton.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:get:general.skeletons");
                 frameSkeleton.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 frameSkeleton.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -72,7 +72,7 @@
         [TestCategory("stomp")]
         public void Test_StompClient_Connect_Dbl()
         {
-            using (var client = new StompClient(Config))
+            using (var client = new StompClient(StompConfig))
             {
                 var connect1 = client.Connect();
                 Assert.IsTrue(connect1);

@@ -13,12 +13,12 @@
         {
             var frame = new StompFrame(StompCommands.CONNECT);
 
-            frame.Headers.Add(StompHeader.Host, Config.Host);
-            frame.Headers.Add(StompHeader.Login, Config.Login);
-            frame.Headers.Add(StompHeader.Passcode, Config.Password);
+            frame.Headers.Add(StompHeader.Host, StompConfig.Host);
+            frame.Headers.Add(StompHeader.Login, StompConfig.Login);
+            frame.Headers.Add(StompHeader.Passcode, StompConfig.Password);
             frame.Headers.Add(StompHeader.HeartBeat,
-                string.Format("{0},{1}", Config.HeartbeatClientMs, Config.HeartbeatServerMs));
-            frame.Headers.Add(StompHeader.AcceptVersion, Config.AcceptVersion);
+                string.Format("{0},{1}", StompConfig.HeartbeatClientMs, StompConfig.HeartbeatServerMs));
+            frame.Headers.Add(StompHeader.AcceptVersion, StompConfig.AcceptVersion);
 
             var msg = frame.GetFrame();
             var frame2 = StompFrame.CreateFrame(Encoding.UTF8.GetBytes(msg));

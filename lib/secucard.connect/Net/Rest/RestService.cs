@@ -8,8 +8,8 @@
     public class RestService : RestBase
     {
 
-        public RestService(RestConfig restconfig)
-            : base(new RestConfig { BaseUrl = restconfig.BaseUrl })
+        public RestService(string baseUrl)
+            : base(baseUrl)
         {
         }
 

@@ -12,7 +12,7 @@
         private readonly AuthConfig AuthConfig;
 
         public RestAuth(AuthConfig authConfig)
-            : base(new RestConfig {BaseUrl = authConfig.OAuthUrl})
+            : base(authConfig.OAuthUrl)
         {
             AuthConfig = authConfig;
         }

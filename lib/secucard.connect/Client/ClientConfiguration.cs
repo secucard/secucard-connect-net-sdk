@@ -1,10 +1,10 @@
 namespace Secucard.Connect.Client
 {
-    using System;
-    using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
     using System.Xml.Serialization;
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Storage;
@@ -12,21 +12,17 @@ namespace Secucard.Connect.Client
 
     public class ClientConfiguration
     {
-        private Dictionary<string, string> Properties { get; set; }
+        public Properties Properties;
 
         public string DefaultChannel { get; set; }
-        public int? HeartBeatSec { get; set; }
-        public bool StompEnabled { get; set; }
-        public string CacheDir { get; set; }
-        public string DeviceId { get; set; }
+        internal bool StompEnabled { get; set; }
         public string AppId { get; set; }
 
-        [XmlIgnore]
-        public RestConfig RestConfig { get; set; }
-        [XmlIgnore]
-        public StompConfig StompConfig { get; set; }
-        [XmlIgnore]
-        public AuthConfig AuthConfig { get; set; }
+        public string CacheDir { get; set; }
+
+        internal RestConfig RestConfig { get; set; }
+        internal StompConfig StompConfig { get; set; }
+        internal AuthConfig AuthConfig { get; set; }
 
         public ISecucardTrace SecucardTrace;
         public DataStorage DataStorage;
@@ -42,20 +38,40 @@ namespace Secucard.Connect.Client
 
         public static ClientConfiguration Load(string filename)
         {
-            var serializer = new XmlSerializer(typeof(ClientConfiguration));
-            ClientConfiguration clientConfiguration;
-            using (var streamReader = new StreamReader(filename))
-            {
-                clientConfiguration = (ClientConfiguration)serializer.Deserialize(streamReader);
-                streamReader.Close();
-            }
-            return clientConfiguration;
+            var fileStream = new FileStream(filename,FileMode.Open);
+            return Load(fileStream);
         }
 
-        public static ClientConfiguration GetDefault()
+        public static ClientConfiguration Get()
         {
-            throw new NotImplementedException();
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Secucard.Connect.Client.Config.SecucardConnect.config");
+            return Load(stream);
         }
+
+
+        #region ### Ctor ###
+
+        private static ClientConfiguration Load(Stream stream)
+        {
+            return new ClientConfiguration(Properties.Read(stream));
+        }
+
+        public ClientConfiguration(Properties properties)
+        {
+            Properties = properties;
+            DefaultChannel = properties.Get("DefaultChannel", "rest");
+            StompEnabled = properties.Get("StompEnabled", true);
+            AppId = properties.Get("AppId", null);
+
+            //TODO: Logging and Cache
+
+            RestConfig = new RestConfig(properties);
+            AuthConfig = new AuthConfig(properties);
+            StompConfig = new StompConfig(properties);
+        }
+
+        #endregion
+
     }
 }
 

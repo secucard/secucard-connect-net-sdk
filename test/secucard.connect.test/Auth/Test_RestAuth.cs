@@ -21,34 +21,34 @@
         {
             var request = new RestRequest
             {
-                Host = ConfigAuth.Host
+                Host = AuthConfig.Host
             };
 
             request.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
             request.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetails.GetClientCredentials().ClientSecret);
             request.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
-            request.BodyParameter.Add(AuthConst.Uuid, ConfigAuth.Uuid);
+            request.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
-            var rest = new RestAuth(ConfigAuth);
+            var rest = new RestAuth(AuthConfig);
             rest.RestPost(request);
         }
 
         [TestMethod, TestCategory("Auth")]
         public void Test_Auth_Until_AccessToken()
         {
-            var rest = new RestAuth(ConfigAuth);
+            var rest = new RestAuth(AuthConfig);
 
             // AUTH: GetToken
             var reqDeviceGetToken = new RestRequest
             {
-                Host = ConfigAuth.Host
+                Host = AuthConfig.Host
             };
 
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret,
                 ClientAuthDetails.GetClientCredentials().ClientSecret);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, ConfigAuth.Uuid);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
             var authDeviceGetTokenOut = rest.RestPost<DeviceAuthCode>(reqDeviceGetToken);
 
@@ -60,17 +60,13 @@
             // Set pin via SMART REST (only development)
 
             var restSmart =
-                new RestService(new RestConfig
-                {
-                    BaseUrl =
-                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin"
-                });
+                new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
 
             var reqSmartPin = new RestRequest
             {
                 Method = WebRequestMethods.Http.Post,
                 PageUrl = "", //ConfigAuth.PageSmartDevices,
-                Host = ConfigAuth.Host,
+                Host = AuthConfig.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
             };
 
@@ -83,7 +79,7 @@
             // AUTH: Obtain Access Token
             var reqObtainAccessToken = new RestRequest
             {
-                Host = ConfigAuth.Host
+                Host = AuthConfig.Host
             };
 
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
@@ -103,7 +99,7 @@
             // Refresh Token
             var reqRefreshExpiredToken = new RestRequest
             {
-                Host = ConfigAuth.Host
+                Host = AuthConfig.Host
             };
 
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.RREFRESHTOKEN);
@@ -121,17 +117,17 @@
 
             Debug.WriteLine(authRefreshTokenOut.AccessToken);
 
-            ConfigStomp.Login = authRefreshTokenOut.AccessToken;
-            ConfigStomp.Password = authRefreshTokenOut.AccessToken;
+            StompConfig.Login = authRefreshTokenOut.AccessToken;
+            StompConfig.Password = authRefreshTokenOut.AccessToken;
 
-            using (var client = new StompClient(ConfigStomp))
+            using (var client = new StompClient(StompConfig))
             {
                 var connect = client.Connect();
                 Assert.IsTrue(connect);
                 Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
                 var framePing = new StompFrame(StompCommands.SEND);
-                framePing.Headers.Add(StompHeader.UserId, ConfigStomp.Login);
+                framePing.Headers.Add(StompHeader.UserId, StompConfig.Login);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 framePing.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -161,7 +157,7 @@
         [TestMethod, TestCategory("Auth")]
         public void Test_RestAuth_Until_AccessToken()
         {
-            var rest = new RestAuth(ConfigAuth);
+            var rest = new RestAuth(AuthConfig);
 
             var authDeviceGetTokenOut = rest.GetDeviceAuthCode(ClientAuthDetails.GetClientCredentials().ClientSecret,
                 ClientAuthDetails.GetClientCredentials().ClientSecret);
@@ -174,17 +170,13 @@
             var reqSmartPin = new RestRequest
             {
                 PageUrl = "", //ConfigAuth.PageSmartDevices,
-                Host = ConfigAuth.Host,
+                Host = AuthConfig.Host,
                 BodyJsonString = JsonSerializer.SerializeJson(new SmartPin {UserPin = authDeviceGetTokenOut.UserCode})
             };
 
             reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
             var restSmart =
-                new RestService(new RestConfig
-                {
-                    BaseUrl =
-                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin"
-                });
+                new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
 
             var response = restSmart.RestPut(reqSmartPin);
             Assert.IsTrue(response.Length > 0);

@@ -83,7 +83,6 @@
     <Compile Include="Rest\Test_Rest_General_Deliveryadresses.cs" />
     <Compile Include="Rest\Test_Rest_General_Contacts.cs" />
     <Compile Include="Rest\Test_Rest_General_Skeletons.cs" />
-    <Compile Include="StompClient\Test_Base.cs" />
     <Compile Include="StompClient\Test_StompClient.cs" />
     <Compile Include="StompClient\Test_StompCore.cs" />
     <Compile Include="StompClient\Test_StompFrame.cs" />
@@ -145,9 +144,9 @@
     <Content Include="Data\Model\General.Skeleton.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Config\SecucardConnect.config">
+    <EmbeddedResource Include="Data\Config\SecucardConnect.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="Data\Model\General.Accounts.3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
