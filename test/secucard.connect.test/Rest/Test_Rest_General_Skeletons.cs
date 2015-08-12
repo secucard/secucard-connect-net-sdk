@@ -21,7 +21,7 @@
             {
                 Method = WebRequestMethods.Http.Get,
                 Token = AccessToken,
-                QueyParams = new QueryParams
+                QueryParams = new QueryParams
                 {
                     Count = 10,
                     Offset = 0,
@@ -48,7 +48,7 @@
                 {
                     Method = WebRequestMethods.Http.Get,
                     Token = AccessToken,
-                    QueyParams = new QueryParams
+                    QueryParams = new QueryParams
                     {
                         Count = 10,
                         ScrollExpire = "5m",
@@ -73,7 +73,7 @@
                 {
                     Method = WebRequestMethods.Http.Get,
                     Token = AccessToken,
-                    QueyParams = new QueryParams
+                    QueryParams = new QueryParams
                     {
                         ScrollId = scrollId
                     },
@@ -94,7 +94,7 @@
             var request = new RestRequest
             {
                 Token = AccessToken,
-                QueyParams = new QueryParams
+                QueryParams = new QueryParams
                 {
                     Query = "a:abc1? OR (b:*0 AND NOT c:???1??)"
                 },
@@ -114,7 +114,7 @@
             var request = new RestRequest
             {
                 Token = AccessToken,
-                QueyParams = new QueryParams
+                QueryParams = new QueryParams
                 {
                     Expand = true
                 },
@@ -137,7 +137,7 @@
                 var request = new RestRequest
                 {
                     Token = AccessToken,
-                    QueyParams = new QueryParams
+                    QueryParams = new QueryParams
                     {
                         Count = 2,
                         Fields = new List<string> {"id"}
@@ -158,7 +158,7 @@
                 {
                     Token = AccessToken,
                     Id = id,
-                    QueyParams = new QueryParams
+                    QueryParams = new QueryParams
                     {
                         Expand = true
                     },
@@ -207,7 +207,7 @@
                 {
                     Method = WebRequestMethods.Http.Get,
                     Token = AccessToken,
-                    QueyParams = new QueryParams
+                    QueryParams = new QueryParams
                     {
                         Count = 10,
                         Offset = 0,
@@ -230,7 +230,8 @@
                     Token = AccessToken,
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de",
-                    Object = obj
+                    Object = obj,
+                    Id = obj.Id
                 };
 
                 var objPut = RestService.PutObject<Skeleton>(request);

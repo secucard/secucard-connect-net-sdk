@@ -1,9 +1,22 @@
-﻿namespace Secucard.Connect.Net.Rest
+﻿/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+namespace Secucard.Connect.Net.Rest
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
+    using System.Text;
+    using System.Web;
     using Secucard.Connect.Product.Common.Model;
 
     public class RestRequest
@@ -18,21 +31,38 @@
         public string Host { get; set; }
         public string PageUrl { get; set; }
         public string Action { get; set; }
-        public List<String> ActionParameter { get; set; }
+        public List<string> ActionParameter { get; set; }
         public string Token { get; set; }
         public string Method { get; set; }
         public NameValueCollection Header { get; set; }
         public string UserAgent { get; set; }
 
         public string Id { get; set; }
-        public QueryParams QueyParams { get; set; }
+        public QueryParams QueryParams { get; set; }
 
         public Dictionary<string, string> BodyParameter { get; set; }
-        public Object Object { get; set; }
+        public object Object { get; set; }
         public Type ObjetType { get; set; }
         public List<SecuObject> Objects { get; set; }
         public string BodyJsonString { get; set; }
         public byte[] BodyBytes { get; set; }
+
+
+        public void PrepareBody()
+        {
+            BodyBytes = !string.IsNullOrWhiteSpace(BodyJsonString) ? BodyJsonString.ToUTF8Bytes() : BuildPostData(BodyParameter).ToUTF8Bytes();
+        }
+
+        private static string BuildPostData(Dictionary<string, string> parameter)
+        {
+            var sb = new StringBuilder();
+            foreach (var p in parameter)
+            {
+                if (sb.Length > 0) sb.Append("&");
+                sb.AppendFormat("{0}={1}", p.Key, HttpUtility.UrlEncode(p.Value));
+            }
+            return sb.ToString();
+        }
 
         #region Handle Parameters
 
@@ -47,7 +77,7 @@
             // Include actionParmater in path
             if (ActionParameter!=null && ActionParameter.Any()) s += "/" +  string.Join("/", ActionParameter);
             // add query parameters at end
-            return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueyParams)));
+            return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueryParams)));
         }
 
         private static NameValueCollection QueryParamsToMap(QueryParams queryParams)
@@ -134,7 +164,7 @@
                     nvc.Add("geo[lon]", gq.Lon.ToString());
                 }
 
-                if (String.IsNullOrWhiteSpace(gq.Distance))
+                if (string.IsNullOrWhiteSpace(gq.Distance))
                 {
                     nvc.Add("geo[distance]", gq.Distance);
                 }
@@ -150,10 +180,6 @@
                 return null;
             }
 
-            //var array = (from key in queryParams.AllKeys
-            //             from value in queryParams.GetValues(key)
-            //             select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value))).ToArray();
-
             var array = (from key in queryParams.AllKeys
                 from value in queryParams.GetValues(key)
                 select string.Format("{0}={1}", key, value)).ToArray();
@@ -163,8 +189,6 @@
         }
 
         #endregion
-
-
 
     }
 }

@@ -76,7 +76,7 @@
 
         private ObjectList<T> FindObjects<T>(RestRequest request, QueryParams query) 
         {
-            request.QueyParams = query;
+            request.QueryParams = query;
             var list = RestService.GetList<T>(request);
             return list;
         }

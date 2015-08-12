@@ -45,7 +45,6 @@
 
         public T PutObject<T>(RestRequest request) 
         {
-            request.Id = request.Id;
             request.BodyJsonString = JsonSerializer.SerializeJson((T)request.Object);
             var ret = RestPut(request);
 
@@ -54,6 +53,7 @@
 
         public void DeleteObject<T>(RestRequest request) 
         {
+
             RestDelete(request);
         }
 

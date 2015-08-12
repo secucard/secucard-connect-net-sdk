@@ -17,11 +17,10 @@ namespace Secucard.Connect.Auth.Model
     public abstract class OAuthCredentials
     {
         public abstract string GrantType { get; }
-        /**
-   * Returns an id which uniquely identifies this instance in a way that same ids refer to the same credentials.
-   *
-   * @return The id as string.
-   */
+
+        /// <summary>
+        ///     Returns an id which uniquely identifies this instance in a way that same ids refer to the same credentials.
+        /// </summary>
         public abstract string Id { get; }
 
         public virtual Dictionary<string, object> AsMap()

@@ -9,17 +9,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Rest
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Net;
     using System.Net.Cache;
     using System.Net.Security;
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
-    using System.Web;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net.Util;
 
@@ -28,9 +28,6 @@ namespace Secucard.Connect.Net.Rest
         private const string ContentTypeFrom = "application/x-www-form-urlencoded";
         private const string ContentTypeJson = "application/json";
 
-        protected string BaseUrl { get; set; }
-
-
         #region  ### Ctor ###
 
         protected RestBase(string baseUrl)
@@ -38,6 +35,18 @@ namespace Secucard.Connect.Net.Rest
             BaseUrl = baseUrl;
             ServicePointManager.ServerCertificateValidationCallback = AcceptAllCertifications;
             SecucardTrace.Info(baseUrl);
+        }
+
+        #endregion
+
+        private string BaseUrl { get; set; }
+
+        #region ### Private Static ###
+
+        private static bool AcceptAllCertifications(object sender, X509Certificate certificate, X509Chain chain,
+            SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
 
         #endregion
@@ -60,14 +69,12 @@ namespace Secucard.Connect.Net.Rest
             return JsonSerializer.DeserializeJson<T>(ret);
         }
 
-
         public string RestPost(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Post;
-            PrepareBody(request);
+            request.PrepareBody();
             var webRequest = FactoryWebRequest(request);
-
-            webRequest.ContentLength = request.BodyBytes.Length;
+            //webRequest.ContentLength = request.BodyBytes.Length;
 
             var reqStream = webRequest.GetRequestStream();
             reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
@@ -94,7 +101,7 @@ namespace Secucard.Connect.Net.Rest
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
                 throw restException;
@@ -105,10 +112,9 @@ namespace Secucard.Connect.Net.Rest
         public string RestPut(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Put;
-            PrepareBody(request);
+            request.PrepareBody();
 
             var webRequest = FactoryWebRequest(request);
-            webRequest.ContentType = ContentTypeJson;
 
             var reqStream = webRequest.GetRequestStream();
             reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
@@ -135,7 +141,7 @@ namespace Secucard.Connect.Net.Rest
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
                 throw restEx;
@@ -148,7 +154,7 @@ namespace Secucard.Connect.Net.Rest
         {
             request.Method = WebRequestMethods.Http.Get;
             var webRequest = FactoryWebRequest(request);
-            webRequest.ContentType = ContentTypeJson;
+            RestTrace(webRequest, request.BodyBytes);
 
             try
             {
@@ -172,7 +178,7 @@ namespace Secucard.Connect.Net.Rest
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
                 throw restEx;
@@ -181,12 +187,13 @@ namespace Secucard.Connect.Net.Rest
             return null;
         }
 
+
         protected string RestDelete(RestRequest request)
         {
             request.Method = "DELETE";
 
             var webRequest = FactoryWebRequest(request);
-            webRequest.ContentType = ContentTypeJson;
+            //webRequest.ContentType = ContentTypeJson;
 
             try
             {
@@ -210,7 +217,7 @@ namespace Secucard.Connect.Net.Rest
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
                 throw restEx;
@@ -222,10 +229,10 @@ namespace Secucard.Connect.Net.Rest
         protected string RestExecute(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Post;
-            PrepareBody(request);
+            request.PrepareBody();
             var webRequest = FactoryWebRequest(request);
 
-            webRequest.ContentLength = request.BodyBytes.Length;
+            //webRequest.ContentLength = request.BodyBytes.Length;
 
             var reqStream = webRequest.GetRequestStream();
             reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
@@ -252,24 +259,12 @@ namespace Secucard.Connect.Net.Rest
                 {
                     BodyText = reader.ReadToEnd(),
                     StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
                 };
                 reader.Close();
                 throw restException;
             }
             return null;
-        }
-
-        private static void PrepareBody(RestRequest request)
-        {
-            if (!string.IsNullOrWhiteSpace(request.BodyJsonString))
-            {
-                request.BodyBytes = request.BodyJsonString.ToUTF8Bytes();
-            }
-            else
-            {
-                request.BodyBytes = BuildPostData(request.BodyParameter).ToUTF8Bytes();
-            }
         }
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
@@ -285,12 +280,12 @@ namespace Secucard.Connect.Net.Rest
             webRequest.Headers.Add("Accept-Charset", "utf-8");
             webRequest.UserAgent = request.UserAgent;
 
-            if(string.IsNullOrWhiteSpace(request.BodyJsonString))
+            if (string.IsNullOrWhiteSpace(request.BodyJsonString))
                 webRequest.ContentType = ContentTypeFrom;
             else
                 webRequest.ContentType = ContentTypeJson;
 
-            if(request.Method==WebRequestMethods.Http.Put || request.Method==WebRequestMethods.Http.Post)
+            if (request.Method == WebRequestMethods.Http.Put || request.Method == WebRequestMethods.Http.Post)
                 webRequest.ContentLength = request.BodyBytes.Length;
 
 
@@ -298,30 +293,38 @@ namespace Secucard.Connect.Net.Rest
             if (!string.IsNullOrWhiteSpace(request.Token))
                 webRequest.Headers.Add("Authorization", string.Format("Bearer {0}", request.Token));
 
-            webRequest.Headers.Add(request.Header);            // Other header info like user-agent
+            webRequest.Headers.Add(request.Header); // Other header info like user-agent
+
+            RestTrace(webRequest, request.BodyBytes);
 
             return webRequest;
         }
 
-        #endregion
-
-        #region ### Private ###
-
-        private static bool AcceptAllCertifications(object sender, X509Certificate certificate, X509Chain chain,
-            SslPolicyErrors sslpolicyerrors)
-        {
-            return true;
-        }
-
-        private static string BuildPostData(Dictionary<string, string> parameter)
+        private static void RestTrace(HttpWebRequest webRequest, byte[] body)
         {
             var sb = new StringBuilder();
-            foreach (var p in parameter)
+            sb.AppendLine();
+            sb.AppendFormat("{0}:{1}", webRequest.Method, webRequest.RequestUri.AbsoluteUri);
+            sb.AppendLine();
+            sb.AppendFormat("Host: {0}", webRequest.Host);
+            sb.AppendLine();
+            sb.AppendFormat("Type: {0}, Length: {1}", webRequest.ContentType, webRequest.ContentLength);
+            sb.AppendLine();
+            if (body != null)
             {
-                if (sb.Length > 0) sb.Append("&");
-                sb.AppendFormat("{0}={1}", p.Key, HttpUtility.UrlEncode(p.Value));
+                sb.AppendFormat("Body: {0}", Encoding.UTF8.GetString(body));
+                sb.AppendLine();
             }
-            return sb.ToString();
+
+            var frame = new StackFrame(1);
+            var method = frame.GetMethod();
+            var type = method.DeclaringType;
+            var name = string.Empty;
+            if (type != null) name = type.Name;
+
+            var source = string.Format("{0}.{1}", name, method.Name);
+
+            SecucardTrace.InfoSource(source, sb.ToString().Replace("{", "{{").Replace("}", "}}"));
         }
 
         #endregion

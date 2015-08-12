@@ -62,7 +62,7 @@ namespace Secucard.Connect.Auth
             else if (token.IsExpired())
             {
                 // try refresh if just expired, authenticate new if no refresh possible or failed
-                SecucardTrace.Info("Token expired: {0} , original:{1}",
+                SecucardTrace.InfoSource("Token expired: {0} , original:{1}",
                     token.ExpireTime == null ? "null" : token.ExpireTime.Value.ToString(),
                     token.OrigExpireTime == null ? "null" : token.OrigExpireTime.ToString());
                 if (token.RefreshToken == null)

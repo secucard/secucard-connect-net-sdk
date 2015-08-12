@@ -19,7 +19,7 @@
             var request = new RestRequest
             {
                 Token = Token,
-                QueyParams = new QueryParams
+                QueryParams = new QueryParams
                 {
                     Count = 10,
                     Offset = 0
@@ -84,7 +84,7 @@
                 var request = new RestRequest
                 {
                     Token = Token,
-                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
+                    QueryParams = new QueryParams {Query = "id:" + customerPost.Id},
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -104,7 +104,9 @@
                     Token = Token,
                     Object = customerPost,
                     PageUrl = "Payment/Customers",
-                    Host = "core-dev10.secupay-ag.de"
+                    Host = "core-dev10.secupay-ag.de",
+                    Id = customerPost.Id
+
                 };
 
                 var customerPut = RestService.PutObject<Customer>(request);
@@ -117,7 +119,7 @@
                 var request = new RestRequest
                 {
                     Token = Token,
-                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
+                    QueryParams = new QueryParams {Query = "id:" + customerPost.Id},
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };
@@ -147,7 +149,7 @@
                 var request = new RestRequest
                 {
                     Token = Token,
-                    QueyParams = new QueryParams {Query = "id:" + customerPost.Id},
+                    QueryParams = new QueryParams {Query = "id:" + customerPost.Id},
                     PageUrl = "Payment/Customers",
                     Host = "core-dev10.secupay-ag.de"
                 };

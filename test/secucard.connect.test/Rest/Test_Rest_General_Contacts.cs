@@ -17,7 +17,7 @@
             var request = new RestRequest
             {
                 Token = AccessToken,
-                QueyParams = new QueryParams
+                QueryParams = new QueryParams
                 {
                     Count = 10,
                     Offset = 0
@@ -61,7 +61,7 @@
                 var request = new RestRequest
                 {
                     Token = AccessToken,
-                    QueyParams = new QueryParams {Query = "forename:" + contact.Forename},
+                    QueryParams = new QueryParams {Query = "forename:" + contact.Forename},
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
                 };

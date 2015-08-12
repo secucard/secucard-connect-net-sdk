@@ -9,10 +9,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Stomp.Client
 {
     using System;
-    using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Net.Security;
     using System.Net.Sockets;
@@ -22,10 +23,6 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     public class StompCore : IDisposable
     {
-        public event StompCoreFrameArrivedEventHandler StompCoreFrameArrivedEvent;
-        public event StompCoreExceptionEventHandler StompCoreExceptionEvent;
-
-
         private readonly StompConfig Config;
         private SslStream sslStream;
         private bool Stop;
@@ -33,7 +30,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         public StompCore(StompConfig config)
         {
-            StompTrace.ClientTrace("Client Create '{0}'", config.Host);
+            StompTrace.Info("Client Create '{0}'", config.Host);
             Config = config;
         }
 
@@ -44,6 +41,8 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (tcpClient != null) tcpClient.Close();
         }
 
+        public event StompCoreFrameArrivedEventHandler StompCoreFrameArrivedEvent;
+        public event StompCoreExceptionEventHandler StompCoreExceptionEvent;
 
         private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain,
             SslPolicyErrors sslPolicyErrors)
@@ -57,7 +56,7 @@ namespace Secucard.Connect.Net.Stomp.Client
             {
                 tcpClient = new TcpClient();
                 tcpClient.Connect(Config.Host, Config.Port);
-                StompTrace.ClientTrace("TCP connection created '{0}:{1}'", Config.Host, Config.Port);
+                StompTrace.Info("TCP connection created '{0}:{1}'", Config.Host, Config.Port);
 
                 sslStream = new SslStream(
                     tcpClient.GetStream(),
@@ -67,12 +66,12 @@ namespace Secucard.Connect.Net.Stomp.Client
                     );
 
                 sslStream.AuthenticateAsClient(Config.Host, null, SslProtocols.Tls12, true);
-                StompTrace.ClientTrace("Client Authenticated Algo:{0} Hash:{1}, ", sslStream.CipherAlgorithm,
+                StompTrace.Info("Client Authenticated Algo:{0} Hash:{1}, ", sslStream.CipherAlgorithm,
                     sslStream.HashAlgorithm);
             }
             catch (Exception ex)
             {
-                StompTrace.ClientTrace(ex);
+                StompTrace.Info(ex);
                 throw;
             }
 
@@ -84,7 +83,7 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (tcpClient.Connected)
             {
                 var msg = frame.GetFrame();
-                StompTrace.ClientTrace("SendFrame: \n{0}", msg);
+                StompTrace.Info("SendFrame: \n{0}", msg);
                 var bytes = Encoding.UTF8.GetBytes(msg + "\0"); // NULL Terminated
                 sslStream.Write(bytes, 0, bytes.Length);
             }
@@ -99,7 +98,7 @@ namespace Secucard.Connect.Net.Stomp.Client
             }
             catch (Exception e)
             {
-                StompTrace.ClientTrace(e);
+                StompTrace.Info(e);
                 throw;
             }
         }
@@ -117,7 +116,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
                 if (bytesRead > 0)
                 {
-                    StompTrace.ClientTrace("Bytes read {0}", bytesRead);
+                    StompTrace.Info("Bytes read {0}", bytesRead);
 
                     // Add Bytes to internal list
                     state.bytes.AddRange(state.buffer.Take(bytesRead));
@@ -132,44 +131,39 @@ namespace Secucard.Connect.Net.Stomp.Client
                         // remove used up bytes from list
                         state.bytes.RemoveRange(0, i + 1);
                     }
-                    else
-                    {
-                        // Cleanup Heartbeat
-                        state.bytes.RemoveRange(0, 1);
-                    }
                 }
-
                 // Start waiting for more data
 
                 try
                 {
-                    if (!Stop) 
+                    if (!Stop)
                         stream.BeginRead(state.buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
                 }
-                catch (System.IO.IOException ex)
+                catch (IOException ex)
                 {
-                    // Connection Close - Start again
-                    StompTrace.ClientTrace(ex);
+                    // Connection Close - raise event
                     OnException(ex);
                 }
             }
             catch (Exception e)
             {
-                StompTrace.ClientTrace(e);
+                StompTrace.Info(e);
                 throw;
             }
         }
 
         private void OnFrameArrived(StompFrame frame)
         {
+            StompTrace.Info("Frame Arrived Command={0}", frame.Command);
             if (StompCoreFrameArrivedEvent != null)
-                StompCoreFrameArrivedEvent(this, new StompCoreFrameArrivedEventArgs { Frame = frame, Time = DateTime.Now });
+                StompCoreFrameArrivedEvent(this, new StompCoreFrameArrivedEventArgs {Frame = frame, Time = DateTime.Now});
         }
 
         private void OnException(Exception ex)
         {
+            StompTrace.Info(ex);
             if (StompCoreExceptionEvent != null)
-                StompCoreExceptionEvent(this, new StompCoreExceptionEventArgs() { Time = DateTime.Now, Exception = ex });
+                StompCoreExceptionEvent(this, new StompCoreExceptionEventArgs {Time = DateTime.Now, Exception = ex});
         }
     }
 }

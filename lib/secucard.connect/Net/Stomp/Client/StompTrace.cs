@@ -17,13 +17,13 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     internal static class StompTrace
     {
-        internal static void ClientTrace(Exception e)
+        internal static void Info(Exception e)
         {
-            ClientTrace("Exception: {0}", e.Message);
-            if (e.InnerException != null) ClientTrace("Inner exception: {0}", e.InnerException.Message);
+            Info("Exception: {0}", e.Message);
+            if (e.InnerException != null) Info("Inner exception: {0}", e.InnerException.Message);
         }
 
-        internal static void ClientTrace(string fmt, params object[] param)
+        internal static void Info(string fmt, params object[] param)
         {
             var frame = new StackFrame(1);
             var method = frame.GetMethod();

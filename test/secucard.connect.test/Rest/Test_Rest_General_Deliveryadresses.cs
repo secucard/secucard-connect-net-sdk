@@ -15,7 +15,7 @@
             var request = new RestRequest
             {
                 Token = AccessToken,
-                QueyParams = new QueryParams
+                QueryParams = new QueryParams
                 {
                     Count = 10,
                     Offset = 0

@@ -2,9 +2,11 @@
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Client;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
+    using Secucard.Connect.Storage;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -16,7 +18,9 @@
         public Test_Rest_Base_AuthUser()
         {
             properties["Auth.ExtendExpire"] = "true";
-
+            ClientConfiguration clientConfig = new ClientConfiguration(properties);
+            clientConfig.DataStorage = new MemoryDataStorage();
+            SecucardConnect.Create(clientConfig);
             AuthConfig = new AuthConfig(properties);
 
             //Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");

@@ -31,7 +31,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         public StompClient(StompConfig config)
         {
-            StompTrace.ClientTrace("StompClient Create '{0}'", config.Host);
+            StompTrace.Info("StompClient Create '{0}'", config.Host);
             Config = config;
             Receipts = new ConcurrentDictionary<string, DateTime>();
             StompClientStatus = EnumStompClientStatus.NotConnected;
@@ -224,7 +224,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
             if (StompClientFrameArrivedEvent != null)
             {
-                StompTrace.ClientTrace("Stomp Client Frame arrived: \n{0}", e.Frame.GetFrame());
+                StompTrace.Info("Stomp Client Frame arrived: \n{0}", e.Frame.GetFrame());
                 StompClientFrameArrivedEvent(this, new StompClientFrameArrivedArgs {Frame = e.Frame, Time = e.Time});
             }
         }
