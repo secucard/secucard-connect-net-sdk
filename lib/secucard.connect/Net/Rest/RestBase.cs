@@ -12,7 +12,6 @@
 
 namespace Secucard.Connect.Net.Rest
 {
-    using System;
     using System.Diagnostics;
     using System.IO;
     using System.Net;
@@ -21,7 +20,6 @@ namespace Secucard.Connect.Net.Rest
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using Secucard.Connect.Client;
-    using Secucard.Connect.Net.Util;
 
     public class RestBase
     {
@@ -51,23 +49,7 @@ namespace Secucard.Connect.Net.Rest
 
         #endregion
 
-        #region ### Public ###
-
-        public T RestPost<T>(RestRequest request)
-        {
-            var ret = RestPost(request);
-            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Exception
-
-            return JsonSerializer.DeserializeJson<T>(ret);
-        }
-
-        public T RestPut<T>(RestRequest request)
-        {
-            var ret = RestPut(request);
-            if (string.IsNullOrWhiteSpace(ret)) throw new Exception("no response"); // TODO: Create Exception
-
-            return JsonSerializer.DeserializeJson<T>(ret);
-        }
+        #region ### Methods ###
 
         public string RestPost(RestRequest request)
         {
@@ -88,7 +70,9 @@ namespace Secucard.Connect.Net.Rest
                 {
                     using (var reader = new StreamReader(respStream, Encoding.UTF8))
                     {
-                        return reader.ReadToEnd();
+                        var ret= reader.ReadToEnd();
+                        SecucardTrace.Info("response:\n{0}", ret);
+                        return ret;
                     }
                 }
             }
@@ -128,7 +112,9 @@ namespace Secucard.Connect.Net.Rest
                 {
                     using (var reader = new StreamReader(respStream, Encoding.UTF8))
                     {
-                        return reader.ReadToEnd();
+                        var ret = reader.ReadToEnd();
+                        SecucardTrace.Info("response:\n{0}", ret);
+                        return ret;
                     }
                 }
             }
@@ -165,7 +151,9 @@ namespace Secucard.Connect.Net.Rest
                 {
                     using (var reader = new StreamReader(respStream, Encoding.UTF8))
                     {
-                        return reader.ReadToEnd();
+                        var ret = reader.ReadToEnd();
+                        SecucardTrace.Info("response:\n{0}", ret);
+                        return ret;
                     }
                 }
             }
@@ -187,13 +175,11 @@ namespace Secucard.Connect.Net.Rest
             return null;
         }
 
-
         protected string RestDelete(RestRequest request)
         {
             request.Method = "DELETE";
 
             var webRequest = FactoryWebRequest(request);
-            //webRequest.ContentType = ContentTypeJson;
 
             try
             {
@@ -204,7 +190,9 @@ namespace Secucard.Connect.Net.Rest
                 {
                     using (var reader = new StreamReader(respStream, Encoding.UTF8))
                     {
-                        return reader.ReadToEnd();
+                        var ret = reader.ReadToEnd();
+                        SecucardTrace.Info("response:\n{0}", ret);
+                        return ret;
                     }
                 }
             }
@@ -232,8 +220,6 @@ namespace Secucard.Connect.Net.Rest
             request.PrepareBody();
             var webRequest = FactoryWebRequest(request);
 
-            //webRequest.ContentLength = request.BodyBytes.Length;
-
             var reqStream = webRequest.GetRequestStream();
             reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
 
@@ -246,7 +232,9 @@ namespace Secucard.Connect.Net.Rest
                 {
                     using (var reader = new StreamReader(respStream, Encoding.UTF8))
                     {
-                        return reader.ReadToEnd();
+                        var ret = reader.ReadToEnd();
+                        SecucardTrace.Info("response:\n{0}", ret);
+                        return ret;
                     }
                 }
             }
@@ -266,6 +254,10 @@ namespace Secucard.Connect.Net.Rest
             }
             return null;
         }
+
+        #endregion
+
+        #region ### Private Methods ###
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
         {
@@ -303,6 +295,7 @@ namespace Secucard.Connect.Net.Rest
         private static void RestTrace(HttpWebRequest webRequest, byte[] body)
         {
             var sb = new StringBuilder();
+            sb.AppendFormat("request:\n");
             sb.AppendLine();
             sb.AppendFormat("{0}:{1}", webRequest.Method, webRequest.RequestUri.AbsoluteUri);
             sb.AppendLine();
@@ -328,5 +321,6 @@ namespace Secucard.Connect.Net.Rest
         }
 
         #endregion
+
     }
 }

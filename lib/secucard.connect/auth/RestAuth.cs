@@ -2,6 +2,7 @@
 {
     using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Net.Util;
 
     public class RestAuth : RestBase
     {
@@ -32,8 +33,8 @@
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
             req.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
-            var deviceAuthCode = RestPost<DeviceAuthCode>(req);
-            return deviceAuthCode;
+            var ret = RestPost(req);
+            return JsonSerializer.DeserializeJson<DeviceAuthCode>(ret); ;
         }
 
         public Token GetToken(string clientId, string clientSecret)
@@ -48,8 +49,8 @@
             req.BodyParameter.Add(AuthConst.Client_Id, clientId);
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
 
-            var userAuthtoken = RestPost<Token>(req);
-            return userAuthtoken;
+            var ret = RestPost(req);
+            return JsonSerializer.DeserializeJson<Token>(ret); 
         }
 
         public Token ObtainAuthToken(string deviceCode, string clientId, string clientSecret)
@@ -67,7 +68,8 @@
 
             try
             {
-                return RestPost<Token>(req);
+                var ret = RestPost(req);
+                return JsonSerializer.DeserializeJson<Token>(ret); 
             }
             catch (RestException ex)
             {
@@ -89,8 +91,8 @@
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
             req.BodyParameter.Add(AuthConst.RefreshToken, refreshToken);
 
-            var token = RestPost<Token>(req);
-            return token;
+            var ret = RestPost(req);
+            return JsonSerializer.DeserializeJson<Token>(ret); 
         }
     }
 }

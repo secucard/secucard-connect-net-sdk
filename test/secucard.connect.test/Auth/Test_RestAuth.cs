@@ -50,7 +50,8 @@
                 ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
-            var authDeviceGetTokenOut = rest.RestPost<DeviceAuthCode>(reqDeviceGetToken);
+            var ret = rest.RestPost(reqDeviceGetToken);
+            var authDeviceGetTokenOut = JsonSerializer.DeserializeJson<DeviceAuthCode>(ret); 
 
             Assert.AreEqual(authDeviceGetTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authDeviceGetTokenOut.Interval, 5);
@@ -89,7 +90,9 @@
                 ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
-            var authDeviceTokenOut = rest.RestPost<Token>(reqObtainAccessToken);
+             ret = rest.RestPost(reqObtainAccessToken);
+            var authDeviceTokenOut = JsonSerializer.DeserializeJson<Token>(ret); 
+
 
             Assert.AreEqual(authDeviceTokenOut.TokenType, TokenTypeBearer);
             Assert.AreEqual(authDeviceTokenOut.ExpiresIn, 1200);
@@ -109,7 +112,9 @@
                 ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.RefreshToken, authDeviceTokenOut.RefreshToken);
 
-            var authRefreshTokenOut = rest.RestPost<Token>(reqRefreshExpiredToken);
+
+            ret = rest.RestPost(reqRefreshExpiredToken);
+            var authRefreshTokenOut = JsonSerializer.DeserializeJson<Token>(ret); 
 
             Assert.AreEqual(authRefreshTokenOut.AccessToken.Length, 26);
             Assert.AreEqual(authRefreshTokenOut.ExpiresIn, 1200);
@@ -132,7 +137,7 @@
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 framePing.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
 
-                framePing.Body = "Testdaten";
+                framePing.Body = "Testdata";
 
                 StompFrame frameIn = null;
                 client.StompClientFrameArrivedEvent += (sender, args) => { frameIn = args.Frame; };
@@ -143,7 +148,7 @@
                 {
                 }
 
-                Assert.IsTrue(frameIn.Body.Contains("Testdaten"));
+                Assert.IsTrue(frameIn.Body.Contains("Testdata"));
 
                 // check out heartbeat in trace
                 Thread.Sleep(6000);
