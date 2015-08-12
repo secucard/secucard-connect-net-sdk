@@ -1,0 +1,10 @@
+﻿{
+    "object": "event.pushs",
+    "id": "EPS_6G685TPBRMVWA7YQA2KRKH95NVA244",
+    "created": "2015-08-12T09:12:37+02:00",
+    "target": "general.notifications",
+    "type": "display",
+    "data": {
+        "text": "DEMO Aktivit\u00e4t mit mehr Text"
+    }
+}

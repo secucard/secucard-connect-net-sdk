@@ -17,6 +17,7 @@ namespace Secucard.Connect.Client
         public string DefaultChannel { get; set; }
         internal bool StompEnabled { get; set; }
         public string AppId { get; set; }
+        internal string TraceDir;
 
         public string CacheDir { get; set; }
 
@@ -61,7 +62,8 @@ namespace Secucard.Connect.Client
             Properties = properties;
             DefaultChannel = properties.Get("DefaultChannel", "rest");
             StompEnabled = properties.Get("StompEnabled", true);
-            AppId = properties.Get("AppId", null);
+            AppId = properties.Get("AppId");
+            TraceDir= properties.Get("TraceDir");
 
             //TODO: Logging and Cache
 

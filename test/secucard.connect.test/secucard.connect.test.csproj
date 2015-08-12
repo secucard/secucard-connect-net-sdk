@@ -162,6 +162,9 @@
     <Content Include="Data\Model\Loyalty.Customers.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Model\Event.Pushs.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Model\Payment.Contracts.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

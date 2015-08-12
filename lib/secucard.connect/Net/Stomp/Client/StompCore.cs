@@ -12,6 +12,7 @@
 namespace Secucard.Connect.Net.Stomp.Client
 {
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Net.Security;
     using System.Net.Sockets;
@@ -21,7 +22,9 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     public class StompCore : IDisposable
     {
-        public event StompCoreFrameArrivedEventHandler StompCoreFrameArrived;
+        public event StompCoreFrameArrivedEventHandler StompCoreFrameArrivedEvent;
+        public event StompCoreExceptionEventHandler StompCoreExceptionEvent;
+
 
         private readonly StompConfig Config;
         private SslStream sslStream;
@@ -87,16 +90,6 @@ namespace Secucard.Connect.Net.Stomp.Client
             }
         }
 
-        //public void SendHeartBeat()
-        //{
-        //    if (tcpClient.Connected)
-        //    {
-        //        StompTrace.ClientTrace("SendHeartBeat: {0}", DateTime.Now);
-        //        var bytes = Encoding.UTF8.GetBytes("\n\0"); // NULL Terminated
-        //        sslStream.Write(bytes, 0, bytes.Length);
-        //    }
-        //}
-
         private void Receive(SslStream stream)
         {
             try
@@ -135,7 +128,7 @@ namespace Secucard.Connect.Net.Stomp.Client
                     {
                         // Create Frame from Bytes
                         var frame = StompFrame.CreateFrame(state.bytes.Take(i).ToArray());
-                        OnFrameArrived(new StompCoreFrameArrivedEventArgs {Frame = frame, Time = DateTime.Now});
+                        OnFrameArrived(frame);
                         // remove used up bytes from list
                         state.bytes.RemoveRange(0, i + 1);
                     }
@@ -147,7 +140,18 @@ namespace Secucard.Connect.Net.Stomp.Client
                 }
 
                 // Start waiting for more data
-                if (!Stop) stream.BeginRead(state.buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
+
+                try
+                {
+                    if (!Stop) 
+                        stream.BeginRead(state.buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
+                }
+                catch (System.IO.IOException ex)
+                {
+                    // Connection Close - Start again
+                    StompTrace.ClientTrace(ex);
+                    OnException(ex);
+                }
             }
             catch (Exception e)
             {
@@ -156,10 +160,16 @@ namespace Secucard.Connect.Net.Stomp.Client
             }
         }
 
-        private void OnFrameArrived(StompCoreFrameArrivedEventArgs e)
+        private void OnFrameArrived(StompFrame frame)
         {
-            if (StompCoreFrameArrived != null)
-                StompCoreFrameArrived(this, e);
+            if (StompCoreFrameArrivedEvent != null)
+                StompCoreFrameArrivedEvent(this, new StompCoreFrameArrivedEventArgs { Frame = frame, Time = DateTime.Now });
+        }
+
+        private void OnException(Exception ex)
+        {
+            if (StompCoreExceptionEvent != null)
+                StompCoreExceptionEvent(this, new StompCoreExceptionEventArgs() { Time = DateTime.Now, Exception = ex });
         }
     }
 }

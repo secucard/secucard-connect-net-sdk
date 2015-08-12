@@ -25,7 +25,7 @@
             using (var core = new StompCore(StompConfig))
             {
                 core.Init();
-                core.StompCoreFrameArrived += ClientOnStompCoreFrameArrived;
+                core.StompCoreFrameArrivedEvent += ClientOnStompCoreFrameArrived;
                 core.SendFrame(frame);
 
                 while (!IsConnected)

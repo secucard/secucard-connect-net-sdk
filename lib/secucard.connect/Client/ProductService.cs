@@ -14,6 +14,7 @@ namespace Secucard.Connect.Client
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Configuration;
     using Secucard.Connect.Net;
     using Secucard.Connect.Product.Common.Model;
 
@@ -239,11 +240,11 @@ namespace Secucard.Connect.Client
         {
             return Request<R>(new ChannelRequest
                  {
-                     Method = ChannelMethod.DELETE,
+                     Method = ChannelMethod.EXECUTE,
                      Product = MetaData.Product,
                      Resource = MetaData.Resource,
                      Action = action,
-                     ActionArgs = new List<string>() { actionArg },
+                     ActionArgs = new List<string> { actionArg },
                      ObjectId = id,
                      Object = obj
                  }, options);
@@ -259,14 +260,22 @@ namespace Secucard.Connect.Client
         //        callback);
         //}
 
-        //protected bool executeToBool(string id, string action, string actionArg, object object, Options options,
-        //    Callback<bool> callback) {
-        //        Converter<Result, bool> converter = Converter.RESULT2BOOL;
-        //        CallbackAdapter<Result, bool> cb = callback == null ? null : new CallbackAdapter<>(callback, converter);
-        //        Result result = request(Connect.Channel.Method.EXECUTE, new Connect.Channel.Params(getObject(), id, action, actionArg, object,
-        //            Result.class, options), options, cb);
-        //        return converter.convert(result);
-        //    }
+        protected bool ExecuteToBool(string id, string action, string actionArg, object obj, ChannelOptions options)
+        {
+
+            var result = Request<ExecuteResult>(new ChannelRequest
+                   {
+                       Method = ChannelMethod.EXECUTE,
+                       Product = MetaData.Product,
+                       Resource = MetaData.Resource,
+                       Action = action,
+                       ActionArgs = new List<string>() { actionArg },
+                       ObjectId = id,
+                       Object = obj
+                   }, options);
+
+            return Convert.ToBoolean(result.Result);
+        }
 
         //protected bool executeToBool(string action, object object, Options options, Callback<bool> callback) {
         //    return executeToBool(getAppId(), action, object, options, callback);
@@ -282,7 +291,7 @@ namespace Secucard.Connect.Client
 
         // ---------------------------------------------------------------------------------------------------
 
-        private R Request<R>(ChannelRequest channelRequest, ChannelOptions options) where R : SecuObject
+        private R Request<R>(ChannelRequest channelRequest, ChannelOptions options) 
         {
             if (options == null)
             {
@@ -292,42 +301,17 @@ namespace Secucard.Connect.Client
             {
                 channelRequest.ChannelOptions = options;
             }
-            //final Callback.Notify pre = options.resultProcessing;
             var channel = GetChannelByOptions(options);
             try
             {
                 R result = channel.Request<R>(channelRequest);
-                //if (pre != null) {
-                //    pre.notify(result);
-                //}
+
                 return result;
             }
             catch (Exception e)
             {
-                throw e;
-                //handleException(e);
+                throw;
             }
-
-            //        else {
-            //            channel.request(method, p, new Callback<R>() {
-            //            public void completed(R result) {
-            //if (pre != null) {
-            //pre.notify(result);
-            //            }
-            //            callback.completed(result);
-            //        }
-
-            //public void failed(Throwable cause) {
-            //    Exception ex = ExceptionMapper.map(cause, null);
-            //    if (context.exceptionHandler == null) {
-            //        callback.failed(ex);
-            //    } else {
-            //        context.exceptionHandler.handle(ex);
-            //    }
-            //}
-            //});
-            //}
-            //return null;
         }
 
         private ObjectList<R> RequestList<R>(ChannelRequest channelRequest, ChannelOptions options) where R : SecuObject
@@ -352,7 +336,7 @@ namespace Secucard.Connect.Client
             }
             catch (Exception e)
             {
-                throw e;
+                throw;
             }
 
         }

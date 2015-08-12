@@ -14,7 +14,7 @@ namespace Secucard.Connect.Net.Stomp.Client
     using System;
     using System.Diagnostics;
 
-    internal class StompTrace
+    internal static class StompTrace
     {
         internal static void ClientTrace(Exception e)
         {
@@ -24,7 +24,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         internal static void ClientTrace(string fmt, params object[] param)
         {
-            Trace.WriteLine(string.Format("{0:yyyyMMdd-HHmmss.fff}: ", DateTime.Now) + string.Format(fmt, param));
+            Trace.TraceInformation(fmt, param);
         }
     }
 }

@@ -17,8 +17,8 @@
             // On return data contains an unknown object that will be treated as a string at first.
             // Workaround: MS json serializer does not have the option to convert object to string
             var dict = new JsonSplitter().CreateDictionary(json);
-            Status = dict["status"];
-            Data = dict["data"];
+            if (dict.ContainsKey("status")) Status = dict["status"];
+            if (dict.ContainsKey("data")) Data = dict["data"];
         }
     }
 }

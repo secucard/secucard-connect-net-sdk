@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Stomp.Client
 {
     using System;
@@ -19,7 +20,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     public class StompClient : IDisposable
     {
-        private readonly ConcurrentQueue<StompFrame> InQueue; // TODO: Später wieder auflösen, um Locks zu vermeiden
+        private readonly ConcurrentQueue<StompFrame> InQueue;
         private readonly ConcurrentDictionary<string, DateTime> Receipts;
         private Timer ClientTimerHeartbeat;
         public StompConfig Config;
@@ -55,7 +56,8 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (Core != null) Dispose();
             Core = new StompCore(Config);
             Core.Init();
-            Core.StompCoreFrameArrived += ClientOnStompCoreFrameArrived;
+            Core.StompCoreFrameArrivedEvent += ClientOnStompCoreFrameArrived;
+            Core.StompCoreExceptionEvent += Core_StompCoreExceptionEvent;
             OnStatusChanged(EnumStompClientStatus.Connecting);
 
             Core.SendFrame(CreateFrameConnect());
@@ -77,10 +79,14 @@ namespace Secucard.Connect.Net.Stomp.Client
             return false;
         }
 
+        private void Core_StompCoreExceptionEvent(object sender, StompCoreExceptionEventArgs args)
+        {
+            OnStatusChanged(EnumStompClientStatus.NotConnected);
+            Connect();
+        }
+
         public void Disconnect()
         {
-            // graceful shutdown
-            // Frame DISCONNECT + Receipt
             IsConnected = false;
             OnStatusChanged(EnumStompClientStatus.Disconnecting);
             if (ClientTimerHeartbeat != null) ClientTimerHeartbeat.Dispose();
@@ -101,10 +107,11 @@ namespace Secucard.Connect.Net.Stomp.Client
         {
             var rcptId = "rcpt-" + Guid.NewGuid();
 
-            if (Config.RequestSENDReceipt) frame.Headers.Add(StompHeader.Receipt, rcptId);
+            if (Config.RequestSENDReceipt && frame.Command != StompCommands.DISCONNECT)
+                frame.Headers.Add(StompHeader.Receipt, rcptId);
             Core.SendFrame(frame);
 
-            if (Config.RequestSENDReceipt)
+            if (Config.RequestSENDReceipt && frame.Command != StompCommands.DISCONNECT)
                 AwaitReceipt(rcptId, frame.TimeoutSec);
         }
 

@@ -9,3 +9,14 @@ Payment
 
 f0478f73afe218e8b5f751a07c978ecf 
 30644327cfbde722ad2ad12bb9c0a2f86a2bee0a2d8de8d862210112af3d01bb
+
+
+
+20150812-091237.708: Stomp Client Frame arrived: MESSAGE
+subscription:/temp-queue/main
+destination:/queue/amq.gen-R1H__s4xqVjX8R7Wcz5QtA
+message-id:T_/temp-queue/main@@session-zmXmK7GPWSVjxD52Bm9i1w@@4
+content-type:application/x-json
+content-length:206
+
+{"object":"event.pushs","id":"EPS_6G685TPBRMVWA7YQA2KRKH95NVA244","created":"2015-08-12T09:12:37+02:00","target":"general.notifications","type":"display","data":{"text":"DEMO Aktivit\u00e4t mit mehr Text"}}

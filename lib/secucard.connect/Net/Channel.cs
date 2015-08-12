@@ -15,7 +15,7 @@ namespace Secucard.Connect.Net
             Context = context;
         }
 
-        public abstract T Request<T>(ChannelRequest channelRequest) where T : SecuObject;
+        public abstract T Request<T>(ChannelRequest channelRequest);
 
 
         /**

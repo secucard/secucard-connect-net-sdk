@@ -20,6 +20,7 @@ namespace Secucard.Connect
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
     using Secucard.Connect.Product.General;
+    using Secucard.Connect.Trace;
 
     /// <summary>
     ///     Actual Client
@@ -48,6 +49,7 @@ namespace Secucard.Connect
 
         private void TraceInfo(string fmt, params object[] param)
         {
+            System.Diagnostics.Trace.TraceInformation(fmt, param);
             if (Context.SecucardTrace != null) Context.SecucardTrace.Info(fmt, param);
         }
 
@@ -145,6 +147,13 @@ namespace Secucard.Connect
         {
             Configuration = configuration;
 
+            // Setup Trace if directory is there
+            if (!string.IsNullOrWhiteSpace(configuration.TraceDir))
+            {
+                System.Diagnostics.Trace.Listeners.Add(new SecucardTraceListener(Configuration.TraceDir) { Name = "SecucardTraceListener" });
+                System.Diagnostics.Trace.WriteLine("--------------------- SecucardConnect --------------------");
+            }
+
             var context = new ClientContext
             {
                 AppId = Configuration.AppId,
@@ -158,7 +167,8 @@ namespace Secucard.Connect
             var stompConfig = Configuration.StompConfig;
             var restConfig = Configuration.RestConfig;
 
-            //    LOG.info("Creating client with configuration: ", config, "; ", authCfg, "; ", stompCfg, "; ", restConfig);
+            TraceInfo(string.Format("Creating client with configuration: {0}", configuration));
+
             if (Configuration.ClientAuthDetails == null)
             {
                 //TODO:

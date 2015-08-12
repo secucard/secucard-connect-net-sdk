@@ -21,7 +21,7 @@
             var stompRequest = new StompRequest
             {
                 AppId = channelRequest.AppId,
-                CorrelationId = channelId + "-" + Guid.NewGuid() + "-" + DateTime.Now.Ticks,
+                CorrelationId = DateTime.Now.Millisecond + "#" + Guid.NewGuid().ToString(),
                 ReplayTo = replyTo,
                 Destination = CreateDestination(channelRequest, destinationBase),
                 Body = CreateMessageBody(channelRequest)

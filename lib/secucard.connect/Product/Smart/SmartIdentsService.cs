@@ -7,13 +7,7 @@
     {
         protected override ServiceMetaData<Ident> CreateMetaData()
         {
-            return new ServiceMetaData<Ident>("payment", "debits");
+            return new ServiceMetaData<Ident>("smart", "idents");
         }
-
-
-        //public ObjectList<Ident> GetIdents()
-        //{
-        //    return GetList<Ident>(null);
-        //}
     }
 }

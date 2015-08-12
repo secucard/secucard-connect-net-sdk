@@ -72,6 +72,7 @@
     <Compile Include="Net\Stomp\Client\StompCommands.cs" />
     <Compile Include="Net\Stomp\Client\StompConfig.cs" />
     <Compile Include="Net\Stomp\Client\StompCore.cs" />
+    <Compile Include="Net\Stomp\Client\StompCoreExceptionEvent.cs" />
     <Compile Include="Net\Stomp\Client\StompCoreFrameArrivedEvent.cs" />
     <Compile Include="Net\Stomp\Client\StompError.cs" />
     <Compile Include="Net\Stomp\Client\StompFrame.cs" />
@@ -225,8 +226,9 @@
     <Compile Include="Auth\Exception\AuthTimeoutException.cs" />
     <Compile Include="Client\AuthError.cs" />
     <Compile Include="Product\Common\Model\Message.cs" />
-    <Compile Include="Product\Common\Model\Result.cs" />
+    <Compile Include="Product\Common\Model\ExecuteResult.cs" />
     <Compile Include="Product\General\General.cs" />
+    <Compile Include="Net\Stomp\MessageTimeoutException.cs" />
     <Content Include="Product\General\Model\BeaconEnvironment.java" />
     <Content Include="Product\General\Model\Event.java" />
     <Content Include="Product\General\Model\MerchantDetails.java" />

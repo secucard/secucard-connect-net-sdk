@@ -8,9 +8,9 @@
 
     public class RestChannel : Channel
     {
-        private RestConfig RestConfig;
+        private readonly RestConfig RestConfig;
         private string ChannelId;
-        private RestService RestService;
+        private readonly RestService RestService;
 
         public RestChannel(RestConfig restConfig, ClientContext clientContext)
             : base(clientContext)
@@ -25,29 +25,33 @@
 
         public override T Request<T>(ChannelRequest channelRequest)
         {
+            var request = CreateRequest(channelRequest);
+
             switch (channelRequest.Method)
             {
                 case ChannelMethod.GET:
-                    return GetObject<T>(channelRequest.ObjectId);
+                    return GetObject<T>(request, channelRequest.ObjectId);
                 case ChannelMethod.CREATE:
-                    return CreateObject<T>((T)channelRequest.Object);
+                    return CreateObject<T>(request, (T)channelRequest.Object);
                 case ChannelMethod.UPDATE:
-                    return UpdateObject((T)channelRequest.Object);
+                    return UpdateObject(request, channelRequest.ObjectId, (T)channelRequest.Object);
                 case ChannelMethod.EXECUTE:
-                    return Execute<T>(channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs, channelRequest.Object);
+                    return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs, channelRequest.Object);
                 case ChannelMethod.DELETE:
-                    DeleteObject<T>(channelRequest.ObjectId);
+                    DeleteObject<T>(request, channelRequest.ObjectId);
                     break;
             }
-            return null;
+            return default(T);
         }
 
         public override ObjectList<T> RequestList<T>(ChannelRequest channelRequest)
         {
+            var request = CreateRequest(channelRequest);
+
             switch (channelRequest.Method)
             {
                 case ChannelMethod.GET:
-                    return FindObjects<T>(channelRequest.QueryParams);
+                    return FindObjects<T>(request, channelRequest.QueryParams);
             }
             return null;
         }
@@ -59,50 +63,47 @@
 
         public override void Close()
         {
+            // No socket or http connection to close in .NET
+
         }
 
-        private T GetObject<T>(string id) where T:SecuObject
+        private T GetObject<T>(RestRequest request, string id) 
         {
-            var request = CreateRequest<T>();
             request.Id = id;
             var obj = RestService.GetObject<T>(request);
             return obj;
         }
 
-        public ObjectList<T> FindObjects<T>(QueryParams query) where T : SecuObject
+        private ObjectList<T> FindObjects<T>(RestRequest request, QueryParams query) 
         {
-            var request = CreateRequest<T>();
             request.QueyParams = query;
             var list = RestService.GetList<T>(request);
             return list;
         }
 
-        private T CreateObject<T>(T obj) where T : SecuObject
+        private T CreateObject<T>(RestRequest request, T obj)
         {
-            var request = CreateRequest<T>();
             request.Object = obj;
             var newObj = RestService.PostObject<T>(request);
             return newObj;
         }
 
-        public T UpdateObject<T>(T obj) where T : SecuObject
+        private T UpdateObject<T>(RestRequest request, string id, T obj)
         {
-            var request = CreateRequest<T>();
             request.Object = obj;
+            request.Id = id;
             var newObj = RestService.PutObject<T>(request);
             return newObj;
         }
 
-        public void DeleteObject<T>(string objectId) where T : SecuObject
+        private void DeleteObject<T>(RestRequest request, string objectId) 
         {
-            var request = CreateRequest<T>();
             request.Id = objectId;
             RestService.DeleteObject<T>(request);
         }
 
-        public T Execute<T>(string id, string action, List<string> actionParameter, object arg) where T : SecuObject
+        private T Execute<T>(RestRequest request, string id, string action, List<string> actionParameter, object arg) 
         {
-            var request = CreateRequest<T>();
             request.Id = id;
             request.Action = action;
             request.ActionParameter = actionParameter;
@@ -111,19 +112,14 @@
             return newObj;
         }
 
-        private RestRequest CreateRequest<T>()
+        private RestRequest CreateRequest(ChannelRequest channelRequest)
         {
-            var obj = (T)Activator.CreateInstance(typeof(T)) as SecuObject;
-
-            // Path resolver for REST
-            var resourceString = string.Join("/", obj.ServiceResourceName.Split('.').ToList().Select(s => s.FirstCharToUpper()));
-
             var token = Context.TokenManager.GetToken(true);
             var request = new RestRequest
             {
                 Token = token,
-                PageUrl = resourceString,
-                Host = "core-dev10.secupay-ag.de" // TODO: Config
+                PageUrl = channelRequest.Product.FirstCharToUpper() + "/" + channelRequest.Resource.FirstCharToUpper(),
+                Host = new Uri(RestConfig.BaseUrl).Host 
             };
             return request;
         }
