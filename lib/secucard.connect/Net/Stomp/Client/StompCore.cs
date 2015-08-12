@@ -84,7 +84,7 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (tcpClient.Connected)
             {
                 var msg = frame.GetFrame();
-                StompTrace.ClientTrace("SendFrame: {0}", msg);
+                StompTrace.ClientTrace("SendFrame: \n{0}", msg);
                 var bytes = Encoding.UTF8.GetBytes(msg + "\0"); // NULL Terminated
                 sslStream.Write(bytes, 0, bytes.Length);
             }

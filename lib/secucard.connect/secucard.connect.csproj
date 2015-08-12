@@ -70,14 +70,16 @@
     <Compile Include="Net\Stomp\Client\StompClientFrameArrivedEvent.cs" />
     <Compile Include="Net\Stomp\Client\StompClientStatusChangedEvent.cs" />
     <Compile Include="Net\Stomp\Client\StompCommands.cs" />
-    <Compile Include="Net\Stomp\Client\StompConfig.cs" />
+    <Compile Include="Net\Stomp\Client\StompTrace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Net\Stomp\StompConfig.cs" />
     <Compile Include="Net\Stomp\Client\StompCore.cs" />
     <Compile Include="Net\Stomp\Client\StompCoreExceptionEvent.cs" />
     <Compile Include="Net\Stomp\Client\StompCoreFrameArrivedEvent.cs" />
     <Compile Include="Net\Stomp\Client\StompError.cs" />
     <Compile Include="Net\Stomp\Client\StompFrame.cs" />
     <Compile Include="Net\Stomp\Client\StompHeaders.cs" />
-    <Compile Include="Net\Stomp\Client\StompTrace.cs" />
     <Compile Include="Net\Stomp\Client\StreamStateObject.cs" />
     <Compile Include="Net\Stomp\StompDestination.cs" />
     <Compile Include="Net\Stomp\StompMessage.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="SecucardConnect.cs" />
     <Compile Include="Client\AuthEvent.cs" />
     <Compile Include="Client\SecucardConnectException.cs" />
+    <Compile Include="Client\SecucardTrace.cs" />
     <Compile Include="Storage\StorageItem.cs" />
     <Compile Include="Trace\ISecucardTrace.cs" />
     <Compile Include="Trace\SecucardTraceMemory.cs" />

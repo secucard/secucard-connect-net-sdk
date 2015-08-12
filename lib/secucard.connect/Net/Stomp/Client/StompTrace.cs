@@ -13,6 +13,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 {
     using System;
     using System.Diagnostics;
+    using Secucard.Connect.Client;
 
     internal static class StompTrace
     {
@@ -24,7 +25,14 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         internal static void ClientTrace(string fmt, params object[] param)
         {
-            Trace.TraceInformation(fmt, param);
+            var frame = new StackFrame(1);
+            var method = frame.GetMethod();
+            var type = method.DeclaringType;
+            var name = string.Empty;
+            if (type != null) name = type.Name;
+
+            var source = string.Format("{0}.{1}", name, method.Name);
+            SecucardTrace.InfoSource(source, fmt, param);
         }
     }
 }

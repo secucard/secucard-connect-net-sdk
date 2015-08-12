@@ -14,6 +14,7 @@ namespace Secucard.Connect
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
@@ -47,13 +48,6 @@ namespace Secucard.Connect
         public event AuthEvent AuthEvent;
         public event ConnectionStateChangedEventHandler ConnectionStateChangedEvent;
 
-        private void TraceInfo(string fmt, params object[] param)
-        {
-            System.Diagnostics.Trace.TraceInformation(fmt, param);
-            if (Context.SecucardTrace != null) Context.SecucardTrace.Info(fmt, param);
-        }
-
-
         #region ### Open / Close ###
 
         /// <summary>
@@ -66,7 +60,7 @@ namespace Secucard.Connect
             try
             {
                 var token = Context.TokenManager.GetToken(true);
-                TraceInfo("Auth successfull. Token = {0}", token);
+                SecucardTrace.InfoSource("Auth successfull. Token = {0}", token);
             }
             catch (AuthError e)
             {
@@ -87,7 +81,7 @@ namespace Secucard.Connect
             IsConnected = true;
             OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = IsConnected});
 
-            TraceInfo("Secucard connect client opened.");
+            SecucardTrace.Info("Secucard connect client opened.");
         }
 
         /// <summary>
@@ -105,12 +99,12 @@ namespace Secucard.Connect
             }
             catch (Exception e)
             {
-                TraceInfo(e.ToString());
+                SecucardTrace.Info(e.ToString());
             }
 
             OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = IsConnected});
 
-            TraceInfo("Secucard connect client closed.");
+            SecucardTrace.Info("Secucard connect client closed.");
         }
 
         #endregion
@@ -150,14 +144,14 @@ namespace Secucard.Connect
             // Setup Trace if directory is there
             if (!string.IsNullOrWhiteSpace(configuration.TraceDir))
             {
-                System.Diagnostics.Trace.Listeners.Add(new SecucardTraceListener(Configuration.TraceDir) { Name = "SecucardTraceListener" });
-                System.Diagnostics.Trace.WriteLine("--------------------- SecucardConnect --------------------");
+                var listener = new SecucardTraceListener(Configuration.TraceDir) { Name = "SecucardTraceListener" };
+                System.Diagnostics.Trace.Listeners.Add(listener);
+                SecucardTrace.EmptyLine();
             }
 
             var context = new ClientContext
             {
                 AppId = Configuration.AppId,
-                SecucardTrace = Configuration.SecucardTrace
             };
             // context.DataStorage = dataStorage;
 
@@ -167,7 +161,7 @@ namespace Secucard.Connect
             var stompConfig = Configuration.StompConfig;
             var restConfig = Configuration.RestConfig;
 
-            TraceInfo(string.Format("Creating client with configuration: {0}", configuration));
+            SecucardTrace.Info(string.Format("Creating client with configuration: {0}", configuration));
 
             if (Configuration.ClientAuthDetails == null)
             {
@@ -195,10 +189,7 @@ namespace Secucard.Connect
                 UserAgentInfo =
                     "secucardconnect-net-" + VERSION + "/net:" + Environment.OSVersion + " " + Environment.Version
             };
-            context.TokenManager = new TokenManager(authConfig, Configuration.ClientAuthDetails, restAuth)
-            {
-                Context = context
-            };
+            context.TokenManager = new TokenManager(authConfig, Configuration.ClientAuthDetails, restAuth);
             context.TokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
 
             Services = ServiceFactory.CreateServices(context);

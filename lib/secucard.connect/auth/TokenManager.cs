@@ -1,4 +1,16 @@
-﻿namespace Secucard.Connect.Auth
+﻿/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Secucard.Connect.Auth
 {
     using System;
     using System.Threading;
@@ -12,15 +24,9 @@
     /// </summary>
     public class TokenManager
     {
-        public event TokenManagerStatusUpdateEventHandler TokenManagerStatusUpdateEvent;
-
-        public ClientContext Context { get; set; }
-
         private readonly AuthConfig Config;
         private readonly string Id;
         private readonly RestAuth Rest;
-        private bool CancelAuthFlag { get; set; }
-        private IClientAuthDetails ClientAuthDetails { get; set; }
 
         public TokenManager(AuthConfig config, IClientAuthDetails clientAuthDetails, RestAuth restAuth)
         {
@@ -28,6 +34,10 @@
             ClientAuthDetails = clientAuthDetails;
             Rest = restAuth;
         }
+
+        private bool CancelAuthFlag { get; set; }
+        private IClientAuthDetails ClientAuthDetails { get; set; }
+        public event TokenManagerStatusUpdateEventHandler TokenManagerStatusUpdateEvent;
 
         private Token GetCurrent()
         {
@@ -42,7 +52,7 @@
         {
             var token = GetCurrent();
 
-            bool authenticate = false;
+            var authenticate = false;
 
             if (token == null)
             {
@@ -52,12 +62,12 @@
             else if (token.IsExpired())
             {
                 // try refresh if just expired, authenticate new if no refresh possible or failed
-                TraceInfo("Token expired: {0} , original:{1}",
-                      token.ExpireTime == null ? "null" : token.ExpireTime.Value.ToString(),
-                      token.OrigExpireTime == null ? "null" : token.OrigExpireTime.ToString());
+                SecucardTrace.Info("Token expired: {0} , original:{1}",
+                    token.ExpireTime == null ? "null" : token.ExpireTime.Value.ToString(),
+                    token.OrigExpireTime == null ? "null" : token.OrigExpireTime.ToString());
                 if (token.RefreshToken == null)
                 {
-                    TraceInfo("No token refresh possible, try obtain new.");
+                    SecucardTrace.Info("No token refresh possible, try obtain new.");
                     authenticate = true;
                 }
                 else
@@ -69,7 +79,7 @@
                     }
                     catch (System.Exception ex)
                     {
-                        TraceInfo("Token refresh failed, try obtain new. {0}", ex);
+                        SecucardTrace.Info("Token refresh failed, try obtain new. {0}", ex);
                         authenticate = true;
                     }
                 }
@@ -79,16 +89,16 @@
                 // we should have valid token in cache, no new auth necessary
                 if (Config.ExtendExpire)
                 {
-                    TraceInfo("Extend token expire time.");
+                    SecucardTrace.Info("Extend token expire time.");
                     token.SetExpireTime();
                     SetCurrentToken(token);
                 }
-                TraceInfo("Return current token: ", token);
+                SecucardTrace.Info("Return current token: {0}", token);
             }
 
             if (authenticate)
             {
-                OAuthCredentials credentials = ClientAuthDetails.GetCredentials();
+                var credentials = ClientAuthDetails.GetCredentials();
 
                 if (credentials is AnonymousCredentials)
                 {
@@ -105,7 +115,7 @@
                 token.SetExpireTime();
                 token.Id = credentials.Id;
                 SetCurrentToken(token);
-                TraceInfo("Return new token: {0}", token);
+                SecucardTrace.Info("Return new token: {0}", token);
             }
 
             return token.AccessToken;
@@ -113,10 +123,13 @@
 
         private void Refresh(Token token, ClientCredentials credentials)
         {
-            if (credentials == null) { throw new System.Exception("Missing credentials"); }
+            if (credentials == null)
+            {
+                throw new System.Exception("Missing credentials");
+            }
 
-            TraceInfo("Refresh token: {0}", credentials);
-            Token refreshToken = Rest.RefreshToken(token.RefreshToken, credentials.ClientId, credentials.ClientSecret);
+            SecucardTrace.Info("Refresh token: {0}", credentials);
+            var refreshToken = Rest.RefreshToken(token.RefreshToken, credentials.ClientId, credentials.ClientSecret);
             token.AccessToken = refreshToken.AccessToken;
             token.ExpiresIn = refreshToken.ExpiresIn;
             if (!string.IsNullOrWhiteSpace(refreshToken.RefreshToken)) token.RefreshToken = refreshToken.RefreshToken;
@@ -125,14 +138,17 @@
 
         private Token Authenticate(OAuthCredentials credentials)
         {
-            if (credentials == null) { throw new AuthFailedException("Missing credentials"); }
+            if (credentials == null)
+            {
+                throw new AuthFailedException("Missing credentials");
+            }
 
-            TraceInfo("Authenticate credentials: {0}", credentials.AsMap());
+            SecucardTrace.Info("Authenticate credentials: {0}", credentials.AsMap());
 
-            int pollInterval = 0;
-            DateTime timeout = DateTime.Now;
+            var pollInterval = 0;
+            var timeout = DateTime.Now;
             var devicesCredentials = credentials as DeviceCredentials;
-            bool isDeviceAuth = (devicesCredentials != null);
+            var isDeviceAuth = (devicesCredentials != null);
             DeviceAuthCode codes = null;
 
 
@@ -148,15 +164,15 @@
                             Status = AuthStatusEnum.Pending
                         });
 
-                TraceInfo("Retrieved codes for device auth: {0}, now polling for auth.", codes);
+                SecucardTrace.Info("Retrieved codes for device auth: {0}, now polling for auth.", codes);
 
                 // set poll timeout, either by config or by expire time of code
-                int t = codes.ExpiresIn;
+                var t = codes.ExpiresIn;
                 if (t <= 0 || Config.AuthWaitTimeoutSec < t)
                 {
                     t = Config.AuthWaitTimeoutSec;
                 }
-                timeout = DateTime.Now.AddSeconds(t * 1000);
+                timeout = DateTime.Now.AddSeconds(t*1000);
 
                 pollInterval = codes.Interval;
                 if (pollInterval <= 0)
@@ -178,9 +194,10 @@
                     {
                         // in case of device auth, check for cancel and delay polling
                         if (CancelAuthFlag) throw new AuthCanceledException("Authorization canceled by request.");
-                        Thread.Sleep(pollInterval * 1000);
+                        Thread.Sleep(pollInterval*1000);
 
-                        token = Rest.ObtainAuthToken(codes.DeviceCode, devicesCredentials.ClientId, devicesCredentials.ClientSecret);
+                        token = Rest.ObtainAuthToken(codes.DeviceCode, devicesCredentials.ClientId,
+                            devicesCredentials.ClientSecret);
                         if (token == null) // auth not completed yet
                         {
                             OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
@@ -204,14 +221,13 @@
                 if (token != null)
                 {
                     OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
-                            {
-                                DeviceAuthCodes = codes,
-                                Status = AuthStatusEnum.Ok,
-                                Token = token
-                            });
+                    {
+                        DeviceAuthCodes = codes,
+                        Status = AuthStatusEnum.Ok,
+                        Token = token
+                    });
                     return token;
                 }
-
             } while (DateTime.Now < timeout);
 
             if (isDeviceAuth)
@@ -226,17 +242,10 @@
         {
             if (TokenManagerStatusUpdateEvent != null) TokenManagerStatusUpdateEvent.Invoke(this, args);
         }
- 
 
         private void SetCurrentToken(Token token)
         {
             if (ClientAuthDetails != null) ClientAuthDetails.OnTokenChanged(token);
         }
-
-        private void TraceInfo(string fmt, params object[] param)
-        {
-            if (Context.SecucardTrace != null) Context.SecucardTrace.Info(fmt, param);
-        }
-
     }
 }

@@ -32,10 +32,7 @@
             var storage = MemoryDataStorage.LoadFromFile("data\\storage.sec");
             storage.Clear();
             // first run with empty storage
-            var tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth)
-            {
-                Context = new ClientContext {SecucardTrace = Tracer}
-            };
+            var tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth);
 
             tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             var token = tokenManager.GetToken(true);
@@ -43,23 +40,17 @@
             storage.SaveToFile(fullStoragePath);
 
             // second run with token in storage still valid
-            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth)
-            {
-                Context = new ClientContext {SecucardTrace = Tracer}
-            };
+            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth);
             tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);
             storage.SaveToFile(fullStoragePath);
 
-            // third run wird token exired, needs refresh
+            // third run wird token expired, needs refresh
             // second run with token in storage still valid
             //token.ExpireTime = DateTime.Now.AddMinutes(-1);
             storage.Save("token-" + "testprovider", token);
-            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth)
-            {
-                Context = new ClientContext {SecucardTrace = Tracer}
-            };
+            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth);
             tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);

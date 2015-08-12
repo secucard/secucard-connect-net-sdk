@@ -2,12 +2,9 @@
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
-    using Secucard.Connect.Client;
-    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
-    using Secucard.Connect.Trace;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
@@ -22,14 +19,10 @@
 
             AuthConfig = new AuthConfig(properties);
 
-            Tracer = new SecucardTraceFile(logPath);
             //Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");
             IClientAuthDetails clientAuthDetails = new ClientAuthDetailsUserTest();
 
-            var authProvider = new TokenManager(AuthConfig, clientAuthDetails, new RestAuth(AuthConfig))
-            {
-                Context = new ClientContext {SecucardTrace = Tracer}
-            };
+            var authProvider = new TokenManager(AuthConfig, clientAuthDetails, new RestAuth(AuthConfig));
 
             authProvider.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             Token = authProvider.GetToken(true);

@@ -22,7 +22,6 @@ namespace Secucard.Connect.Client
         //protected EventDispatcher eventDispatcher;
         internal readonly Dictionary<string, Channel> Channels; 
         public string DefaultChannel { get; set; }
-        public ISecucardTrace SecucardTrace;
         internal string AppId;
 
         public ClientContext()

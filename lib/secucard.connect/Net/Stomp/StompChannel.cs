@@ -45,6 +45,7 @@ namespace Secucard.Connect.Net.Stomp
         public StompChannel(StompConfig configuration, ClientContext context)
             : base(context)
         {
+            SecucardTrace.Info(string.Format("configuration = '{0}'", configuration));
             Configuration = configuration;
 
             ChannelId = Guid.NewGuid().ToString();
@@ -65,11 +66,6 @@ namespace Secucard.Connect.Net.Stomp
             {
                 PutMessage(frame.Headers[StompHeader.CorrelationId], frame.Body);
             }
-        }
-
-        private void Trace(string fmt, params object[] args)
-        {
-            Context.SecucardTrace.Info(fmt, args);
         }
 
         public override T Request<T>(ChannelRequest request)
@@ -107,10 +103,6 @@ namespace Secucard.Connect.Net.Stomp
             Stomp.Config.Password = token;
             Stomp.Connect();
             ConnectToken = token;
-
-            //if (eventListener != null) {
-            //  eventListener.onEvent(StompEvents.STOMP_CONNECTED);
-            //}
         }
 
         private void CheckConnection(string token)
@@ -121,7 +113,7 @@ namespace Secucard.Connect.Net.Stomp
             {
                 if (Stomp.StompClientStatus == EnumStompClientStatus.Connected)
                 {
-                    Trace("Reconnect due token change.");
+                    SecucardTrace.Info("Reconnect due token change.");
                 }
                 try
                 {
@@ -130,7 +122,7 @@ namespace Secucard.Connect.Net.Stomp
                 catch (Exception e)
                 {
                     // just log...
-                    Trace("Error disconnecting. {0}", e);
+                    SecucardTrace.Info("Error disconnecting. {0}", e);
                 }
                 Connect(token);
             }
@@ -167,7 +159,7 @@ namespace Secucard.Connect.Net.Stomp
             var endWaitAt = DateTime.Now.AddSeconds(Configuration.MessageTimeoutSec);
             while (message == null && DateTime.Now < endWaitAt)
             {
-                System.Diagnostics.Trace.TraceInformation("Waiting for Message with correlationId={0}", stompRequest.CorrelationId);
+                SecucardTrace.Info("Waiting for Message with correlationId={0}", stompRequest.CorrelationId);
                 message = PullMessage(stompRequest.CorrelationId, Configuration.MaxMessageAgeSec);
                 Thread.Sleep(500);
             }
@@ -217,7 +209,7 @@ namespace Secucard.Connect.Net.Stomp
         {
             // TOOD: Connect an start listening
             Connect(GetToken());
-
+            SecucardTrace.Info("STOMP channel opened.");
             StartSessionRefresh();
         }
 
@@ -226,7 +218,7 @@ namespace Secucard.Connect.Net.Stomp
             StopRefresh = true;
             ClientTimerHeartbeat.Dispose();
             Stomp.Disconnect();
-            Trace("STOMP channel closed.");
+            SecucardTrace.Info("STOMP channel closed.");
         }
 
         #endregion

@@ -224,7 +224,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
             if (StompClientFrameArrivedEvent != null)
             {
-                StompTrace.ClientTrace("Stomp Client Frame arrived: {0}", e.Frame.GetFrame());
+                StompTrace.ClientTrace("Stomp Client Frame arrived: \n{0}", e.Frame.GetFrame());
                 StompClientFrameArrivedEvent(this, new StompClientFrameArrivedArgs {Frame = e.Frame, Time = e.Time});
             }
         }

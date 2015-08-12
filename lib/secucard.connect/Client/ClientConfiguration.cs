@@ -6,32 +6,40 @@ namespace Secucard.Connect.Client
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
-    using Secucard.Connect.Net.Stomp.Client;
+    using Secucard.Connect.Net.Stomp;
     using Secucard.Connect.Storage;
-    using Secucard.Connect.Trace;
 
     public class ClientConfiguration
     {
-        public Properties Properties;
+        public IClientAuthDetails ClientAuthDetails { get; set; }
+        public DataStorage DataStorage { get; set; }
+        public Properties Properties { get; set; }
 
-        public string DefaultChannel { get; set; }
+        internal string DefaultChannel { get; set; }
         internal bool StompEnabled { get; set; }
-        public string AppId { get; set; }
-        internal string TraceDir;
-
-        public string CacheDir { get; set; }
-
+        internal string AppId { get; set; }
+        internal string TraceDir { get; set; }
+        internal string CacheDir { get; set; }
         internal RestConfig RestConfig { get; set; }
         internal StompConfig StompConfig { get; set; }
         internal AuthConfig AuthConfig { get; set; }
 
-        public ISecucardTrace SecucardTrace;
-        public DataStorage DataStorage;
-        public IClientAuthDetails ClientAuthDetails;
+        public override string ToString()
+        {
+            return "ClientConfiguration [ " +
+                   "DefaultChannel = " + DefaultChannel + "," +
+                   "StompEnabled = " + StompEnabled + "," +
+                   "AppId = " + AppId + "," +
+                   "TraceDir = " + TraceDir + "," +
+                   "CacheDir = " + CacheDir + "," +
+                   "RestConfig = " + RestConfig + "," +
+                   "StompConfig = " + StompConfig + "," +
+                   "AuthConfig = " + AuthConfig + "]";
+        }
 
         public void Save(string filename)
         {
-            var serializer = new XmlSerializer(typeof(ClientConfiguration));
+            var serializer = new XmlSerializer(typeof (ClientConfiguration));
             TextWriter textWriter = new StreamWriter(filename);
             serializer.Serialize(textWriter, this);
             textWriter.Close();
@@ -39,16 +47,17 @@ namespace Secucard.Connect.Client
 
         public static ClientConfiguration Load(string filename)
         {
-            var fileStream = new FileStream(filename,FileMode.Open);
+            var fileStream = new FileStream(filename, FileMode.Open);
             return Load(fileStream);
         }
 
         public static ClientConfiguration Get()
         {
-            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Secucard.Connect.Client.Config.SecucardConnect.config");
+            var stream =
+                Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("Secucard.Connect.Client.Config.SecucardConnect.config");
             return Load(stream);
         }
-
 
         #region ### Ctor ###
 
@@ -63,7 +72,7 @@ namespace Secucard.Connect.Client
             DefaultChannel = properties.Get("DefaultChannel", "rest");
             StompEnabled = properties.Get("StompEnabled", true);
             AppId = properties.Get("AppId");
-            TraceDir= properties.Get("TraceDir");
+            TraceDir = properties.Get("TraceDir");
 
             //TODO: Logging and Cache
 
@@ -73,9 +82,5 @@ namespace Secucard.Connect.Client
         }
 
         #endregion
-
     }
 }
-
-  
-  

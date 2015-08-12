@@ -24,15 +24,10 @@
 
             ClientAuthDetails = new ClientAuthDetailsDeviceTest();
 
-
-            Tracer = new SecucardTraceFile(logPath);
             // Storage = MemoryDataStorage.LoadFromFile(storagePath);
 
-
-            var authProvider = new TokenManager(AuthConfig, ClientAuthDetails, new RestAuth(AuthConfig))
-            {
-                Context = new ClientContext {SecucardTrace = Tracer}
-            };
+            var authProvider = new TokenManager(AuthConfig, ClientAuthDetails, new RestAuth(AuthConfig));
+            
             authProvider.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             AccessToken = authProvider.GetToken(true);
             //Storage.SaveToFile(storagePath); // Save new token 

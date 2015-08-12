@@ -14,20 +14,17 @@ namespace Secucard.Connect.Client
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Configuration;
     using Secucard.Connect.Net;
     using Secucard.Connect.Product.Common.Model;
 
     public interface IService
     {
         ClientContext Context { get; set; }
-
     }
 
-    public abstract class ProductService<T>:IService where T : SecuObject
+    public abstract class ProductService<T> : IService where T : SecuObject
     {
-        private ServiceMetaData<T> MetaData;
-        public ClientContext Context {  get;set; }
+        private readonly ServiceMetaData<T> MetaData;
         private T ProductType;
 
         public ProductService()
@@ -35,7 +32,7 @@ namespace Secucard.Connect.Client
             MetaData = CreateMetaData();
         }
 
-
+        public ClientContext Context { get; set; }
         //public void SetContext(ClientContext context)
         //{
         //    Context = context;
@@ -46,7 +43,6 @@ namespace Secucard.Connect.Client
    * Don't use for retrieval, use {@link #getMetaData()} instead.
    */
         protected abstract ServiceMetaData<T> CreateMetaData();
-
 
         protected virtual ChannelOptions GetDefaultOptions()
         {
@@ -144,6 +140,7 @@ namespace Secucard.Connect.Client
    * @param object   The resource to create.
    * @param callback Callback receiving the result asynchronous.
    */
+
         public T Create(T obj)
         {
             return Create(obj, null);
@@ -152,14 +149,13 @@ namespace Secucard.Connect.Client
         protected T Create(T obj, ChannelOptions options)
         {
             return Request<T>(new ChannelRequest
-                   {
-                       Method = ChannelMethod.CREATE,
-                       Product = MetaData.Product,
-                       Resource = MetaData.Resource,
-                       Object = obj
-                   }, options);
+            {
+                Method = ChannelMethod.CREATE,
+                Product = MetaData.Product,
+                Resource = MetaData.Resource,
+                Object = obj
+            }, options);
         }
-
 
         // update ------------------------------------------------------------------------------------------------------------
 
@@ -179,20 +175,22 @@ namespace Secucard.Connect.Client
    * @param object   The resource to update.
    * @param callback Callback receiving the result asynchronous.
    */
-        public T Update(T obj) {
-            return Update<T>(obj, null);
+
+        public T Update(T obj)
+        {
+            return Update(obj, null);
         }
 
         protected T Update<T>(T obj, ChannelOptions options) where T : SecuObject
         {
             return Request<T>(new ChannelRequest
-               {
-                   Method = ChannelMethod.UPDATE,
-                   Product = MetaData.Product,
-                   Resource = MetaData.Resource,
-                   ObjectId = obj.Id,
-                   Object = obj
-               }, options);
+            {
+                Method = ChannelMethod.UPDATE,
+                Product = MetaData.Product,
+                Resource = MetaData.Resource,
+                ObjectId = obj.Id,
+                Object = obj
+            }, options);
         }
 
         //protected <R> R Update(string id, string action, string actionArg, object object, Class<R> returnType,
@@ -227,7 +225,6 @@ namespace Secucard.Connect.Client
                 Resource = MetaData.Resource,
                 ObjectId = id
             }, options);
-
         }
 
         //protected void delete(string id, string action, string actionArg, Options options, Callback<void> callback) {
@@ -236,18 +233,19 @@ namespace Secucard.Connect.Client
 
         // execute -----------------------------------------------------------------------------------------------------------
 
-        protected R Execute<R>(string id, string action, string actionArg, object obj, ChannelOptions options) where R : SecuObject
+        protected R Execute<R>(string id, string action, string actionArg, object obj, ChannelOptions options)
+            where R : SecuObject
         {
             return Request<R>(new ChannelRequest
-                 {
-                     Method = ChannelMethod.EXECUTE,
-                     Product = MetaData.Product,
-                     Resource = MetaData.Resource,
-                     Action = action,
-                     ActionArgs = new List<string> { actionArg },
-                     ObjectId = id,
-                     Object = obj
-                 }, options);
+            {
+                Method = ChannelMethod.EXECUTE,
+                Product = MetaData.Product,
+                Resource = MetaData.Resource,
+                Action = action,
+                ActionArgs = new List<string> {actionArg},
+                ObjectId = id,
+                Object = obj
+            }, options);
         }
 
         //protected <R> R execute(string action, object object, Class<R> returnType, Options options, Callback<R> callback) {
@@ -262,17 +260,16 @@ namespace Secucard.Connect.Client
 
         protected bool ExecuteToBool(string id, string action, string actionArg, object obj, ChannelOptions options)
         {
-
             var result = Request<ExecuteResult>(new ChannelRequest
-                   {
-                       Method = ChannelMethod.EXECUTE,
-                       Product = MetaData.Product,
-                       Resource = MetaData.Resource,
-                       Action = action,
-                       ActionArgs = new List<string>() { actionArg },
-                       ObjectId = id,
-                       Object = obj
-                   }, options);
+            {
+                Method = ChannelMethod.EXECUTE,
+                Product = MetaData.Product,
+                Resource = MetaData.Resource,
+                Action = action,
+                ActionArgs = new List<string> {actionArg},
+                ObjectId = id,
+                Object = obj
+            }, options);
 
             return Convert.ToBoolean(result.Result);
         }
@@ -291,7 +288,7 @@ namespace Secucard.Connect.Client
 
         // ---------------------------------------------------------------------------------------------------
 
-        private R Request<R>(ChannelRequest channelRequest, ChannelOptions options) 
+        private R Request<R>(ChannelRequest channelRequest, ChannelOptions options)
         {
             if (options == null)
             {
@@ -304,7 +301,7 @@ namespace Secucard.Connect.Client
             var channel = GetChannelByOptions(options);
             try
             {
-                R result = channel.Request<R>(channelRequest);
+                var result = channel.Request<R>(channelRequest);
 
                 return result;
             }
@@ -316,7 +313,6 @@ namespace Secucard.Connect.Client
 
         private ObjectList<R> RequestList<R>(ChannelRequest channelRequest, ChannelOptions options) where R : SecuObject
         {
-
             if (options == null)
             {
                 options = GetDefaultOptions();
@@ -328,7 +324,7 @@ namespace Secucard.Connect.Client
             var channel = GetChannelByOptions(options);
             try
             {
-                ObjectList<R> result = channel.RequestList<R>(channelRequest);
+                var result = channel.RequestList<R>(channelRequest);
                 //if (processor != null) {
                 //    processor.notify(result);
                 //}
@@ -338,7 +334,6 @@ namespace Secucard.Connect.Client
             {
                 throw;
             }
-
         }
 
         /**
@@ -355,6 +350,7 @@ namespace Secucard.Connect.Client
         /**
    * Select and return an API communication channel according to the provided options.
    */
+
         private Channel GetChannelByOptions(ChannelOptions options)
         {
             // select channel according to special product preferences or fall back to default
