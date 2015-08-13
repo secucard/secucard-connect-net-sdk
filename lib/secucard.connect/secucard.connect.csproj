@@ -36,6 +36,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
@@ -56,6 +57,7 @@
     <Compile Include="Client\ServiceFactory.cs" />
     <Compile Include="Client\Config\Property.cs" />
     <Compile Include="Client\Config\Properties.cs" />
+    <Compile Include="Event\EventDispatcher.cs" />
     <Compile Include="Net\ChannelMethodEnum.cs" />
     <Compile Include="Net\ChannelRequest.cs" />
     <Compile Include="Net\Rest\RestService.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Net\Stomp\Client\StompTrace.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Net\Stomp\StompEventArrivedEvent.cs" />
     <Compile Include="Net\Stomp\StompConfig.cs" />
     <Compile Include="Net\Stomp\Client\StompCore.cs" />
     <Compile Include="Net\Stomp\Client\StompCoreExceptionEvent.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="Product\Common\Model\MediaResource.cs" />
     <Compile Include="Product\Common\Model\ObjectList.cs" />
     <Compile Include="Product\Common\Model\QueryParams.cs" />
+    <Compile Include="Product\Common\Model\GenericResult.cs" />
     <Compile Include="Product\Common\Model\Response.cs" />
     <Compile Include="Product\Common\Model\StompResult.cs" />
     <Compile Include="Product\Common\Model\SecuObject.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="Product\Service\Model\services\idresult\Person.cs" />
     <Compile Include="Product\Service\Model\services\idresult\UserData.cs" />
     <Compile Include="Product\Service\Model\services\idresult\ValueClass.cs" />
+    <Compile Include="Product\Smart\Event\SmartTransactionCashierEvent.cs" />
     <Compile Include="Product\Smart\Model\Basket.cs" />
     <Compile Include="Product\Smart\Model\BasketInfo.cs" />
     <Compile Include="Product\Smart\Model\CashierDisplay.cs" />
@@ -229,12 +234,8 @@
     <Compile Include="Product\Common\Model\ExecuteResult.cs" />
     <Compile Include="Product\General\General.cs" />
     <Compile Include="Net\Stomp\MessageTimeoutException.cs" />
-    <Content Include="Product\General\Model\BeaconEnvironment.java" />
-    <Content Include="Product\General\Model\Event.java" />
-    <Content Include="Product\General\Model\MerchantDetails.java" />
-    <Content Include="Product\General\Model\MerchantList.java" />
-    <Content Include="Product\General\Model\Notification.java" />
-    <Content Include="Product\General\Model\StoreSetDefault.java" />
+    <Compile Include="Product\General\Model\Event.cs" />
+    <Compile Include="Product\General\Model\Notification.cs" />
     <Content Include="Product\Service\IdentResultsService.java" />
   </ItemGroup>
   <ItemGroup>

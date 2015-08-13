@@ -14,7 +14,6 @@ namespace Secucard.Connect.Net.Stomp
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Diagnostics;
     using System.Linq;
     using System.Threading;
     using System.Timers;
@@ -30,11 +29,7 @@ namespace Secucard.Connect.Net.Stomp
         private readonly string ChannelId;
         private readonly StompConfig Configuration;
         private readonly object lockSend = new object();
-        //protected static final String HEADER_CORRELATION_ID = "correlation-id";
-        //protected static final String STATUS_OK = "ok";
-
-        private readonly ConcurrentDictionary<string, StompMessage> Messages =
-            new ConcurrentDictionary<string, StompMessage>();
+        private readonly ConcurrentDictionary<string, StompMessage> Messages = new ConcurrentDictionary<string, StompMessage>();
 
         private readonly StompClient Stomp;
         private Timer ClientTimerHeartbeat;
@@ -54,6 +49,8 @@ namespace Secucard.Connect.Net.Stomp
             Stomp.StompClientChangedEvent += Stomp_StompClientChangedEvent;
         }
 
+        public StompEventArrivedEventHandler StompEventArrivedEvent;
+
         private void Stomp_StompClientChangedEvent(object sender, StompClientStatusChangedEventArgs args)
         {
             // TODO: Tell someone, that stomp client changed status
@@ -66,6 +63,16 @@ namespace Secucard.Connect.Net.Stomp
             {
                 PutMessage(frame.Headers[StompHeader.CorrelationId], frame.Body);
             }
+            else
+            {
+                // Event Arrived;
+                OnEventArrived(frame);
+            }
+        }
+
+        private void OnEventArrived(StompFrame frame)
+        {
+            if (StompEventArrivedEvent != null) StompEventArrivedEvent(this, new StompEventArrivedEventArgs { Body = frame.Body, Time = frame.CreatedAt });
         }
 
         public override T Request<T>(ChannelRequest request)

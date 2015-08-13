@@ -13,9 +13,12 @@ namespace Secucard.Connect.Test.Client
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Client;
     using Secucard.Connect.Product.Smart;
+    using Secucard.Connect.Product.Smart.Event;
     using Secucard.Connect.Product.Smart.Model;
 
     [TestClass]
@@ -29,6 +32,8 @@ namespace Secucard.Connect.Test.Client
 
             var transactionService = Client.GetService<SmartTransactionsService>();
             var identService = Client.GetService<SmartIdentsService>();
+
+            transactionService.SmartTransactionCashierEvent +=SmartTransactionCashierEvent;
 
             // select an ident
             var availableIdents = identService.GetList(null);
@@ -111,6 +116,11 @@ namespace Secucard.Connect.Test.Client
 
             var b = transactionService.Cancel(transaction.Id);
             Assert.IsTrue(b);
+        }
+
+        private void SmartTransactionCashierEvent(object sender, SmartTransactionCashierEventArgs args)
+        {
+            Debug.WriteLine(args.SecucardEvent.Data.Text);
         }
     }
 }

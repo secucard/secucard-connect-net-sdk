@@ -56,7 +56,6 @@ namespace Secucard.Connect.Net.Rest
             request.Method = WebRequestMethods.Http.Post;
             request.PrepareBody();
             var webRequest = FactoryWebRequest(request);
-            //webRequest.ContentLength = request.BodyBytes.Length;
 
             var reqStream = webRequest.GetRequestStream();
             reqStream.Write(request.BodyBytes, 0, request.BodyBytes.Length);
@@ -70,7 +69,7 @@ namespace Secucard.Connect.Net.Rest
                 {
                     using (var reader = new StreamReader(respStream, Encoding.UTF8))
                     {
-                        var ret= reader.ReadToEnd();
+                        var ret = reader.ReadToEnd();
                         SecucardTrace.Info("response:\n{0}", ret);
                         return ret;
                     }
@@ -78,20 +77,12 @@ namespace Secucard.Connect.Net.Rest
             }
             catch (WebException ex)
             {
-                var wr = ex.Response as HttpWebResponse;
-                var dataStream = wr.GetResponseStream();
-                var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var restException = new RestException
-                {
-                    BodyText = reader.ReadToEnd(),
-                    StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
-                };
-                reader.Close();
+                var restException = HandelWebException(ex);
                 throw restException;
             }
             return null;
         }
+
 
         public string RestPut(RestRequest request)
         {
@@ -120,17 +111,8 @@ namespace Secucard.Connect.Net.Rest
             }
             catch (WebException ex)
             {
-                var wr = ex.Response as HttpWebResponse;
-                var dataStream = wr.GetResponseStream();
-                var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var restEx = new RestException
-                {
-                    BodyText = reader.ReadToEnd(),
-                    StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
-                };
-                reader.Close();
-                throw restEx;
+                var restException = HandelWebException(ex);
+                throw restException;
             }
 
             return null;
@@ -159,17 +141,8 @@ namespace Secucard.Connect.Net.Rest
             }
             catch (WebException ex)
             {
-                var wr = ex.Response as HttpWebResponse;
-                var dataStream = wr.GetResponseStream();
-                var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var restEx = new RestException
-                {
-                    BodyText = reader.ReadToEnd(),
-                    StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
-                };
-                reader.Close();
-                throw restEx;
+                var restException = HandelWebException(ex);
+                throw restException;
             }
 
             return null;
@@ -198,17 +171,8 @@ namespace Secucard.Connect.Net.Rest
             }
             catch (WebException ex)
             {
-                var wr = ex.Response as HttpWebResponse;
-                var dataStream = wr.GetResponseStream();
-                var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var restEx = new RestException
-                {
-                    BodyText = reader.ReadToEnd(),
-                    StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
-                };
-                reader.Close();
-                throw restEx;
+                var restException = HandelWebException(ex);
+                throw restException;
             }
 
             return null;
@@ -240,16 +204,7 @@ namespace Secucard.Connect.Net.Rest
             }
             catch (WebException ex)
             {
-                var wr = ex.Response as HttpWebResponse;
-                var dataStream = wr.GetResponseStream();
-                var reader = new StreamReader(dataStream, Encoding.UTF8);
-                var restException = new RestException
-                {
-                    BodyText = reader.ReadToEnd(),
-                    StatusDescription = wr.StatusDescription,
-                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
-                };
-                reader.Close();
+                var restException = HandelWebException(ex);
                 throw restException;
             }
             return null;
@@ -258,6 +213,26 @@ namespace Secucard.Connect.Net.Rest
         #endregion
 
         #region ### Private Methods ###
+
+
+        private static RestException HandelWebException(WebException ex)
+        {
+            SecucardTrace.Exception(ex);
+            var wr = ex.Response as HttpWebResponse;
+            var dataStream = wr.GetResponseStream();
+            var reader = new StreamReader(dataStream, Encoding.UTF8);
+            var restException = new RestException
+            {
+                BodyText = reader.ReadToEnd(),
+                StatusDescription = wr.StatusDescription,
+                StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+            };
+            SecucardTrace.Exception(restException);
+            SecucardTrace.Info(restException.StatusDescription);
+            SecucardTrace.Info(restException.BodyText);
+            reader.Close();
+            return restException;
+        }
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
         {
@@ -321,6 +296,5 @@ namespace Secucard.Connect.Net.Rest
         }
 
         #endregion
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Secucard.Connect.Test.Client
 {
+    using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Product.General;
 
@@ -10,14 +11,17 @@
         [TestMethod, TestCategory("Client")]
         public void Test_Client_GeneralSkeleton_1()
         {
-            StartupClientUser();
+            StartupClientDevice();
 
             var skeletonService = Client.GetService<GeneralSkeletonsService>();
 
             // select an ident
-            var skeletons = skeletonService.GetList(null);
+            //var skeletons = skeletonService.GetList(null);
+
+
+            skeletonService.CreateEvent();
+
+            Thread.Sleep(10000);
         }
-
-
     }
 }

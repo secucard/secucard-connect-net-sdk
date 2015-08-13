@@ -19,7 +19,7 @@
             {
                 IService service = (IService)Activator.CreateInstance(type);
                 service.Context = context;
-
+                service.RegisterEvents();
                 dic.Add(service.GetType().Name, service);
             }
 

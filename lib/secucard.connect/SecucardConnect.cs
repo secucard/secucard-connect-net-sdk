@@ -20,6 +20,7 @@ namespace Secucard.Connect
     using Secucard.Connect.Net;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
+    using Secucard.Connect.Net.Stomp.Client;
     using Secucard.Connect.Product.General;
     using Secucard.Connect.Trace;
 
@@ -178,11 +179,8 @@ namespace Secucard.Connect
             {
                 var stompChannel = new StompChannel(stompConfig, context);
                 context.Channels.Add(ChannelOptions.CHANNEL_STOMP, stompChannel);
-                // TODO: Listen to Events stompChannel.
+                stompChannel.StompEventArrivedEvent += context.EventDispatcher.StompMessageArrivedEvent;
             }
-
-            // TODO: Setup Event listener for channels
-            // TODO: Setup Event dispatcher for incoming events from channels
 
             var restAuth = new RestAuth(authConfig)
             {

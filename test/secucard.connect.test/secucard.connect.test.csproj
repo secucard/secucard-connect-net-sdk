@@ -162,7 +162,7 @@
     <Content Include="Data\Model\Loyalty.Customers.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Model\Event.Pushs.json">
+    <Content Include="Data\Model\Event.Pushs.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Data\Model\Payment.Contracts.1.json">
@@ -190,9 +190,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\secucard.client.sec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\secucard.client.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\Loyalty.Cardgroups.1.json">

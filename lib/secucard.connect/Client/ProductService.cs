@@ -20,11 +20,12 @@ namespace Secucard.Connect.Client
     public interface IService
     {
         ClientContext Context { get; set; }
+        void RegisterEvents();
     }
 
     public abstract class ProductService<T> : IService where T : SecuObject
     {
-        private readonly ServiceMetaData<T> MetaData;
+        protected readonly ServiceMetaData<T> MetaData;
         private T ProductType;
 
         public ProductService()
@@ -33,30 +34,17 @@ namespace Secucard.Connect.Client
         }
 
         public ClientContext Context { get; set; }
-        //public void SetContext(ClientContext context)
-        //{
-        //    Context = context;
-        //}
 
-        /**
-   * Creates meta data associated with this product service.
-   * Don't use for retrieval, use {@link #getMetaData()} instead.
-   */
+        public virtual void RegisterEvents()
+        {
+        }
+
         protected abstract ServiceMetaData<T> CreateMetaData();
 
         protected virtual ChannelOptions GetDefaultOptions()
         {
             return ChannelOptions.GetDefault();
         }
-
-        //public ServiceMetaData<T> getMetaData()
-        //{
-        //    if (MetaData == null)
-        //    {
-        //        MetaData = CreateMetaData();
-        //    }
-        //    return MetaData;
-        //}
 
         // get, get list -----------------------------------------------------------------------------------------------------
 
@@ -236,13 +224,15 @@ namespace Secucard.Connect.Client
         protected R Execute<R>(string id, string action, string actionArg, object obj, ChannelOptions options)
             where R : SecuObject
         {
+            var actionArgs = new List<string>();
+            if (actionArg != null) actionArgs.Add(actionArg);
             return Request<R>(new ChannelRequest
             {
                 Method = ChannelMethod.EXECUTE,
                 Product = MetaData.Product,
                 Resource = MetaData.Resource,
                 Action = action,
-                ActionArgs = new List<string> {actionArg},
+                ActionArgs = actionArgs,
                 ObjectId = id,
                 Object = obj
             }, options);
@@ -260,13 +250,16 @@ namespace Secucard.Connect.Client
 
         protected bool ExecuteToBool(string id, string action, string actionArg, object obj, ChannelOptions options)
         {
+            var actionArgs = new List<string>();
+            if (actionArg != null) actionArgs.Add(actionArg);
+
             var result = Request<ExecuteResult>(new ChannelRequest
             {
                 Method = ChannelMethod.EXECUTE,
                 Product = MetaData.Product,
                 Resource = MetaData.Resource,
                 Action = action,
-                ActionArgs = new List<string> {actionArg},
+                ActionArgs = actionArgs,
                 ObjectId = id,
                 Object = obj
             }, options);
@@ -299,16 +292,9 @@ namespace Secucard.Connect.Client
                 channelRequest.ChannelOptions = options;
             }
             var channel = GetChannelByOptions(options);
-            try
-            {
-                var result = channel.Request<R>(channelRequest);
 
-                return result;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            var result = channel.Request<R>(channelRequest);
+            return result;
         }
 
         private ObjectList<R> RequestList<R>(ChannelRequest channelRequest, ChannelOptions options) where R : SecuObject
