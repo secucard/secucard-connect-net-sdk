@@ -14,15 +14,19 @@ namespace Secucard.Connect
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
-    using Secucard.Connect.Net.Stomp.Client;
+    using Secucard.Connect.Product.Document;
     using Secucard.Connect.Product.General;
+    using Secucard.Connect.Product.Loyalty;
+    using Secucard.Connect.Product.Payment;
+    using Secucard.Connect.Product.Service;
+    using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Trace;
+    using SmartTransactionsService = Secucard.Connect.Product.Smart.TransactionsService;
 
     /// <summary>
     ///     Actual Client
@@ -32,17 +36,17 @@ namespace Secucard.Connect
         public const string VERSION = "0.1.development";
         private readonly ClientConfiguration Configuration;
         private readonly ClientContext Context;
-        private readonly Dictionary<string, IService> Services;
+        private readonly Dictionary<string, IService> ServiceDict;
         private volatile bool IsConnected;
 
         #region ### easy access services ### 
 
         public General General { get; set; }
-        //public Document document;
-        //public Payment payment;
-        //public Loyalty loyalty;
-        //public Services services;
-        //public Smart smart;
+        public Document Document { get; set; }
+        public Payment Payment { get; set; }
+        public Loyalty Loyalty { get; set; }
+        public Services Services { get; set; }
+        public Smart Smart { get; set; }
 
         #endregion
 
@@ -145,7 +149,7 @@ namespace Secucard.Connect
             // Setup Trace if directory is there
             if (!string.IsNullOrWhiteSpace(configuration.TraceDir))
             {
-                var listener = new SecucardTraceListener(Configuration.TraceDir) { Name = "SecucardTraceListener" };
+                var listener = new SecucardTraceListener(Configuration.TraceDir) {Name = "SecucardTraceListener"};
                 System.Diagnostics.Trace.Listeners.Add(listener);
                 SecucardTrace.EmptyLine();
             }
@@ -190,7 +194,7 @@ namespace Secucard.Connect
             context.TokenManager = new TokenManager(authConfig, Configuration.ClientAuthDetails, restAuth);
             context.TokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
 
-            Services = ServiceFactory.CreateServices(context);
+            ServiceDict = ServiceFactory.CreateServices(context);
             WireServiceInstances();
         }
 
@@ -213,12 +217,12 @@ namespace Secucard.Connect
 
         public T GetService<T>()
         {
-            return (T) Services[typeof (T).Name];
+            return (T) ServiceDict[typeof (T).Name];
         }
 
         private void WireServiceInstances()
         {
-            //document = new Document(service(Document.Uploads));
+            Document = new Document {Uploads = GetService<UploadsService>()};
 
             General = new General
             {
@@ -228,18 +232,38 @@ namespace Secucard.Connect
                 Merchants = GetService<MerchantsService>(),
                 Publicmerchants = GetService<PublicMerchantsService>(),
                 Stores = GetService<StoresService>(),
-                Transactions = GetService<TransactionsService>()
+                GeneralTransactions = GetService<GeneralTransactionsService>()
+            };
+
+            Payment = new Payment
+            {
+                Containers = GetService<ContainersService>(),
+                Customers = GetService<CustomersService>(),
+                Secupaydebits = GetService<SecupayDebitsService>(),
+                Secupayprepays = GetService<SecupayPrepaysService>(),
+                Contracts = GetService<ContractService>()
+            };
+
+            Loyalty = new Loyalty
+            {
+                Cards = GetService<CardsService>(),
+                Customers = GetService<CustomersService>(),
+                Merchantcards = GetService<MerchantCardsService>(),
             };
 
 
-            //payment = new Payment(service(Payment.Containers), service(Payment.Customers), service(Payment.Secupaydebits),
-            //    service(Payment.Secupayprepays), service(Payment.Contracts));
+            Services = new Services
+            {
+                Identrequests = GetService<IdentRequestsService>(),
+                Identresults = GetService<IdentResultsService>()
+            };
 
-            //loyalty = new Loyalty(service(Loyalty.Cards), service(Loyalty.Customers), service(Loyalty.Merchantcards));
-
-            //services = new Services(service(Services.Identrequests), service(Services.Identresults));
-
-            //smart = new Smart(service(Smart.Checkins), service(Smart.Idents), service(Smart.Transactions));
+            Smart = new Smart
+            {
+                Checkins = GetService<CheckinsService>(),
+                Idents = GetService<IdentsService>(),
+                Transactions = GetService<SmartTransactionsService>()
+            };
         }
 
         #endregion

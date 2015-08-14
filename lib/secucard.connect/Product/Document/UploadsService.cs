@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,19 +10,16 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.Product.General
+namespace Secucard.Connect.Product.Document
 {
-    /// <summary>
-    /// Holds service references and service type constants for "general" product
-    /// </summary>
-    public class General
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Document.Model;
+
+    public class UploadsService : ProductService<Upload>
     {
-        public AccountDevicesService Accountdevices { get; set; }
-        public AccountsService Accounts { get; set; }
-        public MerchantsService Merchants { get; set; }
-        public NewsService News { get; set; }
-        public PublicMerchantsService Publicmerchants { get; set; }
-        public StoresService Stores { get; set; }
-        public GeneralTransactionsService GeneralTransactions { get; set; }
+        protected override ServiceMetaData<Upload> CreateMetaData()
+        {
+            return new ServiceMetaData<Upload>("document", "uploads");
+        }
     }
 }

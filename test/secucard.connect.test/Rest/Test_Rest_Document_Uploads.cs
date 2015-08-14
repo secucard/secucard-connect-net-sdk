@@ -12,7 +12,7 @@
         [TestMethod, TestCategory("Rest")]
         public void Test_Document_Uploads_1_POST_GET()
         {
-            var document = new Document
+            var document = new Upload
             {
                 Content = "base64encodeddata"
             };
@@ -26,7 +26,7 @@
                 Host = "core-dev10.secupay-ag.de"
             };
 
-            var docPost = RestService.PostObject<Document>(request);
+            var docPost = RestService.PostObject<Upload>(request);
 
 
             Thread.Sleep(1000);
@@ -40,7 +40,7 @@
                 Host = "core-dev10.secupay-ag.de"
             };
 
-            var data = RestService.GetObject<Document>(requestGet);
+            var data = RestService.GetObject<Upload>(requestGet);
         }
     }
 }

@@ -221,7 +221,7 @@ namespace Secucard.Connect.Net.Stomp.Client
                 StompFrame frame;
                 if (InQueue.Count > 20) InQueue.TryDequeue(out frame);
             }
-
+               
             if (StompClientFrameArrivedEvent != null)
             {
                 StompTrace.Info("Stomp Client Frame arrived: \n{0}", e.Frame.GetFrame());

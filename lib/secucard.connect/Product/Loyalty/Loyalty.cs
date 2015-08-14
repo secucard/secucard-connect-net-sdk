@@ -10,19 +10,17 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.Product.General
+namespace Secucard.Connect.Product.Loyalty
 {
     /// <summary>
-    /// Holds service references and service type constants for "general" product
+    /// Holds service references and service type constants for "loyalty" product.
     /// </summary>
-    public class General
+    public class Loyalty
     {
-        public AccountDevicesService Accountdevices { get; set; }
-        public AccountsService Accounts { get; set; }
-        public MerchantsService Merchants { get; set; }
-        public NewsService News { get; set; }
-        public PublicMerchantsService Publicmerchants { get; set; }
-        public StoresService Stores { get; set; }
-        public GeneralTransactionsService GeneralTransactions { get; set; }
+        public CardsService Cards { get; set; }
+
+        public CustomersService Customers { get; set; }
+
+        public MerchantCardsService Merchantcards { get; set; }
     }
 }

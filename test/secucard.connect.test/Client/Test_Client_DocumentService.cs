@@ -13,14 +13,14 @@
         {
             StartupClientUser();
 
-            var documentService = Client.GetService<DocumentService>();
+            var documentService = Client.GetService<UploadsService>();
 
-            var document = new Document
+            var upload = new Upload
             {
                 Content = "base64encodeddata"
             };
 
-            var docPost = documentService.Create(document);
+            var docPost = documentService.Create(upload);
             Assert.IsNotNull(docPost);
 
             var docGet = documentService.Get(docPost.Id);

@@ -1,0 +1,7 @@
+﻿
+
+Missing
+- Async Method calls on services.
+- Processing of media resources 
+- several special methods in services
+-

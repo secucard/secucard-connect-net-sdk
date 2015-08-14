@@ -16,7 +16,7 @@
         {
             StartupClientDevice();
 
-            var service = Client.GetService<GeneralSkeltonsServiceStomp>();
+            var service = Client.GetService<SkeletonsServiceStomp>();
 
             var queryParams = new QueryParams
             {

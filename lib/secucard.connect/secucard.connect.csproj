@@ -95,18 +95,17 @@
     <Compile Include="Product\Common\Model\StompResult.cs" />
     <Compile Include="Product\Common\Model\SecuObject.cs" />
     <Compile Include="Product\Common\Model\Status.cs" />
-    <Compile Include="Product\Document\DocumentService.cs" />
-    <Compile Include="Product\Document\Model\Document.cs" />
-    <Compile Include="Product\General\GeneralSkeltonsServiceStomp.cs" />
+    <Compile Include="Product\Document\UploadsService.cs" />
+    <Compile Include="Product\Document\Model\Upload.cs" />
+    <Compile Include="Product\General\SkeletonsServiceStomp.cs" />
     <Compile Include="Product\General\StoresService.cs" />
-    <Compile Include="Product\General\TransactionsService .cs" />
+    <Compile Include="Product\General\GeneralTransactionsService.cs" />
     <Compile Include="Product\General\PublicMerchantsService.cs" />
     <Compile Include="Product\General\NewsService.cs" />
     <Compile Include="Product\General\AccountsService.cs" />
-    <Compile Include="Product\General\GeneralService.cs" />
     <Compile Include="Product\General\AccountDevicesService.cs" />
     <Compile Include="Product\General\MerchantsService.cs" />
-    <Compile Include="Product\General\GeneralSkeltonsService.cs" />
+    <Compile Include="Product\General\SkeletonsService.cs" />
     <Compile Include="Product\General\Model\Account.cs" />
     <Compile Include="Product\General\Model\AccountDevice.cs" />
     <Compile Include="Product\General\Model\Address.cs" />
@@ -132,6 +131,7 @@
     <Compile Include="Product\General\Model\Skeleton.cs" />
     <Compile Include="Product\General\Model\Store.cs" />
     <Compile Include="Product\General\Model\Transaction.cs" />
+    <Compile Include="Product\Loyalty\CardsService.cs" />
     <Compile Include="Product\Loyalty\Model\Bonus.cs" />
     <Compile Include="Product\Loyalty\Model\Condition.cs" />
     <Compile Include="Product\Loyalty\Model\Card.cs" />
@@ -141,6 +141,7 @@
     <Compile Include="Product\Loyalty\Model\Program.cs" />
     <Compile Include="Product\Loyalty\Model\Sale.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
+    <Compile Include="Product\Payment\SecupayPrepaysService.cs" />
     <Compile Include="Product\Payment\DebitService.cs" />
     <Compile Include="Product\Payment\ContainerService.cs" />
     <Compile Include="Product\Payment\CustomerService.cs" />
@@ -153,7 +154,6 @@
     <Compile Include="Product\Payment\Model\SecupayPrepay.cs" />
     <Compile Include="Product\Payment\Model\Transaction.cs" />
     <Compile Include="Product\Payment\Model\TransferAccount.cs" />
-    <Compile Include="Product\ServiceBase.cs" />
     <Compile Include="Product\Service\Model\services\IdentContract.cs" />
     <Compile Include="Product\Service\Model\services\IdentRequest.cs" />
     <Compile Include="Product\Service\Model\services\IdentResult.cs" />
@@ -167,7 +167,8 @@
     <Compile Include="Product\Service\Model\services\idresult\Person.cs" />
     <Compile Include="Product\Service\Model\services\idresult\UserData.cs" />
     <Compile Include="Product\Service\Model\services\idresult\ValueClass.cs" />
-    <Compile Include="Product\Smart\Event\SmartTransactionCashierEvent.cs" />
+    <Compile Include="Product\Smart\Event\CheckinEvent.cs" />
+    <Compile Include="Product\Smart\Event\TransactionCashierEvent.cs" />
     <Compile Include="Product\Smart\Model\Basket.cs" />
     <Compile Include="Product\Smart\Model\BasketInfo.cs" />
     <Compile Include="Product\Smart\Model\CashierDisplay.cs" />
@@ -182,8 +183,9 @@
     <Compile Include="Product\Smart\Model\SmartPin.cs" />
     <Compile Include="Product\Smart\Model\Text.cs" />
     <Compile Include="Product\Smart\Model\Transaction.cs" />
-    <Compile Include="Product\Smart\SmartIdentsService.cs" />
-    <Compile Include="Product\Smart\SmartTransactionsService.cs" />
+    <Compile Include="Product\Smart\CheckinsService.cs" />
+    <Compile Include="Product\Smart\IdentsService.cs" />
+    <Compile Include="Product\Smart\TransactionsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\Rest\RestBase.cs" />
     <Compile Include="Net\Rest\RestConfig.cs" />
@@ -236,7 +238,12 @@
     <Compile Include="Net\Stomp\MessageTimeoutException.cs" />
     <Compile Include="Product\General\Model\Event.cs" />
     <Compile Include="Product\General\Model\Notification.cs" />
-    <Content Include="Product\Service\IdentResultsService.java" />
+    <Compile Include="Product\Document\Document.cs" />
+    <Compile Include="Product\Loyalty\Loyalty.cs" />
+    <Compile Include="Product\Payment\Payment.cs" />
+    <Compile Include="Product\Service\IdentResultsService.cs" />
+    <Compile Include="Product\Smart\Smart.cs" />
+    <Compile Include="Product\Service\Services.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
@@ -245,6 +252,9 @@
     <EmbeddedResource Include="Client\Config\SecucardConnect.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Product\Service\IdentRequestsService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

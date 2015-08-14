@@ -23,7 +23,7 @@ namespace Secucard.Connect.Client
         void RegisterEvents();
     }
 
-    public abstract class ProductService<T> : IService where T : SecuObject
+    public abstract class ProductService<T> : IService where T: SecuObject
     {
         protected readonly ServiceMetaData<T> MetaData;
         private T ProductType;

@@ -30,10 +30,10 @@ namespace Secucard.Connect.Test.Client
         {
             StartupClientDevice();
 
-            var transactionService = Client.GetService<SmartTransactionsService>();
-            var identService = Client.GetService<SmartIdentsService>();
+            var transactionService = Client.GetService<TransactionsService>();
+            var identService = Client.GetService<IdentsService>();
 
-            transactionService.SmartTransactionCashierEvent +=SmartTransactionCashierEvent;
+            transactionService.TransactionCashierEvent +=SmartTransactionCashierEvent;
 
             // select an ident
             var availableIdents = identService.GetList(null);
@@ -118,7 +118,7 @@ namespace Secucard.Connect.Test.Client
             Assert.IsTrue(b);
         }
 
-        private void SmartTransactionCashierEvent(object sender, SmartTransactionCashierEventArgs args)
+        private void SmartTransactionCashierEvent(object sender, TransactionCashierEventArgs args)
         {
             Debug.WriteLine(args.SecucardEvent.Data.Text);
         }

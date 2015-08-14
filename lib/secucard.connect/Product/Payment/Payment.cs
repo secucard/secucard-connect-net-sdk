@@ -10,19 +10,23 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.Product.General
+namespace Secucard.Connect.Product.Payment
 {
+    using Secucard.Connect.Product.Loyalty;
+
     /// <summary>
-    /// Holds service references and service type constants for "general" product
+    /// Holds service references and service type constants for "payment" product.
     /// </summary>
-    public class General
+    public class Payment
     {
-        public AccountDevicesService Accountdevices { get; set; }
-        public AccountsService Accounts { get; set; }
-        public MerchantsService Merchants { get; set; }
-        public NewsService News { get; set; }
-        public PublicMerchantsService Publicmerchants { get; set; }
-        public StoresService Stores { get; set; }
-        public GeneralTransactionsService GeneralTransactions { get; set; }
+        public ContainersService Containers { get; set; }
+
+        public ContractService Contracts { get; set; }
+
+        public CustomersService Customers { get; set; }
+
+        public SecupayDebitsService Secupaydebits { get; set; }
+
+        public SecupayPrepaysService Secupayprepays { get; set; }
     }
 }

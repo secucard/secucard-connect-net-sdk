@@ -9,14 +9,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Client
 {
-    using Secucard.Connect.Product.Common.Model;
-
-    /**
-   * Meta data describing the service.
-   */
-    public class ServiceMetaData<T> where T : SecuObject
+    /// <summary>
+    /// Meta data describing the service.
+    /// </summary>
+    public class ServiceMetaData<T>
     {
         public readonly string Product;
         public readonly string Resource;
@@ -24,23 +23,10 @@ namespace Secucard.Connect.Client
         public T ResourceType;
 
 
-        public ServiceMetaData (string product, string resource)
+        public ServiceMetaData(string product, string resource)
         {
             Product = product;
             Resource = resource;
         }
-
-        ///**
-        // * Returns the object string for the service.
-        // */
-        //public string GetObject()
-        //{
-        //    return Product + "." + Resource;
-        //}
-
-        //public string[] GetObjectArray()
-        //{
-        //    return new string[] { Product, Resource };
-        //}
     }
 }

@@ -13,7 +13,7 @@
         {
             StartupClientDevice();
 
-            var skeletonService = Client.GetService<GeneralSkeletonsService>();
+            var skeletonService = Client.GetService<SkeletonsService>();
 
             // select an ident
             //var skeletons = skeletonService.GetList(null);

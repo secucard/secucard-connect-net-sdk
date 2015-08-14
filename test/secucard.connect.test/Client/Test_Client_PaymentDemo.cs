@@ -16,8 +16,8 @@
 
 
             var customerService = Client.GetService<CustomerService>();
-            var containerService = Client.GetService<ContainerService>();
-            var debitService = Client.GetService<DebitService>();
+            var containerService = Client.GetService<ContainersService>();
+            var debitService = Client.GetService<SecupayDebitsService>();
             var contractService = Client.GetService<ContractService>();
 
             var customer = new Customer

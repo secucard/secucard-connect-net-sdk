@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,17 +12,22 @@
 
 namespace Secucard.Connect.Product.General
 {
-    /// <summary>
-    /// Holds service references and service type constants for "general" product
-    /// </summary>
-    public class General
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Net;
+    using Secucard.Connect.Product.General.Model;
+
+    public class SkeletonsServiceStomp : ProductService<Skeleton>
     {
-        public AccountDevicesService Accountdevices { get; set; }
-        public AccountsService Accounts { get; set; }
-        public MerchantsService Merchants { get; set; }
-        public NewsService News { get; set; }
-        public PublicMerchantsService Publicmerchants { get; set; }
-        public StoresService Stores { get; set; }
-        public GeneralTransactionsService GeneralTransactions { get; set; }
+        protected override ServiceMetaData<Skeleton> CreateMetaData()
+        {
+            return new ServiceMetaData<Skeleton>("general", "skeletons");
+        }
+
+        protected override ChannelOptions GetDefaultOptions()
+        {
+            var channelOptions = base.GetDefaultOptions();
+            channelOptions.Channel = ChannelOptions.CHANNEL_STOMP;
+            return channelOptions;
+        }
     }
 }

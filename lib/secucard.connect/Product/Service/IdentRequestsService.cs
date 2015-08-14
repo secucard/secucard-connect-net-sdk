@@ -10,19 +10,19 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.Product.General
+namespace Secucard.Connect.Product.Service
 {
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Service.Model.services;
+
     /// <summary>
-    /// Holds service references and service type constants for "general" product
+    /// Implements the services/identrequest operations.
     /// </summary>
-    public class General
+    public class IdentRequestsService : ProductService<IdentRequest>
     {
-        public AccountDevicesService Accountdevices { get; set; }
-        public AccountsService Accounts { get; set; }
-        public MerchantsService Merchants { get; set; }
-        public NewsService News { get; set; }
-        public PublicMerchantsService Publicmerchants { get; set; }
-        public StoresService Stores { get; set; }
-        public GeneralTransactionsService GeneralTransactions { get; set; }
+        protected override ServiceMetaData<IdentRequest> CreateMetaData()
+        {
+            return new ServiceMetaData<IdentRequest>("services", "identrequests");
+        }
     }
 }
