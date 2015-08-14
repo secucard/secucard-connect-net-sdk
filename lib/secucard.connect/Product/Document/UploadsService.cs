@@ -21,5 +21,15 @@ namespace Secucard.Connect.Product.Document
         {
             return new ServiceMetaData<Upload>("document", "uploads");
         }
+
+        /// <summary>
+        ///  Upload the given document and returns the new id for the upload.
+        ///  Note: the uploaded content should be base64 encoded.
+        /// </summary>
+        public string Upload(Upload content)
+        {
+            Upload result = Execute<Upload>(null, null, null, content, null);
+            return result.Id;
+        }
     }
 }

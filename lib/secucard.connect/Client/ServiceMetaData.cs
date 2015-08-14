@@ -22,6 +22,10 @@ namespace Secucard.Connect.Client
         public string AppId;
         public T ResourceType;
 
+        public string ProductResource
+        {
+            get { return string.Format("{0}.{1}", Product, Resource); }
+        }
 
         public ServiceMetaData(string product, string resource)
         {

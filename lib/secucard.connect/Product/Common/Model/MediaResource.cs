@@ -13,6 +13,7 @@ namespace Secucard.Connect.Product.Common.Model
     {
 
         public string Url { get; set; }
+        public bool IsCached { get; set; }
 
         //         public void setUrl(String url) {
         //            this.url = url;
@@ -132,5 +133,9 @@ namespace Secucard.Connect.Product.Common.Model
 
         //    return getDownloader().getInputStream(url, cachingEnabled);
         //  }
+        public void Download()
+        {
+            //throw new System.NotImplementedException();
+        }
     }
 }

@@ -20,11 +20,8 @@
                 Content = "base64encodeddata"
             };
 
-            var docPost = documentService.Create(upload);
-            Assert.IsNotNull(docPost);
-
-            var docGet = documentService.Get(docPost.Id);
-            Assert.IsNotNull(docGet);
+            var id = documentService.Upload(upload);
+            Assert.IsNotNull(id);
         }
     }
 }

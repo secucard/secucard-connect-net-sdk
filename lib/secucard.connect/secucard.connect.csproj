@@ -97,6 +97,7 @@
     <Compile Include="Product\Common\Model\Status.cs" />
     <Compile Include="Product\Document\UploadsService.cs" />
     <Compile Include="Product\Document\Model\Upload.cs" />
+    <Compile Include="Product\General\Event\AccountDeviceChangedEvent.cs" />
     <Compile Include="Product\General\SkeletonsServiceStomp.cs" />
     <Compile Include="Product\General\StoresService.cs" />
     <Compile Include="Product\General\GeneralTransactionsService.cs" />
@@ -215,7 +216,7 @@
   <ItemGroup>
     <Compile Include="Net\Channel.cs" />
     <Compile Include="Client\ClientContext.cs" />
-    <Compile Include="Client\ClientConfiguration.cs" />
+    <Compile Include="Client\Config\ClientConfiguration.cs" />
     <Compile Include="Client\ProductService.cs" />
     <Compile Include="Net\ChannelOptions.cs" />
     <Compile Include="Net\Stomp\StompChannel.cs" />
@@ -255,6 +256,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Product\Service\IdentRequestsService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Event\Events.cs" />
+    <Content Include="Features.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
