@@ -218,6 +218,7 @@
     <Content Include="Data\secucard.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="secucard.connect.test.runsettings" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

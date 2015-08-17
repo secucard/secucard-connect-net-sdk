@@ -14,6 +14,7 @@ namespace Secucard.Connect
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
@@ -150,8 +151,12 @@ namespace Secucard.Connect
             // Setup Trace if directory is there
             if (!string.IsNullOrWhiteSpace(configuration.TraceDir))
             {
-
-                var listener = new SecucardTraceListener(Configuration.TraceDir) {Name = "SecucardTraceListener"};
+                string dir = configuration.TraceDir;
+                if (!Path.IsPathRooted(configuration.TraceDir))
+                    dir = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                        configuration.TraceDir);
+                if (!Directory.Exists(Path.GetDirectoryName(dir))) Directory.CreateDirectory(Path.GetDirectoryName(dir));
+                var listener = new SecucardTraceListener(dir) { Name = "SecucardTraceListener" };
                 System.Diagnostics.Trace.Listeners.Add(listener);
                 SecucardTrace.EmptyLine();
             }
