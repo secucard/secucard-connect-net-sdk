@@ -59,6 +59,7 @@
     <Compile Include="Client\Test_Client_SmartTransaction.cs" />
     <Compile Include="Client\Test_Client_PaymentDemo.cs" />
     <Compile Include="Client\Test_Client_Base.cs" />
+    <Compile Include="Client\Test_Client_Resource.cs" />
     <Compile Include="Client\Test_Client_Stomp_1.cs" />
     <Compile Include="Config\Test_Config.cs" />
     <Compile Include="Model\Test_Stomp_Model.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Rest\Test_Rest_Base_AuthDevice.cs" />
     <Compile Include="Rest\Test_Rest_General_Accounts.cs" />
     <Compile Include="Rest\Test_Rest_Document_Uploads.cs" />
+    <Compile Include="Rest\Test_Rest_General_Stores.cs" />
     <Compile Include="Rest\Test_Rest_Service_Identcontracts.cs" />
     <Compile Include="Rest\Test_Rest_Services_Identresults.cs" />
     <Compile Include="Rest\Test_Rest_Service_Identrequests.cs" />

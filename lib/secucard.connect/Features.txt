@@ -6,6 +6,7 @@ Missing
 - several special methods in services
 - copyright in all files.
 - Tests on smart.checkins
+- Exception Handling
 - Service Methods missing
 	GeneralTransactionsService,
 

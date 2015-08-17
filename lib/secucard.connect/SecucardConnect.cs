@@ -25,6 +25,7 @@ namespace Secucard.Connect
     using Secucard.Connect.Product.Payment;
     using Secucard.Connect.Product.Service;
     using Secucard.Connect.Product.Smart;
+    using Secucard.Connect.Storage;
     using Secucard.Connect.Trace;
     using SmartTransactionsService = Secucard.Connect.Product.Smart.TransactionsService;
 
@@ -154,11 +155,15 @@ namespace Secucard.Connect
                 SecucardTrace.EmptyLine();
             }
 
+            // Check if Data storage was passed. Otherwise create memory storage
+            if (configuration.DataStorage == null)
+                configuration.DataStorage = new MemoryDataStorage();
+
             var context = new ClientContext
             {
                 AppId = Configuration.AppId,
             };
-            // context.DataStorage = dataStorage;
+
 
             Context = context;
 
@@ -193,6 +198,12 @@ namespace Secucard.Connect
             };
             context.TokenManager = new TokenManager(authConfig, Configuration.ClientAuthDetails, restAuth);
             context.TokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
+
+
+            // Prepare resource downloader
+            ResourceDownloader.Get().Cache = configuration.DataStorage;
+            ResourceDownloader.Get().RestChannel = restChannel;
+
 
             ServiceDict = ServiceFactory.CreateServices(context);
             WireServiceInstances();

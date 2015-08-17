@@ -13,8 +13,8 @@
     public class Test_Client_Base
     {
         protected const string storagePath = "data\\secucard.sec";
-        private readonly ClientConfiguration ClientConfigurationDevice;
-        private readonly ClientConfiguration ClientConfigurationUser;
+        protected readonly ClientConfiguration ClientConfigurationDevice;
+        protected readonly ClientConfiguration ClientConfigurationUser;
         private readonly MemoryDataStorage Storage;
         protected readonly ISecucardTrace Tracer;
         protected SecucardConnect Client;

@@ -28,6 +28,7 @@ namespace Secucard.Connect.Net.Rest
             ActionParameter = new List<string>();
         }
 
+        public string Url { get; set; }
         public string Host { get; set; }
         public string PageUrl { get; set; }
         public string Action { get; set; }

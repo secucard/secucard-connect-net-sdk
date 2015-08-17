@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Product.General
 {
     using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Secucard.Connect.Product.General
     {
         protected override ServiceMetaData<Store> CreateMetaData()
         {
-            return new ServiceMetaData<Store>("general", "store");
+            return new ServiceMetaData<Store>("general", "stores");
         }
 
         /// <summary>
@@ -28,9 +29,9 @@ namespace Secucard.Connect.Product.General
         /// </summary>
         public bool CheckIn(string storeId)
         {
-            return ExecuteToBool(storeId, "checkin", null, null,null);
+            return ExecuteToBool(storeId, "checkin", null, null, null);
         }
-        
+
         /// <summary>
         /// Check out of the store with the given id.
         /// </summary>
@@ -54,6 +55,13 @@ namespace Secucard.Connect.Product.General
             return list;
         }
 
+        public new Store Get(string storeId)
+        {
+            var store = base.Get(storeId);
+            ProcessStore(new List<Store> {store});
+            return store;
+        }
+
         /// <summary>
         /// Post processing to retrieve image data
         /// </summary>
@@ -61,12 +69,12 @@ namespace Secucard.Connect.Product.General
         {
             foreach (var obj in stores)
             {
-                MediaResource picture = obj.logo;
-                if (picture != null)
+                var mediaResource = obj.Logo;
+                if (mediaResource != null)
                 {
-                    if (!picture.IsCached)
+                    if (!mediaResource.IsCached)
                     {
-                        picture.Download();
+                        mediaResource.Download();
                     }
                 }
             }

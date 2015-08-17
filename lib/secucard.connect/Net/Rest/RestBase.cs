@@ -83,7 +83,6 @@ namespace Secucard.Connect.Net.Rest
             return null;
         }
 
-
         public string RestPut(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Put;
@@ -207,6 +206,35 @@ namespace Secucard.Connect.Net.Rest
                 var restException = HandelWebException(ex);
                 throw restException;
             }
+            return null;
+        }
+
+        protected Stream RestGetStream(RestRequest request)
+        {
+            request.Method = WebRequestMethods.Http.Get;
+            var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
+            webRequest.UserAgent = request.UserAgent;
+
+            // Set authorization
+            if (!string.IsNullOrWhiteSpace(request.Token))
+                webRequest.Headers.Add("Authorization", string.Format("Bearer {0}", request.Token));
+
+            webRequest.Headers.Add(request.Header); // Other header info like user-agent
+            RestTrace(webRequest, request.BodyBytes);
+
+            try
+            {
+                var webResponse = webRequest.GetResponse();
+                var respStream = webResponse.GetResponseStream();
+
+                return respStream;
+            }
+            catch (WebException ex)
+            {
+                var restException = HandelWebException(ex);
+                throw restException;
+            }
+
             return null;
         }
 

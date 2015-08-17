@@ -13,6 +13,7 @@
 namespace Secucard.Connect.Net.Rest
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
@@ -73,7 +74,11 @@ namespace Secucard.Connect.Net.Rest
             var ret = RestExecute(request);
 
             return JsonSerializer.DeserializeJson<T>(ret);
-            ;
+        }
+
+        public Stream GetStream(RestRequest request)
+        {
+            return RestGetStream(request);
         }
     }
 }

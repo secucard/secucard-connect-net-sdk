@@ -13,6 +13,7 @@ namespace Secucard.Connect.Net.Rest
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Common.Model;
@@ -137,5 +138,10 @@ namespace Secucard.Connect.Net.Rest
 
         #endregion
 
+        public Stream GetStream(RestRequest request)
+        {
+            var stream = RestService.GetStream(request);
+            return stream;
+        }
     }
 }

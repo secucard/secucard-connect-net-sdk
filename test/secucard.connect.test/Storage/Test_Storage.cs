@@ -2,6 +2,8 @@
 {
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Storage;
 
     [TestClass]
@@ -34,5 +36,8 @@
             var storeFromFile = MemoryDataStorage.LoadFromFile("test2.bin");
             Assert.AreEqual(storage.Size(), storeFromFile.Size());
         }
+
+
+      
     }
 }

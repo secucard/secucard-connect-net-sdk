@@ -1,141 +1,142 @@
-
-/**
- * Base class for all URL based media resources like images or pdf documents.
- * Supports caching of the resource denoted by the URL of this instance. That means the content is downloaded and
- * put to the cache on demand. Further access is served by the cache.<br/>
- * Note: This is not a caching by LRU strategy or alike. If enabled the content will be
- * cached for new instances or when the URL of the instance was changed (its eventually the same).
+/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+using System;
 
 namespace Secucard.Connect.Product.Common.Model
 {
+    using System.IO;
+    using Secucard.Connect.Client;
+
+    /// <summary>
+    /// Base class for all URL based media resources like images or pdf documents.
+    /// Supports caching of the resource denoted by the URL of this instance. That means the content is downloaded and 
+    /// put to the cache on demand. Further access is served by the cache.<br/>
+    /// Note: This is not a caching by LRU strategy or alike. If enabled the content will be
+    /// cached for new instances or when the URL of the instance was changed (its eventually the same).
+    /// </summary>
     public class MediaResource
     {
+        private string _url;
 
-        public string Url { get; set; }
+        public string Url
+        {
+            get { return _url; }
+            set
+            {
+                _url = value;
+                IsCached = false;
+            }
+        }
+
+        /// <summary>
+        /// Returns if this resource was already downloaded and cached.  Note: If this instances URL is changed the flag is reset.
+        /// </summary>
         public bool IsCached { get; set; }
 
-        //         public void setUrl(String url) {
-        //            this.url = url;
-        //            isCached = false;
-        //        }       
+        /// <summary>
+        /// Set if caching is enabled or not. Default is enabled.
+        /// </summary>
+        private bool CachingEnabled { get; set; }
 
-        //        //@JsonIgnore
-        //        private bool IsCached = false;
+        public MediaResource()
+        {
+            CachingEnabled = true;
+        }
 
-        //        //@JsonIgnore
-        //        private bool cachingEnabled = true;
+        public static MediaResource Create(string url)
+        {
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                try
+                {
+                    return new MediaResource(url);
+                }
+                catch (Exception e)
+                {
+                    // ignore here, value could be just an id as well
+                }
+            }
+            return null;
+        }
 
-        //        public MediaResource() {
-        //        }
+        private MediaResource(string url) : this()
+        {
+            var uri = new Uri(url); // validate, throws exception if not valid
+            Url = url;
+        }
 
-        //        public static MediaResource create(String value) {
-        //            if (value != null) {
-        //                try {
-        //                    return new MediaResource(value);
-        //                } catch (MalformedURLException e) {
-        //                    // ignore here, value could be just an id as well
-        //                }
-        //            }
-        //            return null;
-        //        }
+        private static ResourceDownloader GetDownloader()
+        {
+            return ResourceDownloader.Get();
+        }
 
-        //        public MediaResource(String url) 
-        //        {
-        //            new URL(url); // validate
-        //            setUrl(url);
-        //        }
-
-
-        //        protected ResourceDownloader getDownloader() {
-        ////    return ClientContext.get().getResourceDownloader();
-        //            return ResourceDownloader.get();
-        //        }
-
-
-
-        //        /**
-        //   * Returns if this resource was already downloaded and cached.
-        //   * Note: If this instances URL is changed the flag is reset.
-        //   */
-        //        public boolean isCached() {
-        //            return isCached;
-        //        }
-
-        //        /**
-        //   * Set if caching is enabled or not. Default is enabled.
-        //   */
-        //        public void enableCaching(boolean value) {
-        //            cachingEnabled = value;
-        //        }
-
-        //        /**
-        //   * Returns if this instances content should be cached.
-        //   */
-        //        public boolean isCachingEnabled() {
-        //            return cachingEnabled;
-        //        }
-
-        //        /**
-        //   * Downloading resource and put in cache for later access no matter if this was already done before.
-        //   * Call {@link #isCached} before to determine if this is the case.
-        //   */
-        //        public void download() {
-        //            if (cachingEnabled && getDownloader() != null) {
-        //                getDownloader().download(url);
-        //                isCached = true;
-        //            }
-        //        }
-
-        //        /**
-        //   * Return the contents of this resource as byte array.
-        //   * See also {@link #getInputStream()}, the same principle applies here.
-        //   *
-        //   * @return The bytes.
-        //   * @throws IOException If a error ocurrs during resource access.
-        //   */
-        //        public byte[] getContents() throws IOException {
-        //            InputStream in = getInputStream();
-        //    if (in == null) {
-        //        return null;
-        //    }
-        //        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        //    try {
-        //        BufferedInputStream bis = new BufferedInputStream(in);
-        //        int b;
-        //        while ((b = bis.read()) != -1) {
-        //        out.write(b);
-        //        }
-        //    } finally
-        //} {
-        //      in.close();
-        //    }
-        //    return out.toByteArray();
-        //  }
-
-        //  /**
-        //   * Loads this resource as a stream from its URL.<br/>
-        //   * Note: If caching is enabled, (check {@link #isCachingEnabled()}, the resource content is also downloaded and cached
-        //   * (if not already happened before, check {@link #isCached()}) and further invocations deliver from cache.
-        //   * Set {@link #enableCaching(boolean)} if this behaviour is not wanted.
-        //   *
-        //   * @return The input stream, or null if this resource has no URL.
-        //   */
-        //  public InputStream getInputStream() {
-        //    if (cachingEnabled && !isCached) {
-        //      // force download if not cached
-        //      download();
-        //    }
-
-        //    if (getDownloader() == null) {
-        //      return null;
-        //    }
-
-        //    return getDownloader().getInputStream(url, cachingEnabled);
-        //  }
+        /// <summary>
+        /// Downloading resource and put in cache for later access no matter if this was already done before.
+        /// </summary>
         public void Download()
         {
-            //throw new System.NotImplementedException();
+            if (CachingEnabled && GetDownloader() != null)
+            {
+                GetDownloader().Download(Url);
+                IsCached = true;
+            }
+        }
+
+        /// <summary>
+        /// Return the contents of this resource as byte array.
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetContents()
+        {
+            var inStream = GetInputStream();
+            if (inStream == null)
+            {
+                return null;
+            }
+
+            byte[] buffer = new byte[16*1024];
+            using (var ms = new MemoryStream())
+            {
+                var bis = new BufferedStream(inStream);
+                int read;
+                while ((read = bis.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Loads this resource as a stream from its URL.
+        ///  Note: If caching is enabled, (check {@link #isCachingEnabled()}, the resource content is also downloaded and cached
+        ///  (if not already happened before, check {@link #isCached()}) and further invocations deliver from cache.
+        /// </summary>
+        /// <returns></returns>
+        private Stream GetInputStream()
+        {
+            if (CachingEnabled && !IsCached)
+            {
+                // force download if not cached
+                Download();
+            }
+
+            if (GetDownloader() == null)
+            {
+                return null;
+            }
+
+            return GetDownloader().GetInputStream(Url, CachingEnabled);
         }
     }
 }

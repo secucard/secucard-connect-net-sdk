@@ -87,7 +87,6 @@
     <Compile Include="Net\Util\JsonSerializer.cs" />
     <Compile Include="Net\Util\JsonSplitter.cs" />
     <Compile Include="Net\Util\Linq.cs" />
-    <Compile Include="Product\Common\Model\MediaResource.cs" />
     <Compile Include="Product\Common\Model\ObjectList.cs" />
     <Compile Include="Product\Common\Model\QueryParams.cs" />
     <Compile Include="Product\Common\Model\GenericResult.cs" />
@@ -259,7 +258,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Event\Events.cs" />
+    <Compile Include="Client\ResourceDownloader.cs" />
+    <Compile Include="Client\ClientError.cs" />
     <Content Include="Features.txt" />
+    <Compile Include="Product\Common\Model\MediaResource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
