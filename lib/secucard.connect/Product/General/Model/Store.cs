@@ -20,11 +20,6 @@ namespace Secucard.Connect.Product.General.Model
     [DataContract]
     public class Store : SecuObject
     {
-        public override string ServiceResourceName
-        {
-            get { return "general.stores"; }
-        }
-
         [DataMember(Name = "address_components")]
         public List<AddressComponent> AddressComponents { get; set; }
 
@@ -119,6 +114,7 @@ namespace Secucard.Connect.Product.General.Model
             }
         }
 
+        [IgnoreDataMember]
         public MediaResource Logo { get; set; }
     }
 }

@@ -10,10 +10,9 @@
  * limitations under the License.
  */
 
-using System;
-
 namespace Secucard.Connect.Product.Common.Model
 {
+    using System;
     using System.IO;
     using Secucard.Connect.Client;
 
@@ -63,15 +62,19 @@ namespace Secucard.Connect.Product.Common.Model
                 }
                 catch (Exception e)
                 {
+                    SecucardTrace.Error("MediaResource.Create", "Url= {0},{1} ", url, e.Message);
                     // ignore here, value could be just an id as well
                 }
             }
             return null;
         }
 
-        private MediaResource(string url) : this()
+        private MediaResource(string url)
+            : this()
         {
-            var uri = new Uri(url); // validate, throws exception if not valid
+            Uri uriResult;
+            var valid = (Uri.TryCreate(url, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttps|| uriResult.Scheme== Uri.UriSchemeHttp));
+            if (!valid) throw new ClientError("invalid url for resource");
             Url = url;
         }
 
@@ -104,7 +107,7 @@ namespace Secucard.Connect.Product.Common.Model
                 return null;
             }
 
-            byte[] buffer = new byte[16*1024];
+            var buffer = new byte[16*1024];
             using (var ms = new MemoryStream())
             {
                 var bis = new BufferedStream(inStream);
@@ -131,12 +134,9 @@ namespace Secucard.Connect.Product.Common.Model
                 Download();
             }
 
-            if (GetDownloader() == null)
-            {
-                return null;
-            }
-
-            return GetDownloader().GetInputStream(Url, CachingEnabled);
+            return GetDownloader() == null
+                ? null
+                : GetDownloader().GetInputStream(Url, CachingEnabled);
         }
     }
 }

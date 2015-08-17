@@ -37,11 +37,6 @@ namespace Secucard.Connect.Product.General.Model
         [DataMember(Name = "data")]
         public T Data { get; set; }
 
-        public override string ServiceResourceName
-        {
-            get { return "event.pushs"; }
-        }
-
         public override string ToString()
         {
             return "Event{" +

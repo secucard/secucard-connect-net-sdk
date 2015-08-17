@@ -18,11 +18,6 @@ namespace Secucard.Connect.Product.General.Model
     [DataContract]
     public class Notification : SecuObject
     {
-        public override string ServiceResourceName
-        {
-            get { return "general.notifications"; }
-        }
-
         [DataMember(Name = "text")]
         public string Text { get; set; }
 

@@ -53,13 +53,13 @@
   <ItemGroup>
     <Compile Include="ClientAuthDetailsUserTest.cs" />
     <Compile Include="ClientAuthDetailsDeviceTest.cs" />
-    <Compile Include="Client\Test_Client_DocumentService.cs" />
-    <Compile Include="Client\Test_Client_CustomerService.cs" />
-    <Compile Include="Client\Test_Client_GeneralSkeleton.cs" />
+    <Compile Include="Client\Test_Client_DocumentUploads.cs" />
+    <Compile Include="Client\Test_Client_Loyalty.cs" />
+    <Compile Include="Client\Test_Client_PaymentCustomer.cs" />
     <Compile Include="Client\Test_Client_SmartTransaction.cs" />
     <Compile Include="Client\Test_Client_PaymentDemo.cs" />
     <Compile Include="Client\Test_Client_Base.cs" />
-    <Compile Include="Client\Test_Client_Resource.cs" />
+    <Compile Include="Client\Test_Client_General.cs" />
     <Compile Include="Client\Test_Client_Stomp_1.cs" />
     <Compile Include="Config\Test_Config.cs" />
     <Compile Include="Model\Test_Stomp_Model.cs" />

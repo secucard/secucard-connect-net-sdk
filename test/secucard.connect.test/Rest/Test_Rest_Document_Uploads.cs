@@ -1,6 +1,5 @@
 ﻿namespace Secucard.Connect.Test.Rest
 {
-    using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Product.Document.Model;
@@ -27,20 +26,6 @@
             };
 
             var docPost = RestService.PostObject<Upload>(request);
-
-
-            Thread.Sleep(1000);
-
-            // GET by id
-            var requestGet = new RestRequest
-            {
-                Token = AccessToken,
-                Id = docPost.Id,
-                PageUrl = "Document/Uploads",
-                Host = "core-dev10.secupay-ag.de"
-            };
-
-            var data = RestService.GetObject<Upload>(requestGet);
         }
     }
 }

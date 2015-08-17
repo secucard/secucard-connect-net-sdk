@@ -17,18 +17,11 @@ namespace Secucard.Connect.Product.Common.Model
     [DataContract]
     public abstract class SecuObject
     {
-        private string _ServiceResourceName;
-
-        [DataMember(Name = "id")] public string Id;
-
-        public abstract string ServiceResourceName { get; }
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
 
         [DataMember(Name = "object")]
-        public virtual string Object
-        {
-            get { return ServiceResourceName; }
-            set { _ServiceResourceName = value; }
-        }
+        public virtual string Object { get; set; }
 
         public override string ToString()
         {

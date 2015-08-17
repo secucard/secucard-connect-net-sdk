@@ -150,6 +150,7 @@ namespace Secucard.Connect
             // Setup Trace if directory is there
             if (!string.IsNullOrWhiteSpace(configuration.TraceDir))
             {
+
                 var listener = new SecucardTraceListener(Configuration.TraceDir) {Name = "SecucardTraceListener"};
                 System.Diagnostics.Trace.Listeners.Add(listener);
                 SecucardTrace.EmptyLine();

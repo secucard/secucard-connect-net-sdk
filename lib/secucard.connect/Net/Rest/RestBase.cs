@@ -226,7 +226,7 @@ namespace Secucard.Connect.Net.Rest
             {
                 var webResponse = webRequest.GetResponse();
                 var respStream = webResponse.GetResponseStream();
-
+                SecucardTrace.Info("Response stream arrived.");
                 return respStream;
             }
             catch (WebException ex)

@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 namespace Secucard.Connect.Product.General.Model
 {
     using System;
@@ -9,11 +21,6 @@ namespace Secucard.Connect.Product.General.Model
     {
         public const string GENDER_MALE = "MALE";
         public const string GENDER_FEMALE = "FEMALE";
-
-        public override string ServiceResourceName
-        {
-            get { return "general.contacts"; }
-        }
 
         [DataMember(Name = "salutation")]
         public string Salutation { get; set; }
@@ -66,47 +73,21 @@ namespace Secucard.Connect.Product.General.Model
         [DataMember(Name = "url_website")]
         public string UrlWebsite { get; set; }
 
+        private string _picture;
+
         [DataMember(Name = "picture")]
-        private string Picture { get; set; }
+        public string Picture
+        {
+            get { return _picture; }
+            set
+            {
+                _picture = value;
+                PictureObject = MediaResource.Create(value);
+            }
+        }
 
         [IgnoreDataMember]
         public MediaResource PictureObject { get; set; }
-
-        /**
-   * Setting the nationality in ISO 3166 2 letter code.
-   * Case doesn't matter, will be corrected automatically.
-   *
-   * @param nationality The country code string.
-   */
-        //@JsonProperty
-        //public void setNationality(string nationality) {
-        //    Locale locale = LocaleUtil.toLocale(nationality, nationalityLocale);
-        //    if (locale == null) {
-        //        this.nationality = nationality;
-        //    } else {
-        //        setNationality(locale);
-        //    }
-        //}
-
-
-        /**
-   * Set the ISO nationality code by using a locale instance which is less error-prone then using a string
-   */
-
-
-        //public MediaResource getPictureObject() {
-        //    return pictureObject;
-        //}
-
-        //public string getPicture() {
-        //    return picture;
-        //}
-
-        //public void setPicture(string value) {
-        //    this.picture = value;
-        //    pictureObject = MediaResource.create(picture);
-        //}
-
 
         public override string ToString()
         {
