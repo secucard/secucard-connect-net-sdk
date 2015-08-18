@@ -17,9 +17,11 @@ namespace Secucard.Connect.Product.General
 
     public class MerchantsService : ProductService<Merchant>
     {
-        protected override ServiceMetaData<Merchant> CreateMetaData()
+        public static readonly ServiceMetaData<Merchant> META_DATA = new ServiceMetaData<Merchant>("general", "merchants");
+
+        protected override ServiceMetaData<Merchant> GetMetaData()
         {
-            return new ServiceMetaData<Merchant>("general", "merchants");
+            return META_DATA;
         }
     }
 }

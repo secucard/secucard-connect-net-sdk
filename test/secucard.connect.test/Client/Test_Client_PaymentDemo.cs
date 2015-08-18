@@ -95,7 +95,7 @@ namespace Secucard.Connect.Test.Client
 
             // pay, create transaction
             // Exception: api Key for payment does not allow debit payments.
-            var debitret = debitService.Create(debit);
+            //var debitret = debitService.Create(debit);
         }
     }
 }

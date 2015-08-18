@@ -17,9 +17,11 @@ namespace Secucard.Connect.Product.Loyalty
 
     public class CardsService : ProductService<Card>
     {
-        protected override ServiceMetaData<Card> CreateMetaData()
+        public static readonly ServiceMetaData<Card> META_DATA = new ServiceMetaData<Card>("general", "cards");
+
+        protected override ServiceMetaData<Card> GetMetaData()
         {
-            return new ServiceMetaData<Card>("loyalty", "cards");
+            return META_DATA;
         }
     }
 }

@@ -17,9 +17,11 @@ namespace Secucard.Connect.Product.Smart
 
     public class IdentsService : ProductService<Ident>
     {
-        protected override ServiceMetaData<Ident> CreateMetaData()
+        public static readonly ServiceMetaData<Ident> META_DATA = new ServiceMetaData<Ident>("smart", "idents");
+
+        protected override ServiceMetaData<Ident> GetMetaData()
         {
-            return new ServiceMetaData<Ident>("smart", "idents");
+            return META_DATA;
         }
 
         /// <summary>

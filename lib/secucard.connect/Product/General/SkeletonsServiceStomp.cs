@@ -18,9 +18,12 @@ namespace Secucard.Connect.Product.General
 
     public class SkeletonsServiceStomp : ProductService<Skeleton>
     {
-        protected override ServiceMetaData<Skeleton> CreateMetaData()
+        public static readonly ServiceMetaData<Skeleton> META_DATA = new ServiceMetaData<Skeleton>(
+            "general", "skeletons");
+
+        protected override ServiceMetaData<Skeleton> GetMetaData()
         {
-            return new ServiceMetaData<Skeleton>("general", "skeletons");
+            return META_DATA;
         }
 
         protected override ChannelOptions GetDefaultOptions()

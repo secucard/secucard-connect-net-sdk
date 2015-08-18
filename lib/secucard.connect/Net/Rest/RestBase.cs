@@ -20,6 +20,7 @@ namespace Secucard.Connect.Net.Rest
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using Secucard.Connect.Client;
+    using Secucard.Connect.Net.Util;
 
     public class RestBase
     {
@@ -254,7 +255,7 @@ namespace Secucard.Connect.Net.Rest
             };
             SecucardTrace.Exception(restException);
             SecucardTrace.Info(restException.StatusDescription);
-            SecucardTrace.Info(restException.BodyText);
+            SecucardTrace.Info(restException.BodyText.EscapeCurlyBracets());
             reader.Close();
             return restException;
         }

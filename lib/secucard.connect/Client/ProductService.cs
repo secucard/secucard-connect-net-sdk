@@ -17,20 +17,9 @@ namespace Secucard.Connect.Client
     using Secucard.Connect.Net;
     using Secucard.Connect.Product.Common.Model;
 
-    public interface IService
-    {
-        ClientContext Context { get; set; }
-        void RegisterEvents();
-    }
-
     public abstract class ProductService<T> : IService where T : SecuObject
     {
-        protected readonly ServiceMetaData<T> MetaData;
-
-        protected ProductService()
-        {
-            MetaData = CreateMetaData();
-        }
+        protected abstract ServiceMetaData<T> GetMetaData();
 
         public ClientContext Context { get; set; }
 
@@ -38,14 +27,12 @@ namespace Secucard.Connect.Client
         {
         }
 
-        protected abstract ServiceMetaData<T> CreateMetaData();
-
         protected virtual ChannelOptions GetDefaultOptions()
         {
             return ChannelOptions.GetDefault();
         }
 
-        // get, get list -----------------------------------------------------------------------------------------------------
+        #region ### Get, GetList ###
 
         public T Get(string id)
         {
@@ -57,8 +44,8 @@ namespace Secucard.Connect.Client
             return Request<T>(new ChannelRequest
             {
                 Method = ChannelMethod.GET,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 ObjectId = id,
                 ChannelOptions = options
             }, options);
@@ -74,151 +61,77 @@ namespace Secucard.Connect.Client
             return RequestList<T>(new ChannelRequest
             {
                 Method = ChannelMethod.GET,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 QueryParams = queryParams,
                 ChannelOptions = options
             }, options);
         }
 
-        //     /**
-        //* Like {@link #getSimpleList(com.secucard.connect.product.common.model.QueryParams, com.secucard.connect.client.Callback)}
-        //* but without callback.
-        //*/
-        //     public List<T> getSimpleList(QueryParams queryParams) {
-        //         return getSimpleList(queryParams, null);
-        //     }
+        #endregion
 
-        /**
-   * Get simple list of product resources.
-   *
-   * @param queryParams Contains the query params to apply.
-   * @param callback    Callback for getting the results asynchronous.
-   * @return The resource objects. Null if nothing found.
-   */
-        //public List<T> getSimpleList(QueryParams queryParams) {
-        //    return getSimpleList(queryParams, null, callback);
-        //}
-
-        //protected List<T> getSimpleList(QueryParams queryParams, ApiOptions options) {
-        //    Converter.ToListConverter<T> converter = new Converter.ToListConverter<>();
-        //    CallbackAdapter<ObjectList<T>, List<T>> cb = callback == null ? null : new CallbackAdapter<>(callback, converter);
-        //    ObjectList<T> list = requestList(Channel.Method.GET,
-        //        new Channel.Params(getObject(), queryParams, getResourceType(), options), options, cb);
-        //    return converter.convert(list);
-        //}
-
-
-        // create ------------------------------------------------------------------------------------------------------------
-
-        /**
-   * Like {@link #create(com.secucard.connect.product.common.model.SecuObject, com.secucard.connect.client.Callback)}
-   * but without callback.
-   */
-
-        /**
-   * Creates a new product resource and returns the result. The server may add additional default data to it
-   * so additional field may be filled in the result, like id. Use this result for further processing instead of the
-   * provided.
-   * <p/>
-   * If the resource can't be created or another error happens ClientError will be thrown.
-   * Inspect the code and userMessage field to get info about the error cause.
-   *
-   * @param object   The resource to create.
-   * @param callback Callback receiving the result asynchronous.
-   */
+        #region ### Create ###
 
         public T Create(T obj)
         {
             return Create(obj, null);
         }
 
-        protected T Create(T obj, ChannelOptions options)
+        private T Create(T obj, ChannelOptions options)
         {
             return Request<T>(new ChannelRequest
             {
                 Method = ChannelMethod.CREATE,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 Object = obj
             }, options);
         }
 
-        // update ------------------------------------------------------------------------------------------------------------
+        #endregion
 
-        /**
-   * Like {@link #update(com.secucard.connect.product.common.model.SecuObject, com.secucard.connect.client.Callback)}
-   * but without callback.
-   */
+        #region ### Update ###
 
-        /**
-   * Updates a product resource and returns the result. The server may add additional default data to it
-   * so additional field may be filled in the result. Use this result for further processing instead of the
-   * provided.
-   * <p/>
-   * If the resource can't be updated or another error happens ClientError will be thrown.
-   * Inspect the code and userMessage field to get info about the error cause.
-   *
-   * @param object   The resource to update.
-   * @param callback Callback receiving the result asynchronous.
-   */
-
-        public T Update(T obj)
+        public R Update<R>(R obj) where R : SecuObject
         {
             return Update(obj, null);
         }
 
-        protected T Update<T>(T obj, ChannelOptions options) where T : SecuObject
+        private R Update<R>(R obj, ChannelOptions options) where R : SecuObject
         {
-            return Request<T>(new ChannelRequest
+            return Request<R>(new ChannelRequest
             {
                 Method = ChannelMethod.UPDATE,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 ObjectId = obj.Id,
                 Object = obj
             }, options);
         }
 
-        //protected <R> R Update(string id, string action, string actionArg, object object, Class<R> returnType,
-        //    ChannelOptions options) {
-        //        return request(Connect.Channel.Method.UPDATE,
-        //            new Connect.Channel.Params(getObject(), id, action, actionArg, object, returnType, options), options);
-        //    }
+        #endregion
 
-        //protected bool updateToBool(string id, string action, string actionArg, object object, Options options,
-        //    Callback<bool> callback) {
-        //        Converter<Result, bool> converter = Converter.RESULT2BOOL;
-        //        CallbackAdapter<Result, bool> cb = callback == null ? null : new CallbackAdapter<>(callback, converter);
-        //        Result result = request(Channel.Method.UPDATE,
-        //            new Channel.Params(getObject(), id, action, actionArg, object, Result.class, options), options, cb);
-        //        return converter.convert(result);
-        //    }
+        #region ### Delete ###
 
-        // delete ------------------------------------------------------------------------------------------------------------
-
-        // TODO: Remove Type from Signatur
-        public void Delete<T>(string id) where T : SecuObject
+        public void Delete<R>(string id) where R : SecuObject
         {
-            Delete<T>(id, null);
+            Delete<R>(id, null);
         }
 
-        protected void Delete<T>(string id, ChannelOptions options) where T : SecuObject
+        private void Delete<R>(string id, ChannelOptions options) where R : SecuObject
         {
-            Request<T>(new ChannelRequest
+            Request<R>(new ChannelRequest
             {
                 Method = ChannelMethod.DELETE,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 ObjectId = id
             }, options);
         }
 
-        //protected void delete(string id, string action, string actionArg, Options options, Callback<void> callback) {
-        //    request(Connect.Channel.Method.DELETE, new Connect.Channel.Params(getObject(), id, action, actionArg, options), options, callback);
-        //}
+        #endregion
 
-        // execute -----------------------------------------------------------------------------------------------------------
+        #region ### Exectute ###
 
         protected R Execute<R>(string id, string action, string actionArg, object obj, ChannelOptions options)
             where R : SecuObject
@@ -228,24 +141,14 @@ namespace Secucard.Connect.Client
             return Request<R>(new ChannelRequest
             {
                 Method = ChannelMethod.EXECUTE,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 Action = action,
                 ActionArgs = actionArgs,
                 ObjectId = id,
                 Object = obj
             }, options);
         }
-
-        //protected <R> R execute(string action, object object, Class<R> returnType, Options options, Callback<R> callback) {
-        //    return execute(getAppId(), action, object, returnType, options, callback);
-        //}
-
-        //protected <R> R execute(string appId, string action, object object, Class<R> returnType, Options options,
-        //Callback<R> callback) {
-        //    return request(Connect.Channel.Method.EXECUTE, Connect.Channel.Params.forApp(appId, action, object, returnType, options), options,
-        //        callback);
-        //}
 
         protected bool ExecuteToBool(string id, string action, string actionArg, object obj, ChannelOptions options)
         {
@@ -255,8 +158,8 @@ namespace Secucard.Connect.Client
             var result = Request<ExecuteResult>(new ChannelRequest
             {
                 Method = ChannelMethod.EXECUTE,
-                Product = MetaData.Product,
-                Resource = MetaData.Resource,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
                 Action = action,
                 ActionArgs = actionArgs,
                 ObjectId = id,
@@ -266,19 +169,9 @@ namespace Secucard.Connect.Client
             return Convert.ToBoolean(result.Result);
         }
 
-        //protected bool executeToBool(string action, object object, Options options, Callback<bool> callback) {
-        //    return executeToBool(getAppId(), action, object, options, callback);
-        //}
+        #endregion
 
-        //protected bool executeToBool(string appId, string action, object object, Options options, Callback<bool> callback) {
-        //    Converter<Result, bool> converter = Converter.RESULT2BOOL;
-        //    CallbackAdapter<Result, bool> cb = callback == null ? null : new CallbackAdapter<>(callback, converter);
-        //    Result result = request(Connect.Channel.Method.EXECUTE, Connect.Channel.Params.forApp(appId, action, object, Result.class, options),
-        //    options, cb);
-        //    return converter.convert(result);
-        //}
-
-        // ---------------------------------------------------------------------------------------------------
+        #region ### Run Request ###
 
         private R Request<R>(ChannelRequest channelRequest, ChannelOptions options)
         {
@@ -314,21 +207,11 @@ namespace Secucard.Connect.Client
             return result;
         }
 
-        /**
-   * Translate and pass given throwable to the exception handler if any, else just throw.
-   */
-        //private void handleException(Throwable throwable) {
-        //    RuntimeException ex = ExceptionMapper.map(throwable, null);
-        //    if (context.exceptionHandler == null) {
-        //        throw ex;
-        //    }
-        //    context.exceptionHandler.handle(ex);
-        //}
+        #endregion
 
-        /**
-   * Select and return an API communication channel according to the provided options.
-   */
-
+        /// <summary>
+        /// Select and return an API communication channel according to the provided options.
+        /// </summary>
         private Channel GetChannelByOptions(ChannelOptions options)
         {
             // select channel according to special product preferences or fall back to default
@@ -340,7 +223,7 @@ namespace Secucard.Connect.Client
 
             if (channel == null)
             {
-                throw new Exception("Can't use " + MetaData.Product + " with " + options.Channel);
+                throw new Exception("Can't use " + GetMetaData().Product + " with " + options.Channel);
             }
             return channel;
         }

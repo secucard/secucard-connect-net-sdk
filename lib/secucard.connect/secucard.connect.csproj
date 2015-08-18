@@ -54,6 +54,7 @@
     <Compile Include="Auth\RestAuth.cs" />
     <Compile Include="Auth\TokenManagerStatusUpdateEvent.cs" />
     <Compile Include="Client\ConnectionStateChangedEvent.cs" />
+    <Compile Include="Client\IService.cs" />
     <Compile Include="Client\ServiceFactory.cs" />
     <Compile Include="Client\Config\Property.cs" />
     <Compile Include="Client\Config\Properties.cs" />

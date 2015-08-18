@@ -17,9 +17,11 @@ namespace Secucard.Connect.Product.Payment
 
     public class ContainersService : ProductService<Container>
     {
-        protected override ServiceMetaData<Container> CreateMetaData()
+        public static readonly ServiceMetaData<Container> META_DATA = new ServiceMetaData<Container>("payment", "containers");
+
+        protected override ServiceMetaData<Container> GetMetaData()
         {
-            return new ServiceMetaData<Container>("payment", "containers");
+            return META_DATA;
         }
     }
 }

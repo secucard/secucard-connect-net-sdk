@@ -27,9 +27,12 @@ namespace Secucard.Connect.Product.Smart
             Context.EventDispatcher.RegisterForEvent(GetType().Name, "general.notifications", "display", OnNewEvent);
         }
 
-        protected override ServiceMetaData<Transaction> CreateMetaData()
+        public static readonly ServiceMetaData<Transaction> META_DATA = new ServiceMetaData<Transaction>("smart",
+            "transactions");
+
+        protected override ServiceMetaData<Transaction> GetMetaData()
         {
-            return new ServiceMetaData<Transaction>("smart", "transactions");
+             return META_DATA; 
         }
 
         private void OnNewEvent(object obj)

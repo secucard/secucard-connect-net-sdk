@@ -20,9 +20,12 @@ namespace Secucard.Connect.Product.Loyalty
 
     public class CustomersService : ProductService<Customer>
     {
-        protected override ServiceMetaData<Customer> CreateMetaData()
+        public static readonly ServiceMetaData<Customer> META_DATA = new ServiceMetaData<Customer>("loyalty",
+            "customers");
+
+        protected override ServiceMetaData<Customer> GetMetaData()
         {
-            return new ServiceMetaData<Customer>("loyalty", "customers");
+            return META_DATA;
         }
 
         public new ObjectList<Customer> GetList(QueryParams queryParams)

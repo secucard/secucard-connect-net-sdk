@@ -13,6 +13,7 @@
 namespace Secucard.Connect.Net.Util
 {
     using System;
+    using System.CodeDom;
     using System.Globalization;
     using System.Linq;
 
@@ -38,6 +39,11 @@ namespace Secucard.Connect.Net.Util
         public static string FirstCharToUpper(this string input)
         {
             return input.First().ToString().ToUpper() + string.Join("", input.Skip(1));
+        }
+
+        public static string EscapeCurlyBracets(this string s)
+        {
+            return s.Replace("{", "{{").Replace("}", "}}");
         }
     }
 }

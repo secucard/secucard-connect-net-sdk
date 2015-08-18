@@ -32,10 +32,14 @@ namespace Secucard.Connect.Product.Service
    */
         private bool cacheAttachmentsEnabled = true;
 
-        protected override ServiceMetaData<IdentResult> CreateMetaData()
+
+        public static readonly ServiceMetaData<IdentResult> META_DATA = new ServiceMetaData<IdentResult>("payment", "identresults");
+
+        protected override ServiceMetaData<IdentResult> GetMetaData()
         {
-            return new ServiceMetaData<IdentResult>("services", "identresults");
+             return META_DATA; 
         }
+     
 
         /**
    * Returns a ident result for a given  ident request ids.

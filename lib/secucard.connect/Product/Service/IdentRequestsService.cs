@@ -20,9 +20,12 @@ namespace Secucard.Connect.Product.Service
     /// </summary>
     public class IdentRequestsService : ProductService<IdentRequest>
     {
-        protected override ServiceMetaData<IdentRequest> CreateMetaData()
+        public static readonly ServiceMetaData<IdentRequest> META_DATA = new ServiceMetaData<IdentRequest>("payment",
+            "identrequests");
+
+        protected override ServiceMetaData<IdentRequest> GetMetaData()
         {
-            return new ServiceMetaData<IdentRequest>("services", "identrequests");
+            return META_DATA;
         }
     }
 }

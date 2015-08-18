@@ -17,9 +17,12 @@ namespace Secucard.Connect.Product.Payment
 
     public class ContractService : ProductService<Contract>
     {
-        protected override ServiceMetaData<Contract> CreateMetaData()
+        public static readonly ServiceMetaData<Contract> META_DATA = new ServiceMetaData<Contract>("loyalty",
+            "contracts");
+
+        protected override ServiceMetaData<Contract> GetMetaData()
         {
-            return new ServiceMetaData<Contract>("payment", "contracts");
+             return META_DATA; 
         }
 
         public Contract CloneMyContract(CloneParams cloneParams)
