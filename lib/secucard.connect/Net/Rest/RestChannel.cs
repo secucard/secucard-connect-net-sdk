@@ -9,13 +9,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Rest
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using Secucard.Connect.Client;
+    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
 
     public class RestChannel : Channel
@@ -32,7 +33,6 @@ namespace Secucard.Connect.Net.Rest
             RestService = new RestService(RestConfig.BaseUrl);
         }
 
-
         #region ## Channel ###
 
         public override T Request<T>(ChannelRequest channelRequest)
@@ -44,11 +44,12 @@ namespace Secucard.Connect.Net.Rest
                 case ChannelMethod.GET:
                     return GetObject<T>(request, channelRequest.ObjectId);
                 case ChannelMethod.CREATE:
-                    return CreateObject<T>(request, (T)channelRequest.Object);
+                    return CreateObject<T>(request, (T) channelRequest.Object);
                 case ChannelMethod.UPDATE:
-                    return UpdateObject(request, channelRequest.ObjectId, (T)channelRequest.Object);
+                    return UpdateObject(request, channelRequest.ObjectId, (T) channelRequest.Object);
                 case ChannelMethod.EXECUTE:
-                    return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs, channelRequest.Object);
+                    return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
+                        channelRequest.Object);
                 case ChannelMethod.DELETE:
                     DeleteObject<T>(request, channelRequest.ObjectId);
                     break;
@@ -76,17 +77,16 @@ namespace Secucard.Connect.Net.Rest
         public override void Close()
         {
             // No socket or http connection to close in .NET
-
         }
 
-        private T GetObject<T>(RestRequest request, string id) 
+        private T GetObject<T>(RestRequest request, string id)
         {
             request.Id = id;
             var obj = RestService.GetObject<T>(request);
             return obj;
         }
 
-        private ObjectList<T> FindObjects<T>(RestRequest request, QueryParams query) 
+        private ObjectList<T> FindObjects<T>(RestRequest request, QueryParams query)
         {
             request.QueryParams = query;
             var list = RestService.GetList<T>(request);
@@ -108,13 +108,13 @@ namespace Secucard.Connect.Net.Rest
             return newObj;
         }
 
-        private void DeleteObject<T>(RestRequest request, string objectId) 
+        private void DeleteObject<T>(RestRequest request, string objectId)
         {
             request.Id = objectId;
             RestService.DeleteObject<T>(request);
         }
 
-        private T Execute<T>(RestRequest request, string id, string action, List<string> actionParameter, object arg) 
+        private T Execute<T>(RestRequest request, string id, string action, List<string> actionParameter, object arg)
         {
             request.Id = id;
             request.Action = action;
@@ -131,7 +131,7 @@ namespace Secucard.Connect.Net.Rest
             {
                 Token = token,
                 PageUrl = channelRequest.Product.FirstCharToUpper() + "/" + channelRequest.Resource.FirstCharToUpper(),
-                Host = new Uri(RestConfig.BaseUrl).Host 
+                Host = new Uri(RestConfig.BaseUrl).Host
             };
             return request;
         }

@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net
 {
     /// <summary>
@@ -20,20 +21,15 @@ namespace Secucard.Connect.Net
         public const string CHANNEL_STOMP = "stomp";
         public bool Anonymous = false;
         public bool Expand = false;
-        public bool EventListening = false;
         public string Channel;
         public string ClientId = null;
         public int? TimeOutSec = null;
 
-        /**
-     * Set an callback to be executed after a resource was successfully retrieved.
-     */
-        // public Callback.Notify<?> resultProcessing;
 
         public static ChannelOptions GetDefault()
         {
             // TODO: Default Channel aus config
-            return new ChannelOptions { Channel = CHANNEL_REST, TimeOutSec =100 }; 
+            return new ChannelOptions {Channel = CHANNEL_REST, TimeOutSec = 100};
         }
 
         public ChannelOptions()

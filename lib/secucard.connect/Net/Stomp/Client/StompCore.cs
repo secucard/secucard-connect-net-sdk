@@ -94,7 +94,7 @@ namespace Secucard.Connect.Net.Stomp.Client
             try
             {
                 var state = new StreamStateObject {Stream = stream};
-                stream.BeginRead(state.buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
+                stream.BeginRead(state.Buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
             }
             catch (Exception e)
             {
@@ -119,17 +119,17 @@ namespace Secucard.Connect.Net.Stomp.Client
                     StompTrace.Info("Bytes read {0}", bytesRead);
 
                     // Add Bytes to internal list
-                    state.bytes.AddRange(state.buffer.Take(bytesRead));
+                    state.Bytes.AddRange(state.Buffer.Take(bytesRead));
 
                     // Test if NULL exists in data received so far
-                    var i = state.bytes.IndexOf(0);
+                    var i = state.Bytes.IndexOf(0);
                     if (i > 0)
                     {
                         // Create Frame from Bytes
-                        var frame = StompFrame.CreateFrame(state.bytes.Take(i).ToArray());
+                        var frame = StompFrame.CreateFrame(state.Bytes.Take(i).ToArray());
                         OnFrameArrived(frame);
                         // remove used up bytes from list
-                        state.bytes.RemoveRange(0, i + 1);
+                        state.Bytes.RemoveRange(0, i + 1);
                     }
                 }
                 // Start waiting for more data
@@ -137,7 +137,7 @@ namespace Secucard.Connect.Net.Stomp.Client
                 try
                 {
                     if (!Stop)
-                        stream.BeginRead(state.buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
+                        stream.BeginRead(state.Buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
                 }
                 catch (IOException ex)
                 {

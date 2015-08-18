@@ -1,24 +1,35 @@
-﻿namespace Secucard.Connect.Product.Payment
+﻿/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Secucard.Connect.Product.Payment
 {
-    using System.Diagnostics;
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Payment.Model;
 
     public class ContractService : ProductService<Contract>
     {
-        //public Contract CloneMyContract(CloneParams cloneParams)
-        //{
-        //    return GetChannel().Execute<Contract, CloneParams>("me", "clone", null, cloneParams);
-        //}
-
-        //public Contract CloneContract(string contractId, CloneParams cloneParams)
-        //{
-        //    return GetChannel().Execute<Contract, CloneParams>(contractId, "clone", null, cloneParams);
-        //}
-
         protected override ServiceMetaData<Contract> CreateMetaData()
         {
             return new ServiceMetaData<Contract>("payment", "contracts");
+        }
+
+        public Contract CloneMyContract(CloneParams cloneParams)
+        {
+            return Execute<Contract>("me", "clone", null, cloneParams, null);
+        }
+
+        public Contract Clone(string contractId, CloneParams cloneParams)
+        {
+            return Execute<Contract>(contractId, "clone", null, cloneParams, null);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Secucard.Connect.Product.General
         public new News Get(string storeId)
         {
             var news = base.Get(storeId);
-            PostProcess(new List<News> { news });
+            PostProcess(new List<News> {news});
             return news;
         }
 

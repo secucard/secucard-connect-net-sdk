@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Stomp.Client
 {
     using System;
@@ -17,7 +18,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     public class StompCoreExceptionEventArgs : EventArgs
     {
-        public Exception  Exception{ get; set; }
+        public Exception Exception { get; set; }
         public DateTime Time { get; set; }
     }
 }

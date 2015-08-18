@@ -11,6 +11,7 @@
  */
 
 //@JsonInclude(JsonInclude.Include.NON_EMPTY)
+
 namespace Secucard.Connect.Product.Common.Model
 {
     using System.Runtime.Serialization;

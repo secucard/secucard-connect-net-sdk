@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Rest
 {
     using System;
@@ -51,7 +52,9 @@ namespace Secucard.Connect.Net.Rest
 
         public void PrepareBody()
         {
-            BodyBytes = !string.IsNullOrWhiteSpace(BodyJsonString) ? BodyJsonString.ToUTF8Bytes() : BuildPostData(BodyParameter).ToUTF8Bytes();
+            BodyBytes = !string.IsNullOrWhiteSpace(BodyJsonString)
+                ? BodyJsonString.ToUTF8Bytes()
+                : BuildPostData(BodyParameter).ToUTF8Bytes();
         }
 
         private static string BuildPostData(Dictionary<string, string> parameter)
@@ -76,7 +79,7 @@ namespace Secucard.Connect.Net.Rest
             // Include action in path
             if (!string.IsNullOrWhiteSpace(Action)) s += "/" + Action;
             // Include actionParmater in path
-            if (ActionParameter!=null && ActionParameter.Any()) s += "/" +  string.Join("/", ActionParameter);
+            if (ActionParameter != null && ActionParameter.Any()) s += "/" + string.Join("/", ActionParameter);
             // add query parameters at end
             return string.Format("{0}{1}", s, EncodeQueryParams(QueryParamsToMap(QueryParams)));
         }
@@ -186,10 +189,8 @@ namespace Secucard.Connect.Net.Rest
                 select string.Format("{0}={1}", key, value)).ToArray();
 
             return "?" + string.Join("&", array);
-
         }
 
         #endregion
-
     }
 }

@@ -23,12 +23,11 @@ namespace Secucard.Connect.Client
         void RegisterEvents();
     }
 
-    public abstract class ProductService<T> : IService where T: SecuObject
+    public abstract class ProductService<T> : IService where T : SecuObject
     {
         protected readonly ServiceMetaData<T> MetaData;
-        private T ProductType;
 
-        public ProductService()
+        protected ProductService()
         {
             MetaData = CreateMetaData();
         }
@@ -308,18 +307,11 @@ namespace Secucard.Connect.Client
             //}
             //final Callback.Notify processor = options.resultProcessing;
             var channel = GetChannelByOptions(options);
-            try
-            {
-                var result = channel.RequestList<R>(channelRequest);
-                //if (processor != null) {
-                //    processor.notify(result);
-                //}
-                return result;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            var result = channel.RequestList<R>(channelRequest);
+            //if (processor != null) {
+            //    processor.notify(result);
+            //}
+            return result;
         }
 
         /**

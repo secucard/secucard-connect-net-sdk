@@ -48,7 +48,8 @@ namespace Secucard.Connect.Client
 
         internal static void Exception(Exception ex)
         {
-            Trace.WriteLine(string.Format("{0} : {1} : {2}", "error".PadRight(8), GetSource(), string.Format("{0}\n{1}", ex.Message, ex.StackTrace)));
+            Trace.WriteLine(string.Format("{0} : {1} : {2}", "error".PadRight(8), GetSource(),
+                string.Format("{0}\n{1}", ex.Message, ex.StackTrace)));
         }
 
         private static string GetSource()

@@ -10,15 +10,14 @@
  * limitations under the License.
  */
 
-
-/**
- * Indicates an authentication was aborted due a timeout.
- */
-using Secucard.Connect.Client;
-
 namespace Secucard.Connect.Auth.Exception
 {
-    public class AuthTimeoutException : AuthError {
+    using Secucard.Connect.Client;
 
+    /// <summary>
+    /// Indicates an authentication was aborted due a timeout.
+    /// </summary>
+    public class AuthTimeoutException : AuthError
+    {
     }
 }

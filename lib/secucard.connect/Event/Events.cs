@@ -12,9 +12,11 @@
 
 namespace Secucard.Connect.Event
 {
+    /// <summary>
+    /// common event types
+    /// </summary>
     public static class Events
     {
-        // common event types
         public static string TYPE_CHANGED = "changed";
         public static string TYPE_ADDED = "added";
         public static string TYPE_DISPLAY = "display";

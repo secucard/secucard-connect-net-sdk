@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Test.Client
 {
     using System;
@@ -16,7 +17,6 @@ namespace Secucard.Connect.Test.Client
     using System.Diagnostics;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect.Client;
     using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Product.Smart.Event;
     using Secucard.Connect.Product.Smart.Model;
@@ -33,7 +33,7 @@ namespace Secucard.Connect.Test.Client
             var transactionService = Client.GetService<TransactionsService>();
             var identService = Client.GetService<IdentsService>();
 
-            transactionService.TransactionCashierEvent +=SmartTransactionCashierEvent;
+            transactionService.TransactionCashierEvent += SmartTransactionCashierEvent;
 
             // select an ident
             var availableIdents = identService.GetList(null);

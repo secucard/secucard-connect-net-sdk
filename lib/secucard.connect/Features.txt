@@ -2,9 +2,6 @@
 
 Missing
 - Async Method calls on services. Planed as IAyncResult Pattern
-- Processing of media resources 
-- several special methods in services
-- copyright in all files.
 - Tests on smart.checkins
 - Exception Handling
 - Service Methods missing

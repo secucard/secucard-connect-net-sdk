@@ -7,7 +7,7 @@
     {
         protected override ServiceMetaData<SecupayDebit> CreateMetaData()
         {
-            return new ServiceMetaData<SecupayDebit>("payment", "prepays");
+            return new ServiceMetaData<SecupayDebit>("payment", "secupayprepays");
         }
     }
 }

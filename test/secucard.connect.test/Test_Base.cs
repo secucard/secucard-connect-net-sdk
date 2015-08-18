@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Test
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,24 +18,16 @@ namespace Secucard.Connect.Test
     using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
-    using Secucard.Connect.Storage;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
     public class Test_Base
     {
-        protected const string logPath = "data\\secucard.cliend.log";
-        protected const string storagePath = "data\\secucard.sec";
-        protected const string fullTracePath = @"d:\trace\secucard\secucard.log";
-        protected const string fullStoragePath = @"d:\trace\secucard\storage.sec";
-        protected const string host = "core-dev10.secupay-ag.de";
-
         protected readonly ClientConfiguration Config;
         protected readonly StompConfig StompConfig;
         protected readonly RestConfig RestConfig;
         protected AuthConfig AuthConfig;
 
-        protected MemoryDataStorage Storage;
         protected const string configPath = "data\\Config\\SecucardConnect.config";
         protected readonly Properties properties;
 

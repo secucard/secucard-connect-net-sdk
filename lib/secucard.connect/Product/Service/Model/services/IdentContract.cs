@@ -14,6 +14,7 @@ namespace Secucard.Connect.Product.Service.Model.services
 {
     using System;
     using System.Runtime.Serialization;
+    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
 

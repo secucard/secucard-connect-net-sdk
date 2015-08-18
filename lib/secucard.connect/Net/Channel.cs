@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 namespace Secucard.Connect.Net
 {
     using Secucard.Connect.Client;
@@ -5,10 +17,7 @@ namespace Secucard.Connect.Net
 
     public abstract class Channel
     {
-        // TODO: Events from Channel
-
-
-        protected ClientContext Context;
+        protected readonly ClientContext Context;
 
         protected Channel(ClientContext context)
         {
@@ -17,37 +26,19 @@ namespace Secucard.Connect.Net
 
         public abstract T Request<T>(ChannelRequest channelRequest);
 
-
-        /**
-         * Retrieving a list of objects of any type.
-         *
-         * @param method   The method to use.
-         * @param params   The call parameters.
-         * @param callback Callback for async processing.
-         * @param <T>      The actual object type.
-         * @return The object list, null if a callback was used.
-         */
+        /// <summary>
+        /// Retrieving a list of objects of any type.
+        /// </summary>
         public abstract ObjectList<T> RequestList<T>(ChannelRequest channelRequest) where T : SecuObject;
 
-
-        /**
-         * Registers a listener which gets called when a server side or other event happens.
-         * Server side events may not be supported by some channels, e.g. REST based channels!
-         * Note that exceptions thrown by listeners methods may be swallowed by the calling thread code silently to prevent
-         * breaking the event receiving process.
-         *
-         * @param listener The listener to notify.
-         */
-        // TODO
-
-        /**
-         * Open the channel and its resources.
-         */
+        /// <summary>
+        /// Open the channel and its resources.
+        /// </summary>
         public abstract void Open();
 
-        /**
-         * Close channel and release resources.
-         */
+        /// <summary>
+        /// Close channel and release resources.
+        /// </summary>
         public abstract void Close();
     }
 }

@@ -59,12 +59,12 @@ namespace Secucard.Connect.Net.Stomp
         public override string ToString()
         {
             return "StompConfig [" +
-                               "Host = " + Host + "," +
-                               "Port = " + Port + "," +
-                               "ReplyTo = " + ReplyTo + "," +
-                               "Destination = " + Destination + "," +
-                               "MaxMessageAgeSec = " + MaxMessageAgeSec + "," +
-                               "MessageTimeoutSec = " + MessageTimeoutSec + "]";
+                   "Host = " + Host + "," +
+                   "Port = " + Port + "," +
+                   "ReplyTo = " + ReplyTo + "," +
+                   "Destination = " + Destination + "," +
+                   "MaxMessageAgeSec = " + MaxMessageAgeSec + "," +
+                   "MessageTimeoutSec = " + MessageTimeoutSec + "]";
         }
     }
 }

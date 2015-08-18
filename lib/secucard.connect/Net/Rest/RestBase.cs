@@ -212,7 +212,7 @@ namespace Secucard.Connect.Net.Rest
         protected Stream RestGetStream(RestRequest request)
         {
             request.Method = WebRequestMethods.Http.Get;
-            var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
+            var webRequest = (HttpWebRequest) WebRequest.Create(request.Url);
             webRequest.UserAgent = request.UserAgent;
 
             // Set authorization
@@ -234,14 +234,11 @@ namespace Secucard.Connect.Net.Rest
                 var restException = HandelWebException(ex);
                 throw restException;
             }
-
-            return null;
         }
 
         #endregion
 
         #region ### Private Methods ###
-
 
         private static RestException HandelWebException(WebException ex)
         {
@@ -253,7 +250,7 @@ namespace Secucard.Connect.Net.Rest
             {
                 BodyText = reader.ReadToEnd(),
                 StatusDescription = wr.StatusDescription,
-                StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?)wr.StatusCode) : null
+                StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
             };
             SecucardTrace.Exception(restException);
             SecucardTrace.Info(restException.StatusDescription);

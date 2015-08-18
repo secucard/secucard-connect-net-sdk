@@ -1,4 +1,16 @@
-﻿namespace Secucard.Connect.Test.Auth
+﻿/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Secucard.Connect.Test.Auth
 {
     using System;
     using System.Diagnostics;
@@ -51,7 +63,7 @@
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
 
             var ret = rest.RestPost(reqDeviceGetToken);
-            var authDeviceGetTokenOut = JsonSerializer.DeserializeJson<DeviceAuthCode>(ret); 
+            var authDeviceGetTokenOut = JsonSerializer.DeserializeJson<DeviceAuthCode>(ret);
 
             Assert.AreEqual(authDeviceGetTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authDeviceGetTokenOut.Interval, 5);
@@ -61,7 +73,8 @@
             // Set pin via SMART REST (only development)
 
             var restSmart =
-                new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
+                new RestService(
+                    "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
 
             var reqSmartPin = new RestRequest
             {
@@ -90,8 +103,8 @@
                 ClientAuthDetails.GetClientCredentials().ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
-             ret = rest.RestPost(reqObtainAccessToken);
-            var authDeviceTokenOut = JsonSerializer.DeserializeJson<Token>(ret); 
+            ret = rest.RestPost(reqObtainAccessToken);
+            var authDeviceTokenOut = JsonSerializer.DeserializeJson<Token>(ret);
 
 
             Assert.AreEqual(authDeviceTokenOut.TokenType, TokenTypeBearer);
@@ -105,7 +118,7 @@
                 Host = AuthConfig.Host
             };
 
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.RREFRESHTOKEN);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.REFRESHTOKEN);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id,
                 ClientAuthDetails.GetClientCredentials().ClientId);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret,
@@ -114,7 +127,7 @@
 
 
             ret = rest.RestPost(reqRefreshExpiredToken);
-            var authRefreshTokenOut = JsonSerializer.DeserializeJson<Token>(ret); 
+            var authRefreshTokenOut = JsonSerializer.DeserializeJson<Token>(ret);
 
             Assert.AreEqual(authRefreshTokenOut.AccessToken.Length, 26);
             Assert.AreEqual(authRefreshTokenOut.ExpiresIn, 1200);
@@ -181,7 +194,8 @@
 
             reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
             var restSmart =
-                new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
+                new RestService(
+                    "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
 
             var response = restSmart.RestPut(reqSmartPin);
             Assert.IsTrue(response.Length > 0);

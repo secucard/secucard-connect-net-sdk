@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Net.Stomp.Client
 {
     using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace Secucard.Connect.Net.Stomp.Client
         // Size of receive buffer.
         public const int BufferSize = 1024;
         // Receive buffer.
-        public byte[] buffer = new byte[BufferSize];
+        public byte[] Buffer = new byte[BufferSize];
         // Received data so far
-        public List<byte> bytes = new List<byte>();
+        public List<byte> Bytes = new List<byte>();
         // Client socket.
         public SslStream Stream = null;
     }

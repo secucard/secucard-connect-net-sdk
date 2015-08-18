@@ -10,29 +10,19 @@
  * limitations under the License.
  */
 
-/**
- * Indicates an authorization attempt failed due missing or invalid authentication data.
- * Typically this kind of error is caused by wrong API usage or alike, something that is wrong implemented.
- * <p/>
- * Inspect {@link #getError()} for the general error "type". <br/>
- * Inspect {@link #getMessage()} for a more detailed description oft the error.
- */
-
-using System;
-using Microsoft.JScript;
-using Secucard.Connect.Client;
-
 namespace Secucard.Connect.Auth.Exception
 {
-    using Exception = System.Exception;
+    using System;
+    using Secucard.Connect.Client;
 
+    /// <summary>
+    /// Indicates an authorization attempt failed due missing or invalid authentication data.
+    ///  Typically this kind of error is caused by wrong API usage or alike, something that is wrong implemented.
+    /// </summary>
     public class AuthFailedException : AuthError
     {
         private string error;
 
-        /**
-   * Returns an error type string.
-   */
         public string getError()
         {
             return error;

@@ -73,7 +73,8 @@ namespace Secucard.Connect.Product.Common.Model
             : this()
         {
             Uri uriResult;
-            var valid = (Uri.TryCreate(url, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttps|| uriResult.Scheme== Uri.UriSchemeHttp));
+            var valid = (Uri.TryCreate(url, UriKind.Absolute, out uriResult) &&
+                         (uriResult.Scheme == Uri.UriSchemeHttps || uriResult.Scheme == Uri.UriSchemeHttp));
             if (!valid) throw new ClientError("invalid url for resource");
             Url = url;
         }

@@ -16,14 +16,13 @@ namespace Secucard.Connect.Net.Stomp.Client
     using System.Collections.Concurrent;
     using System.Threading;
     using System.Threading.Tasks;
-    using Timer = System.Timers.Timer;
+    using Secucard.Connect.Client;
 
     public class StompClient : IDisposable
     {
         private readonly ConcurrentQueue<StompFrame> InQueue;
         private readonly ConcurrentDictionary<string, DateTime> Receipts;
-        private Timer ClientTimerHeartbeat;
-        public StompConfig Config;
+        public readonly StompConfig Config;
         private StompCore Core;
         private StompFrame Error;
         private bool IsConnected;
@@ -41,7 +40,6 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         public void Dispose()
         {
-            if (ClientTimerHeartbeat != null) ClientTimerHeartbeat.Dispose();
             if (Core != null) Core.Dispose();
         }
 
@@ -73,7 +71,6 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (StompClientStatus == EnumStompClientStatus.Connected)
             {
                 IsConnected = true;
-                //CreateClientHeartBeat();
                 return true;
             }
             return false;
@@ -89,7 +86,6 @@ namespace Secucard.Connect.Net.Stomp.Client
         {
             IsConnected = false;
             OnStatusChanged(EnumStompClientStatus.Disconnecting);
-            if (ClientTimerHeartbeat != null) ClientTimerHeartbeat.Dispose();
             var frame = CreateFrameDisconnect();
             SendFrame(frame);
             OnStatusChanged(EnumStompClientStatus.Disconnected);
@@ -147,8 +143,7 @@ namespace Secucard.Connect.Net.Stomp.Client
                     }
                     catch (Exception ex)
                     {
-                        // ignore all
-                        //LOG.error("Error disconnecting due receipt timeout or error.", t);
+                        SecucardTrace.Error("StompClient.AwaitReceipt", ex.Message);
                     }
                 }
                 if (Error != null)
@@ -221,7 +216,7 @@ namespace Secucard.Connect.Net.Stomp.Client
                 StompFrame frame;
                 if (InQueue.Count > 20) InQueue.TryDequeue(out frame);
             }
-               
+
             if (StompClientFrameArrivedEvent != null)
             {
                 StompTrace.Info("Stomp Client Frame arrived: \n{0}", e.Frame.GetFrame());

@@ -9,10 +9,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Auth
 {
     using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Storage;
+
     /// <summary>
     /// Abstract implementation which just delegates the token persistence to a file based cache.
     /// </summary>

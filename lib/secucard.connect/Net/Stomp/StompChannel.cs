@@ -29,7 +29,9 @@ namespace Secucard.Connect.Net.Stomp
         private readonly string ChannelId;
         private readonly StompConfig Configuration;
         private readonly object lockSend = new object();
-        private readonly ConcurrentDictionary<string, StompMessage> Messages = new ConcurrentDictionary<string, StompMessage>();
+
+        private readonly ConcurrentDictionary<string, StompMessage> Messages =
+            new ConcurrentDictionary<string, StompMessage>();
 
         private readonly StompClient Stomp;
         private Timer ClientTimerHeartbeat;
@@ -72,7 +74,8 @@ namespace Secucard.Connect.Net.Stomp
 
         private void OnEventArrived(StompFrame frame)
         {
-            if (StompEventArrivedEvent != null) StompEventArrivedEvent(this, new StompEventArrivedEventArgs { Body = frame.Body, Time = frame.CreatedAt });
+            if (StompEventArrivedEvent != null)
+                StompEventArrivedEvent(this, new StompEventArrivedEventArgs {Body = frame.Body, Time = frame.CreatedAt});
         }
 
         public override T Request<T>(ChannelRequest request)

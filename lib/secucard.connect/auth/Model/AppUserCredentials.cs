@@ -10,22 +10,24 @@
  * limitations under the License.
  */
 
-using System.Collections.Generic;
-
 namespace Secucard.Connect.Auth.Model
 {
+    using System.Collections.Generic;
+
     public class AppUserCredentials : ClientCredentials
     {
-        public AppUserCredentials(string clientId, string clientSecret, string userName, string password, string deviceId) :
-            base(clientId, clientSecret)
+        public AppUserCredentials(string clientId, string clientSecret, string userName, string password,
+            string deviceId) :
+                base(clientId, clientSecret)
         {
             UserName = userName;
             Password = password;
             DeviceId = deviceId;
         }
 
-        public AppUserCredentials(ClientCredentials clientCredentials, string userName, string password, string deviceId) :
-            this(clientCredentials.ClientId, clientCredentials.ClientSecret, userName, password, deviceId)
+        public AppUserCredentials(ClientCredentials clientCredentials, string userName, string password, string deviceId)
+            :
+                this(clientCredentials.ClientId, clientCredentials.ClientSecret, userName, password, deviceId)
         {
         }
 

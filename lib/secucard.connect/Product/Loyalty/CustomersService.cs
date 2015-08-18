@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Product.Loyalty
 {
     using System.Collections.Generic;
@@ -19,7 +20,6 @@ namespace Secucard.Connect.Product.Loyalty
 
     public class CustomersService : ProductService<Customer>
     {
-
         protected override ServiceMetaData<Customer> CreateMetaData()
         {
             return new ServiceMetaData<Customer>("loyalty", "customers");
@@ -35,7 +35,7 @@ namespace Secucard.Connect.Product.Loyalty
         public new Customer Get(string customerId)
         {
             var store = base.Get(customerId);
-            PostProcess(new List<Customer> { store });
+            PostProcess(new List<Customer> {store});
             return store;
         }
 
@@ -56,6 +56,5 @@ namespace Secucard.Connect.Product.Loyalty
                 }
             });
         }
-
     }
 }

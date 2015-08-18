@@ -1,4 +1,16 @@
-﻿namespace Secucard.Connect.Test.Client
+﻿/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Secucard.Connect.Test.Client
 {
     using System.Diagnostics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,12 +28,11 @@
         protected readonly ClientConfiguration ClientConfigurationDevice;
         protected readonly ClientConfiguration ClientConfigurationUser;
         private readonly MemoryDataStorage Storage;
-        protected readonly ISecucardTrace Tracer;
+//        protected readonly ISecucardTrace Tracer;
         protected SecucardConnect Client;
 
         protected Test_Client_Base()
         {
-            Tracer = new SecucardTraceMemory();
             Storage = new MemoryDataStorage();
 
             ClientConfigurationDevice = ClientConfiguration.Get(); // Load Defaults
@@ -54,7 +65,7 @@
         /// </summary>
         private void ClientOnAuthEvent(object sender, AuthEventArgs args)
         {
-            Tracer.Info("ClientOnSecucardConnectEvent Status={0}", args.Status);
+            Trace.TraceInformation("ClientOnSecucardConnectEvent Status={0}", args.Status);
 
             if (args.Status == AuthStatusEnum.Pending)
             {
@@ -81,14 +92,13 @@
         /// </summary>
         private void ClientOnConnectionStateChangedEvent(object sender, ConnectionStateChangedEventArgs args)
         {
-            Tracer.Info("Client Connected={0}", args.Connected);
+            Trace.TraceInformation("Client Connected={0}", args.Connected);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             if (Client != null) Client.Close();
-            //Debug.WriteLine((Tracer as SecucardTraceMemory).GetAllTrace());
         }
     }
 }

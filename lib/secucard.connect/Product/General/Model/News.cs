@@ -15,6 +15,7 @@ namespace Secucard.Connect.Product.General.Model
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
 
     [DataContract]

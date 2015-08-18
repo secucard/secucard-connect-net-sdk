@@ -14,7 +14,6 @@ namespace Secucard.Connect.Event
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Secucard.Connect.Client;
     using Secucard.Connect.Net.Stomp;
     using Secucard.Connect.Net.Util;
@@ -62,7 +61,6 @@ namespace Secucard.Connect.Event
             // call registered delegates of services.
             foreach (var ele in subscribers)
             {
-
                 try
                 {
                     if (ele.Value != null) ele.Value(serverEvent);
@@ -73,7 +71,6 @@ namespace Secucard.Connect.Event
                     SecucardTrace.Exception(ex);
                 }
             }
-
         }
 
         internal void StompMessageArrivedEvent(object sender, StompEventArrivedEventArgs args)

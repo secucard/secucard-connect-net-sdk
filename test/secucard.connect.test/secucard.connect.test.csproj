@@ -93,7 +93,6 @@
     <Compile Include="Storage\Test_Storage.cs" />
     <Compile Include="Auth\Test_RestAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trace\Test_FileTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\secucard.connect\Secucard.Connect.csproj">
@@ -191,9 +190,6 @@
     <Content Include="Data\Model\Smart.Routings.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\secucard.client.sec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Data\Model\Loyalty.Cardgroups.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -210,12 +206,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Model\Stomp.Response.2.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="Data\secucard.payment.sec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Content Include="Data\secucard.sec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="secucard.connect.test.runsettings" />

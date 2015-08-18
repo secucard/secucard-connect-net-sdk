@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 namespace Secucard.Connect.Storage
 {
     using System;
@@ -5,20 +17,11 @@ namespace Secucard.Connect.Storage
 
     /// <summary>
     ///     Gives basic access to the data store implementation.
-    ///     Used to persist any data, like acess tokens or downloaded media.
+    ///     Used to persist any data, like access tokens or downloaded media.
     /// </summary>
     [Serializable]
     public abstract class DataStorage
     {
-        /**
-   * Save a object for an id.
-   * Must handle also InputStream instances provided as input.
-   *
-   * @param id      An unique id of the object.
-   * @param object  The object to save.
-   * @param replace True if a existing object of same id should be overwritten, false else.
-   * @throws DataStorageException if a error ocurrs.
-   */
         public abstract void Save(string id, object obj, bool replace);
         public abstract void Save(string id, Stream inStream, bool replace);
 
@@ -32,13 +35,6 @@ namespace Secucard.Connect.Storage
             Save(id, inStream, true);
         }
 
-        /**
-         * Returns the stored object for the provided id.
-         * May return InputStream instances, in this case the caller is responsible for closing
-         *
-         * @param id Id of the object to get.
-         * @return The stored content or null if nothing available.
-         */
         public abstract object Get(string id);
 
         public T Get<T>(string id) where T : class
@@ -48,19 +44,7 @@ namespace Secucard.Connect.Storage
         }
 
         public abstract Stream GetStream(string id);
-        /**
-         */
-        /**
-         * Remove all data for a given id which are older as a given timestamp.
-         * The id may contain a wildcard sign "*" - in this case all matching entries are removed.
-         *
-         * @param id        The id.
-         * @param timestampMs A Unix timestamp in ms, null to omit.
-         */
         public abstract void Clear(string id, long? ticks);
-        /**
-         * Removing all data.
-         */
 
         public void Clear()
         {
@@ -70,7 +54,6 @@ namespace Secucard.Connect.Storage
         /// <summary>
         ///     Removing all data older as the given ticks.
         /// </summary>
-        /// <param name="ticks"></param>
         public void Clear(long ticks)
         {
             Clear("*", ticks);

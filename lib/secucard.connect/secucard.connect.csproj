@@ -89,7 +89,6 @@
     <Compile Include="Net\Util\Linq.cs" />
     <Compile Include="Product\Common\Model\ObjectList.cs" />
     <Compile Include="Product\Common\Model\QueryParams.cs" />
-    <Compile Include="Product\Common\Model\GenericResult.cs" />
     <Compile Include="Product\Common\Model\Response.cs" />
     <Compile Include="Product\Common\Model\StompResult.cs" />
     <Compile Include="Product\Common\Model\SecuObject.cs" />
@@ -197,9 +196,6 @@
     <Compile Include="Client\SecucardConnectException.cs" />
     <Compile Include="Client\SecucardTrace.cs" />
     <Compile Include="Storage\StorageItem.cs" />
-    <Compile Include="Trace\ISecucardTrace.cs" />
-    <Compile Include="Trace\SecucardTraceMemory.cs" />
-    <Compile Include="Trace\SecucardTraceFile.cs" />
     <Compile Include="Trace\SecucardTraceListener.cs" />
   </ItemGroup>
   <ItemGroup>

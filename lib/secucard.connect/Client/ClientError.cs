@@ -23,10 +23,9 @@ namespace Secucard.Connect.Client
             : base(message)
         {
         }
+
         public ClientError(string message, Exception ex) : base(message, ex)
         {
         }
-
-    
     }
 }

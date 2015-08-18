@@ -9,6 +9,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Product.General
 {
     using Secucard.Connect.Client;
@@ -31,7 +32,7 @@ namespace Secucard.Connect.Product.General
                     Target = "general.skeletons",
                     Type = "DemoEvent",
                     Data = "{ whatever: \"whole object gets send as payload for event\"}"
-                }, new ChannelOptions { Channel = ChannelOptions.CHANNEL_STOMP, TimeOutSec = 100 });
+                }, new ChannelOptions {Channel = ChannelOptions.CHANNEL_STOMP, TimeOutSec = 100});
         }
     }
 }

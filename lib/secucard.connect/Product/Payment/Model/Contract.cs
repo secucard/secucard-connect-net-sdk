@@ -9,10 +9,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Secucard.Connect.Product.Payment.Model
 {
     using System;
     using System.Runtime.Serialization;
+    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
 
