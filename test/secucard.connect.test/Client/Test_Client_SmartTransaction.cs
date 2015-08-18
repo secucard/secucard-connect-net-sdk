@@ -17,16 +17,18 @@ namespace Secucard.Connect.Test.Client
     using System.Diagnostics;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Auth;
+    using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Product.Smart.Event;
     using Secucard.Connect.Product.Smart.Model;
 
     [TestClass]
     [DeploymentItem("Data", "Data")]
-    public class Test_Client_SmartTransaction : Test_Client_Base
+    public class Test_Client_Smart : Test_Client_Base
     {
         [TestMethod, TestCategory("Client")]
-        public void Test_Client_SmartTransaction_1()
+        public void Test_Client_SmartTransaction()
         {
             StartupClientDevice();
 
@@ -122,5 +124,11 @@ namespace Secucard.Connect.Test.Client
         {
             Debug.WriteLine(args.SecucardEvent.Data.Text);
         }
+
+
+
     }
+
+
+
 }

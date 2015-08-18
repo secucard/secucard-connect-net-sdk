@@ -20,15 +20,12 @@ namespace Secucard.Connect.Test.Client
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
     using Secucard.Connect.Storage;
-    using Secucard.Connect.Trace;
 
     public class Test_Client_Base
     {
-        protected const string storagePath = "data\\secucard.sec";
-        protected readonly ClientConfiguration ClientConfigurationDevice;
-        protected readonly ClientConfiguration ClientConfigurationUser;
+        private readonly ClientConfiguration ClientConfigurationDevice;
+        private readonly ClientConfiguration ClientConfigurationUser;
         private readonly MemoryDataStorage Storage;
-//        protected readonly ISecucardTrace Tracer;
         protected SecucardConnect Client;
 
         protected Test_Client_Base()

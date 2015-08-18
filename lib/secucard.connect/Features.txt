@@ -1,7 +1,7 @@
 ﻿
 
 Missing
-- Async Method calls on services. Planed as IAyncResult Pattern
+- Async Method calls on services. Planed as IAyncResult Pattern (wait)
 - Tests on smart.checkins
 - Exception Handling
 - Service Methods missing

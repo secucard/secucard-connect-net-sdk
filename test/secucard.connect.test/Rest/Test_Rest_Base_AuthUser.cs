@@ -30,19 +30,19 @@ namespace Secucard.Connect.Test.Rest
         public Test_Rest_Base_AuthUser()
         {
             properties["Auth.ExtendExpire"] = "true";
-            ClientConfiguration clientConfig = new ClientConfiguration(properties);
-            clientConfig.DataStorage = new MemoryDataStorage();
+            ClientConfiguration clientConfig = new ClientConfiguration(properties)
+            {
+                DataStorage = new MemoryDataStorage()
+            };
             SecucardConnect.Create(clientConfig);
             AuthConfig = new AuthConfig(properties);
 
-            //Storage = MemoryDataStorage.LoadFromFile("data\\secucard.payment.sec");
             IClientAuthDetails clientAuthDetails = new ClientAuthDetailsUserTest();
 
             var authProvider = new TokenManager(AuthConfig, clientAuthDetails, new RestAuth(AuthConfig));
 
             authProvider.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             Token = authProvider.GetToken(true);
-            //Storage.SaveToFile("data\\secucard.payment.sec"); // Save new token 
 
             RestService =
                 new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/");

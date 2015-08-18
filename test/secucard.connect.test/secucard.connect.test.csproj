@@ -76,6 +76,7 @@
     <Compile Include="Rest\Test_Rest_Service_Identcontracts.cs" />
     <Compile Include="Rest\Test_Rest_Services_Identresults.cs" />
     <Compile Include="Rest\Test_Rest_Service_Identrequests.cs" />
+    <Compile Include="Rest\Test_Rest_Smart_Devices.cs" />
     <Compile Include="Rest\Test_Rest_Smart_Routing.cs" />
     <Compile Include="Rest\Test_Rest_Smart_Transactions.cs" />
     <Compile Include="Rest\Test_Rest_Smart_Idents.cs" />

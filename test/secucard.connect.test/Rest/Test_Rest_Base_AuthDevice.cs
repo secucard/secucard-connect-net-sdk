@@ -26,7 +26,7 @@ namespace Secucard.Connect.Test.Rest
     {
         protected readonly string AccessToken;
         protected readonly RestService RestService;
-        protected IClientAuthDetails ClientAuthDetails;
+        protected readonly IClientAuthDetails ClientAuthDetails;
 
         public Test_Rest_Base_AuthDevice()
         {
