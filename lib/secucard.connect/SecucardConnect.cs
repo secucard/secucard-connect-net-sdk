@@ -35,7 +35,7 @@ namespace Secucard.Connect
     /// </summary>
     public class SecucardConnect
     {
-        public const string VERSION = "0.1.development";
+        public const string VERSION = "0.1";
         private readonly ClientConfiguration Configuration;
         private readonly ClientContext Context;
         private readonly Dictionary<string, IService> ServiceDict;
