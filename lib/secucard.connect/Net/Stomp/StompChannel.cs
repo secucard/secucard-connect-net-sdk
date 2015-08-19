@@ -82,6 +82,7 @@ namespace Secucard.Connect.Net.Stomp
         {
             var stompRequest = StompRequest.Create(request, ChannelId, Configuration.ReplyTo, Configuration.Destination);
             var returnMessage = SendMessage(stompRequest);
+            SecucardTrace.InfoSource("StompChannel.Request", returnMessage.EscapeCurlyBracets());
             var response = new Response(returnMessage);
             return JsonSerializer.DeserializeJson<T>(response.Data);
         }
@@ -90,6 +91,7 @@ namespace Secucard.Connect.Net.Stomp
         {
             var stompRequest = StompRequest.Create(request, ChannelId, Configuration.ReplyTo, Configuration.Destination);
             var returnMessage = SendMessage(stompRequest);
+            SecucardTrace.InfoSource("StompChannel.RequestList",returnMessage.EscapeCurlyBracets());
             var response = new Response(returnMessage);
             return JsonSerializer.DeserializeJson<ObjectList<T>>(response.Data);
         }

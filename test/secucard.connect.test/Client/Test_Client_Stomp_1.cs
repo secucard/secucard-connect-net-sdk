@@ -39,7 +39,7 @@ namespace Secucard.Connect.Test.Client
             };
 
             //TEST Heartbeat
-            Thread.Sleep(20000);
+            Thread.Sleep(2000);
 
             var list = service.GetList(queryParams);
             Assert.IsTrue(list.Count > 0);
