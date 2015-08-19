@@ -107,11 +107,7 @@ namespace Secucard.Connect.Net.Stomp
         /// </summary>
         private void Connect(string token)
         {
-            if (token == null) token = Configuration.Login;
-
-            Stomp.Config.Login = token;
-            Stomp.Config.Password = token;
-            Stomp.Connect();
+            Stomp.Connect(token,token);
             ConnectToken = token;
         }
 
@@ -256,7 +252,7 @@ namespace Secucard.Connect.Net.Stomp
 
         private void StartSessionRefresh()
         {
-            ClientTimerHeartbeat = new Timer(Configuration.HeartbeatClientMs) {AutoReset = true};
+            ClientTimerHeartbeat = new Timer(Configuration.HeartbeatMs) {AutoReset = true};
             ClientTimerHeartbeat.Elapsed += ClientTimerOnElapsed;
             ClientTimerHeartbeat.Start();
         }

@@ -12,6 +12,7 @@
 
 namespace Secucard.Connect.Auth
 {
+    using System;
     using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
@@ -22,28 +23,28 @@ namespace Secucard.Connect.Auth
         public const string REFRESHTOKEN = "refresh_token";
         public const string CLIENTCREDENTIALS = "client_credentials";
 
-        private readonly AuthConfig AuthConfig;
+        private readonly string Host;
 
         public RestAuth(AuthConfig authConfig)
-            : base(authConfig.OAuthUrl)
+            : base(new RestConfig { Url = authConfig.OAuthUrl, ConnectTimeoutSec = authConfig.AuthWaitTimeoutSec })
         {
-            AuthConfig = authConfig;
+            Host = new Uri(authConfig.OAuthUrl).Host;
         }
 
         public string UserAgentInfo { get; set; }
 
-        public DeviceAuthCode GetDeviceAuthCode(string clientId, string clientSecret)
+        public DeviceAuthCode GetDeviceAuthCode(string clientId, string clientSecret, string uuid)
         {
             var req = new RestRequest
             {
-                Host = AuthConfig.Host,
+                Host = Host,
                 UserAgent = UserAgentInfo
             };
 
             req.BodyParameter.Add(AuthConst.Grant_Type, DEVICE);
             req.BodyParameter.Add(AuthConst.Client_Id, clientId);
             req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
-            req.BodyParameter.Add(AuthConst.Uuid, AuthConfig.Uuid);
+            req.BodyParameter.Add(AuthConst.Uuid, uuid);
 
             var ret = RestPost(req);
             return JsonSerializer.DeserializeJson<DeviceAuthCode>(ret);
@@ -54,7 +55,7 @@ namespace Secucard.Connect.Auth
         {
             var req = new RestRequest
             {
-                Host = AuthConfig.Host,
+                Host = Host,
                 UserAgent = UserAgentInfo
             };
 
@@ -70,7 +71,7 @@ namespace Secucard.Connect.Auth
         {
             var req = new RestRequest
             {
-                Host = AuthConfig.Host,
+                Host = Host,
                 UserAgent = UserAgentInfo
             };
 
@@ -96,7 +97,7 @@ namespace Secucard.Connect.Auth
         {
             var req = new RestRequest
             {
-                Host = AuthConfig.Host,
+                Host = Host,
                 UserAgent = UserAgentInfo
             };
             req.BodyParameter.Add(AuthConst.Grant_Type, REFRESHTOKEN);

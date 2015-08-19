@@ -18,42 +18,37 @@ namespace Secucard.Connect.Net.Stomp
     {
         public StompConfig(Properties properties)
         {
-            Host = properties.Get("Stomp.Host", "dev10.secupay-ag.de");
+            Ssl = properties.Get("Stomp.Ssl", true);
+
+            Host = properties.Get("Stomp.Host", "connect.secucard.com");
+            VirtualHost = properties.Get("Stomp.VirtualHost");
             Port = properties.Get("Stomp.port", 61614);
-            Login = properties.Get("Stomp.Login");
-            Password = properties.Get("Stomp.Password");
-            AcceptVersion = properties.Get("Stomp.AcceptVersion", "1.2");
-            HeartbeatClientMs = properties.Get("Stomp.HeartbeatClientMs", 5000);
-            HeartbeatServerMs = properties.Get("Stomp.HeartbeatServerMs", 5000);
-            MaxMessageAgeSec = properties.Get("Stomp.MaxMessageAgeSec", 30);
-            MessageTimeoutSec = properties.Get("Stomp.MessageTimeoutSec", 30);
+
+            HeartbeatMs = properties.Get("Stomp.HeartbeatMs", 5000);
+
             ReplyTo = properties.Get("Stomp.ReplyTo", "/temp-queue/main");
             Destination = properties.Get("Stomp.Destination", "/exchange/connect.api/");
-            ReceiptTimeoutSec = properties.Get("Stomp.ReceiptTimeoutSec", 10);
+
+            ConnectionTimeoutSec = properties.Get("Stomp.ConnectionTimeoutSec", 10);
+            MessageTimeoutSec = properties.Get("Stomp.MessageTimeoutSec", 30);
+            MaxMessageAgeSec = properties.Get("Stomp.MaxMessageAgeSec", 30);
+
             RequestSENDReceipt = properties.Get("Stomp.RequestSENDReceipt", true);
-            DisconnectOnSENDReceiptTimeout = properties.Get("Stomp.DisconnectOnSENDReceiptTimeout", 10);
-            DisconnectOnError = properties.Get("Stomp.DisconnectOnError", true);
-            Ssl = properties.Get("Stomp.Ssl", true);
+
+            AcceptVersion = "1.2";
         }
 
         public string Host { get; set; }
+        public string VirtualHost { get; set; }
         public int Port { get; set; }
         public string Destination { get; set; }
         public string ReplyTo { get; set; }
         public bool Ssl { get; set; }
         public string AcceptVersion { get; set; }
-        public string Login { get; set; } // TODO: move 
-        public string Password { get; set; }
-        public int SocketTimeoutSec { get; set; }
-        public int ReceiptTimeoutSec { get; set; }
         public int ConnectionTimeoutSec { get; set; }
         public int MessageTimeoutSec { get; set; }
         public int MaxMessageAgeSec { get; set; }
-        public bool DisconnectOnError { get; set; }
-        public int HeartbeatClientMs { get; set; }
-        public int HeartbeatServerMs { get; set; }
-        public bool RequestDISCONNECTReceipt { get; set; }
-        public int DisconnectOnSENDReceiptTimeout { get; set; }
+        public int HeartbeatMs { get; set; }
         public bool RequestSENDReceipt { get; set; }
 
         public override string ToString()

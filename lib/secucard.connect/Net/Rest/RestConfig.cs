@@ -18,14 +18,24 @@ namespace Secucard.Connect.Net.Rest
     {
         public RestConfig(Properties properties)
         {
-            BaseUrl = properties.Get("Rest.BaseUrl");
+            Url = properties.Get("Rest.Url");
+            ResponseTimeoutSec = properties.Get("Rest.ResponseTimeoutSec", 300);
+            ConnectTimeoutSec = properties.Get("Rest.ConnectTimeoutSec", 300);
         }
 
-        public string BaseUrl { get; set; }
+        public RestConfig()
+        {
+            ResponseTimeoutSec = 300;
+            ConnectTimeoutSec = 300;
+        }
+
+        public string Url { get; set; }
+        public int ResponseTimeoutSec { get; set; }
+        public int ConnectTimeoutSec { get; set; }
 
         public override string ToString()
         {
-            return "RestConfig [" + "BaseUrl = " + BaseUrl + "]";
+            return "RestConfig [" + "Url = " + Url + "]";
         }
     }
 }

@@ -12,6 +12,7 @@
 
 namespace Secucard.Connect.Test.Rest
 {
+    using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
@@ -45,7 +46,7 @@ namespace Secucard.Connect.Test.Rest
             Token = authProvider.GetToken(true);
 
             RestService =
-                new RestService("https://core-dev10.secupay-ag.de/app.core.connector/api/v2/");
+                new RestService(RestConfig);
         }
 
         private void TokenManagerOnTokenManagerStatusUpdateEvent(object sender, TokenManagerStatusUpdateEventArgs args)
@@ -56,15 +57,14 @@ namespace Secucard.Connect.Test.Rest
 
                 var reqSmartPin = new RestRequest
                 {
-                    Host = AuthConfig.Host,
+                    Host = new Uri(AuthConfig.OAuthUrl).Host,
                     BodyJsonString =
                         JsonSerializer.SerializeJson(new SmartPin {UserPin = args.DeviceAuthCodes.UserCode})
                 };
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
                 var restSmart =
-                    new RestService(
-                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
+                    new RestService(new RestConfig { Url = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
                 var response = restSmart.RestPut(reqSmartPin);
                 Assert.IsTrue(response.Length > 0);
             }

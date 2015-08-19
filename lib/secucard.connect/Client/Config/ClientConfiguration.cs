@@ -63,7 +63,7 @@ namespace Secucard.Connect.Client
             return Load(fileStream);
         }
 
-        public static ClientConfiguration Get()
+        public static ClientConfiguration GetDefault()
         {
             var stream =
                 Assembly.GetExecutingAssembly()
@@ -75,18 +75,17 @@ namespace Secucard.Connect.Client
 
         private static ClientConfiguration Load(Stream stream)
         {
-            return new ClientConfiguration(Properties.Read(stream));
+            return new ClientConfiguration(Properties.Load(stream));
         }
 
         public ClientConfiguration(Properties properties)
         {
             Properties = properties;
             DefaultChannel = properties.Get("DefaultChannel", "rest");
-            StompEnabled = properties.Get("StompEnabled", true);
+            StompEnabled = properties.Get("Stomp.Enabled", false);
             AppId = properties.Get("AppId");
             TraceDir = properties.Get("TraceDir");
-
-            //TODO: Logging and Cache
+            CacheDir = properties.Get("CacheDir");
 
             RestConfig = new RestConfig(properties);
             AuthConfig = new AuthConfig(properties);

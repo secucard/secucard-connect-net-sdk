@@ -22,7 +22,6 @@ namespace Secucard.Connect.Net.Rest
     public class RestChannel : Channel
     {
         private readonly RestConfig RestConfig;
-        private string ChannelId;
         private readonly RestService RestService;
 
         public RestChannel(RestConfig restConfig, ClientContext clientContext)
@@ -30,7 +29,7 @@ namespace Secucard.Connect.Net.Rest
         {
             RestConfig = restConfig;
 
-            RestService = new RestService(RestConfig.BaseUrl);
+            RestService = new RestService(RestConfig);
         }
 
         #region ## Channel ###
@@ -131,7 +130,7 @@ namespace Secucard.Connect.Net.Rest
             {
                 Token = token,
                 PageUrl = channelRequest.Product.FirstCharToUpper() + "/" + channelRequest.Resource.FirstCharToUpper(),
-                Host = new Uri(RestConfig.BaseUrl).Host
+                Host = new Uri(RestConfig.Url).Host
             };
             return request;
         }

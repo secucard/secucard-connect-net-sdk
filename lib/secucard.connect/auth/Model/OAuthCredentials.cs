@@ -12,21 +12,11 @@
 
 namespace Secucard.Connect.Auth.Model
 {
-    using System.Collections.Generic;
-
     public abstract class OAuthCredentials
     {
-        public abstract string GrantType { get; }
-
         /// <summary>
         ///     Returns an id which uniquely identifies this instance in a way that same ids refer to the same credentials.
         /// </summary>
         public abstract string Id { get; }
-
-        public virtual Dictionary<string, object> AsMap()
-        {
-            var map = new Dictionary<string, object> {{"grant_type", GrantType}};
-            return map;
-        }
     }
 }

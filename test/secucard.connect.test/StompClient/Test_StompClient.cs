@@ -26,12 +26,12 @@ namespace Secucard.Connect.Test.StompClient
         {
             using (var client = new StompClient(StompConfig))
             {
-                var connect = client.Connect();
+                var connect = client.Connect(AccessToken, AccessToken);
                 Assert.IsTrue(connect);
                 Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
                 var framePing = new StompFrame(StompCommands.SEND);
-                framePing.Headers.Add(StompHeader.UserId, StompConfig.Login);
+                framePing.Headers.Add(StompHeader.UserId, AccessToken);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 framePing.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -52,7 +52,7 @@ namespace Secucard.Connect.Test.StompClient
                 frameIn = null;
 
                 var frameRefresh = new StompFrame(StompCommands.SEND);
-                frameRefresh.Headers.Add(StompHeader.UserId, StompConfig.Login);
+                frameRefresh.Headers.Add(StompHeader.UserId, AccessToken);
                 frameRefresh.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:exec:auth.sessions.refresh");
                 frameRefresh.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 frameRefresh.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -66,7 +66,7 @@ namespace Secucard.Connect.Test.StompClient
                 frameIn = null;
 
                 var frameSkeleton = new StompFrame(StompCommands.SEND);
-                frameSkeleton.Headers.Add(StompHeader.UserId, StompConfig.Login);
+                frameSkeleton.Headers.Add(StompHeader.UserId, AccessToken);
                 frameSkeleton.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:get:general.skeletons");
                 frameSkeleton.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 frameSkeleton.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
@@ -92,9 +92,9 @@ namespace Secucard.Connect.Test.StompClient
         {
             using (var client = new StompClient(StompConfig))
             {
-                var connect1 = client.Connect();
+                var connect1 = client.Connect(AccessToken, AccessToken);
                 Assert.IsTrue(connect1);
-                var connect2 = client.Connect();
+                var connect2 = client.Connect(AccessToken, AccessToken);
                 Assert.IsTrue(connect2);
                 Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
             }

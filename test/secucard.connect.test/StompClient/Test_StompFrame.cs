@@ -26,10 +26,10 @@ namespace Secucard.Connect.Test.StompClient
             var frame = new StompFrame(StompCommands.CONNECT);
 
             frame.Headers.Add(StompHeader.Host, StompConfig.Host);
-            frame.Headers.Add(StompHeader.Login, StompConfig.Login);
-            frame.Headers.Add(StompHeader.Passcode, StompConfig.Password);
+            frame.Headers.Add(StompHeader.Login, AccessToken);
+            frame.Headers.Add(StompHeader.Passcode, AccessToken);
             frame.Headers.Add(StompHeader.HeartBeat,
-                string.Format("{0},{1}", StompConfig.HeartbeatClientMs, StompConfig.HeartbeatServerMs));
+                string.Format("{0},{1}", StompConfig.HeartbeatMs, StompConfig.HeartbeatMs));
             frame.Headers.Add(StompHeader.AcceptVersion, StompConfig.AcceptVersion);
 
             var msg = frame.GetFrame();

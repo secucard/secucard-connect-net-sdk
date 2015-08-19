@@ -20,8 +20,8 @@ namespace Secucard.Connect.Net.Rest
 
     public class RestService : RestBase
     {
-        public RestService(string baseUrl)
-            : base(baseUrl)
+        public RestService(RestConfig restConfig)
+            : base(restConfig)
         {
         }
 

@@ -218,7 +218,7 @@ namespace Secucard.Connect
         public static SecucardConnect Create(ClientConfiguration configuration)
         {
             if (configuration == null)
-                configuration = ClientConfiguration.Get();
+                configuration = ClientConfiguration.GetDefault();
 
             if (configuration.DataStorage == null)
                 throw new Exception("Missing cache implementation found in config.");

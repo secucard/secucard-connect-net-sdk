@@ -25,7 +25,7 @@ namespace Secucard.Connect.Client.Config
             Elements = new List<Property>();
         }
 
-        public List<Property> Elements { get; set; }
+        private List<Property> Elements { get; set; }
 
         public string this[string name]
         {
@@ -69,10 +69,10 @@ namespace Secucard.Connect.Client.Config
             var stream =
                 Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("Secucard.Connect.Client.Config.SecucardConnect.config");
-            return Read(stream);
+            return Load(stream);
         }
 
-        public static Properties Read(string fullFilePath)
+        public static Properties Load(string fullFilePath)
         {
             if (!File.Exists(fullFilePath)) throw new FileNotFoundException(fullFilePath);
 
@@ -90,7 +90,7 @@ namespace Secucard.Connect.Client.Config
             return properties;
         }
 
-        internal static Properties Read(Stream stream)
+        internal static Properties Load(Stream stream)
         {
             var xmlDoc = XDocument.Load(stream);
 
@@ -106,7 +106,7 @@ namespace Secucard.Connect.Client.Config
             return properties;
         }
 
-        public void Write(string fullFilePath)
+        public void Save(string fullFilePath)
         {
             var xmlDoc = new XDocument(new XElement("Properties",
                 from ele in Elements

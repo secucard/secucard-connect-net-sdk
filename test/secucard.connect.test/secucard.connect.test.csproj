@@ -167,6 +167,9 @@
     <Content Include="Data\Model\Event.Pushs.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Data\Config\SecucardConnect.develop.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Data\Model\Payment.Contracts.1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

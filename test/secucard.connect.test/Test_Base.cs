@@ -28,19 +28,20 @@ namespace Secucard.Connect.Test
         protected readonly RestConfig RestConfig;
         protected AuthConfig AuthConfig;
 
-        protected const string configPath = "data\\Config\\SecucardConnect.config";
+        protected const string configPath = "data\\Config\\SecucardConnect.develop.config";
         protected readonly Properties properties;
 
         protected bool IsConnected;
         protected bool MessageReceived;
 
+        protected string AccessToken;
+
         protected Test_Base()
         {
-            properties = Properties.Read(configPath);
+            properties = Properties.Load(configPath);
 
             // Setting current Access Token
-            properties["Stomp.Password"] = "i0tdt3fgv31vde64kp49db3827";
-            properties["Stomp.Login"] = "i0tdt3fgv31vde64kp49db3827";
+            AccessToken = "i0tdt3fgv31vde64kp49db3827";
 
             Config = new ClientConfiguration(properties);
             StompConfig = new StompConfig(properties);

@@ -12,6 +12,7 @@
 
 namespace Secucard.Connect.Test.Client
 {
+    using System;
     using System.Diagnostics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
@@ -21,24 +22,23 @@ namespace Secucard.Connect.Test.Client
     using Secucard.Connect.Product.Smart.Model;
     using Secucard.Connect.Storage;
 
-    public class Test_Client_Base
+    public class Test_Client_Base: Test_Base
     {
         private readonly ClientConfiguration ClientConfigurationDevice;
         private readonly ClientConfiguration ClientConfigurationUser;
-        private readonly MemoryDataStorage Storage;
         protected SecucardConnect Client;
 
         protected Test_Client_Base()
         {
-            Storage = new MemoryDataStorage();
+            var storage = new MemoryDataStorage();
 
-            ClientConfigurationDevice = ClientConfiguration.Get(); // Load Defaults
+            ClientConfigurationDevice = Config; 
             ClientConfigurationDevice.ClientAuthDetails = new ClientAuthDetailsDeviceTest();
-            ClientConfigurationDevice.DataStorage = Storage;
+            ClientConfigurationDevice.DataStorage = storage;
 
-            ClientConfigurationUser = ClientConfiguration.Get();
+            ClientConfigurationUser = Config;
             ClientConfigurationUser.ClientAuthDetails = new ClientAuthDetailsUserTest();
-            ClientConfigurationUser.DataStorage = Storage;
+            ClientConfigurationUser.DataStorage = storage;
         }
 
         protected void StartupClientDevice()
@@ -70,15 +70,14 @@ namespace Secucard.Connect.Test.Client
 
                 var reqSmartPin = new RestRequest
                 {
-                    Host = ClientConfigurationDevice.Properties.Get("Auth.Host"),
+                    Host = new Uri(AuthConfig.OAuthUrl).Host,
                     BodyJsonString =
-                        JsonSerializer.SerializeJson(new SmartPin {UserPin = args.DeviceAuthCodes.UserCode})
+                        JsonSerializer.SerializeJson(new SmartPin { UserPin = args.DeviceAuthCodes.UserCode })
                 };
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
                 var restSmart =
-                    new RestService(
-                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
+                    new RestService(new RestConfig { Url = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
                 var response = restSmart.RestPut(reqSmartPin);
                 Assert.IsTrue(response.Length > 0);
             }

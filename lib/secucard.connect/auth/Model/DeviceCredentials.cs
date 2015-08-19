@@ -12,8 +12,6 @@
 
 namespace Secucard.Connect.Auth.Model
 {
-    using System.Collections.Generic;
-
     public class DeviceCredentials : ClientCredentials
     {
         public DeviceCredentials(string clientId, string clientSecret, string deviceId) :
@@ -22,35 +20,19 @@ namespace Secucard.Connect.Auth.Model
             DeviceId = deviceId;
         }
 
-        public DeviceCredentials(ClientCredentials clientCredentials, string deviceId)
-            : this(clientCredentials.ClientId, clientCredentials.ClientSecret, deviceId)
-        {
-        }
-
-        //   Code obtained during the authorization process
+        /// <summary>
+        /// Code obtained during the authorization process
+        /// </summary>
         public string DeviceCode { get; set; }
-        //A unique device id like UUID.
+
+        /// <summary>
+        /// A unique device id like UUID.
+        /// </summary>
         public string DeviceId { get; set; }
 
         public override string Id
         {
-            get { return GrantType + ClientId + ClientSecret + DeviceId; }
-        }
-
-        public override string GrantType
-        {
-            get { return "device"; }
-        }
-
-        public override Dictionary<string, object> AsMap()
-        {
-            var map = base.AsMap();
-            if (DeviceId != null)
-                map.Add("uuid", DeviceId);
-
-            if (DeviceCode != null)
-                map.Add("code", DeviceCode);
-            return map;
+            get { return "Device-" + ClientId + ClientSecret + DeviceId; }
         }
     }
 }

@@ -22,11 +22,13 @@ namespace Secucard.Connect.Net.Stomp.Client
     {
         private readonly ConcurrentQueue<StompFrame> InQueue;
         private readonly ConcurrentDictionary<string, DateTime> Receipts;
-        public readonly StompConfig Config;
+        private readonly StompConfig Config;
         private StompCore Core;
         private StompFrame Error;
         private bool IsConnected;
         public EnumStompClientStatus StompClientStatus;
+        private string Login;
+        private string Password;
 
         public StompClient(StompConfig config)
         {
@@ -49,8 +51,11 @@ namespace Secucard.Connect.Net.Stomp.Client
         /// <summary>
         ///     sync connect
         /// </summary>
-        public bool Connect()
+        public bool Connect(string login, string password)
         {
+            Login = login;
+            Password = password;
+
             if (Core != null) Dispose();
             Core = new StompCore(Config);
             Core.Init();
@@ -61,11 +66,14 @@ namespace Secucard.Connect.Net.Stomp.Client
             Core.SendFrame(CreateFrameConnect());
 
             // Waiting for STOMP to connect or timeout
-            var waitUntil = DateTime.Now.AddSeconds(Config.HeartbeatServerMs/1000);
+            var waitUntil = DateTime.Now.AddSeconds(Config.ConnectionTimeoutSec);
             while (StompClientStatus == EnumStompClientStatus.Connecting)
             {
                 if (waitUntil < DateTime.Now)
+                { 
                     OnStatusChanged(EnumStompClientStatus.Timeout);
+                    break;
+                }
             }
 
             if (StompClientStatus == EnumStompClientStatus.Connected)
@@ -79,7 +87,7 @@ namespace Secucard.Connect.Net.Stomp.Client
         private void Core_StompCoreExceptionEvent(object sender, StompCoreExceptionEventArgs args)
         {
             OnStatusChanged(EnumStompClientStatus.NotConnected);
-            Connect();
+            Connect(Login, Password);
         }
 
         public void Disconnect()
@@ -115,7 +123,7 @@ namespace Secucard.Connect.Net.Stomp.Client
         {
             if (timeoutSec == null)
             {
-                timeoutSec = Config.ReceiptTimeoutSec;
+                timeoutSec = Config.MessageTimeoutSec;
             }
 
             var found = false;
@@ -210,12 +218,10 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         private void OnFrameArrived(StompCoreFrameArrivedEventArgs e)
         {
-            lock (InQueue)
-            {
-                InQueue.Enqueue(e.Frame);
-                StompFrame frame;
-                if (InQueue.Count > 20) InQueue.TryDequeue(out frame);
-            }
+            // Remove messages from inQueue if there are more than 20
+            InQueue.Enqueue(e.Frame);
+            StompFrame frame;
+            while (InQueue.Count > 20) InQueue.TryDequeue(out frame);
 
             if (StompClientFrameArrivedEvent != null)
             {
@@ -245,9 +251,16 @@ namespace Secucard.Connect.Net.Stomp.Client
         private StompFrame CreateFrameConnect()
         {
             var frame = CreateFrame(StompCommands.CONNECT);
-            frame.Headers.Add(StompHeader.HeartBeat,
-                string.Format("{0},{1}", Config.HeartbeatClientMs, Config.HeartbeatServerMs));
+
+            // tell server about requested heartbeat
+            frame.Headers.Add(StompHeader.HeartBeat, string.Format("{0},{1}", Config.HeartbeatMs, Config.HeartbeatMs));
+
             frame.Headers.Add(StompHeader.AcceptVersion, Config.AcceptVersion);
+
+            // Add virtual host if requested
+            if (!string.IsNullOrWhiteSpace(Config.VirtualHost))
+                frame.Headers.Add(StompHeader.Host, Config.VirtualHost);
+
             return frame;
         }
 
@@ -262,8 +275,8 @@ namespace Secucard.Connect.Net.Stomp.Client
         private StompFrame CreateFrame(string command)
         {
             var frame = new StompFrame(command);
-            frame.Headers.Add(StompHeader.Login, Config.Login);
-            frame.Headers.Add(StompHeader.Passcode, Config.Password);
+            frame.Headers.Add(StompHeader.Login, Login);
+            frame.Headers.Add(StompHeader.Passcode, Password);
             return frame;
         }
 

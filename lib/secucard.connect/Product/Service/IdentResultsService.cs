@@ -30,7 +30,7 @@ namespace Secucard.Connect.Product.Service
    * Set to true/false to globally enable/disable attachment caching when requested by methods of this service.
    * Caching is enabled by default but is only performed when requested in methods.
    */
-        private bool cacheAttachmentsEnabled = true;
+        //private bool cacheAttachmentsEnabled = true;
 
 
         public static readonly ServiceMetaData<IdentResult> META_DATA = new ServiceMetaData<IdentResult>("payment", "identresults");

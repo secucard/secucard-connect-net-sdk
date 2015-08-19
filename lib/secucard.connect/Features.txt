@@ -4,8 +4,11 @@ Missing
 - Async Method calls on services. Planed as IAyncResult Pattern (wait)
 - Tests on smart.checkins
 - Exception Handling
+- Exception Types
 - Service Methods missing
 	GeneralTransactionsService,
+
+	Cancel Auth
 
 - Objects
 	BeaconEnvironment

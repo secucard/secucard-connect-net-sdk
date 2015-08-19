@@ -31,9 +31,9 @@ namespace Secucard.Connect.Test.Config
             Properties props = new Properties();
             props.Set("Appid", "ApplikationId");
             props.Set("test", "test");
-            props.Write(configPath);
+            props.Save(configPath);
 
-            var props2 = Properties.Read(configPath);
+            var props2 = Properties.Load(configPath);
             Debug.Write(File.ReadAllText(configPath));
 
             Assert.AreEqual(props.Get("Appid"), props2.Get("Appid"));

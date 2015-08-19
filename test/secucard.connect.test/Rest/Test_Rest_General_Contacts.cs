@@ -65,6 +65,9 @@ namespace Secucard.Connect.Test.Rest
                 };
 
                 var data = RestService.PostObject<Contact>(request);
+
+                // Use the new ids from the server
+                contact.Id = data.Id;
             }
 
 
@@ -84,7 +87,6 @@ namespace Secucard.Connect.Test.Rest
             }
 
 
-            return;
             // PUT does not work currently.
 
 
@@ -96,6 +98,7 @@ namespace Secucard.Connect.Test.Rest
                 var request = new RestRequest
                 {
                     Token = AccessToken,
+                    Id = contact.Id,
                     Object = contact,
                     PageUrl = "General/Contacts",
                     Host = "core-dev10.secupay-ag.de"
@@ -107,20 +110,20 @@ namespace Secucard.Connect.Test.Rest
             }
 
 
-            //// GET with query
-            //{
-            //    var request = new RestRequest
-            //    {
-            //        Token = Token,
-            //        QueyParams = new QueryParams { Query = "forename:" + contact.Forename },
-            //        PageUrl = "General/Contacts",
-            //        Host = "core-dev10.secupay-ag.de"
-            //    };
+            // GET with query
+            {
+                var request = new RestRequest
+                {
+                    Token = AccessToken,
+                    QueryParams = new QueryParams { Query = "forename:" + contact.Forename },
+                    PageUrl = "General/Contacts",
+                    Host = "core-dev10.secupay-ag.de"
+                };
 
-            //    var data = RestService.GetList<Contact>(request);
+                var data = RestService.GetList<Contact>(request);
 
-            //    Assert.AreEqual(data.List.First().Forename, contact.Forename, "changes not in storage arrived.");
-            //}
+                Assert.AreEqual(data.List.First().Forename, contact.Forename, "changes not in storage arrived.");
+            }
         }
     }
 }

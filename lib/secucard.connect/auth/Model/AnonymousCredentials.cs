@@ -14,11 +14,6 @@ namespace Secucard.Connect.Auth.Model
 {
     public class AnonymousCredentials : OAuthCredentials
     {
-        public override string GrantType
-        {
-            get { return "anonymous"; }
-        }
-
         public override string Id
         {
             get { return "anonymous"; }

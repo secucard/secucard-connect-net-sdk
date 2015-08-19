@@ -25,7 +25,6 @@ namespace Secucard.Connect.Auth
     public class TokenManager
     {
         private readonly AuthConfig Config;
-        private readonly string Id;
         private readonly RestAuth Rest;
 
         public TokenManager(AuthConfig config, IClientAuthDetails clientAuthDetails, RestAuth restAuth)
@@ -143,7 +142,7 @@ namespace Secucard.Connect.Auth
                 throw new AuthFailedException("Missing credentials");
             }
 
-            SecucardTrace.Info("Authenticate credentials: {0}", credentials.AsMap());
+            SecucardTrace.Info("Authenticate credentials: {0}", credentials.ToString());
 
             var pollInterval = 0;
             var timeout = DateTime.Now;
@@ -152,10 +151,10 @@ namespace Secucard.Connect.Auth
             DeviceAuthCode codes = null;
 
 
-            // if DeviceAuth then get codes an pass to app thru event. Further Action required by client
+            // if DeviceAuth then get codes an pass to app thru event. Further action required by client
             if (isDeviceAuth)
             {
-                codes = Rest.GetDeviceAuthCode(devicesCredentials.ClientId, devicesCredentials.ClientSecret);
+                codes = Rest.GetDeviceAuthCode(devicesCredentials.ClientId, devicesCredentials.ClientSecret, devicesCredentials.DeviceId);
                 if (TokenManagerStatusUpdateEvent != null)
                     TokenManagerStatusUpdateEvent.Invoke(this,
                         new TokenManagerStatusUpdateEventArgs

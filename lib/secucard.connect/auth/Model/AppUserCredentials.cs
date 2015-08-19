@@ -12,13 +12,11 @@
 
 namespace Secucard.Connect.Auth.Model
 {
-    using System.Collections.Generic;
-
     public class AppUserCredentials : ClientCredentials
     {
         public AppUserCredentials(string clientId, string clientSecret, string userName, string password,
             string deviceId) :
-                base(clientId, clientSecret)
+            base(clientId, clientSecret)
         {
             UserName = userName;
             Password = password;
@@ -33,28 +31,16 @@ namespace Secucard.Connect.Auth.Model
 
         public string UserName { get; set; }
         public string Password { get; set; }
-        /**
-     * A unique device id like UUID. May be optional for some credential types.
-     */
+
+
+        /// <summary>
+        /// A unique device id like UUID. May be optional for some credential types.
+        /// </summary>
         public string DeviceId { get; set; }
-
-        public override string GrantType
-        {
-            get { return "appuser"; }
-        }
-
+        
         public override string Id
         {
-            get { return GrantType + ClientId + ClientSecret + UserName + Password + (DeviceId ?? ""); }
-        }
-
-        public override Dictionary<string, object> AsMap()
-        {
-            var map = base.AsMap();
-            map.Add("username", UserName);
-            map.Add("password", Password);
-            map.Add("device", DeviceId);
-            return map;
+            get { return "appuser-" + ClientId + ClientSecret + UserName + Password + (DeviceId ?? ""); }
         }
     }
 }

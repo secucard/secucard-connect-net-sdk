@@ -19,6 +19,7 @@ namespace Secucard.Connect.DemoApp
     using Secucard.Connect.Auth;
     using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Client;
+    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart;
@@ -28,23 +29,32 @@ namespace Secucard.Connect.DemoApp
 
     internal class Program
     {
-        private static ClientConfiguration ClientConfigurationDevice;
+        private static ClientConfiguration clientConfiguration;
 
         private static void Main(string[] args)
         {
-            var storage = new MemoryDataStorage();
+            // Load default properties
+            var properties = Properties.Load("SecucardConnect.config");
+            clientConfiguration = new ClientConfiguration(properties)
+            {
+                ClientAuthDetails = new ClientAuthDetailsDeviceToBeImplemented(),
+                DataStorage = new MemoryDataStorage()
+            };
 
-            ClientConfigurationDevice = ClientConfiguration.Get(); // Load Defaults
-            ClientConfigurationDevice.ClientAuthDetails = new ClientAuthDetailsDeviceToBeImplemented();
-            ClientConfigurationDevice.DataStorage = storage;
 
-            var Client = SecucardConnect.Create(ClientConfigurationDevice);
+            var Client = SecucardConnect.Create(clientConfiguration);
             Client.AuthEvent += ClientOnAuthEvent;
             Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
             Client.Open();
 
-            var transactionService = Client.GetService<TransactionsService>();
-            var identService = Client.GetService<IdentsService>();
+
+            var checkinService = Client.Smart.Checkins;
+            checkinService.CheckinEvent+=  CheckinEvent;
+
+
+
+            var transactionService = Client.Smart.Transactions;
+            var identService = Client.Smart.Idents;
 
             transactionService.TransactionCashierEvent += SmartTransactionCashierEvent;
 
@@ -117,8 +127,10 @@ namespace Secucard.Connect.DemoApp
             var b = transactionService.Cancel(transaction.Id);
         }
 
+
         /// <summary>
         ///     Handles device authentication. Enter pin thru web interface service
+        ///     !!! This is development only !!!
         /// </summary>
         private static void ClientOnAuthEvent(object sender, AuthEventArgs args)
         {
@@ -128,15 +140,14 @@ namespace Secucard.Connect.DemoApp
 
                 var reqSmartPin = new RestRequest
                 {
-                    Host = ClientConfigurationDevice.Properties.Get("Auth.Host"),
+                    Host = new Uri(new AuthConfig(clientConfiguration.Properties).OAuthUrl).Host,
                     BodyJsonString =
                         JsonSerializer.SerializeJson(new SmartPin {UserPin = args.DeviceAuthCodes.UserCode})
                 };
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
                 var restSmart =
-                    new RestService(
-                        "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin");
+                    new RestService(new RestConfig { Url = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
                 var response = restSmart.RestPut(reqSmartPin);
             }
         }
@@ -158,12 +169,24 @@ namespace Secucard.Connect.DemoApp
         }
 
 
-        public class ClientAuthDetailsDeviceToBeImplemented : AbstractClientAuthDetails, IClientAuthDetails
+        /// <summary>
+        /// Gets called on new checkins
+        /// </summary>
+        private static void CheckinEvent(object sender, CheckinEventEventArgs args)
+        {
+            Debug.WriteLine(args.SecucardEvent.Data.CustomerName);
+        }
+
+
+        /// <summary>
+        /// Ownn 
+        /// </summary>
+        private class ClientAuthDetailsDeviceToBeImplemented : AbstractClientAuthDetails, IClientAuthDetails
         {
             public OAuthCredentials GetCredentials()
             {
                 return new DeviceCredentials("611c00ec6b2be6c77c2338774f50040b",
-                    "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb", "device");
+                    "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb", "/vendor/unknown/cashier/dotnettest1");
             }
 
             public ClientCredentials GetClientCredentials()
@@ -171,5 +194,7 @@ namespace Secucard.Connect.DemoApp
                 return (ClientCredentials)GetCredentials();
             }
         }
+
+
     }
 }

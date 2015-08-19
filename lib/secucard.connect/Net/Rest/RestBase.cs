@@ -29,16 +29,16 @@ namespace Secucard.Connect.Net.Rest
 
         #region  ### Ctor ###
 
-        protected RestBase(string baseUrl)
+        protected RestBase(RestConfig restConfig)
         {
-            BaseUrl = baseUrl;
+            RestConfig = restConfig;
             ServicePointManager.ServerCertificateValidationCallback = AcceptAllCertifications;
-            SecucardTrace.Info(baseUrl);
+            SecucardTrace.Info(RestConfig.Url);
         }
 
         #endregion
 
-        private string BaseUrl { get; set; }
+        private RestConfig RestConfig { get; set; }
 
         #region ### Private Static ###
 
@@ -262,11 +262,12 @@ namespace Secucard.Connect.Net.Rest
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
         {
-            var uri = string.Format("{0}{1}", BaseUrl, request.GetPathAndQueryString());
+            var uri = string.Format("{0}{1}", RestConfig.Url, request.GetPathAndQueryString());
 
             var webRequest = (HttpWebRequest) WebRequest.Create(uri);
 
             webRequest.Method = request.Method;
+            webRequest.Timeout = RestConfig.ConnectTimeoutSec * 1000;
             webRequest.Host = request.Host;
             webRequest.Accept = ContentTypeJson;
             webRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);

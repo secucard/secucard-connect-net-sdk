@@ -29,10 +29,10 @@ namespace Secucard.Connect.Test.StompClient
 
             var frame = new StompFrame(StompCommands.CONNECT);
 
-            frame.Headers.Add(StompHeader.Login, StompConfig.Login);
-            frame.Headers.Add(StompHeader.Passcode, StompConfig.Password);
+            frame.Headers.Add(StompHeader.Login, AccessToken);
+            frame.Headers.Add(StompHeader.Passcode, AccessToken);
             frame.Headers.Add(StompHeader.HeartBeat,
-                string.Format("{0},{1}", StompConfig.HeartbeatClientMs, StompConfig.HeartbeatServerMs));
+                string.Format("{0},{1}", StompConfig.HeartbeatMs, StompConfig.HeartbeatMs));
             frame.Headers.Add(StompHeader.AcceptVersion, StompConfig.AcceptVersion);
 
             using (var core = new StompCore(StompConfig))
@@ -46,7 +46,7 @@ namespace Secucard.Connect.Test.StompClient
                 }
 
                 var framePing = new StompFrame(StompCommands.SEND);
-                framePing.Headers.Add(StompHeader.UserId, StompConfig.Login);
+                framePing.Headers.Add(StompHeader.UserId, AccessToken);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
                 framePing.Headers.Add(StompHeader.ReplyTo, "/temp-queue/main");
