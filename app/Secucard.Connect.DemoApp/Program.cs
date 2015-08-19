@@ -22,7 +22,6 @@ namespace Secucard.Connect.DemoApp
     using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
-    using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Product.Smart.Event;
     using Secucard.Connect.Product.Smart.Model;
     using Secucard.Connect.Storage;
@@ -35,27 +34,29 @@ namespace Secucard.Connect.DemoApp
         {
             // Load default properties
             var properties = Properties.Load("SecucardConnect.config");
+
+            // Perpare client config. Implement your own Auth Details
             clientConfiguration = new ClientConfiguration(properties)
             {
                 ClientAuthDetails = new ClientAuthDetailsDeviceToBeImplemented(),
                 DataStorage = new MemoryDataStorage()
             };
 
-
+            // Create client and attach client event handlers
             var Client = SecucardConnect.Create(clientConfiguration);
             Client.AuthEvent += ClientOnAuthEvent;
             Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
             Client.Open();
 
-
+            // register at smart.checkin events (incoming customers)
             var checkinService = Client.Smart.Checkins;
-            checkinService.CheckinEvent+=  CheckinEvent;
+            checkinService.CheckinEvent += CheckinEvent;
 
-
-
+            // get reference to transaction and ident service
             var transactionService = Client.Smart.Transactions;
             var identService = Client.Smart.Idents;
 
+            // register eventhandler für transaction service --> progress during transaction
             transactionService.TransactionCashierEvent += SmartTransactionCashierEvent;
 
             // select an ident
@@ -69,6 +70,7 @@ namespace Secucard.Connect.DemoApp
 
             var selectedIdents = new List<Ident> {ident};
 
+            // prepare basket with items locally
             var groups = new List<ProductGroup>
             {
                 new ProductGroup {Id = "group1", Desc = "beverages", Level = 1}
@@ -102,6 +104,7 @@ namespace Secucard.Connect.DemoApp
 
             var basketInfo = new BasketInfo {Sum = 1, Currency = "EUR"};
 
+            // build transaction object
             var newTrans = new Transaction
             {
                 BasketInfo = basketInfo,
@@ -111,6 +114,7 @@ namespace Secucard.Connect.DemoApp
                 TransactionRef = "transaction99"
             };
 
+            // create transaction on server
             var transaction = transactionService.Create(newTrans);
 
             // you may edit some transaction data and update
@@ -121,9 +125,10 @@ namespace Secucard.Connect.DemoApp
             var type = "demo"; // demo|auto|cash
             // demo instructs the server to simulate a different (random) transaction for each invocation of startTransaction
 
-            // Start Transaction
+            // start transaction (this takes some time, consider another thread) 
             var result = transactionService.Start(transaction.Id, type);
 
+            // cancel transaction
             var b = transactionService.Cancel(transaction.Id);
         }
 
@@ -147,13 +152,17 @@ namespace Secucard.Connect.DemoApp
 
                 reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
                 var restSmart =
-                    new RestService(new RestConfig { Url = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+                    new RestService(new RestConfig
+                    {
+                        Url =
+                            "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin"
+                    });
                 var response = restSmart.RestPut(reqSmartPin);
             }
         }
 
         /// <summary>
-        ///     Handles connect and disconnect events
+        /// Handles connect and disconnect events
         /// </summary>
         private static void ClientOnConnectionStateChangedEvent(object sender, ConnectionStateChangedEventArgs args)
         {
@@ -168,7 +177,6 @@ namespace Secucard.Connect.DemoApp
             Debug.WriteLine(args.SecucardEvent.Data.Text);
         }
 
-
         /// <summary>
         /// Gets called on new checkins
         /// </summary>
@@ -177,24 +185,22 @@ namespace Secucard.Connect.DemoApp
             Debug.WriteLine(args.SecucardEvent.Data.CustomerName);
         }
 
-
         /// <summary>
-        /// Ownn 
+        /// Implement your own 
         /// </summary>
         private class ClientAuthDetailsDeviceToBeImplemented : AbstractClientAuthDetails, IClientAuthDetails
         {
             public OAuthCredentials GetCredentials()
             {
                 return new DeviceCredentials("611c00ec6b2be6c77c2338774f50040b",
-                    "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb", "/vendor/unknown/cashier/dotnettest1");
+                    "dc1f422dde755f0b1c4ac04e7efbd6c4c78870691fe783266d7d6c89439925eb",
+                    "/vendor/unknown/cashier/dotnettest1");
             }
 
             public ClientCredentials GetClientCredentials()
             {
-                return (ClientCredentials)GetCredentials();
+                return (ClientCredentials) GetCredentials();
             }
         }
-
-
     }
 }
