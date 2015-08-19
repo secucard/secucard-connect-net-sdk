@@ -17,8 +17,6 @@ namespace Secucard.Connect.Test.Client
     using System.Diagnostics;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Secucard.Connect.Auth;
-    using Secucard.Connect.Auth.Model;
     using Secucard.Connect.Product.Smart;
     using Secucard.Connect.Product.Smart.Event;
     using Secucard.Connect.Product.Smart.Model;

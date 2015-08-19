@@ -93,7 +93,7 @@ namespace Secucard.Connect.Test.Client
 
             skeletonService.CreateEvent();
 
-            Thread.Sleep(10000);
+            Thread.Sleep(4000);
         }
     }
 }

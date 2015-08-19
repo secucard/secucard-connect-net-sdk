@@ -31,19 +31,19 @@ namespace Secucard.Connect.Test.Auth
             var restAuth = new RestAuth(AuthConfig);
 
             // first run with empty storage
-            var tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth);
+            var tokenManager = new TokenManager(AuthConfig, ClientAuthDetailsDevice, restAuth);
 
             tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             var token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);
 
             // second run with token in storage still valid
-            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth);
+            tokenManager = new TokenManager(AuthConfig, ClientAuthDetailsDevice, restAuth);
             tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);
 
-            tokenManager = new TokenManager(AuthConfig, ClientAuthDetails, restAuth);
+            tokenManager = new TokenManager(AuthConfig, ClientAuthDetailsDevice, restAuth);
             tokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             token = tokenManager.GetToken(true);
             Assert.IsNotNull(token);

@@ -36,10 +36,10 @@ namespace Secucard.Connect.Test.Auth
                 Host = new Uri(AuthConfig.OAuthUrl).Host
             };
 
-            request.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
-            request.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetails.GetClientCredentials().ClientSecret);
+            request.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetailsDevice.GetClientCredentials().ClientId);
+            request.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             request.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
-            request.BodyParameter.Add(AuthConst.Uuid, (ClientAuthDetails.GetCredentials() as DeviceCredentials).DeviceId);
+            request.BodyParameter.Add(AuthConst.Uuid, (ClientAuthDetailsDevice.GetCredentials() as DeviceCredentials).DeviceId);
 
             var rest = new RestAuth(AuthConfig);
             rest.RestPost(request);
@@ -57,10 +57,10 @@ namespace Secucard.Connect.Test.Auth
             };
 
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetails.GetClientCredentials().ClientId);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetailsDevice.GetClientCredentials().ClientId);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret,
-                ClientAuthDetails.GetClientCredentials().ClientSecret);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, (ClientAuthDetails.GetCredentials() as DeviceCredentials).DeviceId);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, (ClientAuthDetailsDevice.GetCredentials() as DeviceCredentials).DeviceId);
 
             var ret = rest.RestPost(reqDeviceGetToken);
             var authDeviceGetTokenOut = JsonSerializer.DeserializeJson<DeviceAuthCode>(ret);
@@ -97,9 +97,9 @@ namespace Secucard.Connect.Test.Auth
 
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Id,
-                ClientAuthDetails.GetClientCredentials().ClientId);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientId);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret,
-                ClientAuthDetails.GetClientCredentials().ClientSecret);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
             ret = rest.RestPost(reqObtainAccessToken);
@@ -119,9 +119,9 @@ namespace Secucard.Connect.Test.Auth
 
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.REFRESHTOKEN);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id,
-                ClientAuthDetails.GetClientCredentials().ClientId);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientId);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret,
-                ClientAuthDetails.GetClientCredentials().ClientSecret);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.RefreshToken, authDeviceTokenOut.RefreshToken);
 
 
@@ -173,8 +173,8 @@ namespace Secucard.Connect.Test.Auth
         {
             var rest = new RestAuth(AuthConfig);
 
-            var authDeviceGetTokenOut = rest.GetDeviceAuthCode(ClientAuthDetails.GetClientCredentials().ClientSecret,
-                ClientAuthDetails.GetClientCredentials().ClientSecret, (ClientAuthDetails as DeviceCredentials).DeviceId);
+            var authDeviceGetTokenOut = rest.GetDeviceAuthCode(ClientAuthDetailsDevice.GetClientCredentials().ClientId,
+                ClientAuthDetailsDevice.GetClientCredentials().ClientSecret, (ClientAuthDetailsDevice.GetCredentials() as DeviceCredentials).DeviceId);
             Assert.AreEqual(authDeviceGetTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authDeviceGetTokenOut.Interval, 5);
             Assert.AreEqual(authDeviceGetTokenOut.VerificationUrl, VerificationUrl);
@@ -197,15 +197,15 @@ namespace Secucard.Connect.Test.Auth
             // No need to validate response. Call needed to set PIN
 
             var authDeviceTokenOut = rest.ObtainAuthToken(authDeviceGetTokenOut.DeviceCode,
-                ClientAuthDetails.GetClientCredentials().ClientSecret,
-                ClientAuthDetails.GetClientCredentials().ClientSecret);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientId,
+                ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             Assert.AreEqual(authDeviceTokenOut.TokenType, TokenTypeBearer);
             Assert.AreEqual(authDeviceTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authDeviceTokenOut.RefreshToken.Length, 40);
 
             var authRefreshTokenOut = rest.RefreshToken(authDeviceTokenOut.RefreshToken,
-                ClientAuthDetails.GetClientCredentials().ClientSecret,
-                ClientAuthDetails.GetClientCredentials().ClientSecret);
+                ClientAuthDetailsDevice.GetClientCredentials().ClientId,
+                ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             Assert.AreEqual(authRefreshTokenOut.AccessToken.Length, 26);
             Assert.AreEqual(authRefreshTokenOut.ExpiresIn, 1200);
             Assert.AreEqual(authRefreshTokenOut.TokenType, TokenTypeBearer);

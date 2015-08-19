@@ -30,15 +30,17 @@ namespace Secucard.Connect.Test.Client
 
         protected Test_Client_Base()
         {
-            var storage = new MemoryDataStorage();
+            ClientConfigurationDevice = new ClientConfiguration(properties)
+            {
+                ClientAuthDetails = new ClientAuthDetailsDeviceTest(),
+                DataStorage =  new MemoryDataStorage()
+            };
 
-            ClientConfigurationDevice = Config; 
-            ClientConfigurationDevice.ClientAuthDetails = new ClientAuthDetailsDeviceTest();
-            ClientConfigurationDevice.DataStorage = storage;
-
-            ClientConfigurationUser = Config;
-            ClientConfigurationUser.ClientAuthDetails = new ClientAuthDetailsUserTest();
-            ClientConfigurationUser.DataStorage = storage;
+            ClientConfigurationUser = new ClientConfiguration(properties)
+            {
+                ClientAuthDetails = new ClientAuthDetailsUserTest(),
+                DataStorage = new MemoryDataStorage()
+            };
         }
 
         protected void StartupClientDevice()

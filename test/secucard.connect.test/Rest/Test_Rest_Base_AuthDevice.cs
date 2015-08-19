@@ -26,7 +26,7 @@ namespace Secucard.Connect.Test.Rest
     public class Test_Rest_Base_AuthDevice : Test_Base
     {
         protected readonly RestService RestService;
-        protected readonly IClientAuthDetails ClientAuthDetails;
+        protected readonly IClientAuthDetails ClientAuthDetailsDevice;
 
         public Test_Rest_Base_AuthDevice()
         {
@@ -39,9 +39,9 @@ namespace Secucard.Connect.Test.Rest
 
             AuthConfig = new AuthConfig(properties);
 
-            ClientAuthDetails = new ClientAuthDetailsDeviceTest();
+            ClientAuthDetailsDevice = new ClientAuthDetailsDeviceTest();
 
-            var authProvider = new TokenManager(AuthConfig, ClientAuthDetails, new RestAuth(AuthConfig));
+            var authProvider = new TokenManager(AuthConfig, ClientAuthDetailsDevice, new RestAuth(AuthConfig));
 
             authProvider.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
             AccessToken = authProvider.GetToken(true);
