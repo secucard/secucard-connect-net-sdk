@@ -28,7 +28,7 @@ namespace Secucard.Connect.Test
         protected readonly RestConfig RestConfig;
         protected AuthConfig AuthConfig;
 
-        protected const string configPath = "data\\Config\\SecucardConnect.develop.config";
+        protected const string configPath = "data\\Config\\SecucardConnect.config";
         protected readonly Properties properties;
 
         protected bool IsConnected;
