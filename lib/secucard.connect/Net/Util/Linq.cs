@@ -13,7 +13,6 @@
 namespace Secucard.Connect.Net.Util
 {
     using System;
-    using System.CodeDom;
     using System.Globalization;
     using System.Linq;
 
@@ -33,7 +32,7 @@ namespace Secucard.Connect.Net.Util
 
         public static string ToDateTimeZone(this DateTime? d)
         {
-            return d.HasValue ? d.Value.ToString("yyy-MM-ddTHH:mm:sszzz") : null;
+            return d.HasValue ? d.Value.ToString("yyyy-MM-ddTHH:mm:sszzz") : null;
         }
 
         public static string FirstCharToUpper(this string input)
