@@ -216,3 +216,5 @@ FakesAssemblies/
 _Pvt_Extensions
 
 *.develop.config
+test/secucard.connect.test/ClientAuthDetailsDeviceTest-KH.cs
+test/secucard.connect.test/ClientAuthDetailsUserTest-KH.cs
