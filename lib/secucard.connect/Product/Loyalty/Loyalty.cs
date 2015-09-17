@@ -19,7 +19,7 @@ namespace Secucard.Connect.Product.Loyalty
     {
         public CardsService Cards { get; set; }
 
-        public CustomersService Customers { get; set; }
+        public CustomerLoyaltyService CustomerLoyalty { get; set; }
 
         public MerchantCardsService Merchantcards { get; set; }
     }

@@ -30,7 +30,7 @@ namespace Secucard.Connect.Test.Client
         {
             StartupClientUser();
 
-            var customerService = Client.GetService<CustomerService>();
+            var customerService = Client.GetService<CustomerPaymentService>();
 
             var customer = new Customer
             {

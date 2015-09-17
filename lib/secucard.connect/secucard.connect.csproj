@@ -89,6 +89,7 @@
     <Compile Include="Net\Util\JsonSplitter.cs" />
     <Compile Include="Net\Util\Linq.cs" />
     <Compile Include="Product\Common\Model\ObjectList.cs" />
+    <Compile Include="Product\Common\Model\ProductException.cs" />
     <Compile Include="Product\Common\Model\QueryParams.cs" />
     <Compile Include="Product\Common\Model\Response.cs" />
     <Compile Include="Product\Common\Model\StompResult.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="Product\Payment\SecupayPrepaysService.cs" />
     <Compile Include="Product\Payment\DebitService.cs" />
     <Compile Include="Product\Payment\ContainerService.cs" />
-    <Compile Include="Product\Payment\CustomerService.cs" />
+    <Compile Include="Product\Payment\CustomerPaymentService.cs" />
     <Compile Include="Product\Payment\Model\CloneParams.cs" />
     <Compile Include="Product\Payment\Model\Container.cs" />
     <Compile Include="Product\Payment\Model\Contract.cs" />
@@ -218,7 +219,7 @@
     <Compile Include="Net\Stomp\StompChannel.cs" />
     <Compile Include="Product\Loyalty\CustomersService.cs" />
     <Compile Include="Product\Loyalty\MerchantCardsService.cs" />
-    <Compile Include="Auth\ClientAuthDetails.cs" />
+    <Compile Include="Auth\IClientAuthDetails.cs" />
     <Compile Include="Auth\Model\OAuthCredentials.cs" />
     <Compile Include="Auth\Model\DeviceCredentials.cs" />
     <Compile Include="Auth\Model\AnonymousCredentials.cs" />

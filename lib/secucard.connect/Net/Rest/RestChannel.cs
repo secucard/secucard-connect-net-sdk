@@ -38,21 +38,37 @@ namespace Secucard.Connect.Net.Rest
         {
             var request = CreateRequest(channelRequest);
 
-            switch (channelRequest.Method)
+            try
             {
-                case ChannelMethod.GET:
-                    return GetObject<T>(request, channelRequest.ObjectId);
-                case ChannelMethod.CREATE:
-                    return CreateObject<T>(request, (T) channelRequest.Object);
-                case ChannelMethod.UPDATE:
-                    return UpdateObject(request, channelRequest.ObjectId, (T) channelRequest.Object);
-                case ChannelMethod.EXECUTE:
-                    return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
-                        channelRequest.Object);
-                case ChannelMethod.DELETE:
-                    DeleteObject<T>(request, channelRequest.ObjectId);
-                    break;
+                switch (channelRequest.Method)
+                {
+                    case ChannelMethod.GET:
+                        return GetObject<T>(request, channelRequest.ObjectId);
+                    case ChannelMethod.CREATE:
+                        return CreateObject<T>(request, (T)channelRequest.Object);
+                    case ChannelMethod.UPDATE:
+                        return UpdateObject(request, channelRequest.ObjectId, (T)channelRequest.Object);
+                    case ChannelMethod.EXECUTE:
+                        return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
+                            channelRequest.Object);
+                    case ChannelMethod.DELETE:
+                        DeleteObject<T>(request, channelRequest.ObjectId);
+                        break;
+                }
             }
+            catch (RestException ex)
+            {
+                var status = JsonSerializer.TryDeserializeJson<Status>(ex.BodyText);
+                if (status != null)
+                {
+                    throw new ProductException(status.Error + " --> " + status.ErrorDetails + " (SupportId: " + status.SupportId + ")")
+                    {
+                        Status = status
+                    };
+                }
+                throw;
+            }
+
             return default(T);
         }
 

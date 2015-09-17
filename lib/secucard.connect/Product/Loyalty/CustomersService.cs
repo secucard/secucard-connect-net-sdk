@@ -18,7 +18,7 @@ namespace Secucard.Connect.Product.Loyalty
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.Loyalty.Model;
 
-    public class CustomersService : ProductService<Customer>
+    public class CustomerLoyaltyService : ProductService<Customer>
     {
         public static readonly ServiceMetaData<Customer> META_DATA = new ServiceMetaData<Customer>("loyalty",
             "customers");
