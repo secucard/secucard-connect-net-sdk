@@ -56,6 +56,7 @@
     <Compile Include="Client\Test_Client_DocumentUploads.cs" />
     <Compile Include="Client\Test_Client_Loyalty.cs" />
     <Compile Include="Client\Test_Client_PaymentCustomer.cs" />
+    <Compile Include="Client\Test_Client_PaymentDebit.cs" />
     <Compile Include="Client\Test_Client_SmartTransaction.cs" />
     <Compile Include="Client\Test_Client_PaymentDemo.cs" />
     <Compile Include="Client\Test_Client_Base.cs" />

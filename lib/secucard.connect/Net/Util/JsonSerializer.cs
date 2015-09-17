@@ -20,6 +20,23 @@ namespace Secucard.Connect.Net.Util
 
     public static class JsonSerializer
     {
+
+        public static T TryDeserializeJson<T>(string jsonString)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(T));
+            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
+            {
+                try
+                {
+                    return (T)serializer.ReadObject(ms);
+                }
+                catch 
+                {
+                   return default(T);
+                }
+            }
+        }
+
         public static T DeserializeJson<T>(string jsonString)
         {
             var serializer = new DataContractJsonSerializer(typeof (T));

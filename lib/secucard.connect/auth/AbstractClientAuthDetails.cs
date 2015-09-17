@@ -16,7 +16,7 @@ namespace Secucard.Connect.Auth
     using Secucard.Connect.Storage;
 
     /// <summary>
-    /// Abstract implementation which just delegates the token persistence to a file based cache.
+    /// Abstract implementation which just delegates the token persistence to a memory based cache.
     /// </summary>
     public abstract class AbstractClientAuthDetails
     {

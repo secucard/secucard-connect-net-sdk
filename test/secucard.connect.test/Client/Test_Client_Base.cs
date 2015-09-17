@@ -68,20 +68,28 @@ namespace Secucard.Connect.Test.Client
 
             if (args.Status == AuthStatusEnum.Pending)
             {
-                // Set pin via SMART REST (only development)
-
-                var reqSmartPin = new RestRequest
+                try
                 {
-                    Host = new Uri(AuthConfig.OAuthUrl).Host,
-                    BodyJsonString =
-                        JsonSerializer.SerializeJson(new SmartPin { UserPin = args.DeviceAuthCodes.UserCode })
-                };
+                    // try set pin via SMART REST (only development)
+                    var reqSmartPin = new RestRequest
+                    {
+                        Host = new Uri(AuthConfig.OAuthUrl).Host,
+                        BodyJsonString =
+                            JsonSerializer.SerializeJson(new SmartPin { UserPin = args.DeviceAuthCodes.UserCode })
+                    };
 
-                reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
-                var restSmart =
-                    new RestService(new RestConfig { Url = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
-                var response = restSmart.RestPut(reqSmartPin);
-                Assert.IsTrue(response.Length > 0);
+                    reqSmartPin.Header.Add("Authorization", "Bearer p11htpu8n1c6f85d221imj8l20");
+                    var restSmart =
+                        new RestService(new RestConfig { Url = "https://core-dev10.secupay-ag.de/app.core.connector/api/v2/Smart/Devices/SDV_2YJDXYESB2YBHECVB5GQGSYPNM8UA6/pin" });
+                    var response = restSmart.RestPut(reqSmartPin);
+                    Assert.IsTrue(response.Length > 0);
+                }
+                catch 
+                {
+                    // Rest API to enter PIN not available
+                    Debug.WriteLine(args.DeviceAuthCodes.UserCode);
+                    Process.Start(args.DeviceAuthCodes.VerificationUrl);
+                }
             }
         }
 

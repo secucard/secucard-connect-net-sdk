@@ -12,8 +12,6 @@
 
 namespace Secucard.Connect.Product.Payment
 {
-    using Secucard.Connect.Product.Loyalty;
-
     /// <summary>
     /// Holds service references and service type constants for "payment" product.
     /// </summary>
@@ -23,7 +21,7 @@ namespace Secucard.Connect.Product.Payment
 
         public ContractService Contracts { get; set; }
 
-        public CustomersService Customers { get; set; }
+        public CustomerPaymentService Customers { get; set; }
 
         public SecupayDebitsService Secupaydebits { get; set; }
 

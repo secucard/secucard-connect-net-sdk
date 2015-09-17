@@ -10,21 +10,19 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.Test.Client
+namespace Secucard.Connect.Product.Payment
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Payment.Model;
 
-    [TestClass]
-    [DeploymentItem("Data", "Data")]
-    public class Test_Client_Loyalty : Test_Client_Base
+    public class CustomerPaymentService : ProductService<Customer>
     {
-        [TestMethod, TestCategory("Client")]
-        public void Test_Client_LoyaltyCustomers_1()
-        {
-            StartupClientUser();
+        public static readonly ServiceMetaData<Customer> META_DATA = new ServiceMetaData<Customer>("payment",
+            "customers");
 
-            var customerService = Client.Loyalty.CustomerLoyalty;
-            var list = customerService.GetList(null);
+        protected override ServiceMetaData<Customer> GetMetaData()
+        {
+            return META_DATA;
         }
     }
 }

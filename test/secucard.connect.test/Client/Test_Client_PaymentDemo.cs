@@ -27,7 +27,7 @@ namespace Secucard.Connect.Test.Client
             StartupClientUser();
 
 
-            var customerService = Client.GetService<CustomerService>();
+            var customerService = Client.GetService<CustomerPaymentService>();
             var containerService = Client.GetService<ContainersService>();
             var debitService = Client.GetService<SecupayDebitsService>();
             var contractService = Client.GetService<ContractService>();

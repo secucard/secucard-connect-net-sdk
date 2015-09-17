@@ -245,19 +245,24 @@ namespace Secucard.Connect.Net.Rest
         {
             SecucardTrace.Exception(ex);
             var wr = ex.Response as HttpWebResponse;
-            var dataStream = wr.GetResponseStream();
-            var reader = new StreamReader(dataStream, Encoding.UTF8);
-            var restException = new RestException
+            if (wr != null)
             {
-                BodyText = reader.ReadToEnd(),
-                StatusDescription = wr.StatusDescription,
-                StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
-            };
-            SecucardTrace.Exception(restException);
-            SecucardTrace.Info(restException.StatusDescription);
-            SecucardTrace.Info(restException.BodyText.EscapeCurlyBracets());
-            reader.Close();
-            return restException;
+                var dataStream = wr.GetResponseStream();
+                var reader = new StreamReader(dataStream, Encoding.UTF8);
+                var restException = new RestException
+                {
+                    BodyText = reader.ReadToEnd(),
+                    StatusDescription = wr.StatusDescription,
+                    StatusCode = (ex.Status == WebExceptionStatus.ProtocolError) ? ((int?) wr.StatusCode) : null
+                };
+                SecucardTrace.Exception(restException);
+                SecucardTrace.Info(restException.StatusDescription);
+                SecucardTrace.Info(restException.BodyText.EscapeCurlyBracets());
+                reader.Close();
+                return restException;
+            }
+            else 
+                throw ex;
         }
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)
