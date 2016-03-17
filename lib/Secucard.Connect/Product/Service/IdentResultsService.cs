@@ -33,11 +33,11 @@ namespace Secucard.Connect.Product.Service
         //private bool cacheAttachmentsEnabled = true;
 
 
-        public static readonly ServiceMetaData<IdentResult> META_DATA = new ServiceMetaData<IdentResult>("payment", "identresults");
+        public static readonly ServiceMetaData<IdentResult> MetaData = new ServiceMetaData<IdentResult>("payment", "identresults");
 
         protected override ServiceMetaData<IdentResult> GetMetaData()
         {
-             return META_DATA; 
+             return MetaData; 
         }
      
 

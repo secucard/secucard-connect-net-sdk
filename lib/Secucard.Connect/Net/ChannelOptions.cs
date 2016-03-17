@@ -17,19 +17,19 @@ namespace Secucard.Connect.Net
     /// </summary>
     public class ChannelOptions
     {
-        public const string CHANNEL_REST = "rest";
-        public const string CHANNEL_STOMP = "stomp";
+        public const string ChannelRest = "rest";
+        public const string ChannelStomp = "stomp";
         public bool Anonymous = false;
         public bool Expand = false;
         public string Channel;
         public string ClientId = null;
-        public int? TimeOutSec = null;
+        public int? TimeOutSec;
 
 
         public static ChannelOptions GetDefault()
         {
             // TODO: Default Channel aus config
-            return new ChannelOptions {Channel = CHANNEL_REST, TimeOutSec = 100};
+            return new ChannelOptions {Channel = ChannelRest, TimeOutSec = 100};
         }
 
         public ChannelOptions()
@@ -38,7 +38,7 @@ namespace Secucard.Connect.Net
 
         public ChannelOptions(string channel)
         {
-            this.Channel = channel;
+            Channel = channel;
         }
     }
 }

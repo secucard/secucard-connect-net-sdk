@@ -22,10 +22,10 @@ namespace Secucard.Connect.Product.Service.Model.services
     [DataContract]
     public class IdentResult : SecuObject
     {
-        public const string STATUS_OK = "ok";
-        public static string STATUS_FAILED = "failed";
-        public static string STATUS_PRELIMINARY_OK = "ok_preliminary";
-        public static string STATUS_PRELIMINARY_FAILED = "failed_preliminary";
+        public const string StatusOk = "ok";
+        public static string StatusFailed = "failed";
+        public static string StatusPreliminaryOk = "ok_preliminary";
+        public static string StatusPreliminaryFailed = "failed_preliminary";
 
         [DataMember(Name = "request")]
         public IdentRequest Request { get; set; }

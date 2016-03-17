@@ -43,7 +43,7 @@ namespace Secucard.Connect.Client
         {
             return Request<T>(new ChannelRequest
             {
-                Method = ChannelMethod.GET,
+                Method = ChannelMethod.Get,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 ObjectId = id,
@@ -60,7 +60,7 @@ namespace Secucard.Connect.Client
         {
             return RequestList<T>(new ChannelRequest
             {
-                Method = ChannelMethod.GET,
+                Method = ChannelMethod.Get,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 QueryParams = queryParams,
@@ -81,7 +81,7 @@ namespace Secucard.Connect.Client
         {
             return Request<T>(new ChannelRequest
             {
-                Method = ChannelMethod.CREATE,
+                Method = ChannelMethod.Create,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 Object = obj
@@ -101,7 +101,7 @@ namespace Secucard.Connect.Client
         {
             return Request<R>(new ChannelRequest
             {
-                Method = ChannelMethod.UPDATE,
+                Method = ChannelMethod.Update,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 ObjectId = obj.Id,
@@ -122,7 +122,7 @@ namespace Secucard.Connect.Client
         {
             Request<R>(new ChannelRequest
             {
-                Method = ChannelMethod.DELETE,
+                Method = ChannelMethod.Delete,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 ObjectId = id
@@ -140,7 +140,7 @@ namespace Secucard.Connect.Client
             if (actionArg != null) actionArgs.Add(actionArg);
             return Request<R>(new ChannelRequest
             {
-                Method = ChannelMethod.EXECUTE,
+                Method = ChannelMethod.Execute,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 Action = action,
@@ -157,7 +157,7 @@ namespace Secucard.Connect.Client
 
             var result = Request<ExecuteResult>(new ChannelRequest
             {
-                Method = ChannelMethod.EXECUTE,
+                Method = ChannelMethod.Execute,
                 Product = GetMetaData().Product,
                 Resource = GetMetaData().Resource,
                 Action = action,

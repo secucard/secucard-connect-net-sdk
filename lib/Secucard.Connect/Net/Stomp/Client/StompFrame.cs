@@ -65,7 +65,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
             var line = reader.ReadLine();
 
-            var frame = new StompFrame(line.Trim());
+            var frame = new StompFrame(line?.Trim() ?? string.Empty);
 
             // read header
             var contentLength = 0;

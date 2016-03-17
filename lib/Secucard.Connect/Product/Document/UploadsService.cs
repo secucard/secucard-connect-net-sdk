@@ -17,11 +17,11 @@ namespace Secucard.Connect.Product.Document
 
     public class UploadsService : ProductService<Upload>
     {
-        public static readonly ServiceMetaData<Upload> META_DATA = new ServiceMetaData<Upload>("document", "uploads");
+        public static readonly ServiceMetaData<Upload> MetaData = new ServiceMetaData<Upload>("document", "uploads");
 
         protected override ServiceMetaData<Upload> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
 
         /// <summary>

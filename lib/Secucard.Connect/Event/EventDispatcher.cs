@@ -21,11 +21,11 @@ namespace Secucard.Connect.Event
 
     internal class EventDispatcher
     {
-        private readonly Dictionary<string, Dictionary<string, Action<object>>> EventKeySubscriptions;
+        private readonly Dictionary<string, Dictionary<string, Action<object>>> _eventKeySubscriptions;
 
         internal EventDispatcher()
         {
-            EventKeySubscriptions = new Dictionary<string, Dictionary<string, Action<object>>>();
+            _eventKeySubscriptions = new Dictionary<string, Dictionary<string, Action<object>>>();
         }
 
         /// <summary>
@@ -36,10 +36,10 @@ namespace Secucard.Connect.Event
             var eventKey = target + "." + type;
             Dictionary<string, Action<object>> subscribers;
             // Check if there is subscriber to that event. If not create it
-            if (!EventKeySubscriptions.TryGetValue(eventKey, out subscribers))
+            if (!_eventKeySubscriptions.TryGetValue(eventKey, out subscribers))
             {
                 subscribers = new Dictionary<string, Action<object>>();
-                EventKeySubscriptions.Add(target + "." + type, subscribers);
+                _eventKeySubscriptions.Add(target + "." + type, subscribers);
             }
 
             // Add or replace the call for the service
@@ -56,14 +56,14 @@ namespace Secucard.Connect.Event
             Dictionary<string, Action<object>> subscribers;
 
             // Check if there is subscriber to that event. If not create it
-            if (!EventKeySubscriptions.TryGetValue(eventKey, out subscribers)) return;
+            if (!_eventKeySubscriptions.TryGetValue(eventKey, out subscribers)) return;
 
             // call registered delegates of services.
             foreach (var ele in subscribers)
             {
                 try
                 {
-                    if (ele.Value != null) ele.Value(serverEvent);
+                    ele.Value?.Invoke(serverEvent);
                 }
                 catch (Exception ex)
                 {

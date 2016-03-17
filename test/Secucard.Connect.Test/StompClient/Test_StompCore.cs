@@ -27,7 +27,7 @@ namespace Secucard.Connect.Test.StompClient
             IsConnected = false;
             MessageReceived = false;
 
-            var frame = new StompFrame(StompCommands.CONNECT);
+            var frame = new StompFrame(StompCommands.Connect);
 
             frame.Headers.Add(StompHeader.Login, AccessToken);
             frame.Headers.Add(StompHeader.Passcode, AccessToken);
@@ -45,7 +45,7 @@ namespace Secucard.Connect.Test.StompClient
                 {
                 }
 
-                var framePing = new StompFrame(StompCommands.SEND);
+                var framePing = new StompFrame(StompCommands.Send);
                 framePing.Headers.Add(StompHeader.UserId, AccessToken);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
@@ -65,8 +65,8 @@ namespace Secucard.Connect.Test.StompClient
         private void ClientOnStompCoreFrameArrived(object sender, StompCoreFrameArrivedEventArgs args)
         {
             var frame = args.Frame;
-            if (frame.Command == StompCommands.CONNECTED) IsConnected = true;
-            if (frame.Command == StompCommands.MESSAGE) MessageReceived = true;
+            if (frame.Command == StompCommands.Connected) IsConnected = true;
+            if (frame.Command == StompCommands.Message) MessageReceived = true;
         }
     }
 }

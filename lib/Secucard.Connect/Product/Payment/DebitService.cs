@@ -17,11 +17,11 @@ namespace Secucard.Connect.Product.Payment
 
     public class SecupayDebitsService : ProductService<SecupayDebit>
     {
-        public static readonly ServiceMetaData<SecupayDebit> META_DATA = new ServiceMetaData<SecupayDebit>("payment", "secupaydebits");
+        public static readonly ServiceMetaData<SecupayDebit> MetaData = new ServiceMetaData<SecupayDebit>("payment", "secupaydebits");
 
         protected override ServiceMetaData<SecupayDebit> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
     }
 }

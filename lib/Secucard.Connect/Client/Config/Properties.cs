@@ -35,13 +35,13 @@ namespace Secucard.Connect.Client.Config
 
         public bool Get(string name, bool defaultValue)
         {
-            var value = Get(name, null);
+            var value = Get(name);
             return value != null ? bool.Parse(value) : defaultValue;
         }
 
         public int Get(string name, int defaultValue)
         {
-            var value = Get(name, null);
+            var value = Get(name);
             return value != null ? int.Parse(value) : defaultValue;
         }
 

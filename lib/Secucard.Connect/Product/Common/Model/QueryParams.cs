@@ -18,8 +18,8 @@ namespace Secucard.Connect.Product.Common.Model
     [DataContract]
     public class QueryParams
     {
-        public static string SORT_ASC = "asc";
-        public static string SORT_DESC = "desc";
+        public static string SortAsc = "asc";
+        public static string SortDesc = "desc";
 
         [DataMember(Name = "count", EmitDefaultValue = false)]
         public int? Count { get; set; }

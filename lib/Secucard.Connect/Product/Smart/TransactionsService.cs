@@ -27,12 +27,12 @@ namespace Secucard.Connect.Product.Smart
             Context.EventDispatcher.RegisterForEvent(GetType().Name, "general.notifications", "display", OnNewEvent);
         }
 
-        public static readonly ServiceMetaData<Transaction> META_DATA = new ServiceMetaData<Transaction>("smart",
+        public static readonly ServiceMetaData<Transaction> MetaData = new ServiceMetaData<Transaction>("smart",
             "transactions");
 
         protected override ServiceMetaData<Transaction> GetMetaData()
         {
-             return META_DATA; 
+             return MetaData; 
         }
 
         private void OnNewEvent(object obj)
@@ -48,7 +48,7 @@ namespace Secucard.Connect.Product.Smart
         public Transaction Start(string transactionId, string type)
         {
             return Execute<Transaction>(transactionId, "start", type, null,
-                new ChannelOptions {Channel = ChannelOptions.CHANNEL_STOMP});
+                new ChannelOptions {Channel = ChannelOptions.ChannelStomp});
         }
 
         /// <summary>

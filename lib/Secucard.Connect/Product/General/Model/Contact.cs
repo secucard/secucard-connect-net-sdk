@@ -20,8 +20,8 @@ namespace Secucard.Connect.Product.General.Model
     [DataContract]
     public class Contact : SecuObject
     {
-        public const string GENDER_MALE = "MALE";
-        public const string GENDER_FEMALE = "FEMALE";
+        public const string GenderMale = "MALE";
+        public const string GenderFemale = "FEMALE";
 
         [DataMember(Name = "salutation")]
         public string Salutation { get; set; }

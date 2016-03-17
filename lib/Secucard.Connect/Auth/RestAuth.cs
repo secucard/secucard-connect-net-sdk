@@ -19,16 +19,16 @@ namespace Secucard.Connect.Auth
 
     public class RestAuth : RestBase
     {
-        public const string DEVICE = "device";
-        public const string REFRESHTOKEN = "refresh_token";
-        public const string CLIENTCREDENTIALS = "client_credentials";
+        public const string Device = "device";
+        public const string Refreshtoken = "refresh_token";
+        public const string Clientcredentials = "client_credentials";
 
-        private readonly string Host;
+        private readonly string _host;
 
         public RestAuth(AuthConfig authConfig)
             : base(new RestConfig { Url = authConfig.OAuthUrl, ConnectTimeoutSec = authConfig.AuthWaitTimeoutSec })
         {
-            Host = new Uri(authConfig.OAuthUrl).Host;
+            _host = new Uri(authConfig.OAuthUrl).Host;
         }
 
         public string UserAgentInfo { get; set; }
@@ -37,31 +37,30 @@ namespace Secucard.Connect.Auth
         {
             var req = new RestRequest
             {
-                Host = Host,
+                Host = _host,
                 UserAgent = UserAgentInfo
             };
 
-            req.BodyParameter.Add(AuthConst.Grant_Type, DEVICE);
-            req.BodyParameter.Add(AuthConst.Client_Id, clientId);
-            req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
+            req.BodyParameter.Add(AuthConst.GrantType, Device);
+            req.BodyParameter.Add(AuthConst.ClientId, clientId);
+            req.BodyParameter.Add(AuthConst.ClientSecret, clientSecret);
             req.BodyParameter.Add(AuthConst.Uuid, uuid);
 
             var ret = RestPost(req);
             return JsonSerializer.DeserializeJson<DeviceAuthCode>(ret);
-            ;
         }
 
         public Token GetToken(string clientId, string clientSecret)
         {
             var req = new RestRequest
             {
-                Host = Host,
+                Host = _host,
                 UserAgent = UserAgentInfo
             };
 
-            req.BodyParameter.Add(AuthConst.Grant_Type, CLIENTCREDENTIALS);
-            req.BodyParameter.Add(AuthConst.Client_Id, clientId);
-            req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
+            req.BodyParameter.Add(AuthConst.GrantType, Clientcredentials);
+            req.BodyParameter.Add(AuthConst.ClientId, clientId);
+            req.BodyParameter.Add(AuthConst.ClientSecret, clientSecret);
 
             var ret = RestPost(req);
             return JsonSerializer.DeserializeJson<Token>(ret);
@@ -71,13 +70,13 @@ namespace Secucard.Connect.Auth
         {
             var req = new RestRequest
             {
-                Host = Host,
+                Host = _host,
                 UserAgent = UserAgentInfo
             };
 
-            req.BodyParameter.Add(AuthConst.Grant_Type, DEVICE);
-            req.BodyParameter.Add(AuthConst.Client_Id, clientId);
-            req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
+            req.BodyParameter.Add(AuthConst.GrantType, Device);
+            req.BodyParameter.Add(AuthConst.ClientId, clientId);
+            req.BodyParameter.Add(AuthConst.ClientSecret, clientSecret);
             req.BodyParameter.Add(AuthConst.Code, deviceCode);
 
             try
@@ -97,12 +96,12 @@ namespace Secucard.Connect.Auth
         {
             var req = new RestRequest
             {
-                Host = Host,
+                Host = _host,
                 UserAgent = UserAgentInfo
             };
-            req.BodyParameter.Add(AuthConst.Grant_Type, REFRESHTOKEN);
-            req.BodyParameter.Add(AuthConst.Client_Id, clientId);
-            req.BodyParameter.Add(AuthConst.Client_Secret, clientSecret);
+            req.BodyParameter.Add(AuthConst.GrantType, Refreshtoken);
+            req.BodyParameter.Add(AuthConst.ClientId, clientId);
+            req.BodyParameter.Add(AuthConst.ClientSecret, clientSecret);
             req.BodyParameter.Add(AuthConst.RefreshToken, refreshToken);
 
             var ret = RestPost(req);

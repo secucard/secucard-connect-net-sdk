@@ -26,29 +26,29 @@ namespace Secucard.Connect.Net.Stomp
 
     public class StompChannel : Channel
     {
-        private readonly string ChannelId;
-        private readonly StompConfig Configuration;
-        private readonly object lockSend = new object();
+        private readonly string _channelId;
+        private readonly StompConfig _configuration;
+        private readonly object _lockSend = new object();
 
-        private readonly ConcurrentDictionary<string, StompMessage> Messages =
+        private readonly ConcurrentDictionary<string, StompMessage> _messages =
             new ConcurrentDictionary<string, StompMessage>();
 
-        private readonly StompClient Stomp;
-        private Timer ClientTimerHeartbeat;
-        private string ConnectToken;
-        private volatile bool IsConfirmed;
-        private volatile bool StopRefresh;
+        private readonly StompClient _stomp;
+        private Timer _clientTimerHeartbeat;
+        private string _connectToken;
+        private volatile bool _isConfirmed;
+        private volatile bool _stopRefresh;
 
         public StompChannel(StompConfig configuration, ClientContext context)
             : base(context)
         {
             SecucardTrace.Info(string.Format("configuration = '{0}'", configuration));
-            Configuration = configuration;
+            _configuration = configuration;
 
-            ChannelId = Guid.NewGuid().ToString();
-            Stomp = new StompClient(Configuration);
-            Stomp.StompClientFrameArrivedEvent += StompOnStompClientFrameArrivedEvent;
-            Stomp.StompClientChangedEvent += Stomp_StompClientChangedEvent;
+            _channelId = Guid.NewGuid().ToString();
+            _stomp = new StompClient(_configuration);
+            _stomp.StompClientFrameArrivedEvent += StompOnStompClientFrameArrivedEvent;
+            _stomp.StompClientChangedEvent += Stomp_StompClientChangedEvent;
         }
 
         public StompEventArrivedEventHandler StompEventArrivedEvent;
@@ -80,7 +80,7 @@ namespace Secucard.Connect.Net.Stomp
 
         public override T Request<T>(ChannelRequest request)
         {
-            var stompRequest = StompRequest.Create(request, ChannelId, Configuration.ReplyTo, Configuration.Destination);
+            var stompRequest = StompRequest.Create(request, _channelId, _configuration.ReplyTo, _configuration.Destination);
             var returnMessage = SendMessage(stompRequest);
             SecucardTrace.InfoSource("StompChannel.Request", returnMessage.EscapeCurlyBracets());
             var response = new Response(returnMessage);
@@ -89,7 +89,7 @@ namespace Secucard.Connect.Net.Stomp
 
         public override ObjectList<T> RequestList<T>(ChannelRequest request)
         {
-            var stompRequest = StompRequest.Create(request, ChannelId, Configuration.ReplyTo, Configuration.Destination);
+            var stompRequest = StompRequest.Create(request, _channelId, _configuration.ReplyTo, _configuration.Destination);
             var returnMessage = SendMessage(stompRequest);
             SecucardTrace.InfoSource("StompChannel.RequestList",returnMessage.EscapeCurlyBracets());
             var response = new Response(returnMessage);
@@ -109,23 +109,23 @@ namespace Secucard.Connect.Net.Stomp
         /// </summary>
         private void Connect(string token)
         {
-            Stomp.Connect(token,token);
-            ConnectToken = token;
+            _stomp.Connect(token,token);
+            _connectToken = token;
         }
 
         private void CheckConnection(string token)
         {
             // auto-connect or reconnect if token has changed since last connect
-            if (Stomp.StompClientStatus != EnumStompClientStatus.Connected ||
-                (token != null && !token.Equals(ConnectToken)))
+            if (_stomp.StompClientStatus != EnumStompClientStatus.Connected ||
+                (token != null && !token.Equals(_connectToken)))
             {
-                if (Stomp.StompClientStatus == EnumStompClientStatus.Connected)
+                if (_stomp.StompClientStatus == EnumStompClientStatus.Connected)
                 {
                     SecucardTrace.Info("Reconnect due token change.");
                 }
                 try
                 {
-                    Stomp.Disconnect();
+                    _stomp.Disconnect();
                 }
                 catch (Exception e)
                 {
@@ -140,7 +140,7 @@ namespace Secucard.Connect.Net.Stomp
         {
             var token = GetToken();
 
-            var frame = new StompFrame(StompCommands.SEND);
+            var frame = new StompFrame(StompCommands.Send);
             frame.Headers.Add(StompHeader.ReplyTo, stompRequest.ReplayTo);
             frame.Headers.Add(StompHeader.ContentType, "application/json");
             frame.Headers.Add(StompHeader.UserId, token);
@@ -157,24 +157,24 @@ namespace Secucard.Connect.Net.Stomp
             }
 
             // only one send at a time
-            lock (lockSend)
+            lock (_lockSend)
             {
                 CheckConnection(token);
-                Stomp.SendFrame(frame);
+                _stomp.SendFrame(frame);
             }
 
             string message = null;
-            var endWaitAt = DateTime.Now.AddSeconds(Configuration.MessageTimeoutSec);
+            var endWaitAt = DateTime.Now.AddSeconds(_configuration.MessageTimeoutSec);
             while (message == null && DateTime.Now < endWaitAt)
             {
                 SecucardTrace.Info("Waiting for Message with correlationId={0}", stompRequest.CorrelationId);
-                message = PullMessage(stompRequest.CorrelationId, Configuration.MaxMessageAgeSec);
+                message = PullMessage(stompRequest.CorrelationId, _configuration.MaxMessageAgeSec);
                 Thread.Sleep(500);
             }
             if (message == null)
             {
                 throw new MessageTimeoutException("No answer for " + stompRequest.CorrelationId + " received within " +
-                                                  Configuration.MessageTimeoutSec + "s.");
+                                                  _configuration.MessageTimeoutSec + "s.");
             }
 
             return message;
@@ -186,7 +186,7 @@ namespace Secucard.Connect.Net.Stomp
         private void PutMessage(string id, string body)
         {
             var msg = new StompMessage(id, body);
-            var success = Messages.TryAdd(msg.Id, msg);
+            var success = _messages.TryAdd(msg.Id, msg);
             if (!success) throw new Exception("Invalid correlation id, message with this id already exists.");
         }
 
@@ -198,13 +198,13 @@ namespace Secucard.Connect.Net.Stomp
             var t = DateTime.Now.AddSeconds(-maxMessageAgeSec);
             StompMessage message;
 
-            var toOld = Messages.Where(o => o.Value.ReceiveTime < t).ToList();
+            var toOld = _messages.Where(o => o.Value.ReceiveTime < t).ToList();
             foreach (var m in toOld)
             {
-                Messages.TryRemove(m.Key, out message);
+                _messages.TryRemove(m.Key, out message);
             }
 
-            if (Messages.TryRemove(id, out message))
+            if (_messages.TryRemove(id, out message))
             {
                 return message.Body ?? "";
             }
@@ -223,9 +223,9 @@ namespace Secucard.Connect.Net.Stomp
 
         public override void Close()
         {
-            StopRefresh = true;
-            ClientTimerHeartbeat.Dispose();
-            Stomp.Disconnect();
+            _stopRefresh = true;
+            _clientTimerHeartbeat.Dispose();
+            _stomp.Disconnect();
             SecucardTrace.Info("STOMP channel closed.");
         }
 
@@ -237,15 +237,15 @@ namespace Secucard.Connect.Net.Stomp
         {
             var channelRequest = new ChannelRequest
             {
-                Method = ChannelMethod.EXECUTE,
+                Method = ChannelMethod.Execute,
                 Product = "auth",
                 Resource = "sessions",
                 Action = "refresh",
                 ObjectId = "me"
             };
 
-            var stompRequest = StompRequest.Create(channelRequest, ChannelId, Configuration.ReplyTo,
-                Configuration.Destination);
+            var stompRequest = StompRequest.Create(channelRequest, _channelId, _configuration.ReplyTo,
+                _configuration.Destination);
             var returnMessage = SendMessage(stompRequest);
 
             var response = new Response(returnMessage);
@@ -254,24 +254,24 @@ namespace Secucard.Connect.Net.Stomp
 
         private void StartSessionRefresh()
         {
-            ClientTimerHeartbeat = new Timer(Configuration.HeartbeatMs) {AutoReset = true};
-            ClientTimerHeartbeat.Elapsed += ClientTimerOnElapsed;
-            ClientTimerHeartbeat.Start();
+            _clientTimerHeartbeat = new Timer(_configuration.HeartbeatMs) {AutoReset = true};
+            _clientTimerHeartbeat.Elapsed += ClientTimerOnElapsed;
+            _clientTimerHeartbeat.Start();
         }
 
         private void ClientTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            if (StopRefresh) return;
+            if (_stopRefresh) return;
 
-            if (IsConfirmed)
+            if (_isConfirmed)
             {
                 // There has been a message on Stomp within the cycle. No need to send refresh
-                IsConfirmed = false;
+                _isConfirmed = false;
             }
             else
             {
                 // Send new session refresh message to keep stomp connection alive.
-                IsConfirmed = false;
+                _isConfirmed = false;
                 var sessionOK = SendSessionRefresh();
                 // TODO: if not ok ?
             }

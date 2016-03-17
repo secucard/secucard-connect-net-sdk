@@ -91,7 +91,7 @@
     <Compile Include="StompClient\Test_StompCore.cs" />
     <Compile Include="StompClient\Test_StompFrame.cs" />
     <Compile Include="Test_Base.cs" />
-    <Compile Include="Auth\Test_OAuthProvider.cs" />
+    <Compile Include="Auth\TestOAuthProvider.cs" />
     <Compile Include="Storage\Test_Storage.cs" />
     <Compile Include="Auth\Test_RestAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

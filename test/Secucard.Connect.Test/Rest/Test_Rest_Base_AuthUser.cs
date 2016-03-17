@@ -10,13 +10,12 @@
  * limitations under the License.
  */
 
-using Secucard.Connect.Client.Config;
-
 namespace Secucard.Connect.Test.Rest
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
+    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;

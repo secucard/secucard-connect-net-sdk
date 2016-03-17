@@ -21,7 +21,7 @@ namespace Secucard.Connect.Product.Payment.Model
     [DataContract]
     public class Container : SecuObject
     {
-        public const string TYPE_BANK_ACCOUNT = "bank_account";
+        public const string TypeBankAccount = "bank_account";
 
         [DataMember(Name = "contract")]
         public Contract Contract { get; set; }

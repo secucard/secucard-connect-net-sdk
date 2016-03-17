@@ -37,11 +37,11 @@ namespace Secucard.Connect
     /// </summary>
     public class SecucardConnect
     {
-        public const string VERSION = "0.2";
-        private readonly ClientConfiguration Configuration;
-        private readonly ClientContext Context;
-        private readonly Dictionary<string, IService> ServiceDict;
-        private volatile bool IsConnected;
+        public const string Version = "0.2";
+        private readonly ClientConfiguration _configuration;
+        private readonly ClientContext _context;
+        private readonly Dictionary<string, IService> _serviceDict;
+        private volatile bool _isConnected;
 
         #region ### easy access services ### 
 
@@ -64,31 +64,31 @@ namespace Secucard.Connect
         /// </summary>
         public void Open()
         {
-            if (IsConnected) return;
+            if (_isConnected) return;
 
             try
             {
-                var token = Context.TokenManager.GetToken(true);
+                var token = _context.TokenManager.GetToken(true);
                 SecucardTrace.Info("Auth successfull. Token = {0}", token);
             }
-            catch (AuthError e)
+            catch (AuthError)
             {
                 Close();
-                throw e;
+                throw;
             }
 
             try
             {
-                foreach (var channel in Context.Channels.Values) channel.Open();
+                foreach (var channel in _context.Channels.Values) channel.Open();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Close();
-                throw e;
+                throw;
             }
 
-            IsConnected = true;
-            OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = IsConnected});
+            _isConnected = true;
+            OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = _isConnected});
 
             SecucardTrace.Info("Secucard connect client opened.");
         }
@@ -98,10 +98,10 @@ namespace Secucard.Connect
         /// </summary>
         public void Close()
         {
-            IsConnected = false;
+            _isConnected = false;
             try
             {
-                foreach (var channel in Context.Channels.Values)
+                foreach (var channel in _context.Channels.Values)
                 {
                     channel.Close();
                 }
@@ -111,7 +111,7 @@ namespace Secucard.Connect
                 SecucardTrace.Info(e.ToString());
             }
 
-            OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = IsConnected});
+            OnConnectionStateChangedEvent(new ConnectionStateChangedEventArgs {Connected = _isConnected});
 
             SecucardTrace.Info("Secucard connect client closed.");
         }
@@ -148,7 +148,7 @@ namespace Secucard.Connect
 
         private SecucardConnect(ClientConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
 
             // Setup Trace if directory is there
             if (!string.IsNullOrWhiteSpace(configuration.TraceDir))
@@ -169,42 +169,42 @@ namespace Secucard.Connect
 
             var context = new ClientContext
             {
-                AppId = Configuration.AppId,
+                AppId = _configuration.AppId,
             };
 
 
-            Context = context;
+            _context = context;
 
-            var authConfig = Configuration.AuthConfig;
-            var stompConfig = Configuration.StompConfig;
-            var restConfig = Configuration.RestConfig;
+            var authConfig = _configuration.AuthConfig;
+            var stompConfig = _configuration.StompConfig;
+            var restConfig = _configuration.RestConfig;
 
             SecucardTrace.Info(string.Format("Creating client with configuration: {0}", configuration));
 
-            if (Configuration.ClientAuthDetails == null)
+            if (_configuration.ClientAuthDetails == null)
             {
                 //TODO:
             }
 
-            context.DefaultChannel = Configuration.DefaultChannel;
+            context.DefaultChannel = _configuration.DefaultChannel;
 
             var restChannel = new RestChannel(restConfig, context);
-            context.Channels.Add(ChannelOptions.CHANNEL_REST, restChannel);
+            context.Channels.Add(ChannelOptions.ChannelRest, restChannel);
 
 
-            if (Configuration.StompEnabled)
+            if (_configuration.StompEnabled)
             {
                 var stompChannel = new StompChannel(stompConfig, context);
-                context.Channels.Add(ChannelOptions.CHANNEL_STOMP, stompChannel);
+                context.Channels.Add(ChannelOptions.ChannelStomp, stompChannel);
                 stompChannel.StompEventArrivedEvent += context.EventDispatcher.StompMessageArrivedEvent;
             }
 
             var restAuth = new RestAuth(authConfig)
             {
                 UserAgentInfo =
-                    "secucardconnect-net-" + VERSION + "/net:" + Environment.OSVersion + " " + Environment.Version
+                    "secucardconnect-net-" + Version + "/net:" + Environment.OSVersion + " " + Environment.Version
             };
-            context.TokenManager = new TokenManager(authConfig, Configuration.ClientAuthDetails, restAuth);
+            context.TokenManager = new TokenManager(authConfig, _configuration.ClientAuthDetails, restAuth);
             context.TokenManager.TokenManagerStatusUpdateEvent += TokenManagerOnTokenManagerStatusUpdateEvent;
 
 
@@ -213,7 +213,7 @@ namespace Secucard.Connect
             ResourceDownloader.Get().RestChannel = restChannel;
 
 
-            ServiceDict = ServiceFactory.CreateServices(context);
+            _serviceDict = ServiceFactory.CreateServices(context);
             WireServiceInstances();
         }
 
@@ -236,7 +236,7 @@ namespace Secucard.Connect
 
         public T GetService<T>()
         {
-            return (T) ServiceDict[typeof (T).Name];
+            return (T) _serviceDict[typeof (T).Name];
         }
 
         private void WireServiceInstances()

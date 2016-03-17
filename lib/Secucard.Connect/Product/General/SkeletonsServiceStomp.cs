@@ -18,18 +18,18 @@ namespace Secucard.Connect.Product.General
 
     public class SkeletonsServiceStomp : ProductService<Skeleton>
     {
-        public static readonly ServiceMetaData<Skeleton> META_DATA = new ServiceMetaData<Skeleton>(
+        public static readonly ServiceMetaData<Skeleton> MetaData = new ServiceMetaData<Skeleton>(
             "general", "skeletons");
 
         protected override ServiceMetaData<Skeleton> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
 
         protected override ChannelOptions GetDefaultOptions()
         {
             var channelOptions = base.GetDefaultOptions();
-            channelOptions.Channel = ChannelOptions.CHANNEL_STOMP;
+            channelOptions.Channel = ChannelOptions.ChannelStomp;
             return channelOptions;
         }
     }

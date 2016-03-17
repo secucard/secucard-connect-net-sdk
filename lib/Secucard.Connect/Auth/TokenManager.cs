@@ -24,14 +24,14 @@ namespace Secucard.Connect.Auth
     /// </summary>
     public class TokenManager
     {
-        private readonly AuthConfig Config;
-        private readonly RestAuth Rest;
+        private readonly AuthConfig _config;
+        private readonly RestAuth _rest;
 
         public TokenManager(AuthConfig config, IClientAuthDetails clientAuthDetails, RestAuth restAuth)
         {
-            Config = config;
+            _config = config;
             ClientAuthDetails = clientAuthDetails;
-            Rest = restAuth;
+            _rest = restAuth;
         }
 
         private bool CancelAuthFlag { get; set; }
@@ -62,7 +62,7 @@ namespace Secucard.Connect.Auth
             {
                 // try refresh if just expired, authenticate new if no refresh possible or failed
                 SecucardTrace.InfoSource("Token expired: {0} , original:{1}",
-                    token.ExpireTime == null ? "null" : token.ExpireTime.Value.ToString(),
+                    token.ExpireTime?.ToString() ?? "null",
                     token.OrigExpireTime == null ? "null" : token.OrigExpireTime.ToString());
                 if (token.RefreshToken == null)
                 {
@@ -86,7 +86,7 @@ namespace Secucard.Connect.Auth
             else
             {
                 // we should have valid token in cache, no new auth necessary
-                if (Config.ExtendExpire)
+                if (_config.ExtendExpire)
                 {
                     SecucardTrace.Info("Extend token expire time.");
                     token.SetExpireTime();
@@ -134,7 +134,7 @@ namespace Secucard.Connect.Auth
             }
 
             SecucardTrace.Info("Refresh token: {0}", credentials);
-            var refreshToken = Rest.RefreshToken(token.RefreshToken, credentials.ClientId, credentials.ClientSecret);
+            var refreshToken = _rest.RefreshToken(token.RefreshToken, credentials.ClientId, credentials.ClientSecret);
             token.AccessToken = refreshToken.AccessToken;
             token.ExpiresIn = refreshToken.ExpiresIn;
             if (!string.IsNullOrWhiteSpace(refreshToken.RefreshToken)) token.RefreshToken = refreshToken.RefreshToken;
@@ -160,7 +160,7 @@ namespace Secucard.Connect.Auth
             // if DeviceAuth then get codes an pass to app thru event. Further action required by client
             if (isDeviceAuth)
             {
-                codes = Rest.GetDeviceAuthCode(devicesCredentials.ClientId, devicesCredentials.ClientSecret, devicesCredentials.DeviceId);
+                codes = _rest.GetDeviceAuthCode(devicesCredentials.ClientId, devicesCredentials.ClientSecret, devicesCredentials.DeviceId);
                 if (TokenManagerStatusUpdateEvent != null)
                     TokenManagerStatusUpdateEvent.Invoke(this,
                         new TokenManagerStatusUpdateEventArgs
@@ -173,9 +173,9 @@ namespace Secucard.Connect.Auth
 
                 // set poll timeout, either by config or by expire time of code
                 var t = codes.ExpiresIn;
-                if (t <= 0 || Config.AuthWaitTimeoutSec < t)
+                if (t <= 0 || _config.AuthWaitTimeoutSec < t)
                 {
-                    t = Config.AuthWaitTimeoutSec;
+                    t = _config.AuthWaitTimeoutSec;
                 }
                 timeout = DateTime.Now.AddSeconds(t*1000);
 
@@ -192,35 +192,29 @@ namespace Secucard.Connect.Auth
 
             do
             {
-                Token token;
-                try
+                Token token = null;
+                if (isDeviceAuth)
                 {
-                    if (isDeviceAuth)
-                    {
-                        // in case of device auth, check for cancel and delay polling
-                        if (CancelAuthFlag) throw new AuthCanceledException("Authorization canceled by request.");
-                        Thread.Sleep(pollInterval*1000);
+                    // in case of device auth, check for cancel and delay polling
+                    if (CancelAuthFlag) throw new AuthCanceledException("Authorization canceled by request.");
+                    Thread.Sleep(pollInterval*1000);
 
-                        token = Rest.ObtainAuthToken(codes.DeviceCode, devicesCredentials.ClientId,
-                            devicesCredentials.ClientSecret);
-                        if (token == null) // auth not completed yet
-                        {
-                            OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
-                            {
-                                DeviceAuthCodes = codes,
-                                Status = AuthStatusEnum.Pending
-                            });
-                        }
-                    }
-                    else
+                    token = _rest.ObtainAuthToken(codes.DeviceCode, devicesCredentials.ClientId,
+                        devicesCredentials.ClientSecret);
+                    if (token == null) // auth not completed yet
                     {
-                        var clientCredentials = credentials as ClientCredentials;
-                        token = Rest.GetToken(clientCredentials.ClientId, clientCredentials.ClientSecret);
+                        OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
+                        {
+                            DeviceAuthCodes = codes,
+                            Status = AuthStatusEnum.Pending
+                        });
                     }
                 }
-                catch (System.Exception ex)
+                else
                 {
-                    throw ex;
+                    var clientCredentials = credentials as ClientCredentials;
+                    if (clientCredentials != null)
+                        token = _rest.GetToken(clientCredentials.ClientId, clientCredentials.ClientSecret);
                 }
 
                 if (token != null)

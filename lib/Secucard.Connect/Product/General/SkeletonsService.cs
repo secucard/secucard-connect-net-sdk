@@ -18,12 +18,12 @@ namespace Secucard.Connect.Product.General
 
     public class SkeletonsService : ProductService<Skeleton>
     {
-        public static readonly ServiceMetaData<Skeleton> META_DATA = new ServiceMetaData<Skeleton>(
+        public static readonly ServiceMetaData<Skeleton> MetaData = new ServiceMetaData<Skeleton>(
             "general", "skeletons");
 
         protected override ServiceMetaData<Skeleton> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
 
         public void CreateEvent()
@@ -35,7 +35,7 @@ namespace Secucard.Connect.Product.General
                     Target = "general.skeletons",
                     Type = "DemoEvent",
                     Data = "{ whatever: \"whole object gets send as payload for event\"}"
-                }, new ChannelOptions {Channel = ChannelOptions.CHANNEL_STOMP, TimeOutSec = 100});
+                }, new ChannelOptions {Channel = ChannelOptions.ChannelStomp, TimeOutSec = 100});
         }
     }
 }

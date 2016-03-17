@@ -245,9 +245,9 @@ namespace Secucard.Connect.Net.Rest
         {
             SecucardTrace.Exception(ex);
             var wr = ex.Response as HttpWebResponse;
-            if (wr != null)
+            var dataStream = wr?.GetResponseStream();
+            if (dataStream != null)
             {
-                var dataStream = wr.GetResponseStream();
                 var reader = new StreamReader(dataStream, Encoding.UTF8);
                 var restException = new RestException
                 {
@@ -261,8 +261,8 @@ namespace Secucard.Connect.Net.Rest
                 reader.Close();
                 return restException;
             }
-            else 
-                throw ex;
+
+            throw ex;
         }
 
         private HttpWebRequest FactoryWebRequest(RestRequest request)

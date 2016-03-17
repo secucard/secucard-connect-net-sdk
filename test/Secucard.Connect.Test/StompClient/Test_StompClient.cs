@@ -30,7 +30,7 @@ namespace Secucard.Connect.Test.StompClient
                 Assert.IsTrue(connect);
                 Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
-                var framePing = new StompFrame(StompCommands.SEND);
+                var framePing = new StompFrame(StompCommands.Send);
                 framePing.Headers.Add(StompHeader.UserId, AccessToken);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
@@ -51,7 +51,7 @@ namespace Secucard.Connect.Test.StompClient
 
                 frameIn = null;
 
-                var frameRefresh = new StompFrame(StompCommands.SEND);
+                var frameRefresh = new StompFrame(StompCommands.Send);
                 frameRefresh.Headers.Add(StompHeader.UserId, AccessToken);
                 frameRefresh.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:exec:auth.sessions.refresh");
                 frameRefresh.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());
@@ -65,7 +65,7 @@ namespace Secucard.Connect.Test.StompClient
 
                 frameIn = null;
 
-                var frameSkeleton = new StompFrame(StompCommands.SEND);
+                var frameSkeleton = new StompFrame(StompCommands.Send);
                 frameSkeleton.Headers.Add(StompHeader.UserId, AccessToken);
                 frameSkeleton.Headers.Add(StompHeader.Destination, "/exchange/connect.api/api:get:general.skeletons");
                 frameSkeleton.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());

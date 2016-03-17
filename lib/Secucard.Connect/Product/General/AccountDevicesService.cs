@@ -19,12 +19,12 @@ namespace Secucard.Connect.Product.General
 
     public class AccountDevicesService : ProductService<AccountDevice>
     {
-        public static readonly ServiceMetaData<AccountDevice> META_DATA = new ServiceMetaData<AccountDevice>("general",
+        public static readonly ServiceMetaData<AccountDevice> MetaData = new ServiceMetaData<AccountDevice>("general",
             "accountdevices");
 
         protected override ServiceMetaData<AccountDevice> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
 
         public AccountDeviceChangedEventHandler AccountDeviceChangedEvent;
@@ -32,7 +32,7 @@ namespace Secucard.Connect.Product.General
 
         public override void RegisterEvents()
         {
-            Context.EventDispatcher.RegisterForEvent(GetType().Name, GetMetaData().ProductResource, Events.TYPE_CHANGED,
+            Context.EventDispatcher.RegisterForEvent(GetType().Name, GetMetaData().ProductResource, Events.TypeChanged,
                 OnNewChangedEvent);
         }
 

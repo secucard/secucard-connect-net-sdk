@@ -10,6 +10,8 @@
  * limitations under the License.
  */
 
+using System;
+
 namespace Secucard.Connect.Client.Config
 {
     using System.IO;
@@ -74,6 +76,7 @@ namespace Secucard.Connect.Client.Config
 
         private static ClientConfiguration Load(Stream stream)
         {
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             return new ClientConfiguration(Properties.Load(stream));
         }
 

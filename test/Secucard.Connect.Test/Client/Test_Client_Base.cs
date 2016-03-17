@@ -10,8 +10,6 @@
  * limitations under the License.
  */
 
-using Secucard.Connect.Client.Config;
-
 namespace Secucard.Connect.Test.Client
 {
     using System;
@@ -19,6 +17,7 @@ namespace Secucard.Connect.Test.Client
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Auth;
     using Secucard.Connect.Client;
+    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Smart.Model;
@@ -26,19 +25,19 @@ namespace Secucard.Connect.Test.Client
 
     public class Test_Client_Base: Test_Base
     {
-        private readonly ClientConfiguration ClientConfigurationDevice;
-        private readonly ClientConfiguration ClientConfigurationUser;
+        private readonly ClientConfiguration _clientConfigurationDevice;
+        private readonly ClientConfiguration _clientConfigurationUser;
         protected SecucardConnect Client;
 
         protected Test_Client_Base()
         {
-            ClientConfigurationDevice = new ClientConfiguration(properties)
+            _clientConfigurationDevice = new ClientConfiguration(properties)
             {
                 ClientAuthDetails = new ClientAuthDetailsDeviceTest(),
                 DataStorage =  new MemoryDataStorage()
             };
 
-            ClientConfigurationUser = new ClientConfiguration(properties)
+            _clientConfigurationUser = new ClientConfiguration(properties)
             {
                 ClientAuthDetails = new ClientAuthDetailsUserTest(),
                 DataStorage = new MemoryDataStorage()
@@ -47,7 +46,7 @@ namespace Secucard.Connect.Test.Client
 
         protected void StartupClientDevice()
         {
-            Client = SecucardConnect.Create(ClientConfigurationDevice);
+            Client = SecucardConnect.Create(_clientConfigurationDevice);
             Client.AuthEvent += ClientOnAuthEvent;
             Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
             Client.Open();
@@ -55,7 +54,7 @@ namespace Secucard.Connect.Test.Client
 
         protected void StartupClientUser()
         {
-            Client = SecucardConnect.Create(ClientConfigurationUser);
+            Client = SecucardConnect.Create(_clientConfigurationUser);
             Client.AuthEvent += ClientOnAuthEvent;
             Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
             Client.Open();

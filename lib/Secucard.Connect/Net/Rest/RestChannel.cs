@@ -21,15 +21,15 @@ namespace Secucard.Connect.Net.Rest
 
     public class RestChannel : Channel
     {
-        private readonly RestConfig RestConfig;
-        private readonly RestService RestService;
+        private readonly RestConfig _restConfig;
+        private readonly RestService _restService;
 
         public RestChannel(RestConfig restConfig, ClientContext clientContext)
             : base(clientContext)
         {
-            RestConfig = restConfig;
+            _restConfig = restConfig;
 
-            RestService = new RestService(RestConfig);
+            _restService = new RestService(_restConfig);
         }
 
         #region ## Channel ###
@@ -42,16 +42,16 @@ namespace Secucard.Connect.Net.Rest
             {
                 switch (channelRequest.Method)
                 {
-                    case ChannelMethod.GET:
+                    case ChannelMethod.Get:
                         return GetObject<T>(request, channelRequest.ObjectId);
-                    case ChannelMethod.CREATE:
-                        return CreateObject<T>(request, (T)channelRequest.Object);
-                    case ChannelMethod.UPDATE:
+                    case ChannelMethod.Create:
+                        return CreateObject(request, (T)channelRequest.Object);
+                    case ChannelMethod.Update:
                         return UpdateObject(request, channelRequest.ObjectId, (T)channelRequest.Object);
-                    case ChannelMethod.EXECUTE:
+                    case ChannelMethod.Execute:
                         return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
                             channelRequest.Object);
-                    case ChannelMethod.DELETE:
+                    case ChannelMethod.Delete:
                         DeleteObject<T>(request, channelRequest.ObjectId);
                         break;
                 }
@@ -78,7 +78,7 @@ namespace Secucard.Connect.Net.Rest
 
             switch (channelRequest.Method)
             {
-                case ChannelMethod.GET:
+                case ChannelMethod.Get:
                     return FindObjects<T>(request, channelRequest.QueryParams);
             }
             return null;
@@ -97,21 +97,21 @@ namespace Secucard.Connect.Net.Rest
         private T GetObject<T>(RestRequest request, string id)
         {
             request.Id = id;
-            var obj = RestService.GetObject<T>(request);
+            var obj = _restService.GetObject<T>(request);
             return obj;
         }
 
         private ObjectList<T> FindObjects<T>(RestRequest request, QueryParams query)
         {
             request.QueryParams = query;
-            var list = RestService.GetList<T>(request);
+            var list = _restService.GetList<T>(request);
             return list;
         }
 
         private T CreateObject<T>(RestRequest request, T obj)
         {
             request.Object = obj;
-            var newObj = RestService.PostObject<T>(request);
+            var newObj = _restService.PostObject<T>(request);
             return newObj;
         }
 
@@ -119,14 +119,14 @@ namespace Secucard.Connect.Net.Rest
         {
             request.Object = obj;
             request.Id = id;
-            var newObj = RestService.PutObject<T>(request);
+            var newObj = _restService.PutObject<T>(request);
             return newObj;
         }
 
         private void DeleteObject<T>(RestRequest request, string objectId)
         {
             request.Id = objectId;
-            RestService.DeleteObject<T>(request);
+            _restService.DeleteObject(request);
         }
 
         private T Execute<T>(RestRequest request, string id, string action, List<string> actionParameter, object arg)
@@ -135,7 +135,7 @@ namespace Secucard.Connect.Net.Rest
             request.Action = action;
             request.ActionParameter = actionParameter;
             request.Object = arg;
-            var newObj = RestService.Execute<T>(request);
+            var newObj = _restService.Execute<T>(request);
             return newObj;
         }
 
@@ -146,7 +146,7 @@ namespace Secucard.Connect.Net.Rest
             {
                 Token = token,
                 PageUrl = channelRequest.Product.FirstCharToUpper() + "/" + channelRequest.Resource.FirstCharToUpper(),
-                Host = new Uri(RestConfig.Url).Host
+                Host = new Uri(_restConfig.Url).Host
             };
             return request;
         }
@@ -155,7 +155,7 @@ namespace Secucard.Connect.Net.Rest
 
         public Stream GetStream(RestRequest request)
         {
-            var stream = RestService.GetStream(request);
+            var stream = _restService.GetStream(request);
             return stream;
         }
     }

@@ -37,7 +37,7 @@ namespace Secucard.Connect.Test.Rest
                 {
                     Count = 10,
                     Offset = 0,
-                    SortOrder = new Dictionary<string, string>() {{"a", QueryParams.SORT_ASC}},
+                    SortOrder = new Dictionary<string, string>() {{"a", QueryParams.SortAsc}},
                     Fields = new List<string> {"a", "b"}
                 },
                 PageUrl = "General/Skeletons",
@@ -64,7 +64,7 @@ namespace Secucard.Connect.Test.Rest
                     {
                         Count = 10,
                         ScrollExpire = "5m",
-                        SortOrder = new Dictionary<string, string>() {{"a", QueryParams.SORT_ASC}},
+                        SortOrder = new Dictionary<string, string>() {{"a", QueryParams.SortAsc}},
                         Fields = new List<string> {"a", "b"}
                     },
                     PageUrl = "General/Skeletons",
@@ -223,7 +223,7 @@ namespace Secucard.Connect.Test.Rest
                     {
                         Count = 10,
                         Offset = 0,
-                        SortOrder = new Dictionary<string, string>() {{"id", QueryParams.SORT_ASC}}
+                        SortOrder = new Dictionary<string, string>() {{"id", QueryParams.SortAsc}}
                     },
                     PageUrl = "General/Skeletons",
                     Host = "core-dev10.secupay-ag.de"
@@ -261,7 +261,7 @@ namespace Secucard.Connect.Test.Rest
                     Id = obj.Id
                 };
 
-                RestService.DeleteObject<Skeleton>(request);
+                RestService.DeleteObject(request);
             }
         }
 

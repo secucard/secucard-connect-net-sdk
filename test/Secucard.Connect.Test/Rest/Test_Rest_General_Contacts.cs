@@ -51,7 +51,7 @@ namespace Secucard.Connect.Test.Rest
                 Id = "CNT_" + Guid.NewGuid(),
                 Forename = "TestForename" + DateTime.Now.Ticks,
                 Surname = "TestSurename" + DateTime.Now.Ticks,
-                Gender = Contact.GENDER_MALE
+                Gender = Contact.GenderMale
             };
 
             // POST 

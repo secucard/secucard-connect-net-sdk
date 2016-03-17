@@ -34,7 +34,7 @@ namespace Secucard.Connect.Test.Client
             {
                 Count = 2,
                 ScrollExpire = "5m",
-                SortOrder = new Dictionary<string, string>() {{"a", QueryParams.SORT_ASC}},
+                SortOrder = new Dictionary<string, string>() {{"a", QueryParams.SortAsc}},
                 Fields = new List<string> {"id", "a", "b"}
             };
 

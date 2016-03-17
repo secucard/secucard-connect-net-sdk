@@ -18,28 +18,28 @@ namespace Secucard.Connect.Product.Service.Model.services.idresult
     public class Address
     {
         [DataMember(Name = "postal_code")]
-        public ValueClass postalCode { get; set; }
+        public ValueClass PostalCode { get; set; }
 
         [DataMember(Name = "country")]
-        public ValueClass country { get; set; }
+        public ValueClass Country { get; set; }
 
         [DataMember(Name = "city")]
-        public ValueClass city { get; set; }
+        public ValueClass City { get; set; }
 
         [DataMember(Name = "street")]
-        public ValueClass street { get; set; }
+        public ValueClass Street { get; set; }
 
         [DataMember(Name = "street_number")]
-        public ValueClass streetNumber { get; set; }
+        public ValueClass StreetNumber { get; set; }
 
         public override string ToString()
         {
             return "Address{" +
-                   "zipcode=" + postalCode +
-                   ", country=" + country +
-                   ", city=" + city +
-                   ", street=" + street +
-                   ", streetNumber=" + streetNumber +
+                   "zipcode=" + PostalCode +
+                   ", country=" + Country +
+                   ", city=" + City +
+                   ", street=" + Street +
+                   ", streetNumber=" + StreetNumber +
                    '}';
         }
     }

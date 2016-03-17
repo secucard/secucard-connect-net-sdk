@@ -22,11 +22,11 @@ namespace Secucard.Connect.Product.Service.Model.services
     [DataContract]
     public class IdentRequest : SecuObject
     {
-        public static string TYPE_PERSON = "person";
-        public static string TYPE_COMPANY = "company";
-        public static string STATUS_REQUESTED = "requested";
-        public static string STATUS_OK = "ok";
-        public static string STATUS_FAILED = "failed";
+        public static string TypePerson = "person";
+        public static string TypeCompany = "company";
+        public static string StatusRequested = "requested";
+        public static string StatusOk = "ok";
+        public static string StatusFailed = "failed";
 
         [DataMember(Name = "type")]
         public string Type { get; set; }

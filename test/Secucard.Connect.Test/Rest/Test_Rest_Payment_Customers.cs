@@ -149,7 +149,7 @@ namespace Secucard.Connect.Test.Rest
                     Host = "core-dev10.secupay-ag.de"
                 };
 
-                RestService.DeleteObject<Customer>(request);
+                RestService.DeleteObject(request);
 
                 // Assert.AreEqual(data, 1);
             }

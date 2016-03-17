@@ -17,8 +17,8 @@ namespace Secucard.Connect.Event
     /// </summary>
     public static class Events
     {
-        public static string TYPE_CHANGED = "changed";
-        public static string TYPE_ADDED = "added";
-        public static string TYPE_DISPLAY = "display";
+        public static string TypeChanged = "changed";
+        public static string TypeAdded = "added";
+        public static string TypeDisplay = "display";
     }
 }

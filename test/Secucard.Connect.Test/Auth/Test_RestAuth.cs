@@ -36,9 +36,9 @@ namespace Secucard.Connect.Test.Auth
                 Host = new Uri(AuthConfig.OAuthUrl).Host
             };
 
-            request.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetailsDevice.GetClientCredentials().ClientId);
-            request.BodyParameter.Add(AuthConst.Client_Secret, ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
-            request.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
+            request.BodyParameter.Add(AuthConst.ClientId, ClientAuthDetailsDevice.GetClientCredentials().ClientId);
+            request.BodyParameter.Add(AuthConst.ClientSecret, ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
+            request.BodyParameter.Add(AuthConst.GrantType, RestAuth.Device);
             request.BodyParameter.Add(AuthConst.Uuid, (ClientAuthDetailsDevice.GetCredentials() as DeviceCredentials).DeviceId);
 
             var rest = new RestAuth(AuthConfig);
@@ -56,9 +56,9 @@ namespace Secucard.Connect.Test.Auth
                 Host = new Uri(AuthConfig.OAuthUrl).Host
             };
 
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Id, ClientAuthDetailsDevice.GetClientCredentials().ClientId);
-            reqDeviceGetToken.BodyParameter.Add(AuthConst.Client_Secret,
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.GrantType, RestAuth.Device);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.ClientId, ClientAuthDetailsDevice.GetClientCredentials().ClientId);
+            reqDeviceGetToken.BodyParameter.Add(AuthConst.ClientSecret,
                 ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             reqDeviceGetToken.BodyParameter.Add(AuthConst.Uuid, (ClientAuthDetailsDevice.GetCredentials() as DeviceCredentials).DeviceId);
 
@@ -95,10 +95,10 @@ namespace Secucard.Connect.Test.Auth
                 Host = new Uri(AuthConfig.OAuthUrl).Host
             };
 
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.DEVICE);
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Id,
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.GrantType, RestAuth.Device);
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.ClientId,
                 ClientAuthDetailsDevice.GetClientCredentials().ClientId);
-            reqObtainAccessToken.BodyParameter.Add(AuthConst.Client_Secret,
+            reqObtainAccessToken.BodyParameter.Add(AuthConst.ClientSecret,
                 ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             reqObtainAccessToken.BodyParameter.Add(AuthConst.Code, authDeviceGetTokenOut.DeviceCode);
 
@@ -117,10 +117,10 @@ namespace Secucard.Connect.Test.Auth
                 Host = new Uri(AuthConfig.OAuthUrl).Host
             };
 
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Grant_Type, RestAuth.REFRESHTOKEN);
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Id,
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.GrantType, RestAuth.Refreshtoken);
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.ClientId,
                 ClientAuthDetailsDevice.GetClientCredentials().ClientId);
-            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.Client_Secret,
+            reqRefreshExpiredToken.BodyParameter.Add(AuthConst.ClientSecret,
                 ClientAuthDetailsDevice.GetClientCredentials().ClientSecret);
             reqRefreshExpiredToken.BodyParameter.Add(AuthConst.RefreshToken, authDeviceTokenOut.RefreshToken);
 
@@ -140,7 +140,7 @@ namespace Secucard.Connect.Test.Auth
                 Assert.IsTrue(connect);
                 Assert.AreEqual(client.StompClientStatus, EnumStompClientStatus.Connected);
 
-                var framePing = new StompFrame(StompCommands.SEND);
+                var framePing = new StompFrame(StompCommands.Send);
                 framePing.Headers.Add(StompHeader.UserId, authRefreshTokenOut.AccessToken);
                 framePing.Headers.Add(StompHeader.Destination, "/exchange/connect.api/ping");
                 framePing.Headers.Add(StompHeader.CorrelationId, Guid.NewGuid().ToString());

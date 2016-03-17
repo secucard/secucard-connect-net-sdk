@@ -23,12 +23,12 @@ namespace Secucard.Connect.Product.Smart
     {
         public CheckinEventHandler CheckinEvent;
 
-        public static readonly ServiceMetaData<Checkin> META_DATA = new ServiceMetaData<Checkin>("smart",
+        public static readonly ServiceMetaData<Checkin> MetaData = new ServiceMetaData<Checkin>("smart",
             "checkins");
 
         protected override ServiceMetaData<Checkin> GetMetaData()
         {
-             return META_DATA; 
+             return MetaData; 
         }
 
         public override void RegisterEvents()

@@ -23,7 +23,7 @@ namespace Secucard.Connect.Net.Util
         public Dictionary<string, string> CreateDictionary(string JsonString)
         {
             currentPos = 0;
-            jsonString = JsonString.Trim();
+            jsonString = JsonString?.Trim() ?? string.Empty;
 
             var dict = new Dictionary<string, string>();
 

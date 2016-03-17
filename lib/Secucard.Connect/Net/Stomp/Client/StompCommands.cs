@@ -16,21 +16,21 @@ namespace Secucard.Connect.Net.Stomp.Client
     {
         // SERVER
 
-        public const string CONNECTED = "CONNECTED";
-        public const string ERROR = "ERROR";
-        public const string MESSAGE = "MESSAGE";
-        public const string RECEIPT = "RECEIPT";
+        public const string Connected = "CONNECTED";
+        public const string Error = "ERROR";
+        public const string Message = "MESSAGE";
+        public const string Receipt = "RECEIPT";
         // CLIENT
-        public const string SEND = "SEND";
-        public const string SUBSCRIBE = "SUBSCRIBE";
-        public const string UNSUBSCRIBE = "UNSUBSCRIBE";
-        public const string BEGIN = "BEGIN";
-        public const string COMMIT = "COMMIT";
-        public const string ABORT = "ABORT";
-        public const string ACK = "ACK";
-        public const string NACK = "NACK";
-        public const string DISCONNECT = "DISCONNECT";
-        public const string CONNECT = "CONNECT";
-        public const string STOMP = "STOMP";
+        public const string Send = "SEND";
+        public const string Subscribe = "SUBSCRIBE";
+        public const string Unsubscribe = "UNSUBSCRIBE";
+        public const string Begin = "BEGIN";
+        public const string Commit = "COMMIT";
+        public const string Abort = "ABORT";
+        public const string Ack = "ACK";
+        public const string Nack = "NACK";
+        public const string Disconnect = "DISCONNECT";
+        public const string Connect = "CONNECT";
+        public const string Stomp = "STOMP";
     }
 }

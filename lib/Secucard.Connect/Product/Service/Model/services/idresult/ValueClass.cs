@@ -17,8 +17,8 @@ namespace Secucard.Connect.Product.Service.Model.services.idresult
     [DataContract]
     public class ValueClass
     {
-        public static string STATUS_NEW = "NEW";
-        public static string STATUS_MATCH = "MATCH";
+        public static string StatusNew = "NEW";
+        public static string StatusMatch = "MATCH";
 
         [DataMember(Name = "value")]
         public string Value { get; set; }

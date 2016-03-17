@@ -23,7 +23,7 @@ namespace Secucard.Connect.Test.StompClient
         [TestCategory("stomp")]
         public void Test_Frame_Serialization()
         {
-            var frame = new StompFrame(StompCommands.CONNECT);
+            var frame = new StompFrame(StompCommands.Connect);
 
             frame.Headers.Add(StompHeader.Host, StompConfig.Host);
             frame.Headers.Add(StompHeader.Login, AccessToken);

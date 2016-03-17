@@ -23,22 +23,22 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     public class StompCore : IDisposable
     {
-        private readonly StompConfig Config;
-        private SslStream sslStream;
-        private bool Stop;
-        private TcpClient tcpClient;
+        private readonly StompConfig _config;
+        private SslStream _sslStream;
+        private bool _stop;
+        private TcpClient _tcpClient;
 
         public StompCore(StompConfig config)
         {
             StompTrace.Info("Client Create '{0}'", config.Host);
-            Config = config;
+            _config = config;
         }
 
         public void Dispose()
         {
-            Stop = true;
-            if (sslStream != null) sslStream.Dispose();
-            if (tcpClient != null) tcpClient.Close();
+            _stop = true;
+            if (_sslStream != null) _sslStream.Dispose();
+            if (_tcpClient != null) _tcpClient.Close();
         }
 
         public event StompCoreFrameArrivedEventHandler StompCoreFrameArrivedEvent;
@@ -54,20 +54,20 @@ namespace Secucard.Connect.Net.Stomp.Client
         {
             try
             {
-                tcpClient = new TcpClient();
-                tcpClient.Connect(Config.Host, Config.Port);
-                StompTrace.Info("TCP connection created '{0}:{1}'", Config.Host, Config.Port);
+                _tcpClient = new TcpClient();
+                _tcpClient.Connect(_config.Host, _config.Port);
+                StompTrace.Info("TCP connection created '{0}:{1}'", _config.Host, _config.Port);
 
-                sslStream = new SslStream(
-                    tcpClient.GetStream(),
+                _sslStream = new SslStream(
+                    _tcpClient.GetStream(),
                     false,
                     ValidateServerCertificate,
                     null
                     );
 
-                sslStream.AuthenticateAsClient(Config.Host, null, SslProtocols.Tls12, true);
-                StompTrace.Info("Client Authenticated Algo:{0} Hash:{1}, ", sslStream.CipherAlgorithm,
-                    sslStream.HashAlgorithm);
+                _sslStream.AuthenticateAsClient(_config.Host, null, SslProtocols.Tls12, true);
+                StompTrace.Info("Client Authenticated Algo:{0} Hash:{1}, ", _sslStream.CipherAlgorithm,
+                    _sslStream.HashAlgorithm);
             }
             catch (Exception ex)
             {
@@ -75,17 +75,17 @@ namespace Secucard.Connect.Net.Stomp.Client
                 throw;
             }
 
-            Receive(sslStream);
+            Receive(_sslStream);
         }
 
         public void SendFrame(StompFrame frame)
         {
-            if (tcpClient.Connected)
+            if (_tcpClient.Connected)
             {
                 var msg = frame.GetFrame();
                 StompTrace.Info("SendFrame: \n{0}", msg);
                 var bytes = Encoding.UTF8.GetBytes(msg + "\0"); // NULL Terminated
-                sslStream.Write(bytes, 0, bytes.Length);
+                _sslStream.Write(bytes, 0, bytes.Length);
             }
         }
 
@@ -105,7 +105,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         private void ReceiveCallback(IAsyncResult ar)
         {
-            if (Stop) return;
+            if (_stop) return;
 
             try
             {
@@ -136,7 +136,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
                 try
                 {
-                    if (!Stop)
+                    if (!_stop)
                         stream.BeginRead(state.Buffer, 0, StreamStateObject.BufferSize, ReceiveCallback, state);
                 }
                 catch (IOException ex)

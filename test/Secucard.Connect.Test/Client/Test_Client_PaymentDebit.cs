@@ -52,7 +52,7 @@ namespace Secucard.Connect.Test.Client
 
             var container = new Container
             {
-                Type = Container.TYPE_BANK_ACCOUNT,
+                Type = Container.TypeBankAccount,
                 PrivateData = new Data {Owner = "John Doe", Iban = "DE12500105170648489890", Bic = "INGDDEFFXXX"}
             };
 

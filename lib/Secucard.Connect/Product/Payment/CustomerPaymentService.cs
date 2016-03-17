@@ -17,12 +17,12 @@ namespace Secucard.Connect.Product.Payment
 
     public class CustomerPaymentService : ProductService<Customer>
     {
-        public static readonly ServiceMetaData<Customer> META_DATA = new ServiceMetaData<Customer>("payment",
+        public static readonly ServiceMetaData<Customer> MetaData = new ServiceMetaData<Customer>("payment",
             "customers");
 
         protected override ServiceMetaData<Customer> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
     }
 }

@@ -17,11 +17,11 @@ namespace Secucard.Connect.Product.General
 
     public class AccountsService : ProductService<Account>
     {
-        public static readonly ServiceMetaData<Account> META_DATA = new ServiceMetaData<Account>("general", "accounts");
+        public static readonly ServiceMetaData<Account> MetaData = new ServiceMetaData<Account>("general", "accounts");
 
         protected override ServiceMetaData<Account> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
     }
 }

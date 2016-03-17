@@ -22,8 +22,8 @@ namespace Secucard.Connect.Net.Stomp
 
         public StompMessage(string id, string body)
         {
-            this.Id = id;
-            this.Body = body;
+            Id = id;
+            Body = body;
             ReceiveTime = DateTime.Now;
         }
     }

@@ -20,21 +20,21 @@ namespace Secucard.Connect.Auth
     /// </summary>
     public abstract class AbstractClientAuthDetails
     {
-        private readonly DataStorage storage;
+        private readonly DataStorage _storage;
 
         public AbstractClientAuthDetails()
         {
-            storage = new MemoryDataStorage();
+            _storage = new MemoryDataStorage();
         }
 
         public Token GetCurrent()
         {
-            return (Token) storage.Get("token");
+            return (Token) _storage.Get("token");
         }
 
         public void OnTokenChanged(Token token)
         {
-            storage.Save("token", token);
+            _storage.Save("token", token);
         }
     }
 }

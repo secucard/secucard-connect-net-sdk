@@ -20,11 +20,11 @@ namespace Secucard.Connect.Product.General
 
     public class NewsService : ProductService<News>
     {
-        public static readonly ServiceMetaData<News> META_DATA = new ServiceMetaData<News>("general", "news");
+        public static readonly ServiceMetaData<News> MetaData = new ServiceMetaData<News>("general", "news");
 
         protected override ServiceMetaData<News> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
 
         /// <summary>

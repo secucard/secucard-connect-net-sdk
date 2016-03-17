@@ -22,8 +22,6 @@ namespace Secucard.Connect.Product.Loyalty.Model
     [DataContract]
     public class Customer : SecuObject
     {
-        public MediaResource pictureObject;
-
         [DataMember(Name = "merchant")]
         public Merchant Merchant { get; set; }
 

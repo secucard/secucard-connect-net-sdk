@@ -21,13 +21,13 @@ namespace Secucard.Connect.Product.Smart.Model
     [DataContract]
     public class Transaction : SecuObject
     {
-        public static string STATUS_CREATED = "created";
-        public static string STATUS_CANCELED = "canceled";
-        public static string STATUS_FINISHED = "finished";
-        public static string STATUS_ABORTED = "aborted";
-        public static string STATUS_FAILED = "failed";
-        public static string STATUS_TIMEOUT = "timeout";
-        public static string STATUS_OK = "ok";
+        public static string StatusCreated = "created";
+        public static string StatusCanceled = "canceled";
+        public static string StatusFinished = "finished";
+        public static string StatusAborted = "aborted";
+        public static string StatusFailed = "failed";
+        public static string StatusTimeout = "timeout";
+        public static string StatusOk = "ok";
 
         [DataMember(Name = "device_source", EmitDefaultValue = false)]
         public Device DeviceSource { get; set; }

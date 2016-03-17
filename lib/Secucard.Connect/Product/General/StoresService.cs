@@ -19,11 +19,11 @@ namespace Secucard.Connect.Product.General
 
     public class StoresService : ProductService<Store>
     {
-        public static readonly ServiceMetaData<Store> META_DATA = new ServiceMetaData<Store>("general", "stores");
+        public static readonly ServiceMetaData<Store> MetaData = new ServiceMetaData<Store>("general", "stores");
 
         protected override ServiceMetaData<Store> GetMetaData()
         {
-            return META_DATA;
+            return MetaData;
         }
 
         /// <summary>

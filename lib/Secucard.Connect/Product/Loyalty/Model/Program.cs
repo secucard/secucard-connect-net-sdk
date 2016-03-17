@@ -23,7 +23,7 @@ namespace Secucard.Connect.Product.Loyalty.Model
         public CardGroup CardGroup { get; set; }
 
         [DataMember(Name = "conditions")]
-        public List<Condition> conditions { get; set; }
+        public List<Condition> Conditions { get; set; }
 
         [DataMember(Name = "description")]
         public string Description { get; set; }

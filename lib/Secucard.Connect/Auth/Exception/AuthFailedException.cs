@@ -21,22 +21,22 @@ namespace Secucard.Connect.Auth.Exception
     /// </summary>
     public class AuthFailedException : AuthError
     {
-        private string error;
+        private string _error;
 
-        public string getError()
+        public string GetError()
         {
-            return error;
+            return _error;
         }
 
-        public void setError(string error)
+        public void SetError(string error)
         {
-            this.error = error;
+            _error = error;
         }
 
         public AuthFailedException(string message, string error)
             : base(message)
         {
-            this.error = error;
+            _error = error;
         }
 
         public AuthFailedException(string message)

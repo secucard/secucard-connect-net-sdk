@@ -72,15 +72,15 @@ namespace Secucard.Connect.Net.Stomp
         {
             switch (method)
             {
-                case ChannelMethod.GET:
+                case ChannelMethod.Get:
                     return "get:";
-                case ChannelMethod.CREATE:
+                case ChannelMethod.Create:
                     return "add:";
-                case ChannelMethod.EXECUTE:
+                case ChannelMethod.Execute:
                     return "exec:";
-                case ChannelMethod.UPDATE:
+                case ChannelMethod.Update:
                     return "update:";
-                case ChannelMethod.DELETE:
+                case ChannelMethod.Delete:
                     return "delete:";
                 default:
                     throw new InvalidOperationException("Invalid channelMethod");

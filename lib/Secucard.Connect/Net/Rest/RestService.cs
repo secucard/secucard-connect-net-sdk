@@ -63,7 +63,7 @@ namespace Secucard.Connect.Net.Rest
             return JsonSerializer.DeserializeJson<T>(ret);
         }
 
-        public void DeleteObject<T>(RestRequest request)
+        public void DeleteObject(RestRequest request)
         {
             RestDelete(request);
         }

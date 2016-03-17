@@ -20,29 +20,29 @@ namespace Secucard.Connect.Net.Stomp.Client
 
     public class StompClient : IDisposable
     {
-        private readonly ConcurrentQueue<StompFrame> InQueue;
-        private readonly ConcurrentDictionary<string, DateTime> Receipts;
-        private readonly StompConfig Config;
-        private StompCore Core;
-        private StompFrame Error;
-        private bool IsConnected;
+        private readonly ConcurrentQueue<StompFrame> _inQueue;
+        private readonly ConcurrentDictionary<string, DateTime> _receipts;
+        private readonly StompConfig _config;
+        private StompCore _core;
+        private StompFrame _error;
+        private bool _isConnected;
         public EnumStompClientStatus StompClientStatus;
-        private string Login;
-        private string Password;
+        private string _login;
+        private string _password;
 
         public StompClient(StompConfig config)
         {
             StompTrace.Info("StompClient Create '{0}'", config.Host);
-            Config = config;
-            Receipts = new ConcurrentDictionary<string, DateTime>();
+            _config = config;
+            _receipts = new ConcurrentDictionary<string, DateTime>();
             StompClientStatus = EnumStompClientStatus.NotConnected;
 
-            InQueue = new ConcurrentQueue<StompFrame>();
+            _inQueue = new ConcurrentQueue<StompFrame>();
         }
 
         public void Dispose()
         {
-            if (Core != null) Core.Dispose();
+            if (_core != null) _core.Dispose();
         }
 
         public event StompClientFrameArrivedHandler StompClientFrameArrivedEvent;
@@ -53,20 +53,20 @@ namespace Secucard.Connect.Net.Stomp.Client
         /// </summary>
         public bool Connect(string login, string password)
         {
-            Login = login;
-            Password = password;
+            _login = login;
+            _password = password;
 
-            if (Core != null) Dispose();
-            Core = new StompCore(Config);
-            Core.Init();
-            Core.StompCoreFrameArrivedEvent += ClientOnStompCoreFrameArrived;
-            Core.StompCoreExceptionEvent += Core_StompCoreExceptionEvent;
+            if (_core != null) Dispose();
+            _core = new StompCore(_config);
+            _core.Init();
+            _core.StompCoreFrameArrivedEvent += ClientOnStompCoreFrameArrived;
+            _core.StompCoreExceptionEvent += Core_StompCoreExceptionEvent;
             OnStatusChanged(EnumStompClientStatus.Connecting);
 
-            Core.SendFrame(CreateFrameConnect());
+            _core.SendFrame(CreateFrameConnect());
 
             // Waiting for STOMP to connect or timeout
-            var waitUntil = DateTime.Now.AddSeconds(Config.ConnectionTimeoutSec);
+            var waitUntil = DateTime.Now.AddSeconds(_config.ConnectionTimeoutSec);
             while (StompClientStatus == EnumStompClientStatus.Connecting)
             {
                 if (waitUntil < DateTime.Now)
@@ -78,7 +78,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
             if (StompClientStatus == EnumStompClientStatus.Connected)
             {
-                IsConnected = true;
+                _isConnected = true;
                 return true;
             }
             return false;
@@ -87,12 +87,12 @@ namespace Secucard.Connect.Net.Stomp.Client
         private void Core_StompCoreExceptionEvent(object sender, StompCoreExceptionEventArgs args)
         {
             OnStatusChanged(EnumStompClientStatus.NotConnected);
-            Connect(Login, Password);
+            Connect(_login, _password);
         }
 
         public void Disconnect()
         {
-            IsConnected = false;
+            _isConnected = false;
             OnStatusChanged(EnumStompClientStatus.Disconnecting);
             var frame = CreateFrameDisconnect();
             SendFrame(frame);
@@ -111,11 +111,11 @@ namespace Secucard.Connect.Net.Stomp.Client
         {
             var rcptId = "rcpt-" + Guid.NewGuid();
 
-            if (Config.RequestSENDReceipt && frame.Command != StompCommands.DISCONNECT)
+            if (_config.RequestSENDReceipt && frame.Command != StompCommands.Disconnect)
                 frame.Headers.Add(StompHeader.Receipt, rcptId);
-            Core.SendFrame(frame);
+            _core.SendFrame(frame);
 
-            if (Config.RequestSENDReceipt && frame.Command != StompCommands.DISCONNECT)
+            if (_config.RequestSENDReceipt && frame.Command != StompCommands.Disconnect)
                 AwaitReceipt(rcptId, frame.TimeoutSec);
         }
 
@@ -123,16 +123,16 @@ namespace Secucard.Connect.Net.Stomp.Client
         {
             if (timeoutSec == null)
             {
-                timeoutSec = Config.MessageTimeoutSec;
+                timeoutSec = _config.MessageTimeoutSec;
             }
 
             var found = false;
             var maxWaitTime = DateTime.Now.AddSeconds(timeoutSec.Value);
 
-            while (DateTime.Now <= maxWaitTime && IsConnected && Error == null)
+            while (DateTime.Now <= maxWaitTime && _isConnected && _error == null)
             {
                 DateTime rcptDateTime;
-                if (Receipts.TryRemove(rcptId, out rcptDateTime))
+                if (_receipts.TryRemove(rcptId, out rcptDateTime))
                 {
                     found = true;
                     break;
@@ -141,9 +141,9 @@ namespace Secucard.Connect.Net.Stomp.Client
             }
 
             // we can treat error as reason to disconnect
-            if (Error != null || !found)
+            if (_error != null || !found)
             {
-                if (IsConnected)
+                if (_isConnected)
                 {
                     try
                     {
@@ -154,11 +154,11 @@ namespace Secucard.Connect.Net.Stomp.Client
                         SecucardTrace.Error("StompClient.AwaitReceipt", ex.Message);
                     }
                 }
-                if (Error != null)
+                if (_error != null)
                 {
-                    var body = Error.Body;
-                    var headers = Error.Headers;
-                    Error = null;
+                    var body = _error.Body;
+                    var headers = _error.Headers;
+                    _error = null;
                     throw new StompError(body, headers);
                 }
                 throw new NoReceiptException("No receipt frame received for sent message.");
@@ -173,29 +173,29 @@ namespace Secucard.Connect.Net.Stomp.Client
             // analyze frame
             switch (args.Frame.Command)
             {
-                case StompCommands.CONNECTED:
+                case StompCommands.Connected:
                 {
                     // CONNECTED FRAME received set core as connected
                     OnStatusChanged(EnumStompClientStatus.Connected);
                     break;
                 }
-                case StompCommands.DISCONNECT:
+                case StompCommands.Disconnect:
                 {
                     // CONNECTED FRAME received set core as connected
                     OnStatusChanged(EnumStompClientStatus.Disconnected);
                     break;
                 }
-                case StompCommands.ERROR:
+                case StompCommands.Error:
                 {
-                    OnError(Error);
+                    OnError(_error);
                     break;
                 }
-                case StompCommands.RECEIPT:
+                case StompCommands.Receipt:
                 {
                     OnReceipt(args.Frame);
                     break;
                 }
-                case StompCommands.MESSAGE:
+                case StompCommands.Message:
                 {
                     RaiseFrameArriveEventInSeparateThread(args);
                     break;
@@ -219,9 +219,9 @@ namespace Secucard.Connect.Net.Stomp.Client
         private void OnFrameArrived(StompCoreFrameArrivedEventArgs e)
         {
             // Remove messages from inQueue if there are more than 20
-            InQueue.Enqueue(e.Frame);
+            _inQueue.Enqueue(e.Frame);
             StompFrame frame;
-            while (InQueue.Count > 20) InQueue.TryDequeue(out frame);
+            while (_inQueue.Count > 20) _inQueue.TryDequeue(out frame);
 
             if (StompClientFrameArrivedEvent != null)
             {
@@ -238,36 +238,36 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (frame.Headers.ContainsKey(StompHeader.ReceiptId))
             {
                 var receipt = frame.Headers[StompHeader.ReceiptId];
-                Receipts.TryAdd(receipt, DateTime.Now);
+                _receipts.TryAdd(receipt, DateTime.Now);
             }
         }
 
         private void OnError(StompFrame frame)
         {
-            Error = frame;
+            _error = frame;
             OnStatusChanged(EnumStompClientStatus.Error);
         }
 
         private StompFrame CreateFrameConnect()
         {
-            var frame = CreateFrame(StompCommands.CONNECT);
+            var frame = CreateFrame(StompCommands.Connect);
 
             // tell server about requested heartbeat
-            frame.Headers.Add(StompHeader.HeartBeat, string.Format("{0},{1}", Config.HeartbeatMs, Config.HeartbeatMs));
+            frame.Headers.Add(StompHeader.HeartBeat, string.Format("{0},{1}", _config.HeartbeatMs, _config.HeartbeatMs));
 
-            frame.Headers.Add(StompHeader.AcceptVersion, Config.AcceptVersion);
+            frame.Headers.Add(StompHeader.AcceptVersion, _config.AcceptVersion);
 
             // Add virtual host if requested
-            if (!string.IsNullOrWhiteSpace(Config.VirtualHost))
-                frame.Headers.Add(StompHeader.Host, Config.VirtualHost);
+            if (!string.IsNullOrWhiteSpace(_config.VirtualHost))
+                frame.Headers.Add(StompHeader.Host, _config.VirtualHost);
 
             return frame;
         }
 
         private StompFrame CreateFrameDisconnect()
         {
-            var frame = CreateFrame(StompCommands.DISCONNECT);
-            frame.Headers.Add(StompHeader.AcceptVersion, Config.AcceptVersion);
+            var frame = CreateFrame(StompCommands.Disconnect);
+            frame.Headers.Add(StompHeader.AcceptVersion, _config.AcceptVersion);
 
             return frame;
         }
@@ -275,8 +275,8 @@ namespace Secucard.Connect.Net.Stomp.Client
         private StompFrame CreateFrame(string command)
         {
             var frame = new StompFrame(command);
-            frame.Headers.Add(StompHeader.Login, Login);
-            frame.Headers.Add(StompHeader.Passcode, Password);
+            frame.Headers.Add(StompHeader.Login, _login);
+            frame.Headers.Add(StompHeader.Passcode, _password);
             return frame;
         }
 
