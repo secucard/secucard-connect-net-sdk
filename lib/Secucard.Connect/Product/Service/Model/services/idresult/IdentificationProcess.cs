@@ -15,7 +15,6 @@ namespace Secucard.Connect.Product.Service.Model.services.idresult
     using System;
     using System.Runtime.Serialization;
     using Secucard.Connect.Net.Util;
-    using Secucard.Connect.Product.Common.Model;
 
     [DataContract]
     public class IdentificationProcess

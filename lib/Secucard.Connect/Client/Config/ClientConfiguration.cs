@@ -10,13 +10,12 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.Client
+namespace Secucard.Connect.Client.Config
 {
     using System.IO;
     using System.Reflection;
     using System.Xml.Serialization;
     using Secucard.Connect.Auth;
-    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Net.Stomp;
     using Secucard.Connect.Storage;

@@ -10,6 +10,8 @@
  * limitations under the License.
  */
 
+using Secucard.Connect.Client.Config;
+
 namespace Secucard.Connect.Test.Client
 {
     using System;

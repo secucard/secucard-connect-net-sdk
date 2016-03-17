@@ -14,7 +14,6 @@ namespace Secucard.Connect.Client
 {
     using System;
     using System.Diagnostics;
-    using System.Runtime.ExceptionServices;
 
     public static class SecucardTrace
     {

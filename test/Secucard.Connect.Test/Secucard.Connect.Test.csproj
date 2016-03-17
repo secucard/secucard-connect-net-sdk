@@ -210,7 +210,6 @@
     <Content Include="Data\Model\Stomp.Response.2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="secucard.connect.test.runsettings" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

@@ -12,8 +12,6 @@
 
 namespace Secucard.Connect.Test.Rest
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Secucard.Connect.Net.Rest;
     using Secucard.Connect.Product.Common.Model;

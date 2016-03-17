@@ -10,14 +10,13 @@
  * limitations under the License.
  */
 
-using System;
-using Secucard.Connect.Net.Rest;
-using Secucard.Connect.Storage;
-
 namespace Secucard.Connect.Client
 {
+    using System;
     using System.IO;
     using System.Text.RegularExpressions;
+    using Secucard.Connect.Net.Rest;
+    using Secucard.Connect.Storage;
 
     /// <summary>
     /// Retrieves resources via HTTP and stores in local cache. Later requests are served from the cac

@@ -10,10 +10,10 @@
  * limitations under the License.
  */
 
-using System;
-
 namespace Secucard.Connect.Net.Stomp.Client
 {
+    using System;
+
     /// <summary>
     ///     Indicates that no receipt for a message was received in time.
     /// </summary>
