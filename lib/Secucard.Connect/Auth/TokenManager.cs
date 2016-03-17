@@ -115,6 +115,12 @@ namespace Secucard.Connect.Auth
                 token.Id = credentials.Id;
                 SetCurrentToken(token);
                 SecucardTrace.Info("Return new token: {0}", token);
+
+                OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
+                {
+                    Status = AuthStatusEnum.Ok,
+                    Token = token
+                });
             }
 
             return token.AccessToken;
@@ -219,12 +225,6 @@ namespace Secucard.Connect.Auth
 
                 if (token != null)
                 {
-                    OnTokenManagerStatusUpdateEvent(new TokenManagerStatusUpdateEventArgs
-                    {
-                        DeviceAuthCodes = codes,
-                        Status = AuthStatusEnum.Ok,
-                        Token = token
-                    });
                     return token;
                 }
             } while (DateTime.Now < timeout);
