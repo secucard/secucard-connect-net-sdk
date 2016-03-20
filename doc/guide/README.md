@@ -44,7 +44,7 @@ After pressing *Clone*, Visual Studio confirms that the action succeeded.
 
 ![Git Clone](images/git_cloned.png)
 
-Now *File* -> *Add* -> *Existing Project...* and browse to the folder where you just cloned the repository to. Go to *lib*, then *Secucard.Connect* and open *Secucard.Connect.csproj*.
+Now select *File* -> *Add* -> *Existing Project...* and browse to the folder where you just cloned the repository to. Go to *lib*, then *Secucard.Connect* and open *Secucard.Connect.csproj*.
 
 ![Git Clone](images/add_project.png)
 
@@ -53,6 +53,8 @@ The newly added project will show up in your solution, but you still need to ref
 ![Git Clone](images/add_reference.png)
 
 Select *Projects* -> *Solution* and check the box left of *Secucard.Connect*. Now press *OK* to confirm the reference.
+
+![Git Clone](images/reference_sc.png)
 
 Continue with [Using the SDK](using.md).
 
