@@ -1,8 +1,11 @@
 # secucard connect .NET SDK
 
+
 ## Requirements
 
 - [.NET Framework 4.5](https://www.microsoft.com/en-US/download/details.aspx?id=30653)
+- C# .NET-supporting IDE, for example [Microsoft Visual Studio](https://www.visualstudio.com/downloads/download-visual-studio-vs.aspx) or [MonoDevelop](http://www.monodevelop.com/download/)
+
 
 ## Install
 
@@ -14,98 +17,30 @@ You can use the SDK using one of the following methods:
 
 Then, reference the NuGet package, source project or binary release from your own project. Detailed information can be found in the [SDK Guide](http://developer.secuconnect.com/doc/sdk/net/guide/README).
 
+
 ## Usage
 
-```csharp
-// Load default properties
-var properties = Properties.Load("SecucardConnect.config");
+A general integration guide can be found here: http://developer.secuconnect.com/doc/guide
 
-// Perpare client config. Implement your own Auth Details
-clientConfiguration = new ClientConfiguration(properties)
-{
-    ClientAuthDetails = new ClientAuthDetailsDeviceToBeImplemented(),
-    DataStorage = new MemoryDataStorage()
-};
+The .NET-specific guide is here: http://developer.secuconnect.com/doc/sdk/net/guide. From there you have access to other information material.
 
-// Create client and attach client event handlers
-var Client = SecucardConnect.Create(clientConfiguration);
-Client.AuthEvent += ClientOnAuthEvent;
-Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
-Client.Open();
+SDKs for other languages can be found here: http://developer.secuconnect.com/doc/sdk
 
-// register at smart.checkin events (incoming customers)
-var checkinService = Client.Smart.Checkins;
-checkinService.CheckinEvent += CheckinEvent;
 
-// get reference to transaction and ident service
-var transactionService = Client.Smart.Transactions;
-var identService = Client.Smart.Idents;
+## Example Project
 
-// register eventhandler für transaction service --> progress during transaction
-transactionService.TransactionCashierEvent += SmartTransactionCashierEvent;
+To run the example project, clone the repo and open the solution file *Secucard.Connect.sln*. Then right-click the project "Secucard.Connect.DemoApp" and select *Set as StartUp Project*. Now press the *Start* button to build and start the demo application.
 
-// select an ident
-var availableIdents = identService.GetList(null);
-if (availableIdents == null || availableIdents.Count == 0)
-{
-    throw new Exception("No idents found.");
-}
-var ident = availableIdents.List.First(o => o.Id == "smi_1");
-ident.Value = "pdo28hdal";
 
-var selectedIdents = new List<Ident> {ident};
+## Change log
 
-// prepare basket with items locally
-var groups = new List<ProductGroup>
-{
-    new ProductGroup {Id = "group1", Desc = "beverages", Level = 1}
-};
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-var basket = new Basket();
-basket.AddProduct(new Product
-{
-    Id = 1,
-    ArticleNumber = "3378",
-    Ean = "5060215249804",
-    Desc = "desc1",
-    Quantity = 5m,
-    PriceOne = 1999,
-    Tax = 7,
-    Groups = groups
-});
-
-var basketInfo = new BasketInfo {Sum = 1, Currency = "EUR"};
-
-// build transaction object
-var newTrans = new Transaction
-{
-    BasketInfo = basketInfo,
-    Basket = basket,
-    Idents = selectedIdents,
-    MerchantRef = "merchant21",
-    TransactionRef = "transaction99"
-};
-
-// create transaction on server
-var transaction = transactionService.Create(newTrans);
-
-// start transaction (this takes some time, consider another thread) 
-var result = transactionService.Start(transaction.Id, "demo");
-
-// cancel transaction if needed
-var b = transactionService.Cancel(transaction.Id);
-```
-
-Available service classes are in namespace [Secucard.Connect.Product](https://github.com/secucard/secucard-connect-net-sdk/tree/master/lib/secucard.connect/Product)
-
-For your own configuration file see: [lib\Secucard.Connect\Client\Config\SecucardConnect.xml](https://github.com/secucard/secucard-connect-net-sdk/blob/master/lib/Secucard.Connect/Client/Config/SecucardConnect.config)
-
-## Testing
-Open solution in Microsoft Visual Studio, select *Test* -> *Run* -> *All tests*.
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+
 
 ## License
 
@@ -120,7 +55,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-## Documentation
-
-Please see http://developer.secuconnect.com/doc/sdk/net/ for up-to-date documentation.

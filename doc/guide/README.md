@@ -1,5 +1,14 @@
 # .NET SDK Guide
 
+SDK for using the [secuconnect API](http://developer.secuconnect.com) with .NET.
+
+
+## Requirements
+
+- [.NET Framework 4.5](https://www.microsoft.com/en-US/download/details.aspx?id=30653)
+- C# .NET-supporting IDE, for example [Microsoft Visual Studio](https://www.visualstudio.com/downloads/download-visual-studio-vs.aspx) or [MonoDevelop](http://www.monodevelop.com/download/)
+
+
 ## Creating a new project
 Whatever your install method is, you will reference the SDK from your own project, so we'll first need to create one. If you do not yet have Visual Studio installed, go ahead and [download and install](https://www.visualstudio.com/downloads/download-visual-studio-vs.aspx) one on your computer.
 

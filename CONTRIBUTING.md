@@ -9,7 +9,7 @@ We accept contributions via Pull Requests on [Github](https://github.com/secucar
 
 - **[Microsoft C# Coding Conventions](https://msdn.microsoft.com/library/ff926074.aspx)**
 
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
+- **Comment your code**
 
 - **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
@@ -20,9 +20,5 @@ We accept contributions via Pull Requests on [Github](https://github.com/secucar
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
 - **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
-
-
-## Running Tests
-Open solution in Microsoft Visual Studio, select *Test* -> *Run* -> *All tests*.
 
 **Happy coding**!
