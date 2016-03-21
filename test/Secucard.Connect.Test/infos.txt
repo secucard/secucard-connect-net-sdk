@@ -1,0 +1,41 @@
+﻿
+https://github.com/secucard/secucard-connect-doc/wiki/sdk-dev-guide
+
+http://developer.secucard.com/api/
+
+
+
+Payment
+
+f0478f73afe218e8b5f751a07c978ecf 
+30644327cfbde722ad2ad12bb9c0a2f86a2bee0a2d8de8d862210112af3d01bb
+
+
+
+20150812-091237.708: Stomp Client Frame arrived: MESSAGE
+subscription:/temp-queue/main
+destination:/queue/amq.gen-R1H__s4xqVjX8R7Wcz5QtA
+message-id:T_/temp-queue/main@@session-zmXmK7GPWSVjxD52Bm9i1w@@4
+content-type:application/x-json
+content-length:206
+
+{"object":"event.pushs","id":"EPS_6G685TPBRMVWA7YQA2KRKH95NVA244","created":"2015-08-12T09:12:37+02:00","target":"general.notifications","type":"display","data":{"text":"DEMO Aktivit\u00e4t mit mehr Text"}}
+
+{"object":"event.pushs","id":"EPS_2MC9SF9U0HV2HUUKK8G0RB82Q7BZ4P","created":"2015-08-13T11:38:44+02:00","target":"general.skeletons","type":"DemoEvent","data":"{ whatever: \"whole object gets send as payload for event\"}"}
+
+
+  String jsonEventData = "..."; /* get from web server, example:
+       {  "object": "event.pushes",
+          "id": "XXX_XXXXXXXXXXX",
+          "created": "2015-02-02T11:40:50+01:00",
+          "target": "services.identrequests",
+          "type": "changed", "data": [
+          {
+            "object": "services.identrequests",
+            "id": "XXX_XXXXXXXXXXXXXXXXXXXXXXXX"
+          }
+        ]} */
+
+      boolean ok = client.handleEvent(jsonEventData, false);
+	   String json = "{\"object\":\"event.pushs\",\"id\":\"EPS_WSEF0ZPW5WTT5UGSNJV9CHS6CGW24T\",
+	   \"created\":\"2015-07-15T17:48:15+02:00\",\"target\":\"smart.checkins\",\"type\":\"changed\",\"data\":null}";

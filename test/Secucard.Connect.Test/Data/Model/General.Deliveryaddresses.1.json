@@ -1,0 +1,27 @@
+﻿{
+    "count": 2,
+    "data": [
+        {
+            "object": "general.deliveryaddresses",
+            "id": "DAD_WB65CVN8U2KU6Z8ZR5GQGQCV2KEMAK",
+            "account": {
+                "object": "general.accounts",
+                "id": null
+            },
+            "street": "Scheunenhofstr. 2",
+            "zipcode": "01097",
+            "city": "Dresden"
+        },
+        {
+            "object": "general.deliveryaddresses",
+            "id": "DAD_C44FZJCGH2KU6Z86B5GQGQCV2KEMAJ",
+            "account": {
+                "object": "general.accounts",
+                "id": null
+            },
+            "street": "Goethestr. 6",
+            "zipcode": "01896",
+            "city": "Pulsnitz"
+        }
+    ]
+}

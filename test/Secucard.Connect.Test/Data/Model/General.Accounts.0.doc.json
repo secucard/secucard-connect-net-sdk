@@ -1,0 +1,21 @@
+﻿{
+    "count": 1,
+    "data": [
+        {
+            "object": "general.accounts",
+            "id": "acc_abc123",
+            "username": "j.doe",
+            "assignment": [
+                {
+                    "created": "2015-02-02T11:40:50+01:00",
+                    "type": "assignment",
+                    "owner": true,
+                    "assign": {
+                        "object": "general.merchants",
+                        "id": "mrc_abc123"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -28,7 +28,7 @@ namespace Secucard.Connect.DemoApp
 
     internal class Program
     {
-        private static ClientConfiguration clientConfiguration;
+        private static ClientConfiguration _clientConfiguration;
 
         private static void Main(string[] args)
         {
@@ -36,25 +36,25 @@ namespace Secucard.Connect.DemoApp
             var properties = Properties.Load("SecucardConnect.config");
 
             // Perpare client config. Implement your own Auth Details
-            clientConfiguration = new ClientConfiguration(properties)
+            _clientConfiguration = new ClientConfiguration(properties)
             {
                 ClientAuthDetails = new ClientAuthDetailsDeviceToBeImplemented(),
                 DataStorage = new MemoryDataStorage()
             };
 
             // Create client and attach client event handlers
-            var Client = SecucardConnect.Create(clientConfiguration);
-            Client.AuthEvent += ClientOnAuthEvent;
-            Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
-            Client.Open();
+            var client = SecucardConnect.Create(_clientConfiguration);
+            client.AuthEvent += ClientOnAuthEvent;
+            client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
+            client.Open();
 
             // register at smart.checkin events (incoming customers)
-            var checkinService = Client.Smart.Checkins;
+            var checkinService = client.Smart.Checkins;
             checkinService.CheckinEvent += CheckinEvent;
 
             // get reference to transaction and ident service
-            var transactionService = Client.Smart.Transactions;
-            var identService = Client.Smart.Idents;
+            var transactionService = client.Smart.Transactions;
+            var identService = client.Smart.Idents;
 
             // register eventhandler für transaction service --> progress during transaction
             transactionService.TransactionCashierEvent += SmartTransactionCashierEvent;
@@ -145,7 +145,7 @@ namespace Secucard.Connect.DemoApp
 
                 var reqSmartPin = new RestRequest
                 {
-                    Host = new Uri(new AuthConfig(clientConfiguration.Properties).OAuthUrl).Host,
+                    Host = new Uri(new AuthConfig(_clientConfiguration.Properties).OAuthUrl).Host,
                     BodyJsonString =
                         JsonSerializer.SerializeJson(new SmartPin {UserPin = args.DeviceAuthCodes.UserCode})
                 };

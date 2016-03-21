@@ -1,0 +1,268 @@
+﻿{
+    "count": 220,
+    "data": [
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_2SHRNKB6N2Y93R94B5GQGMKXU6XJA2",
+            "platform": "web",
+            "uid": "ea40edc6d4d65cf1f09435c86695cb4e311d8a96",
+            "created": "2015-04-07T15:23:20+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko\/20100101 Firefox\/37.0"
+                },
+                {
+                    "name": "name",
+                    "value": "Mozilla Firefox"
+                },
+                {
+                    "name": "version",
+                    "value": "37.0"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_V9TTZPH3C2Y9FXEBR5GQGBTE88ZWAN",
+            "platform": "web",
+            "uid": "dc6e1f4a16b2618d816c2858404d361440b9be67",
+            "created": "2015-04-16T16:13:43+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/41.0.2272.118 Safari\/537.36"
+                },
+                {
+                    "name": "name",
+                    "value": "Google Chrome"
+                },
+                {
+                    "name": "version",
+                    "value": "41.0.2272.118"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_3NF4FKFRA2Y9FN33R5GQGY8VX8ZWAN",
+            "platform": "web",
+            "uid": "2c73a958a592f4afd3d32e55e69ad5704c9e1907",
+            "created": "2015-04-16T15:27:35+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/41.0.2272.118 Safari\/537.36"
+                },
+                {
+                    "name": "name",
+                    "value": "Google Chrome"
+                },
+                {
+                    "name": "version",
+                    "value": "41.0.2272.118"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_2HMPWFAQT2Y9BHY7B5GQGA4888ZWAN",
+            "platform": "web",
+            "uid": "51d62d4dd900311013e7dae6c55b3f8e735b98bf",
+            "created": "2015-04-13T11:33:02+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko\/20100101 Firefox\/37.0"
+                },
+                {
+                    "name": "name",
+                    "value": "Mozilla Firefox"
+                },
+                {
+                    "name": "version",
+                    "value": "37.0"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_3ATKDX59H2Y93Q4PR5GQGUKPE6XJA4",
+            "platform": "web",
+            "uid": "67fcd8656611494561e4c7cc6644b12bc8063df0",
+            "created": "2015-04-07T14:44:35+02:00",
+            "updated": "2015-04-16T13:37:53+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/41.0.2272.118 Safari\/537.36"
+                },
+                {
+                    "name": "name",
+                    "value": "Google Chrome"
+                },
+                {
+                    "name": "version",
+                    "value": "41.0.2272.118"
+                },
+                {
+                    "name": "platform",
+                    "value": "mac"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_2DBBVJEF42Y8P9AKR5GQGX4B7ZXWA2",
+            "platform": "web",
+            "uid": "e6c32f0fe96b59f2b518de74ad58ccab4e8b7ff7",
+            "created": "2015-03-30T15:07:53+02:00",
+            "updated": "2015-04-20T11:39:30+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/42.0.2311.90 Safari\/537.36"
+                },
+                {
+                    "name": "name",
+                    "value": "Google Chrome"
+                },
+                {
+                    "name": "version",
+                    "value": "42.0.2311.90"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_356RHCHJJ2Y9E3E5R5GQGJ8U88ZWAN",
+            "platform": "web",
+            "uid": "c913df161ea8aa0d46cb7b35aeb94a83ae0bd25e",
+            "created": "2015-04-15T10:04:27+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko\/20100101 Firefox\/37.0"
+                },
+                {
+                    "name": "name",
+                    "value": "Mozilla Firefox"
+                },
+                {
+                    "name": "version",
+                    "value": "37.0"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_KVRKRPM8K2Y9BVSRR5GQGN50X8ZWAN",
+            "platform": "web",
+            "uid": "7bf276e0c41c3f2d14b0a86812fc806b402ccdbb",
+            "created": "2015-04-13T19:39:03+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit\/600.5.17 (KHTML, like Gecko) Version\/8.0.5 Safari\/600.5.17"
+                },
+                {
+                    "name": "name",
+                    "value": "Apple Safari"
+                },
+                {
+                    "name": "version",
+                    "value": "8.0.5"
+                },
+                {
+                    "name": "platform",
+                    "value": "mac"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_WDR3ZSH2C2Y97BBCR5GQGHSPU6XJA2",
+            "platform": "web",
+            "uid": "2ae2ce7c0fd125a95dd61f622ade0bf55f700981",
+            "created": "2015-04-10T07:08:41+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/41.0.2272.118 Safari\/537.36 OPR\/28.0.1750.51"
+                },
+                {
+                    "name": "name",
+                    "value": "Google Chrome"
+                },
+                {
+                    "name": "version",
+                    "value": "41.0.2272.118"
+                },
+                {
+                    "name": "platform",
+                    "value": "windows"
+                }
+            ],
+            "online": false
+        },
+        {
+            "object": "general.accountdevices",
+            "id": "ACD_2M6E64TFP2Y9D9AYR5GQGHTNX8ZWAN",
+            "platform": "web",
+            "uid": "94f72bf81e3572cd7fd8d8e5a7accc0a8622cfaa",
+            "created": "2015-04-14T19:13:15+02:00",
+            "updated": "2015-04-19T22:43:15+02:00",
+            "info": [
+                {
+                    "name": "userAgent",
+                    "value": "Mozilla\/5.0 (iPad; CPU OS 8_2 like Mac OS X) AppleWebKit\/600.1.4 (KHTML, like Gecko) CriOS\/42.0.2311.47 Mobile\/12D508 Safari\/600.1.4"
+                },
+                {
+                    "name": "name",
+                    "value": "Apple Safari"
+                },
+                {
+                    "name": "version",
+                    "value": "600.1.4"
+                },
+                {
+                    "name": "platform",
+                    "value": "mac"
+                }
+            ],
+            "online": false
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+﻿{
+    "count": 1,
+    "data": [
+        {
+            "object": "payment.containers",
+            "id": "pct_abc123",
+            "merchant": {
+                "object": "general.merchants",
+                "id": "mrc_abc123"
+            },
+            "private": {
+                "owner": "John Doe",
+                "iban": "DE12123456781234567890",
+                "bic": "ABCDDE12XXX"
+            },
+            "public": {
+                "owner": "John Doe",
+                "iban": "DE12123456781234567890",
+                "bic": "ABCDDE12XXX"
+            },
+            "type": "bank_account",
+            "created": "2015-02-03T14:22:19+01:00",
+            "updated": "2015-02-03T14:30:49+01:00"
+        }
+    ]          
+}

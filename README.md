@@ -1,105 +1,57 @@
 # secucard connect .NET SDK
 
-Latest Version 0.1.0
 
 ## Requirements
 
-- .NET Runtime v4.0.30319
-- .NET Framework 4.5 
+- [.NET Framework 4.5](https://www.microsoft.com/en-US/download/details.aspx?id=30653)
+- C# .NET-supporting IDE, for example [Microsoft Visual Studio](https://www.visualstudio.com/downloads/download-visual-studio-vs.aspx) or [MonoDevelop](http://www.monodevelop.com/download/)
 
-## Source Code
 
-[https://github.com/secucard/secucard-connect-net-sdk/](https://github.com/secucard/secucard-connect-net-sdk/)
+## Install
 
-## Installing
+You can use the SDK using one of the following methods:
 
-NuGet:
-[Install-Package Secucard.Connect ](https://www.nuget.org/packages/Secucard.Connect/)
+* Install the [Secucard.Connect NuGet package](https://www.nuget.org/packages/Secucard.Connect/)
+* Download or clone the [source code](https://github.com/secucard/secucard-connect-net-sdk)
+* Download the [latest binary release](https://github.com/secucard/secucard-connect-net-sdk/releases)
 
-## Getting Started
+Then, reference the NuGet package, source project or binary release from your own project. Detailed information can be found in the [SDK Guide](http://developer.secuconnect.com/doc/sdk/net/guide/README).
 
-Simple usage looks like:
 
-C#.NET
-	
-	// Load default properties
-    var properties = Properties.Load("SecucardConnect.config");
+## Usage
 
-    // Perpare client config. Implement your own Auth Details
-    clientConfiguration = new ClientConfiguration(properties)
-    {
-        ClientAuthDetails = new ClientAuthDetailsDeviceToBeImplemented(),
-        DataStorage = new MemoryDataStorage()
-    };
+A general integration guide can be found here: http://developer.secuconnect.com/doc/guide
 
-    // Create client and attach client event handlers
-    var Client = SecucardConnect.Create(clientConfiguration);
-    Client.AuthEvent += ClientOnAuthEvent;
-    Client.ConnectionStateChangedEvent += ClientOnConnectionStateChangedEvent;
-    Client.Open();
+The .NET-specific guide is here: http://developer.secuconnect.com/doc/sdk/net/guide. From there you have access to other information material.
 
-    // register at smart.checkin events (incoming customers)
-    var checkinService = Client.Smart.Checkins;
-    checkinService.CheckinEvent += CheckinEvent;
+SDKs for other languages can be found here: http://developer.secuconnect.com/doc/sdk
 
-    // get reference to transaction and ident service
-    var transactionService = Client.Smart.Transactions;
-    var identService = Client.Smart.Idents;
 
-    // register eventhandler für transaction service --> progress during transaction
-    transactionService.TransactionCashierEvent += SmartTransactionCashierEvent;
+## Example Project
 
-    // select an ident
-    var availableIdents = identService.GetList(null);
-    if (availableIdents == null || availableIdents.Count == 0)
-    {
-        throw new Exception("No idents found.");
-    }
-    var ident = availableIdents.List.First(o => o.Id == "smi_1");
-    ident.Value = "pdo28hdal";
+To run the example project, clone the repo and open the solution file *Secucard.Connect.sln*. Then right-click the project "Secucard.Connect.DemoApp" and select *Set as StartUp Project*. Now press the *Start* button to build and start the demo application.
 
-    var selectedIdents = new List<Ident> {ident};
 
-    // prepare basket with items locally
-    var groups = new List<ProductGroup>
-    {
-        new ProductGroup {Id = "group1", Desc = "beverages", Level = 1}
-    };
+## Change log
 
-    var basket = new Basket();
-    basket.AddProduct(new Product
-    {
-        Id = 1,
-        ArticleNumber = "3378",
-        Ean = "5060215249804",
-        Desc = "desc1",
-        Quantity = 5m,
-        PriceOne = 1999,
-        Tax = 7,
-        Groups = groups
-    });
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-    var basketInfo = new BasketInfo {Sum = 1, Currency = "EUR"};
 
-    // build transaction object
-    var newTrans = new Transaction
-    {
-        BasketInfo = basketInfo,
-        Basket = basket,
-        Idents = selectedIdents,
-        MerchantRef = "merchant21",
-        TransactionRef = "transaction99"
-    };
+## Contributing
 
-    // create transaction on server
-    var transaction = transactionService.Create(newTrans);
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
-    // start transaction (this takes some time, consider another thread) 
-    var result = transactionService.Start(transaction.Id, "demo");
 
-    // cancel transaction if needed
-    var b = transactionService.Cancel(transaction.Id);
+## License
 
-## Documentation
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this work except in compliance with the License.
+You may obtain a copy of the License in the [LICENSE File](LICENSE) file, or at:
 
-Please see [http://developer.secucard.com/api/](http://developer.secucard.com/api/) for up-to-date documentation.
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

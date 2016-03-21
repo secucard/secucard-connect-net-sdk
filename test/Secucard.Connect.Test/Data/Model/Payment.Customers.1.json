@@ -1,0 +1,196 @@
+﻿{
+    "count": 60,
+    "data": [
+        {
+            "object": "payment.customers",
+            "id": "PCU_3TGCQFGCR2Y8ZHPEB5GQGYPNRQUUAE",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "hans",
+                "surname": "surname",
+                "companyname": "companyname",
+                "name": "hans surname",
+                "salutation": "salutation",
+                "title": "title",
+                "address": {
+                    "street": "street",
+                    "street_number": "number",
+                    "postal_code": "88888",
+                    "city": "city",
+                    "country": "DE"
+                },
+                "email": "email",
+                "mobile": "12345",
+                "phone": "110",
+                "dob": "1888-03-31T00:00:00+01:00"
+            },
+            "created": "2015-03-25T11:30:52+01:00",
+            "updated": "2015-03-25T11:31:37+01:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_2NTQH79PN2Y8QETFB5GQG9GKNZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T12:30:54+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_2B3C4CWFN2Y8P4QPR5GQGDXMNZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-30T12:34:27+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_3Z4U90BCY2Y8PDSBR5GQGKWW7ZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-30T17:43:19+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_WW3RAZQWH2Y8QDV4R5GQG4DWNZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T11:58:33+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_27ET8DZ3A2Y8QH92B5GQGKGN7ZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T13:51:32+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_2ZB6AJKC62Y8QZAYB5GQGC8H7ZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T14:27:22+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_32SMXG03T2Y8QEMWR5GQGVS7NZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T12:22:59+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_YX3F7FB572Y8QFKKR5GQGH5RNZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T12:55:37+02:00"
+        },
+        {
+            "object": "payment.customers",
+            "id": "PCU_2U6RZMEYF2Y8QHFBR5GQGJH27ZXWA2",
+            "contract": {
+                "object": "payment.contracts",
+                "id": "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7"
+            },
+            "contact": {
+                "forename": "forename",
+                "surname": "surname",
+                "name": "forename surname",
+                "address": {
+                    "street": "street",
+                    "city": "city"
+                }
+            },
+            "created": "2015-03-31T13:58:15+02:00"
+        }
+    ]
+}
