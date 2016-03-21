@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("secucard.connect")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Secucard.Connect")]
+[assembly: AssemblyDescription("Secucard.Connect client for all types of payment")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("hp.weber GmbH & Co secucard KG (www.secucard.com)")]
-[assembly: AssemblyProduct("secucard.connect")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyProduct("Secucard.Connect")]
+[assembly: AssemblyCopyright("Copyright 2015 hp.weber GmbH &amp; Co secucard KG")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,5 +35,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.0.2.0")]
-[assembly: AssemblyFileVersion("0.0.2.0")]
+[assembly: AssemblyVersion("0.2.1.0")]
+[assembly: AssemblyFileVersion("0.2.1.0")]
