@@ -3,8 +3,8 @@
 
 ## Requirements
 
-- [.NET Framework 4.5](https://www.microsoft.com/en-US/download/details.aspx?id=30653)
-- C# .NET-supporting IDE, for example [Microsoft Visual Studio](https://www.visualstudio.com/downloads/download-visual-studio-vs.aspx) or [MonoDevelop](http://www.monodevelop.com/download/)
+- .NET Framework 4.5
+- C# .NET-supporting IDE, for example Microsoft Visual Studio or MonoDevelop
 
 
 ## Install
