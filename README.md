@@ -46,7 +46,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this work except in compliance with the License.
-You may obtain a copy of the License in the [LICENSE File](LICENSE) file, or at:
+You may obtain a copy of the License in the [LICENSE File](LICENSE.md) file, or at:
 
    http://www.apache.org/licenses/LICENSE-2.0
 
