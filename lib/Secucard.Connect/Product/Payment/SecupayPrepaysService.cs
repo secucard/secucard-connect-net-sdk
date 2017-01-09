@@ -23,5 +23,13 @@
         {
             return MetaData;
         }
+        
+        public bool Cancel(string prepayId)
+        {
+            if (Execute<Transaction>(prepayId, "cancel", null, null, null) == null)
+                return false;
+            else
+                return true;
+        }
     }
 }
