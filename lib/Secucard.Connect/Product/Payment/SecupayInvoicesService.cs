@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2015. hp.weber GmbH & Co secucard KG (www.secucard.com)
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,23 +12,24 @@
 
 namespace Secucard.Connect.Product.Payment
 {
-    /// <summary>
-    /// Holds service references and service type constants for "payment" product.
-    /// </summary>
-    public class Payment
+    using Secucard.Connect.Client;
+    using Secucard.Connect.Product.Payment.Model;
+
+    public class SecupayInvoicesService : ProductService<SecupayInvoice>
     {
-        public ContainersService Containers { get; set; }
+        public static readonly ServiceMetaData<SecupayInvoice> MetaData = new ServiceMetaData<SecupayInvoice>("payment", "secupayinvoice");
 
-        public ContractService Contracts { get; set; }
+        protected override ServiceMetaData<SecupayInvoice> GetMetaData()
+        {
+            return MetaData;
+        }
 
-        public CustomerPaymentService Customers { get; set; }
-
-        public SecupayDebitsService Secupaydebits { get; set; }
-
-        public SecupayPrepaysService Secupayprepays { get; set; }
-
-        public SecupayCreditcardsService Secupaycreditcards { get; set; }
-
-        public SecupayInvoicesService Secupayinvoices { get; set; }
+        public bool Cancel(string prepayId)
+        {
+            if (Execute<Transaction>(prepayId, "cancel", null, null, null) == null)
+                return false;
+            else
+                return true;
+        }
     }
 }

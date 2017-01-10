@@ -142,8 +142,12 @@
     <Compile Include="Product\Loyalty\Model\Program.cs" />
     <Compile Include="Product\Loyalty\Model\Sale.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
+    <Compile Include="Product\Payment\SecupayDebitService.cs" />
+    <Compile Include="Product\Payment\Model\SecupayCreditcard.cs" />
+    <Compile Include="Product\Payment\Model\SecupayInvoice.cs" />
+    <Compile Include="Product\Payment\SecupayCreditcardsService.cs" />
+    <Compile Include="Product\Payment\SecupayInvoicesService.cs" />
     <Compile Include="Product\Payment\SecupayPrepaysService.cs" />
-    <Compile Include="Product\Payment\DebitService.cs" />
     <Compile Include="Product\Payment\ContainerService.cs" />
     <Compile Include="Product\Payment\CustomerPaymentService.cs" />
     <Compile Include="Product\Payment\Model\CloneParams.cs" />
