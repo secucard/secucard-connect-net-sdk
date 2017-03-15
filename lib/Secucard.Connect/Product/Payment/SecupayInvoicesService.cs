@@ -17,7 +17,7 @@ namespace Secucard.Connect.Product.Payment
 
     public class SecupayInvoicesService : ProductService<SecupayInvoice>
     {
-        public static readonly ServiceMetaData<SecupayInvoice> MetaData = new ServiceMetaData<SecupayInvoice>("payment", "secupayinvoice");
+        public static readonly ServiceMetaData<SecupayInvoice> MetaData = new ServiceMetaData<SecupayInvoice>("payment", "secupayinvoices");
 
         protected override ServiceMetaData<SecupayInvoice> GetMetaData()
         {

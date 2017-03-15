@@ -109,7 +109,11 @@ namespace Secucard.Connect.Net.Stomp
         /// </summary>
         private void Connect(string token)
         {
-            _stomp.Connect(token,token);
+            if (!_stomp.Connect(token, token))
+            {
+                throw new SecucardConnectException();
+            }
+
             _connectToken = token;
         }
 

@@ -10,7 +10,7 @@
  * limitations under the License.
  */
 
- namespace Secucard.Connect.Product.Payment
+namespace Secucard.Connect.Product.Payment
 {
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Payment.Model;
