@@ -29,6 +29,9 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "owner")]
         public string Owner { get; set; }
 
+        [DataMember(Name = "card_number")]
+        public string CardNumber { get; set; }
+
         public override string ToString()
         {
             return "Data{" +
@@ -36,6 +39,7 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", iban='" + Iban + '\'' +
                    ", bic='" + Bic + '\'' +
                    ", bankname='" + Bankname + '\'' +
+                   ", card_number='" + CardNumber + '\'' +
                    '}';
         }
     }

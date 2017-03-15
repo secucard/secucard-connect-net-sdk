@@ -14,6 +14,7 @@ namespace Secucard.Connect.Product.Smart
 {
     using Secucard.Connect.Client;
     using Secucard.Connect.Net;
+    using Secucard.Connect.Client.Config;
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Smart.Event;
     using Transaction = Secucard.Connect.Product.Smart.Model.Transaction;
@@ -27,8 +28,7 @@ namespace Secucard.Connect.Product.Smart
             Context.EventDispatcher.RegisterForEvent(GetType().Name, "general.notifications", "display", OnNewEvent);
         }
 
-        public static readonly ServiceMetaData<Transaction> MetaData = new ServiceMetaData<Transaction>("smart",
-            "transactions");
+        public static readonly ServiceMetaData<Transaction> MetaData = new ServiceMetaData<Transaction>("smart", "transactions");
 
         protected override ServiceMetaData<Transaction> GetMetaData()
         {
@@ -47,8 +47,27 @@ namespace Secucard.Connect.Product.Smart
         /// </summary>
         public Transaction Start(string transactionId, string type)
         {
+            // Load default properties
+            var properties = Properties.Load("SecucardConnect.config");
+
+            /*
+              <!-- STOMP server communication is enabled: true | false/nothing -->
+              If STOMP server communication is disabled then you have to use REST
+            */
+
+            var channel = string.Empty;
+
+            if (properties.Get("Stomp.Enabled", false))
+            {
+                channel = ChannelOptions.ChannelStomp;
+            }
+            else
+            {
+                channel = ChannelOptions.ChannelRest;
+            }
+
             return Execute<Transaction>(transactionId, "start", type, null,
-                new ChannelOptions {Channel = ChannelOptions.ChannelStomp});
+                new ChannelOptions {Channel = channel });
         }
 
         /// <summary>

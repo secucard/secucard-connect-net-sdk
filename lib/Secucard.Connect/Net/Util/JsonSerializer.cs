@@ -40,9 +40,19 @@ namespace Secucard.Connect.Net.Util
         public static T DeserializeJson<T>(string jsonString)
         {
             var serializer = new DataContractJsonSerializer(typeof (T));
-            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
+            try
             {
-                return (T) serializer.ReadObject(ms);
+                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonString)))
+                {
+                    return (T)serializer.ReadObject(ms);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                // Under some circumstances you can not deserialize demo result
+                System.Diagnostics.Debug.WriteLine($"Error message { ex.Message }");
+
+                return default(T);
             }
         }
 

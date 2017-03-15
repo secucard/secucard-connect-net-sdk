@@ -49,8 +49,11 @@ namespace Secucard.Connect.Net.Stomp.Client
         public event StompClientStatusChangedEventHandler StompClientChangedEvent;
 
         /// <summary>
-        ///     sync connect
+        /// Connect to STOMP [sync]
         /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns>bool - Returns whether the connection could be established successfully</returns>
         public bool Connect(string login, string password)
         {
             _login = login;
@@ -72,6 +75,7 @@ namespace Secucard.Connect.Net.Stomp.Client
                 if (waitUntil < DateTime.Now)
                 { 
                     OnStatusChanged(EnumStompClientStatus.Timeout);
+                    _isConnected = false;
                     break;
                 }
             }
@@ -79,9 +83,14 @@ namespace Secucard.Connect.Net.Stomp.Client
             if (StompClientStatus == EnumStompClientStatus.Connected)
             {
                 _isConnected = true;
-                return true;
             }
-            return false;
+            else if (StompClientStatus == EnumStompClientStatus.Error)
+            {
+                OnStatusChanged(EnumStompClientStatus.Error);
+                _isConnected = false;
+            }
+
+            return _isConnected;
         }
 
         private void Core_StompCoreExceptionEvent(object sender, StompCoreExceptionEventArgs args)
@@ -90,6 +99,9 @@ namespace Secucard.Connect.Net.Stomp.Client
             Connect(_login, _password);
         }
 
+        /// <summary>
+        /// Disconnect from STOMP
+        /// </summary>
         public void Disconnect()
         {
             _isConnected = false;
@@ -107,6 +119,10 @@ namespace Secucard.Connect.Net.Stomp.Client
                     new StompClientStatusChangedEventArgs {Status = status, Time = DateTime.Now});
         }
 
+        /// <summary>
+        /// Sends the STOMP frame
+        /// </summary>
+        /// <param name="frame">STOMP frame to send</param>
         public void SendFrame(StompFrame frame)
         {
             var rcptId = "rcpt-" + Guid.NewGuid();
@@ -231,8 +247,9 @@ namespace Secucard.Connect.Net.Stomp.Client
         }
 
         /// <summary>
-        ///     Store receipts in local dictionary. Send is looking for receipts there.
+        /// Store receipts in local dictionary. Send is looking for receipts there.
         /// </summary>
+        /// <param name="frame"></param>
         private void OnReceipt(StompFrame frame)
         {
             if (frame.Headers.ContainsKey(StompHeader.ReceiptId))

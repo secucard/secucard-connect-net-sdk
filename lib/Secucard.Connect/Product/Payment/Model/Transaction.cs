@@ -18,9 +18,45 @@ namespace Secucard.Connect.Product.Payment.Model
     [DataContract]
     public abstract class Transaction : SecuObject
     {
-        //public static final String STATUS_ACCEPTED = "accepted";
-        //public static final String STATUS_CANCELED = "canceled";
-        //public static final String STATUS_PROCEED = "proceed";
+        /// <summary>
+        /// status for accepted debit transactions and finished prepay transactions
+        /// </summary>
+        public const string STATUS_ACCEPTED = "accepted";
+
+        /// <summary>
+        /// prepay transaction after creation , before payment arrives
+        /// </summary>
+        public const string STATUS_AUTHORIZED = "authorized";
+
+        /// <summary>
+        /// when scoring for debit transaction denies the payer
+        /// </summary>
+        public const string STATUS_DENIED = "denied";
+
+        /// <summary>
+        /// then ruecklastschrift happens, or some other issue type
+        /// </summary>
+        public const string STATUS_ISSUE = "issue";
+
+        /// <summary>
+        /// when transaction is cancelled by creator (it is not possible to cancel transactions any time, so the debit transaction is possible to cancel until it is cleared out)
+        /// </summary>
+        public const string STATUS_VOID = "void";
+
+        /// <summary>
+        /// when issue for transaction is resolved
+        /// </summary>
+        public const string STATUS_ISSUE_RESOLVED = "issue_resolved";
+
+        /// <summary>
+        /// special status, saying that transaction was paid back (for some reason)
+        /// </summary>
+        public const string STATUS_REFUND = "refund";
+
+        /// <summary>
+        /// should not happen, but only when status would be empty, this status is used
+        /// </summary>
+        public const string STATUS_INTERNAL_SERVER_STATUS = "internal_server_status";
 
         [DataMember(Name = "amount")]
         public long? Amount { get; set; }
@@ -33,6 +69,9 @@ namespace Secucard.Connect.Product.Payment.Model
 
         [DataMember(Name = "customer")]
         public Customer Customer { get; set; }
+
+        [DataMember(Name = "recipient")]
+        public Customer Recipient { get; set; }
 
         [DataMember(Name = "orderId")]
         public string OrderId { get; set; }
@@ -48,5 +87,33 @@ namespace Secucard.Connect.Product.Payment.Model
 
         [DataMember(Name = "transId")]
         public string TransId { get; set; }
+
+        [DataMember(Name = "basket")]
+        public Basket[] Basket { get; set; }
+
+        [DataMember(Name = "experience")]
+        public Experience Experience { get; set; }
+
+        /// <summary>
+        /// If TRUE the payment transaction will be only a pre-authorization
+        /// and a separate capture or cancel is needed to start the payment processing
+        /// </summary>
+        [DataMember(Name = "accrual")]
+        public bool Accrual { get; set; }
+
+        [DataMember(Name = "subscription")]
+        public Subscription Subscription { get; set; }
+
+        /// <summary>
+        /// Redirect urls used for the payment checkout page
+        /// </summary>
+        [DataMember(Name = "redirect_url")]
+        public RedirectUrl RedirectUrl { get; set; }
+
+        /// <summary>
+        /// Optional settings and parameters to customize the checkout process
+        /// </summary>
+        [DataMember(Name = "opt_data")]
+        public OptData OptData { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Secucard.Connect.Product.General.Model
     using System.Runtime.Serialization;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
+    using System.Collections.Generic;
 
     [DataContract]
     public class Contact : SecuObject
@@ -89,6 +90,9 @@ namespace Secucard.Connect.Product.General.Model
 
         [IgnoreDataMember]
         public MediaResource PictureObject { get; set; }
+
+        [DataMember(Name = "ident_service_ids")]
+        public List<string> IdentServiceIds { get; set; }
 
         public override string ToString()
         {

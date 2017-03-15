@@ -37,11 +37,6 @@ To run the example project, clone the repo and open the solution file *Secucard.
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
-
-
 ## License
 
 Licensed under the Apache License, Version 2.0 (the "License");

@@ -258,9 +258,11 @@ namespace Secucard.Connect
             {
                 Containers = GetService<ContainersService>(),
                 Customers = GetService<CustomerPaymentService>(),
+                Secupaycreditcards = GetService<SecupayCreditcardsService>(),
                 Secupaydebits = GetService<SecupayDebitsService>(),
                 Secupayprepays = GetService<SecupayPrepaysService>(),
-                Contracts = GetService<ContractService>()
+                Contracts = GetService<ContractService>(),
+                Secupayinvoices = GetService<SecupayInvoicesService>()
             };
 
             Loyalty = new Loyalty

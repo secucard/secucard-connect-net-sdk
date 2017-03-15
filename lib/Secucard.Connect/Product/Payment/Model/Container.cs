@@ -35,8 +35,8 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "public")]
         public Data PublicData { get; set; }
 
-        [DataMember(Name = "assign")]
-        public Customer Assigned { get; set; }
+        [DataMember(Name = "customer")]
+        public Customer Customer { get; set; }
 
         [DataMember(Name = "type")]
         public string Type { get; set; }
