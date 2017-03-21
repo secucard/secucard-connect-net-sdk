@@ -4,6 +4,7 @@
     using Auth.Model;
     using Client;
     using Client.Config;
+    using Product.Smart;
     using Product.Smart.Event;
     using Product.Smart.Model;
     using Storage;
@@ -106,8 +107,9 @@
             //transaction.TransactionRef = "trans1";
             //transaction = transactionService.Update(transaction);
 
-            var type = "demo"; // demo|auto|cash
+            // All possible transaction types are defined in TransactionsService
             // demo instructs the server to simulate a different (random) transaction for each invocation of startTransaction
+            var type = TransactionsService.TYPE_DEMO;
 
             // start transaction (this takes some time, consider another thread) 
             var result = transactionService.Start(transaction.Id, type);

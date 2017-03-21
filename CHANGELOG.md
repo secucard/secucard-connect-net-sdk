@@ -16,6 +16,7 @@
 
 ### Removed
 - Contributing point in Readme.md
+- Tests from the SDK
 
 ## [0.2.2] - 2017-01-09
 

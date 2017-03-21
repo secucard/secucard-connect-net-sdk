@@ -25,7 +25,6 @@
             var container_data = new Data();
             container_data.Iban = "DE62100208900001317270";
             container_data.Owner = "Max Mustermann";
-            container_data.CardNumber = "491669XXXXXX5926";
 
             // the customer reference for the container is optional, but we strongly recommend it
             //customer = new Customer();
