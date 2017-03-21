@@ -58,6 +58,16 @@ namespace Secucard.Connect.Product.Payment.Model
         /// </summary>
         public const string STATUS_INTERNAL_SERVER_STATUS = "internal_server_status";
 
+        /// <summary>
+        /// Use the Authorization option to place a hold on the payer funds
+        /// </summary>
+        public const string PAYMENT_ACTION_AUTHORIZATION = "authorization";
+
+        /// <summary>
+        /// Direct payment (immediate debit of the funds from the buyer's funding source)
+        /// </summary>
+        public const string PAYMENT_ACTION_SALE = "sale";
+
         [DataMember(Name = "amount")]
         public long? Amount { get; set; }
 
@@ -115,5 +125,13 @@ namespace Secucard.Connect.Product.Payment.Model
         /// </summary>
         [DataMember(Name = "opt_data")]
         public OptData OptData { get; set; }
+
+        /// <summary>
+        /// The "payment_action" parameter controls the processing of the transaction by secupay, for the time being,
+        /// there are the values "sale" and "authorization". Sale is a direct payment.
+        /// To perform the transaction later, you have to transmit "authorization" here.
+        /// </summary>
+        [DataMember(Name = "payment_action")]
+        public string PaymentAction { get; set; } = PAYMENT_ACTION_SALE;
     }
 }
