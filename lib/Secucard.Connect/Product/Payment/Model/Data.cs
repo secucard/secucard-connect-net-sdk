@@ -36,7 +36,6 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", iban='" + Iban + '\'' +
                    ", bic='" + Bic + '\'' +
                    ", bankname='" + Bankname + '\'' +
-                   ", card_number='" + CardNumber + '\'' +
                    '}';
         }
     }
