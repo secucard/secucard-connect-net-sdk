@@ -34,10 +34,10 @@ namespace Secucard.Connect.Product.Loyalty.Model
         [DataMember(Name = "balance_points")]
         public int BalancePoints { get; set; }
 
-        //TODO:
-        //public Currency currency;
+        [DataMember(Name = "currency")]
+        public string Currency;
 
-        [DataMember(Name = "created_for_merchant")]
+        [DataMember(Name = "bonus")]
         public List<Bonus> Bonus { get; set; }
 
         [DataMember(Name = "card")]

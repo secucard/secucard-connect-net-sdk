@@ -17,6 +17,8 @@ namespace Secucard.Connect.Product.Loyalty
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.Loyalty.Model;
+    using System.Linq;
+    using General.Model;
 
     public class CustomerLoyaltyService : ProductService<Customer>
     {
@@ -49,10 +51,11 @@ namespace Secucard.Connect.Product.Loyalty
         {
             Parallel.ForEach(list, obj =>
             {
-                var mediaResource = obj.PictureObject;
-                if (mediaResource != null)
+                // Actually there are 3 "Contact" attributes in "Customer" which contains picture object
+                foreach (var pictureAttribute in obj.GetType().GetFields().Where(p => p.GetType() == typeof(Contact)))
                 {
-                    if (!mediaResource.IsCached)
+                    var mediaResource = (MediaResource)pictureAttribute.GetValue(obj);
+                    if (mediaResource != null && !mediaResource.IsCached)
                     {
                         mediaResource.Download();
                     }

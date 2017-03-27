@@ -46,6 +46,12 @@ namespace Secucard.Connect.Product.Service.Model.services
         [DataMember(Name = "person")]
         public List<Person> Persons { get; set; }
 
+        [DataMember(Name = "provider")]
+        public string Provider { get; set; }
+
+        [DataMember(Name = "demo")]
+        public bool? Demo { get; set; }
+
         [DataMember(Name = "created")]
         public string FormattedCreated
         {

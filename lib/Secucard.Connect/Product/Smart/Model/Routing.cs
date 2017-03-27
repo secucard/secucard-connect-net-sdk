@@ -20,6 +20,9 @@ namespace Secucard.Connect.Product.Smart.Model
     [DataContract]
     public class Routing : SecuObject
     {
+        [DataMember(Name = "merchant")]
+        public Merchant Merchant { get; set; }
+
         [DataMember(Name = "store")]
         public Store Store { get; set; }
 
