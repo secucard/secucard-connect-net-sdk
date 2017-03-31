@@ -16,6 +16,7 @@ namespace Secucard.Connect.Product.General.Model
     using System.Runtime.Serialization;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
+    using System.Collections.Generic;
 
     [DataContract]
     public class Contact : SecuObject
@@ -68,6 +69,9 @@ namespace Secucard.Connect.Product.General.Model
         [DataMember(Name = "mobile")]
         public string Mobile { get; set; }
 
+        [DataMember(Name = "fax")]
+        public string Fax { get; set; }
+
         [DataMember(Name = "address")]
         public Address Address { get; set; }
 
@@ -90,6 +94,9 @@ namespace Secucard.Connect.Product.General.Model
         [IgnoreDataMember]
         public MediaResource PictureObject { get; set; }
 
+        [DataMember(Name = "ident_service_ids")]
+        public List<string> IdentServiceIds { get; set; }
+
         public override string ToString()
         {
             return "Contact{" +
@@ -104,8 +111,8 @@ namespace Secucard.Connect.Product.General.Model
                    ", birthPlace='" + BirthPlace + '\'' +
                    ", phone='" + Phone + '\'' +
                    ", mobile='" + Mobile + '\'' +
+                   ", fax='" + Fax + '\'' +
                    ", nationality='" + Nationality + '\'' +
-                   //", nationalityLocale=" + nationalityLocale +
                    ", address=" + Address +
                    ", urlWebsite='" + UrlWebsite + '\'' +
                    ", picture='" + Picture + '\'' +

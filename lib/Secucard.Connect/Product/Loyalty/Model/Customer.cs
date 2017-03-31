@@ -12,96 +12,52 @@
 
 namespace Secucard.Connect.Product.Loyalty.Model
 {
-    using System;
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
+    using System;
+    using Net.Util;
 
     [DataContract]
     public class Customer : SecuObject
     {
+        [DataMember(Name = "account")]
+        public Account Account { get; set; }
+
         [DataMember(Name = "merchant")]
         public Merchant Merchant { get; set; }
 
-        [DataMember(Name = "forename")]
-        public string ForeName { get; set; }
+        [DataMember(Name = "contact")]
+        public Contact Contact { get; set; }
 
-        [DataMember(Name = "surname")]
-        public string SurName { get; set; }
+        [DataMember(Name = "account_contact")]
+        public Contact AccountContact { get; set; }
 
-        [DataMember(Name = "company")]
-        public string Company { get; set; }
-
-        [DataMember(Name = "display_name")]
-        public string DisplayName { get; set; }
-
-        [DataMember(Name = "salutation")]
-        public string Salutation { get; set; }
-
-        [DataMember(Name = "title")]
-        public string Title { get; set; }
-
-        [DataMember(Name = "street")]
-        public string Street { get; set; }
-
-        [DataMember(Name = "zipcode")]
-        public string Zipcode { get; set; }
-
-        [DataMember(Name = "city")]
-        public string City { get; set; }
-
-        [DataMember(Name = "email")]
-        public string Email { get; set; }
-
-        [DataMember(Name = "fax")]
-        public string Fax { get; set; }
-
-        [DataMember(Name = "mobile")]
-        public string Mobile { get; set; }
+        [DataMember(Name = "merchant_contact")]
+        public Contact MerchantContact { get; set; }
 
         [DataMember(Name = "note")]
         public string Note { get; set; }
 
-        [DataMember(Name = "phone")]
-        public string Phone { get; set; }
-
         [DataMember(Name = "age")]
-        public string Age { get; set; }
+        public int Age { get; set; }
 
         [DataMember(Name = "days_until_birthday")]
         public string DaysUntilBirthday { get; set; }
 
         [DataMember(Name = "additional_data")]
-        public List<string> AdditionalData { get; set; }
+        public object AdditionalData { get; set; }
+
+        [DataMember(Name = "created")]
+        public string FormattedCreated
+        {
+            get { return Created.ToDateTimeZone(); }
+            set { Created = value.ToDateTime(); }
+        }
+
+        public DateTime? Created { get; set; }
 
         [DataMember(Name = "customernumber")]
         public string CustomerNumber { get; set; }
-
-        [DataMember(Name = "dob")]
-        public string FormattedDateOfBirth
-        {
-            get { return DateOfBirth.ToDateTimeZone(); }
-            set { DateOfBirth = value.ToDateTime(); }
-        }
-
-        public DateTime? DateOfBirth { get; set; }
-
-        private string _picture;
-
-        [DataMember(Name = "picture")]
-        public string Picture
-        {
-            get { return _picture; }
-            set
-            {
-                _picture = value;
-                PictureObject = MediaResource.Create(value);
-            }
-        }
-
-        [IgnoreDataMember]
-        public MediaResource PictureObject { get; set; }
     }
 }

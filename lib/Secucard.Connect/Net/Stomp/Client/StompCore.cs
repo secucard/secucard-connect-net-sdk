@@ -154,7 +154,7 @@ namespace Secucard.Connect.Net.Stomp.Client
 
         private void OnFrameArrived(StompFrame frame)
         {
-            StompTrace.Info("Frame Arrived Command={0}", frame.Command);
+            StompTrace.Info("Frame Arrived Command={0} | Body={1}", frame.Command, frame.Body);
             if (StompCoreFrameArrivedEvent != null)
                 StompCoreFrameArrivedEvent(this, new StompCoreFrameArrivedEventArgs {Frame = frame, Time = DateTime.Now});
         }

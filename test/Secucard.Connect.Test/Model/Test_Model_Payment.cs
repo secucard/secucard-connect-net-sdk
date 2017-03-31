@@ -83,7 +83,6 @@ namespace Secucard.Connect.Test.Model
             Assert.AreEqual(data.List.Count, 1);
             var obj = data.List.First();
             Assert.AreEqual(obj.Id, "PCR_3WYDQ6F7F2Y7GES9R5GQGGSMQN62A7");
-            Assert.AreEqual(obj.Merchant.Id, "MRC_2CNA8BY26D2GJSPCXTXDD605KEK4PK");
             Assert.AreEqual(obj.AllowCloning, true);
             Assert.AreEqual(obj.InternalReference, "475094");
             Assert.AreEqual(obj.FormattedCreated, "2015-02-27T14:54:27+01:00");

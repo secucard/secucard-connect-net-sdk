@@ -45,6 +45,9 @@ namespace Secucard.Connect.Product.Payment.Model
 
         public DateTime? Updated { get; set; }
 
+        [DataMember(Name = "merchant")]
+        public Merchant Merchant { get; set; }
+
         public override string ToString()
         {
             return "Customer{" +

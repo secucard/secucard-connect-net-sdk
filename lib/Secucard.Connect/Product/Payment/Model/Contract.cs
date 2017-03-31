@@ -16,7 +16,6 @@ namespace Secucard.Connect.Product.Payment.Model
     using System.Runtime.Serialization;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.Common.Model;
-    using Secucard.Connect.Product.General.Model;
 
     [DataContract]
     public class Contract : SecuObject
@@ -24,17 +23,17 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "allow_cloning")]
         public bool? AllowCloning { get; set; }
 
-        [DataMember(Name = "contract_id")]
-        public string ContractId { get; set; }
-
         [DataMember(Name = "demo")]
         public bool? Demo { get; set; }
+
+        [DataMember(Name = "contract_id")]
+        public string ContractId { get; set; }
 
         [DataMember(Name = "internal_reference")]
         public string InternalReference { get; set; }
 
-        [DataMember(Name = "merchant")]
-        public Merchant Merchant { get; set; }
+        [DataMember(Name = "parent")]
+        public Contract Parent { get; set; }
 
         [DataMember(Name = "created")]
         public string FormattedCreated
@@ -44,5 +43,14 @@ namespace Secucard.Connect.Product.Payment.Model
         }
 
         public DateTime? Created { get; set; }
+
+        [DataMember(Name = "updated")]
+        public string FormattedUpdated
+        {
+            get { return Updated.ToDateTimeZone(); }
+            set { Updated = value.ToDateTime(); }
+        }
+
+        public DateTime? Updated { get; set; }
     }
 }
