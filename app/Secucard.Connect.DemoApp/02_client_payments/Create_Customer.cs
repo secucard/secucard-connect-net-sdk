@@ -32,7 +32,8 @@
             address.Street = "Example Street";
             address.StreetNumber = "6a";
             address.City = "ExampleCity";
-            address.Country = "Deutschland";
+            // For country use ISO 3166-2 code
+            address.Country = "DE";
             address.PostalCode = "01234";
 
             contact.Address = address;

@@ -23,6 +23,9 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "allow_cloning")]
         public bool? AllowCloning { get; set; }
 
+        [DataMember(Name = "demo")]
+        public bool? Demo { get; set; }
+
         [DataMember(Name = "contract_id")]
         public string ContractId { get; set; }
 

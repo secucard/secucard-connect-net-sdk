@@ -29,7 +29,7 @@ namespace Secucard.Connect.Product.Loyalty.Model
         public Merchant Merchant { get; set; }
 
         [DataMember(Name = "stock_warn_limit")]
-        public int StockWarnLimit { get; set; }
+        public int? StockWarnLimit { get; set; }
 
         private string _picture;
 

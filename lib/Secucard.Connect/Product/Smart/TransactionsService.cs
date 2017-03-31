@@ -28,6 +28,12 @@ namespace Secucard.Connect.Product.Smart
             Context.EventDispatcher.RegisterForEvent(GetType().Name, "general.notifications", "display", OnNewEvent);
         }
 
+        public static string TYPE_DEMO = "demo";
+        public static string TYPE_CASH = "cash";
+        public static string TYPE_AUTO = "auto";
+        public static string TYPE_ZVT = "cashless";
+        public static string TYPE_LOYALTY = "loyalty";
+
         public static readonly ServiceMetaData<Transaction> MetaData = new ServiceMetaData<Transaction>("smart", "transactions");
 
         protected override ServiceMetaData<Transaction> GetMetaData()
@@ -43,8 +49,11 @@ namespace Secucard.Connect.Product.Smart
         }
 
         /// <summary>
-        ///     Start created transaction with the given transactionId.
+        /// Start created transaction with the given transactionId and type
         /// </summary>
+        /// <param name="transactionId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public Transaction Start(string transactionId, string type)
         {
             // Load default properties
@@ -71,8 +80,10 @@ namespace Secucard.Connect.Product.Smart
         }
 
         /// <summary>
-        ///     Cancel the existing transaction with the given transactionId.
+        /// Cancel the existing transaction with the given transactionId.
         /// </summary>
+        /// <param name="transactionId">Cancel the specific transaction by id</param>
+        /// <returns></returns>
         public bool Cancel(string transactionId)
         {
             return ExecuteToBool(transactionId, "cancel", null, null, null);

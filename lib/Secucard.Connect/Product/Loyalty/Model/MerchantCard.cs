@@ -21,6 +21,13 @@ namespace Secucard.Connect.Product.Loyalty.Model
     [DataContract]
     public class MerchantCard : SecuObject
     {
+        public const int PASSCODE_PROTECTION_OPTION_GENERAL = 1;
+        public const int PASSCODE_PROTECTION_OPTION_DISCHARGE = 2;
+        public const int PASSCODE_PROTECTION_OPTION_CHARGE = 3;
+        public const int PASSCODE_PROTECTION_OPTION_REVENUE = 4;
+        public const int PASSCODE_PROTECTION_OPTION_CHARGE_POINTS = 5;
+        public const int PASSCODE_PROTECTION_OPTION_DISCHARGE_POINTS = 6;
+
         public DateTime? LastCharge;
         public DateTime? LastUsage;
 
@@ -70,5 +77,8 @@ namespace Secucard.Connect.Product.Loyalty.Model
             get { return LastCharge.ToDateTimeZone(); }
             set { LastCharge = value.ToDateTime(); }
         }
+
+        [DataMember(Name = "passcode")]
+        public int Passcode { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace Secucard.Connect.Product.Smart.Model
         [DataMember(Name = "basket_info")]
         public BasketInfo BasketInfo { get; set; }
 
-        [DataMember(Name = "target_device", EmitDefaultValue = false)]
+        [DataMember(Name = "device_destination", EmitDefaultValue = false)]
         public Device TargetDevice { get; set; }
 
         [DataMember(Name = "status")]

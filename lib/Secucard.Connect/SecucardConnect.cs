@@ -10,7 +10,7 @@
  * limitations under the License.
  */
 
-using Secucard.Connect.Client.Config;
+﻿using Secucard.Connect.Client.Config;
 
 namespace Secucard.Connect
 {
@@ -33,11 +33,11 @@ namespace Secucard.Connect
     using SmartTransactionsService = Secucard.Connect.Product.Smart.TransactionsService;
 
     /// <summary>
-    ///     Actual Client
+    /// Actual Client
     /// </summary>
     public class SecucardConnect
     {
-        public const string Version = "0.2.1";
+        public const string Version = "1.0.0";
         private readonly ClientConfiguration _configuration;
         private readonly ClientContext _context;
         private readonly Dictionary<string, IService> _serviceDict;

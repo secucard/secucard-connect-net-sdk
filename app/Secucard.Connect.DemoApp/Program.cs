@@ -10,7 +10,7 @@
  * limitations under the License.
  */
 
-namespace Secucard.Connect.DemoApp
+﻿namespace Secucard.Connect.DemoApp
 {
     internal class Program
     {

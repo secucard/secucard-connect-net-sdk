@@ -53,5 +53,8 @@ namespace Secucard.Connect.Product.Payment.Model
 
         [DataMember(Name = "model")]
         public string Model { get; set; }
+
+        [DataMember(Name = "apikey")]
+        public string ApiKey { get; set; }
     }
 }
