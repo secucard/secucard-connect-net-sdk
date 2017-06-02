@@ -72,7 +72,7 @@ namespace Secucard.Connect.Net.Util
             using (var ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, data);
-                return Encoding.Default.GetString(ms.ToArray());
+                return Encoding.Unicode.GetString(ms.ToArray());
             }
         }
 
@@ -83,7 +83,7 @@ namespace Secucard.Connect.Net.Util
             using (var ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, data);
-                return Encoding.Default.GetString(ms.ToArray());
+                return Encoding.Unicode.GetString(ms.ToArray());
             }
         }
 
