@@ -122,7 +122,6 @@
 
         /// <summary>
         ///     Handles device authentication. Enter pin thru web interface service
-        ///     !!! This is development only !!!
         /// </summary>
         private static void ClientOnAuthEvent(object sender, AuthEventArgs args)
         {
