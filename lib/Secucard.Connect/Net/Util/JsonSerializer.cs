@@ -60,7 +60,7 @@
             using (var ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, data);
-                return Encoding.Unicode.GetString(ms.ToArray());
+                return Encoding.UTF8.GetString(ms.ToArray());
             }
         }
 
@@ -71,7 +71,7 @@
             using (var ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, data);
-                return Encoding.Unicode.GetString(ms.ToArray());
+                return Encoding.UTF8.GetString(ms.ToArray());
             }
         }
 
