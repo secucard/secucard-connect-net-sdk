@@ -6,6 +6,7 @@
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Smart.Event;
     using Transaction = Secucard.Connect.Product.Smart.Model.Transaction;
+    using ReceiptNumber = Secucard.Connect.Product.Smart.Model.ReceiptNumber;
 
     public class TransactionsService : ProductService<Transaction>
     {
@@ -26,14 +27,14 @@
 
         protected override ServiceMetaData<Transaction> GetMetaData()
         {
-             return MetaData; 
+            return MetaData;
         }
 
         private void OnNewEvent(object obj)
         {
             if (TransactionCashierEvent != null)
                 TransactionCashierEvent(this,
-                    new TransactionCashierEventArgs {SecucardEvent = (Event<Notification>) obj});
+                    new TransactionCashierEventArgs { SecucardEvent = (Event<Notification>)obj });
         }
 
         /// <summary>
@@ -64,11 +65,11 @@
             }
 
             return Execute<Transaction>(transactionId, "start", type, null,
-                new ChannelOptions {Channel = channel });
+                new ChannelOptions { Channel = channel });
         }
 
         /// <summary>
-        /// Cancel the existing transaction with the given transactionId.
+        /// Cancel the existing (Loyalty) transaction with the given transactionId.
         /// </summary>
         /// <param name="transactionId">Cancel the specific transaction by id</param>
         /// <returns></returns>
@@ -76,5 +77,36 @@
         {
             return ExecuteToBool(transactionId, "cancel", null, null, null);
         }
+
+        /// <summary>
+        /// Starts extended Diagnose.
+        /// </summary>
+        /// <param name="transactionId">Starts the specific transaction by id</param>
+        /// <returns></returns>
+        public Transaction Diagnosis()
+        {
+            return Execute<Transaction>(null, "diagnosis", null, null, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
+        }
+
+        /// <summary>
+        /// Starts End of Day Report (Kassenschnitt).
+        /// </summary>
+        /// <returns></returns>
+        public Transaction EndOfDay()
+        {
+            return Execute<Transaction>(null, "endOfDay", null, null, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
+        }
+
+        /// <summary>
+        /// Cancel payment transaction (different from Loyalty).
+        /// </summary>
+        /// <param name="receiptNumber">Receipt number to cancel</param>
+        /// <returns></returns>
+        public Transaction CancelPayment(string receiptNumber)
+        {
+            return Execute<Transaction>(null, "cancelTrx", null, new ReceiptNumber { receiptNumber = receiptNumber }, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
+        }
+
     }
+
 }
