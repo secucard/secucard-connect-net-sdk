@@ -114,7 +114,7 @@
             // start transaction (this takes some time, consider another thread) 
             var result = transactionService.Start(transaction.Id, type);
 
-            // cancel transaction
+            // cancel loyalty transaction
             var b = transactionService.Cancel(transaction.Id);
 
             smartClient.Close();
@@ -130,9 +130,6 @@
                 // Device code retrieved successfully - present this data to user
                 // User must visit an URL and enter some codes
                 Console.WriteLine($"Please visit {args.DeviceAuthCodes.VerificationUrl} and enter code: {args.DeviceAuthCodes.UserCode}");
-
-                // Artificial wait until the user has entered the pin
-                Console.Read();
             }
             else if (args.Status == AuthStatusEnum.Ok)
             {
