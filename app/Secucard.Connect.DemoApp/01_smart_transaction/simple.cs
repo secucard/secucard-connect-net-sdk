@@ -114,8 +114,15 @@
             // start transaction (this takes some time, consider another thread) 
             var result = transactionService.Start(transaction.Id, type);
 
+            Console.WriteLine("transaction start: " + result.ToString());
+
             // cancel loyalty transaction
-            var b = transactionService.Cancel(transaction.Id);
+            var cancelResult = transactionService.Cancel(transaction.Id);
+
+            Console.WriteLine("transaction cancel: " + cancelResult.ToString());
+
+            // cancel cash transaction
+            //var cancelCash = transactionService.CancelPayment(transaction.ReceiptNumber);
 
             smartClient.Close();
         }

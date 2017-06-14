@@ -65,6 +65,9 @@ namespace Secucard.Connect.Product.Smart.Model
         [DataMember(Name = "receipt", EmitDefaultValue = false)]
         public List<ReceiptLine> ReceiptLines { get; set; }
 
+        [DataMember(Name = "receipt_number", EmitDefaultValue = false)]
+        public string ReceiptNumber { get; set; }
+
         [DataMember(Name = "payment_requested", EmitDefaultValue = false)]
         public string PaymentRequested { get; set; }
 
@@ -89,6 +92,7 @@ namespace Secucard.Connect.Product.Smart.Model
                    ", basket=" + Basket +
                    ", merchantRef='" + MerchantRef + '\'' +
                    ", transactionRef='" + TransactionRef + '\'' +
+                   ", receipt_number='" + ReceiptNumber + '\'' +
                    "} " + base.ToString();
         }
     }

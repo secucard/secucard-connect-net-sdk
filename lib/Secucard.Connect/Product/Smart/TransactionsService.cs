@@ -6,7 +6,6 @@
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Smart.Event;
     using Transaction = Secucard.Connect.Product.Smart.Model.Transaction;
-    using ReceiptNumber = Secucard.Connect.Product.Smart.Model.ReceiptNumber;
 
     public class TransactionsService : ProductService<Transaction>
     {
@@ -104,9 +103,7 @@
         /// <returns></returns>
         public Transaction CancelPayment(string receiptNumber)
         {
-            return Execute<Transaction>(null, "cancelTrx", null, new ReceiptNumber { receiptNumber = receiptNumber }, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
+            return Execute<Transaction>(receiptNumber, "cancelTrx", null, null, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
         }
-
     }
-
 }
