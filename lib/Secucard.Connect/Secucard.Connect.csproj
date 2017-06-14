@@ -189,7 +189,6 @@
     <Compile Include="Product\Smart\Model\ProductGroup.cs" />
     <Compile Include="Product\Smart\Model\ReceiptLine.cs" />
     <Compile Include="Product\Smart\Model\ReceiptLineValue.cs" />
-    <Compile Include="Product\Smart\Model\ReceiptNumber.cs" />
     <Compile Include="Product\Smart\Model\Routing.cs" />
     <Compile Include="Product\Smart\Model\SmartPin.cs" />
     <Compile Include="Product\Smart\Model\Text.cs" />
