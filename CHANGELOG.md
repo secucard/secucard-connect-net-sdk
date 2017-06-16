@@ -20,6 +20,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.1.1] - 2017-06-16
+
+### Fixed
+- Smart.Transaction: Cancel payment transaction call
+
+
+
 ## [1.1.0] - 2017-06-07
 
 ### Added
