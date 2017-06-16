@@ -91,3 +91,4 @@ First release
 [0.2.2]: https://github.com/secucard/secucard-connect-net-sdk/compare/0.2.1...0.2.2
 [1.0.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/0.2.2...1.0.0
 [1.1.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.0.0...1.1.0
+[1.1.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.1.0...1.1.1
