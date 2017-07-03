@@ -35,6 +35,9 @@ namespace Secucard.Connect.Product.Payment.Model
 
         [DataMember(Name = "merchant")]
         public Merchant Merchant { get; set; }
+        
+        [DataMember(Name = "merchant_customer_id")]
+        public string MerchantCustomerId { get; set; }
 
         public override string ToString()
         {
@@ -43,6 +46,7 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", created=" + Created +
                    ", updated=" + Updated +
                    ", contract=" + Contract +
+                   ", merchant_customer_id=" + MerchantCustomerId +
                    "} " + base.ToString();
         }
     }
