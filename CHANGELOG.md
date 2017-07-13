@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.2.0] - 2017-07-13
+
+### Changed
+- DataStorage variable is now protected to be accessible
+
 
 
 ## [1.1.1] - 2017-06-16
@@ -92,3 +97,4 @@ First release
 [1.0.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/0.2.2...1.0.0
 [1.1.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.0.0...1.1.0
 [1.1.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.1.0...1.1.1
+[1.2.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.1.1...1.2.0
