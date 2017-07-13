@@ -8,7 +8,7 @@ namespace Secucard.Connect.Auth
     /// </summary>
     public abstract class AbstractClientAuthDetails
     {
-        private readonly DataStorage _storage;
+        protected readonly DataStorage _storage;
 
         public AbstractClientAuthDetails()
         {

@@ -11,6 +11,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.IO;
 
     public static class simple
     {
@@ -184,6 +185,17 @@
             public ClientCredentials GetClientCredentials()
             {
                 return (ClientCredentials)GetCredentials();
+            }
+
+            public new Token GetCurrent()
+            {
+                return (Token)MemoryDataStorage.LoadFromFile(Path.GetTempPath() + "token.storage").Get("token");
+            }
+
+            public new void OnTokenChanged(Token token)
+            {
+                _storage.Save("token", token);
+                (_storage as MemoryDataStorage).SaveToFile(Path.GetTempPath() + "token.storage");
             }
         }
     }
