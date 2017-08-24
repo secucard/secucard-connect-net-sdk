@@ -93,7 +93,17 @@
         /// <returns></returns>
         public Transaction EndOfDay()
         {
-            return Execute<Transaction>(null, "endOfDay", null, null, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
+            // For EndOfDay STOMP is required
+            var properties = Properties.GetDefault();
+
+            if (properties.Get("Stomp.Enabled", false))
+            {
+                return Execute<Transaction>(null, "endOfDay", null, null, new ChannelOptions { Channel = ChannelOptions.ChannelStomp });
+            }
+            else
+            {
+                throw new System.Exception("For EndOfDay Stomp has to be enabled");
+            }
         }
 
         /// <summary>
