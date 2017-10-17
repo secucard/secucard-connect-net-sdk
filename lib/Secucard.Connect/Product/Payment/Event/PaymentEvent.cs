@@ -1,14 +1,12 @@
 ﻿namespace Secucard.Connect.Product.Payment.Event
 {
-    using System;
     using Secucard.Connect.Product.General.Model;
-    using Secucard.Connect.Product.Payment.Model;
-    using Secucard.Connect.Client;
+    using System;
 
-    public delegate void PaymentEventHandler(object sender, PaymentEventEventArgs args);
+    public delegate void PaymentEventHandler<T>(object sender, PaymentEventEventArgs<T> args);
 
-    public class PaymentEventEventArgs : EventArgs
+    public class PaymentEventEventArgs<T> : EventArgs
     {
-        public Event<SecupayCreditcard[]> SecucardEvent { get; set; }
+        public Event<T[]> SecucardEvent { get; set; }
     }
 }

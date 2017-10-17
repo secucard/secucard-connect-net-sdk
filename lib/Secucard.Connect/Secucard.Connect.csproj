@@ -166,6 +166,7 @@
     <Compile Include="Product\Payment\Model\SecupayPrepay.cs" />
     <Compile Include="Product\Payment\Model\Transaction.cs" />
     <Compile Include="Product\Payment\Model\TransferAccount.cs" />
+    <Compile Include="Product\Payment\Service\PaymentService.cs" />
     <Compile Include="Product\Service\Model\services\IdentContract.cs" />
     <Compile Include="Product\Service\Model\services\IdentRequest.cs" />
     <Compile Include="Product\Service\Model\services\IdentResult.cs" />
