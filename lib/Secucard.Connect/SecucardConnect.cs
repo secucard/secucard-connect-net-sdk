@@ -220,6 +220,11 @@ namespace Secucard.Connect
 
         #endregion
 
+        public void HandleEvent(object sender, string body)
+        {
+            _context.EventDispatcher.MessageArrivedEvent(sender, body);
+        }
+
         #region ### Services ###
 
         public T GetService<T>()

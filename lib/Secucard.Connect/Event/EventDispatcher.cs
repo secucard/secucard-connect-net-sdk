@@ -6,6 +6,7 @@
     using Secucard.Connect.Net.Stomp;
     using Secucard.Connect.Net.Util;
     using Secucard.Connect.Product.General.Model;
+    using Secucard.Connect.Product.Payment.Model;
 
     internal class EventDispatcher
     {
@@ -79,6 +80,37 @@
                 {
                     // TODO:
                     throw new Exception();
+                }
+            }
+        }
+
+        internal void MessageArrivedEvent(object sender, string json)
+        {
+            dynamic evnt = null;
+            var dict = JsonSerializer.DeserializeToDictionary(json);
+
+            // Check if it is an event.pushes message
+            if (dict.ContainsKey("object") && dict.ContainsKey("target") && "event.pushes".Equals(dict["object"]))
+            {
+                switch ((string)dict["target"])
+                {
+                    case "payment.secupaycreditcards":
+                        evnt = JsonSerializer.DeserializeJson<Event<SecupayCreditcard[]>>(json);
+                        break;
+                    case "payment.secupadebits":
+                        evnt = JsonSerializer.DeserializeJson<Event<SecupayDebit[]>>(json);
+                        break;
+                    case "payment.secupayinvoices":
+                        evnt = JsonSerializer.DeserializeJson<Event<SecupayInvoice[]>>(json);
+                        break;
+                    case "payment.secupayprepays":
+                        evnt = JsonSerializer.DeserializeJson<Event<SecupayPrepay[]>>(json);
+                        break;
+                }
+
+                if (evnt != null)
+                {
+                    OnNewEvent(evnt.Target, evnt.Type, evnt);
                 }
             }
         }
