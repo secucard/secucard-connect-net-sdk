@@ -9,52 +9,52 @@ namespace Secucard.Connect.Product.Payment.Model
         /// <summary>
         /// status for accepted debit transactions and finished prepay transactions
         /// </summary>
-        public const string STATUS_ACCEPTED = "accepted";
+        public const string StatusAccepted = "accepted";
 
         /// <summary>
         /// prepay transaction after creation , before payment arrives
         /// </summary>
-        public const string STATUS_AUTHORIZED = "authorized";
+        public const string StatusAuthorized = "authorized";
 
         /// <summary>
         /// when scoring for debit transaction denies the payer
         /// </summary>
-        public const string STATUS_DENIED = "denied";
+        public const string StatusDenied = "denied";
 
         /// <summary>
         /// then ruecklastschrift happens, or some other issue type
         /// </summary>
-        public const string STATUS_ISSUE = "issue";
+        public const string StatusIssue = "issue";
 
         /// <summary>
         /// when transaction is cancelled by creator (it is not possible to cancel transactions any time, so the debit transaction is possible to cancel until it is cleared out)
         /// </summary>
-        public const string STATUS_VOID = "void";
+        public const string StatusVoid = "void";
 
         /// <summary>
         /// when issue for transaction is resolved
         /// </summary>
-        public const string STATUS_ISSUE_RESOLVED = "issue_resolved";
+        public const string StatusIssueResolved = "issue_resolved";
 
         /// <summary>
         /// special status, saying that transaction was paid back (for some reason)
         /// </summary>
-        public const string STATUS_REFUND = "refund";
+        public const string StatusRrefund = "refund";
 
         /// <summary>
         /// should not happen, but only when status would be empty, this status is used
         /// </summary>
-        public const string STATUS_INTERNAL_SERVER_STATUS = "internal_server_status";
+        public const string StatusInternalServerStatus = "internal_server_status";
 
         /// <summary>
         /// Use the Authorization option to place a hold on the payer funds
         /// </summary>
-        public const string PAYMENT_ACTION_AUTHORIZATION = "authorization";
+        public const string PaymentActionAuthoritation = "authorization";
 
         /// <summary>
         /// Direct payment (immediate debit of the funds from the buyer's funding source)
         /// </summary>
-        public const string PAYMENT_ACTION_SALE = "sale";
+        public const string PaymentActionSale = "sale";
 
         [DataMember(Name = "amount")]
         public long? Amount { get; set; }
@@ -120,6 +120,6 @@ namespace Secucard.Connect.Product.Payment.Model
         /// To perform the transaction later, you have to transmit "authorization" here.
         /// </summary>
         [DataMember(Name = "payment_action")]
-        public string PaymentAction { get; set; } = PAYMENT_ACTION_SALE;
+        public string PaymentAction { get; set; } = PaymentActionSale;
     }
 }
