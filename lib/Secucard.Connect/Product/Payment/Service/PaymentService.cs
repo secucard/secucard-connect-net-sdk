@@ -1,25 +1,19 @@
 ﻿namespace Secucard.Connect.Product.Payment
 {
+    using System;
     using Secucard.Connect.Client;
     using Secucard.Connect.Event;
     using Secucard.Connect.Product.General.Model;
     using Secucard.Connect.Product.Payment.Event;
     using Secucard.Connect.Product.Payment.Model;
-    using System;
 
     public abstract class PaymentService<T> : ProductService<T> where T : Model.Transaction
     {
-        public PaymentEventHandler<T> PaymentEvent;
-
-        private T CreateModelInstance()
-        {
-           // T obj = default(T);
-            return Activator.CreateInstance<T>();
-        }
+        public PaymentEventHandler<T> PaymentEvent { get; set; }
 
         public bool Cancel(string paymentId, string contractId = null, int amount = 0)
         {
-            T data = CreateModelInstance();
+            T data = this.CreateModelInstance();
             data.Id = paymentId;
             data.Amount = amount;
             data.Contract = new Contract { Id = contractId };
@@ -29,7 +23,7 @@
         
         public bool Capture<U>(string paymentId) where U : new()
         {
-            T data = CreateModelInstance();
+            T data = this.CreateModelInstance();
             data.Id = paymentId;
 
             return this.Execute<Model.Transaction>(paymentId, "capture", null, data, null) != null;
@@ -37,7 +31,7 @@
 
         public bool UpdateBasket(string paymentId, Basket[] basket)
         {
-            T data = CreateModelInstance();
+            T data = this.CreateModelInstance();
             data.Id = paymentId;
             data.Basket = basket;
 
@@ -46,7 +40,7 @@
 
         public bool ReverseAccrual(string paymentId)
         {
-            T data = CreateModelInstance();
+            T data = this.CreateModelInstance();
             data.Id = paymentId;
             data.Accrual = false;
 
@@ -55,7 +49,7 @@
 
         public bool InitSubsequent(string paymentId, int amount, Basket[] basket)
         {
-            T data = CreateModelInstance();
+            T data = this.CreateModelInstance();
             data.Id = paymentId;
             data.Amount = amount;
             data.Basket = basket;
@@ -70,15 +64,22 @@
 
         public bool UpdateSubscription(string paymentId, string purpose)
         {
-            T data = CreateModelInstance();
+            T data = this.CreateModelInstance();
             data.Id = paymentId;
             data.Subscription = new Subscription { Purpose = purpose };
 
             return this.Execute<Model.Transaction>(paymentId, "subscription", null, data, null) != null;
         }
+
         public override void RegisterEvents()
         {
-            Context.EventDispatcher.RegisterForEvent(GetType().Name, GetMetaData().ProductResource, Events.TypeChanged, OnChangedEvent);
+            Context.EventDispatcher.RegisterForEvent(GetType().Name, GetMetaData().ProductResource, Events.TypeChanged, this.OnChangedEvent);
+        }
+
+        private T CreateModelInstance()
+        {
+            // T obj = default(T);
+            return Activator.CreateInstance<T>();
         }
 
         private void OnChangedEvent(object obj)
@@ -92,7 +93,7 @@
             }
 
             // Handle event
-            PaymentEvent(this, new PaymentEventEventArgs<T> { SecucardEvent = t });
+            this.PaymentEvent(this, new PaymentEventEventArgs<T> { SecucardEvent = t });
         }
     }
 }

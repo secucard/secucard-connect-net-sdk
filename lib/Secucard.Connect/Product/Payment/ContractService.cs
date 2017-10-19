@@ -7,19 +7,19 @@
     {
         public static readonly ServiceMetaData<Contract> MetaData = new ServiceMetaData<Contract>("payment", "contracts");
 
-        protected override ServiceMetaData<Contract> GetMetaData()
-        {
-            return MetaData;
-        }
-
         public Contract CloneMyContract(CloneParams cloneParams)
         {
-            return Execute<Contract>("me", "clone", null, cloneParams, null);
+            return this.Execute<Contract>("me", "clone", null, cloneParams, null);
         }
 
         public Contract Clone(string contractId, CloneParams cloneParams)
         {
-            return Execute<Contract>(contractId, "clone", null, cloneParams, null);
+            return this.Execute<Contract>(contractId, "clone", null, cloneParams, null);
+        }
+
+        protected override ServiceMetaData<Contract> GetMetaData()
+        {
+            return MetaData;
         }
     }
 }

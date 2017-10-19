@@ -33,7 +33,7 @@
             var article = new Basket();
             article.ArticleNumber = "3211";
             article.Ean = "4123412341243";
-            article.ItemType = Basket.itemTypeArticle;
+            article.ItemType = Basket.ItemTypeArticle;
             article.Name = "Testname 1";
             article.PriceOne = 25;
             article.Quantity = 2;
@@ -43,7 +43,7 @@
 
             // Add the shipping costs
             var shipping = new Basket();
-            shipping.ItemType = Basket.itemTypeShipping;
+            shipping.ItemType = Basket.ItemTypeShipping;
             shipping.Name = "Deutsche Post Warensendung";
             shipping.Tax = 19;
             shipping.Total = 145;

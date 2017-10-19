@@ -1,7 +1,7 @@
 ﻿namespace Secucard.Connect.Product.Payment.Event
 {
-    using Secucard.Connect.Product.General.Model;
     using System;
+    using Secucard.Connect.Product.General.Model;
 
     public delegate void PaymentEventHandler<T>(object sender, PaymentEventEventArgs<T> args);
 

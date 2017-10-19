@@ -145,6 +145,11 @@
     <Compile Include="Product\Payment\ContractService.cs" />
     <Compile Include="Product\Payment\Event\PaymentEvent.cs" />
     <Compile Include="Product\Payment\Model\Basket.cs" />
+    <Compile Include="Product\Payment\Model\CreateSubContractRequest.cs" />
+    <Compile Include="Product\Payment\Model\CreateSubContractResponse.cs" />
+    <Compile Include="Product\Payment\Model\IframeOptData.cs" />
+    <Compile Include="Product\Payment\Model\PaymentInstrument.cs" />
+    <Compile Include="Product\Payment\Model\ShippingInfromation.cs" />
     <Compile Include="Product\Payment\Model\Experience.cs" />
     <Compile Include="Product\Payment\Model\OptData.cs" />
     <Compile Include="Product\Payment\Model\RedirectUrl.cs" />
