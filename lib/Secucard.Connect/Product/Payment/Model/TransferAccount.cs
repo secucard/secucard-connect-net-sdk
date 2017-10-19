@@ -23,11 +23,11 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "TransferAccount{" +
-                   "accountOwner='" + AccountOwner + '\'' +
-                   ", accountNumber='" + AccountNumber + '\'' +
-                   ", iban='" + Iban + '\'' +
-                   ", bic='" + Bic + '\'' +
-                   ", bankCode='" + BankCode + '\'' +
+                   "accountOwner='" + this.AccountOwner + '\'' +
+                   ", accountNumber='" + this.AccountNumber + '\'' +
+                   ", iban='" + this.Iban + '\'' +
+                   ", bic='" + this.Bic + '\'' +
+                   ", bankCode='" + this.BankCode + '\'' +
                    '}';
         }
     }

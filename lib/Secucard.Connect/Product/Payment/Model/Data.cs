@@ -20,10 +20,10 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "Data{" +
-                   "owner='" + Owner + '\'' +
-                   ", iban='" + Iban + '\'' +
-                   ", bic='" + Bic + '\'' +
-                   ", bankname='" + Bankname + '\'' +
+                   "owner='" + this.Owner + '\'' +
+                   ", iban='" + this.Iban + '\'' +
+                   ", bic='" + this.Bic + '\'' +
+                   ", bankname='" + this.Bankname + '\'' +
                    '}';
         }
     }

@@ -26,8 +26,8 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "created")]
         public string FormattedCreated
         {
-            get { return Created.ToDateTimeZone(); }
-            set { Created = value.ToDateTime(); }
+            get { return this.Created.ToDateTimeZone(); }
+            set { this.Created = value.ToDateTime(); }
         }
 
         public DateTime? Created { get; set; }
@@ -35,8 +35,8 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "updated")]
         public string FormattedUpdated
         {
-            get { return Updated.ToDateTimeZone(); }
-            set { Updated = value.ToDateTime(); }
+            get { return this.Updated.ToDateTimeZone(); }
+            set { this.Updated = value.ToDateTime(); }
         }
 
         public DateTime? Updated { get; set; }

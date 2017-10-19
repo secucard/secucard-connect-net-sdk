@@ -14,8 +14,8 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "SecupayPrepay{" +
-                   "transferPurpose='" + TransferPurpose + '\'' +
-                   ", transactionStatus='" + TransactionStatus + '\'' +
+                   "transferPurpose='" + this.TransferPurpose + '\'' +
+                   ", transactionStatus='" + this.TransactionStatus + '\'' +
                    ", transferAccount=" + TransferAccount +
                    "} " + base.ToString();
         }

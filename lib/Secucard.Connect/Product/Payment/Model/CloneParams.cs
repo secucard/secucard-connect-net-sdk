@@ -20,10 +20,10 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "CloneData{" +
-                   "allowTransactions=" + AllowTransactions +
-                   ", urlPush='" + PushUrl + '\'' +
-                   ", paymentData=" + PaymentData +
-                   ", project='" + Project + '\'' +
+                   "allowTransactions=" + this.AllowTransactions +
+                   ", urlPush='" + this.PushUrl + '\'' +
+                   ", paymentData=" + this.PaymentData +
+                   ", project='" + this.Project + '\'' +
                    '}';
         }
     }
