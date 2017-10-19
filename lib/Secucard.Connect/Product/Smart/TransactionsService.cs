@@ -102,7 +102,7 @@
             }
             else
             {
-                throw new System.Exception("For EndOfDay Stomp has to be enabled");
+                throw new SecucardConnectException("For EndOfDay Stomp has to be enabled");
             }
         }
 
