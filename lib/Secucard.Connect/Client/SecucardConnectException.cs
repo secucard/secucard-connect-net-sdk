@@ -4,5 +4,8 @@
 
     public class SecucardConnectException : Exception
     {
+        public SecucardConnectException(string message) : base(message)
+        {
+        }
     }
 }
