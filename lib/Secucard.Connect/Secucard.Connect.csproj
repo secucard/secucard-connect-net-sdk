@@ -275,7 +275,6 @@
     <Compile Include="Event\Events.cs" />
     <Compile Include="Client\ResourceDownloader.cs" />
     <Compile Include="Client\ClientError.cs" />
-    <Content Include="Features.txt" />
     <Compile Include="Product\Common\Model\MediaResource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

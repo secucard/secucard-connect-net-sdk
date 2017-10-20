@@ -29,7 +29,7 @@ SDKs for other languages can be found here: http://developer.secuconnect.com/doc
 
 ## Example Project
 
-To run the example project, clone the repo and open the solution file *Secucard.Connect.sln*. Then right-click the project "Secucard.Connect.DemoApp" and select *Set as StartUp Project*. Now press the *Start* button to build and start the demo application.
+To run the example project, clone the repo https://github.com/secucard/secucard-connect-net-sdk-demo and open it with Microsoft Visual Studio.
 
 
 ## Change log
