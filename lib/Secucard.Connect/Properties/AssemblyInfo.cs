@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Secucard.Connect")]
 [assembly: AssemblyDescription("Secucard.Connect client for all types of payment")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("secuconnect KG (www.secucard.com)")]
+[assembly: AssemblyCompany("secuconnect KG (www.secuconnect.com)")]
 [assembly: AssemblyProduct("Secucard.Connect")]
 [assembly: AssemblyCopyright("Copyright 2017 secuconnect KG")]
 [assembly: AssemblyTrademark("")]
@@ -35,5 +35,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]

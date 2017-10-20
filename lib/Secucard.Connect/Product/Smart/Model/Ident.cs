@@ -7,6 +7,9 @@ namespace Secucard.Connect.Product.Smart.Model
     [DataContract]
     public class Ident : SecuObject
     {
+        public const string TypeCard = "card";
+        public const string TypeCheckin = "checkin";
+
         [DataMember(Name = "merchantcard")]
         public MerchantCard MerchantCard { get; set; }
 

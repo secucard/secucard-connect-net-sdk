@@ -121,5 +121,28 @@ namespace Secucard.Connect.Product.Payment.Model
         /// </summary>
         [DataMember(Name = "payment_action")]
         public string PaymentAction { get; set; } = PaymentActionSale;
+
+        public override string ToString()
+        {
+            return "Transaction{" +
+                   "Amount=" + this.Amount +
+                   "Contract=" + this.Contract +
+                   "Currency=" + this.Currency +
+                   "Customer=" + this.Customer +
+                   "Recipient=" + this.Recipient +
+                   "OrderId=" + this.OrderId +
+                   "Purpose=" + this.Purpose +
+                   "Status=" + this.Status +
+                   "TransactionStatus=" + this.TransactionStatus +
+                   "TransId=" + this.TransId +
+                   "Basket=" + this.Basket +
+                   "Experience=" + this.Experience +
+                   "Accrual=" + this.Accrual +
+                   "Subscription=" + this.Subscription +
+                   "RedirectUrl=" + this.RedirectUrl +
+                   "OptData=" + this.OptData +
+                   "PaymentAction=" + this.PaymentAction +
+                   "} " + base.ToString();
+        }
     }
 }
