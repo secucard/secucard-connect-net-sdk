@@ -33,6 +33,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -142,7 +143,13 @@
     <Compile Include="Product\Loyalty\Model\Program.cs" />
     <Compile Include="Product\Loyalty\Model\Sale.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
+    <Compile Include="Product\Payment\Event\PaymentEvent.cs" />
     <Compile Include="Product\Payment\Model\Basket.cs" />
+    <Compile Include="Product\Payment\Model\CreateSubContractRequest.cs" />
+    <Compile Include="Product\Payment\Model\CreateSubContractResponse.cs" />
+    <Compile Include="Product\Payment\Model\IframeOptData.cs" />
+    <Compile Include="Product\Payment\Model\PaymentInstrument.cs" />
+    <Compile Include="Product\Payment\Model\ShippingInfromation.cs" />
     <Compile Include="Product\Payment\Model\Experience.cs" />
     <Compile Include="Product\Payment\Model\OptData.cs" />
     <Compile Include="Product\Payment\Model\RedirectUrl.cs" />
@@ -164,6 +171,7 @@
     <Compile Include="Product\Payment\Model\SecupayPrepay.cs" />
     <Compile Include="Product\Payment\Model\Transaction.cs" />
     <Compile Include="Product\Payment\Model\TransferAccount.cs" />
+    <Compile Include="Product\Payment\Service\PaymentService.cs" />
     <Compile Include="Product\Service\Model\services\IdentContract.cs" />
     <Compile Include="Product\Service\Model\services\IdentRequest.cs" />
     <Compile Include="Product\Service\Model\services\IdentResult.cs" />
@@ -267,7 +275,6 @@
     <Compile Include="Event\Events.cs" />
     <Compile Include="Client\ResourceDownloader.cs" />
     <Compile Include="Client\ClientError.cs" />
-    <Content Include="Features.txt" />
     <Compile Include="Product\Common\Model\MediaResource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -65,6 +65,9 @@ namespace Secucard.Connect.Product.Smart.Model
         [DataMember(Name = "receipt", EmitDefaultValue = false)]
         public List<ReceiptLine> ReceiptLines { get; set; }
 
+        [DataMember(Name = "receipt_merchant", EmitDefaultValue = false)]
+        public List<ReceiptLine> ReceiptLinesMerchant { get; set; }
+
         [DataMember(Name = "receipt_number", EmitDefaultValue = false)]
         public string ReceiptNumber { get; set; }
 

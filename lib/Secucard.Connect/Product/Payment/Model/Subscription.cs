@@ -1,7 +1,7 @@
 ﻿namespace Secucard.Connect.Product.Payment.Model
 {
-    using Common.Model;
     using System.Runtime.Serialization;
+    using Common.Model;
 
     /// <summary>
     /// Subscription Data Model class

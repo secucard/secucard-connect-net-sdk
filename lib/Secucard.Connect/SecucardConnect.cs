@@ -25,7 +25,7 @@ namespace Secucard.Connect
     /// </summary>
     public class SecucardConnect
     {
-        public const string Version = "1.2.0";
+        public const string Version = "1.3.0";
         private readonly ClientConfiguration _configuration;
         private readonly ClientContext _context;
         private readonly Dictionary<string, IService> _serviceDict;
@@ -219,6 +219,11 @@ namespace Secucard.Connect
         }
 
         #endregion
+
+        public void HandleEvent(object sender, string body)
+        {
+            _context.EventDispatcher.MessageArrivedEvent(sender, body);
+        }
 
         #region ### Services ###
 

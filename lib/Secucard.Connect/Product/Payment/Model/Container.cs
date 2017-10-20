@@ -13,8 +13,8 @@ namespace Secucard.Connect.Product.Payment.Model
 
         [DataMember(Name = "contract")]
         public Contract Contract { get; set; }
-
-        [DataMember(Name = "merchant")]
+        
+        // Deprecated: was not processed
         public Merchant Merchant { get; set; }
 
         [DataMember(Name = "private")]
@@ -32,8 +32,8 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "created")]
         public string FormattedCreated
         {
-            get { return Created.ToDateTimeZone(); }
-            set { Created = value.ToDateTime(); }
+            get { return this.Created.ToDateTimeZone(); }
+            set { this.Created = value.ToDateTime(); }
         }
 
         public DateTime? Created { get; set; }
@@ -41,8 +41,8 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "updated")]
         public string FormattedUpdated
         {
-            get { return Updated.ToDateTimeZone(); }
-            set { Updated = value.ToDateTime(); }
+            get { return this.Updated.ToDateTimeZone(); }
+            set { this.Updated = value.ToDateTime(); }
         }
 
         public DateTime? Updated { get; set; }
@@ -50,12 +50,11 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "Container{" +
-                   "merchant=" + Merchant +
-                   ", privateData=" + PrivateData +
-                   ", publicData=" + PublicData +
-                   ", type='" + Type + '\'' +
-                   ", created=" + Created +
-                   ", updated=" + Updated +
+                   ", privateData=" + this.PrivateData +
+                   ", publicData=" + this.PublicData +
+                   ", type='" + this.Type + '\'' +
+                   ", created=" + this.Created +
+                   ", updated=" + this.Updated +
                    '}';
         }
     }
