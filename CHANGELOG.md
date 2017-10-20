@@ -18,6 +18,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+
+## [1.3.0] - 2017-10-20
+
+### Deprecated
+- Payment.Model.Container: The field "Merchant" is now deprecated, because it was not processed by the API
+
+### Added
+- Dependency: Microsoft.CSharp
+- Smart.Transaction: New field "receipt_merchant" (Händlerbeleg)
+- Payment: Add missing payment params
+- Payment: Add push notification handling (PaymentEventHandler)
+
+### Changed
+- Payment.Model.Basket: Renamed constants to be compatible with the codestyle checker
+
+### Fixed
+- Smart.Transaction: Before using EndOfDay there is now a check if STOMP is enabled
+- Payment.Model.Basket: Fixed wrong json naming of some params
+
+### Removed
+- DemoApp: Moved from secucard/secucard-connect-net-sdk to secucard/secucard-connect-net-sdk-demo
+
+
+
 ## [1.2.0] - 2017-07-13
 
 ### Changed
