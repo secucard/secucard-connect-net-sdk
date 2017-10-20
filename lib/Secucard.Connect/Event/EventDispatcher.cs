@@ -97,7 +97,7 @@
                     case "payment.secupaycreditcards":
                         evnt = JsonSerializer.DeserializeJson<Event<SecupayCreditcard[]>>(json);
                         break;
-                    case "payment.secupadebits":
+                    case "payment.secupaydebits":
                         evnt = JsonSerializer.DeserializeJson<Event<SecupayDebit[]>>(json);
                         break;
                     case "payment.secupayinvoices":
