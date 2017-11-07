@@ -71,7 +71,7 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "recipient")]
         public Customer Recipient { get; set; }
 
-        [DataMember(Name = "orderId")]
+        [DataMember(Name = "order_id")]
         public string OrderId { get; set; }
 
         [DataMember(Name = "purpose")]
@@ -83,7 +83,7 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "transaction_status")]
         public string TransactionStatus { get; set; }
 
-        [DataMember(Name = "transId")]
+        [DataMember(Name = "trans_id")]
         public string TransId { get; set; }
 
         [DataMember(Name = "basket")]
