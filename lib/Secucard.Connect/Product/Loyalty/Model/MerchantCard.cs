@@ -9,22 +9,22 @@ namespace Secucard.Connect.Product.Loyalty.Model
     [DataContract]
     public class MerchantCard : SecuObject
     {
-        // Deprecated use "PasscodeProtectionOptionGeneral"
+        [System.Obsolete("Use PasscodeProtectionOptionGeneral instead")]
         public const int PASSCODE_PROTECTION_OPTION_GENERAL = 1;
 
-        // Deprecated use "PasscodeProtectionOptionDischarge"
+        [System.Obsolete("Use PasscodeProtectionOptionDischarge instead")]
         public const int PASSCODE_PROTECTION_OPTION_DISCHARGE = 2;
 
-        // Deprecated use "PasscodeProtectionOptionCharge"
+        [System.Obsolete("Use PasscodeProtectionOptionCharge instead")]
         public const int PASSCODE_PROTECTION_OPTION_CHARGE = 3;
 
-        // Deprecated use "PasscodeProtectionOptionRevenue"
+        [System.Obsolete("Use PasscodeProtectionOptionRevenue instead")]
         public const int PASSCODE_PROTECTION_OPTION_REVENUE = 4;
 
-        // Deprecated use "PasscodeProtectionOptionChargePoints"
+        [System.Obsolete("Use PasscodeProtectionOptionChargePoints instead")]
         public const int PASSCODE_PROTECTION_OPTION_CHARGE_POINTS = 5;
 
-        // Deprecated use "PasscodeProtectionOptionDischargePoints"
+        [System.Obsolete("Use PasscodeProtectionOptionDischargePoints instead")]
         public const int PASSCODE_PROTECTION_OPTION_DISCHARGE_POINTS = 6;
 
         public const int PasscodeProtectionOptionGeneral = 1;
