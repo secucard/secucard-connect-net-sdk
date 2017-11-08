@@ -7,6 +7,15 @@ namespace Secucard.Connect.Product.Loyalty.Model
     [DataContract]
     public class CardGroup : SecuObject
     {
+        public const string TransactionTypeCharge = "charge";
+        public const string TransactionTypeDischarge = "discharge";
+        public const string TransactionTypeSaleRevenue = "sale_revenue";
+        public const string TransactionTypeChargePoints = "charge_points";
+        public const string TransactionTypeDischargePoints = "discharge_points";
+        public const string TransactionTypeCashreport = "cashreport";
+
+        private string _picture;
+
         [DataMember(Name = "display_name")]
         public string DisplayName { get; set; }
 
@@ -19,16 +28,18 @@ namespace Secucard.Connect.Product.Loyalty.Model
         [DataMember(Name = "stock_warn_limit")]
         public int? StockWarnLimit { get; set; }
 
-        private string _picture;
-
         [DataMember(Name = "picture")]
         public string Picture
         {
-            get { return _picture; }
+            get
+            {
+                return this._picture;
+            }
+
             set
             {
-                _picture = value;
-                PictureObject = MediaResource.Create(value);
+                this._picture = value;
+                this.PictureObject = MediaResource.Create(value);
             }
         }
 

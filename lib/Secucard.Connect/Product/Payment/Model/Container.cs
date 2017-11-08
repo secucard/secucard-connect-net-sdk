@@ -26,6 +26,9 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "customer")]
         public Customer Customer { get; set; }
 
+        [DataMember(Name = "mandate")]
+        public Mandate Mandate { get; set; }
+
         [DataMember(Name = "type")]
         public string Type { get; set; }
 
@@ -53,6 +56,7 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", privateData=" + this.PrivateData +
                    ", publicData=" + this.PublicData +
                    ", type='" + this.Type + '\'' +
+                   ", mandate=" + this.Mandate +
                    ", created=" + this.Created +
                    ", updated=" + this.Updated +
                    '}';
