@@ -133,6 +133,7 @@
     <Compile Include="Product\General\Model\Skeleton.cs" />
     <Compile Include="Product\General\Model\Store.cs" />
     <Compile Include="Product\General\Model\Transaction.cs" />
+    <Compile Include="Product\Loyalty\CardGroupsService.cs" />
     <Compile Include="Product\Loyalty\CardsService.cs" />
     <Compile Include="Product\Loyalty\Model\Bonus.cs" />
     <Compile Include="Product\Loyalty\Model\Condition.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Product\Payment\Model\CreateSubContractRequest.cs" />
     <Compile Include="Product\Payment\Model\CreateSubContractResponse.cs" />
     <Compile Include="Product\Payment\Model\IframeOptData.cs" />
+    <Compile Include="Product\Payment\Model\Mandate.cs" />
     <Compile Include="Product\Payment\Model\PaymentInstrument.cs" />
     <Compile Include="Product\Payment\Model\ShippingInfromation.cs" />
     <Compile Include="Product\Payment\Model\Experience.cs" />

@@ -1,22 +1,17 @@
 namespace Secucard.Connect.Product.Loyalty
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using General.Model;
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.Loyalty.Model;
-    using System.Linq;
-    using General.Model;
 
     public class CustomerLoyaltyService : ProductService<Customer>
     {
-        public static readonly ServiceMetaData<Customer> MetaData = new ServiceMetaData<Customer>("loyalty",
-            "customers");
-
-        protected override ServiceMetaData<Customer> GetMetaData()
-        {
-            return MetaData;
-        }
+        public static readonly ServiceMetaData<Customer> MetaData = new ServiceMetaData<Customer>(
+            "loyalty", "customers");
 
         public new ObjectList<Customer> GetList(QueryParams queryParams)
         {
@@ -28,8 +23,13 @@ namespace Secucard.Connect.Product.Loyalty
         public new Customer Get(string customerId)
         {
             var store = base.Get(customerId);
-            PostProcess(new List<Customer> {store});
+            PostProcess(new List<Customer> { store });
             return store;
+        }
+
+        protected override ServiceMetaData<Customer> GetMetaData()
+        {
+            return MetaData;
         }
 
         /// <summary>
@@ -37,18 +37,20 @@ namespace Secucard.Connect.Product.Loyalty
         /// </summary>
         private static void PostProcess(IEnumerable<Customer> list)
         {
-            Parallel.ForEach(list, obj =>
-            {
-                // Actually there are 3 "Contact" attributes in "Customer" which contains picture object
-                foreach (var pictureAttribute in obj.GetType().GetFields().Where(p => p.GetType() == typeof(Contact)))
+            Parallel.ForEach(
+                list,
+                obj =>
                 {
-                    var mediaResource = (MediaResource)pictureAttribute.GetValue(obj);
-                    if (mediaResource != null && !mediaResource.IsCached)
+                    // Actually there are 3 "Contact" attributes in "Customer" which contains picture object
+                    foreach (var pictureAttribute in obj.GetType().GetFields().Where(p => p.GetType() == typeof(Contact)))
                     {
-                        mediaResource.Download();
+                        var mediaResource = (MediaResource)pictureAttribute.GetValue(obj);
+                        if (mediaResource != null && !mediaResource.IsCached)
+                        {
+                            mediaResource.Download();
+                        }
                     }
-                }
-            });
+                });
         }
     }
 }
