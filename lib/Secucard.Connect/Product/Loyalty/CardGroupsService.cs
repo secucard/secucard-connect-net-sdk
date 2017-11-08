@@ -1,11 +1,13 @@
 ﻿namespace Secucard.Connect.Product.Loyalty
 {
-    using System;
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.Loyalty.Model;
 
     public class CardGroupsService : ProductService<CardGroup>
     {
+        public static readonly ServiceMetaData<CardGroup> MetaData = new ServiceMetaData<CardGroup>(
+            "loyalty", "cardgroups");
+
         /// <summary>
         /// Check if a passcode is enabled for this card
         /// </summary>
@@ -21,7 +23,7 @@
 
         protected override ServiceMetaData<CardGroup> GetMetaData()
         {
-            throw new NotImplementedException();
+            return MetaData;
         }
     }
 }
