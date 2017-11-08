@@ -14,7 +14,7 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "contract")]
         public Contract Contract { get; set; }
         
-        // Deprecated: was not processed
+        [System.Obsolete("was not processed")]
         public Merchant Merchant { get; set; }
 
         [DataMember(Name = "private")]
