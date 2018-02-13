@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.4.1] - 2018-02-13
+
+### Added
+
+- Payment.Model.RedirectUrl: "url_push"
+
 ## [1.4.0] - 2017-11-08
 
 ### Deprecated
