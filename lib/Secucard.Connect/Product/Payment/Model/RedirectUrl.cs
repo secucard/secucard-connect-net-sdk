@@ -23,5 +23,11 @@
         /// </summary>
         [DataMember(Name = "iframe_url")]
         public string UrlIframe { get; set; }
+
+        /// <summary>
+        /// The secuconnect API sends status change notifications to this URL.
+        /// </summary>
+        [DataMember(Name = "url_push")]
+        public string UrlPush { get; set; }
     }
 }
