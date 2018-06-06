@@ -10,7 +10,9 @@
         public const string ItemTypeShipping = "shipping";
         public const string ItemTypeDonation = "donation";
         public const string ItemTypeStakeholderPayment = "stakeholder_payment";
-        
+        public const string ItemTypeSubTransaction = "sub_transaction";
+        public const string ItemTypeCoupon = "coupon";
+
         [DataMember(Name = "ean")]
         public string Ean { get; set; }
 
@@ -43,5 +45,11 @@
         
         [DataMember(Name = "apikey")]
         public string ApiKey { get; set; }
+
+        [DataMember(Name = "sub_basket")]
+        public Basket[] SubBasket { get; set; }
+
+        [DataMember(Name = "reference_id")]
+        public string ReferenceId { get; set; }
     }
 }
