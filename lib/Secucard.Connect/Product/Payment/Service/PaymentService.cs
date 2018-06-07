@@ -21,12 +21,9 @@
             return this.Execute<Model.Transaction>(paymentId, "cancel", null, data, null) != null;
         }
         
-        public bool Capture<U>(string paymentId) where U : new()
+        public bool Capture(string paymentId)
         {
-            T data = this.CreateModelInstance();
-            data.Id = paymentId;
-
-            return this.Execute<Model.Transaction>(paymentId, "capture", null, data, null) != null;
+            return this.Execute<Model.Transaction>(paymentId, "capture", null, null, null) != null;
         }
 
         public bool UpdateBasket(string paymentId, Basket[] basket)
@@ -57,7 +54,7 @@
             return this.Execute<Model.Transaction>(paymentId, "subsequent", null, data, null) != null;
         }
 
-        public bool SetShippingInformation(string paymentId, ShippingInformation[] data)
+        public bool SetShippingInformation(string paymentId, ShippingInformation data)
         {
             return this.Execute<Model.Transaction>(paymentId, "shippingInformation", null, data, null) != null;
         }
