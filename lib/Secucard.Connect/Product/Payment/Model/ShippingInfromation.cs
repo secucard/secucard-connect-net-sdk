@@ -5,11 +5,11 @@ namespace Secucard.Connect.Product.Payment.Model
     [DataContract]
     public class ShippingInformation
     {
-        [DataMember(Name = "provider")]
-        public string Provider { get; set; }
+        [DataMember(Name = "carrier")]
+        public string Carrier { get; set; }
 
-        [DataMember(Name = "number")]
-        public string Number { get; set; }
+        [DataMember(Name = "tracking_id")]
+        public string TrackingId { get; set; }
 
         [DataMember(Name = "invoice_number")]
         public string InvoiceNumber { get; set; }
@@ -17,8 +17,8 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "ShippingInformation{" +
-                   "provider='" + this.Provider + '\'' +
-                   ", number='" + this.Number + '\'' +
+                   "carrier='" + this.Carrier + '\'' +
+                   ", tracking_id='" + this.TrackingId + '\'' +
                    ", invoice_number='" + this.InvoiceNumber + '\'' +
                    '}';
         }
