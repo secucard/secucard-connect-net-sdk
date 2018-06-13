@@ -5,6 +5,7 @@
         Get,
         Create,
         Update,
+        UpdateWithArgs,
         Delete,
         Execute
     }

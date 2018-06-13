@@ -51,6 +51,14 @@
             return JsonSerializer.DeserializeJson<T>(ret);
         }
 
+        public T Put<T>(RestRequest request)
+        {
+            request.BodyJsonString = JsonSerializer.SerializeJson(request.Object);
+            var ret = RestPut(request);
+
+            return JsonSerializer.DeserializeJson<T>(ret);
+        }
+
         public void DeleteObject(RestRequest request)
         {
             RestDelete(request);
