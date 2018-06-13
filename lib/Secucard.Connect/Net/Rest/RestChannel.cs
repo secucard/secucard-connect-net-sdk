@@ -36,6 +36,9 @@
                         return CreateObject(request, (T)channelRequest.Object);
                     case ChannelMethod.Update:
                         return UpdateObject(request, channelRequest.ObjectId, (T)channelRequest.Object);
+                    case ChannelMethod.UpdateWithArgs:
+                        return UpdateObject<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
+                            channelRequest.Object);
                     case ChannelMethod.Execute:
                         return Execute<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
                             channelRequest.Object);
@@ -108,6 +111,16 @@
             request.Object = obj;
             request.Id = id;
             var newObj = _restService.PutObject<T>(request);
+            return newObj;
+        }
+
+        private T UpdateObject<T>(RestRequest request, string id, string action, List<string> actionParameter, object obj)
+        {
+            request.Object = obj;
+            request.Id = id;
+            request.Action = action;
+            request.ActionParameter = actionParameter;
+            var newObj = _restService.Put<T>(request);
             return newObj;
         }
 

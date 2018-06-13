@@ -56,7 +56,7 @@
 
         public bool SetShippingInformation(string paymentId, ShippingInformation data)
         {
-            return this.Execute<Model.Transaction>(paymentId, "shippingInformation", null, data, null) != null;
+            return this.Update(paymentId, "shippingInformation", null, data, null);
         }
 
         public bool UpdateSubscription(string paymentId, string purpose)
