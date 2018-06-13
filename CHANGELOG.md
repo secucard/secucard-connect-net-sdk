@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.6.0] - 2018-06-14
+
+### Added
+
+- Support for TLS 1.2
+
+### Fixed
+
+- Payment: send shipping information / invoice
+
 ## [1.5.0] - 2018-06-07
 
 ### Added
