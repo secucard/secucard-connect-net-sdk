@@ -99,6 +99,7 @@
     <Compile Include="Product\Document\UploadsService.cs" />
     <Compile Include="Product\Document\Model\Upload.cs" />
     <Compile Include="Product\General\Event\AccountDeviceChangedEvent.cs" />
+    <Compile Include="Product\General\Model\User.cs" />
     <Compile Include="Product\General\SkeletonsServiceStomp.cs" />
     <Compile Include="Product\General\StoresService.cs" />
     <Compile Include="Product\General\GeneralTransactionsService.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="Product\Loyalty\Model\MerchantCard.cs" />
     <Compile Include="Product\Loyalty\Model\Program.cs" />
     <Compile Include="Product\Loyalty\Model\Sale.cs" />
+    <Compile Include="Product\Payment\PaymentTransactionsService.cs" />
+    <Compile Include="Product\Payment\Model\PaymentTransaction.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />
     <Compile Include="Product\Payment\Event\PaymentEvent.cs" />
     <Compile Include="Product\Payment\Model\Basket.cs" />
