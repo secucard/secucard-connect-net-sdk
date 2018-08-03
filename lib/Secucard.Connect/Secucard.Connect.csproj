@@ -265,9 +265,7 @@
     <Compile Include="Product\Smart\Smart.cs" />
     <Compile Include="Product\Service\Services.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Client\Config\SecucardConnect.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
