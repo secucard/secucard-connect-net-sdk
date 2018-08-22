@@ -97,6 +97,24 @@ namespace Secucard.Connect.Client
             }, options);
         }
 
+        protected bool Update(string id, string action, string actionArg, object obj, ChannelOptions options)
+        {
+            var actionArgs = new List<string>();
+            if (actionArg != null) actionArgs.Add(actionArg);
+            var result = Request<ExecuteResult>(new ChannelRequest
+            {
+                Method = ChannelMethod.UpdateWithArgs,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
+                Action = action,
+                ActionArgs = actionArgs,
+                ObjectId = id,
+                Object = obj
+            }, options);
+
+            return Convert.ToBoolean(result.Result);
+        }
+
         #endregion
 
         #region ### Delete ###

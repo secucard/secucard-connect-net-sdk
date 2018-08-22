@@ -257,6 +257,8 @@
         {
             var uri = string.Format("{0}{1}", RestConfig.Url, request.GetPathAndQueryString());
 
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             var webRequest = (HttpWebRequest) WebRequest.Create(uri);
 
             webRequest.Method = request.Method;
