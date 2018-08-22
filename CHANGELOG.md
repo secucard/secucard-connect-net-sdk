@@ -19,6 +19,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.8.0] - 2018-08-22
+
+### Added
+
+- Payment: AssignExternalInvoicePdf
+
+### Removed
+
+- Payment: InitSubsequent (was not implemented in the api)
+- Payment: UpdateSubscription (was not implemented in the api)
+
 ## [1.7.0] - 2018-08-22
 
 ### Added

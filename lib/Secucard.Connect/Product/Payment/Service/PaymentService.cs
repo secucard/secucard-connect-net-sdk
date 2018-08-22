@@ -32,7 +32,7 @@
             data.Id = paymentId;
             data.Basket = basket;
 
-            return this.Execute<Model.Transaction>(paymentId, "basket", null, data, null) != null;
+            return this.Update<Model.Transaction>(paymentId, "basket", null, data, null) != null;
         }
 
         public bool ReverseAccrual(string paymentId)
@@ -41,31 +41,19 @@
             data.Id = paymentId;
             data.Accrual = false;
 
-            return this.Execute<Model.Transaction>(paymentId, "accrual", null, data, null) != null;
-        }
-
-        public bool InitSubsequent(string paymentId, int amount, Basket[] basket)
-        {
-            T data = this.CreateModelInstance();
-            data.Id = paymentId;
-            data.Amount = amount;
-            data.Basket = basket;
-
-            return this.Execute<Model.Transaction>(paymentId, "subsequent", null, data, null) != null;
+            return this.Update<Model.Transaction>(paymentId, "accrual", null, data, null) != null;
         }
 
         public bool SetShippingInformation(string paymentId, ShippingInformation data)
         {
-            return this.Update(paymentId, "shippingInformation", null, data, null);
+            return this.Update<Model.Transaction>(paymentId, "shippingInformation", null, data, null) != null;
         }
 
-        public bool UpdateSubscription(string paymentId, string purpose)
+        public bool AssignExternalInvoicePdf(string paymentId, string documentUploadId, bool updateExisting = false)
         {
-            T data = this.CreateModelInstance();
-            data.Id = paymentId;
-            data.Subscription = new Subscription { Purpose = purpose };
+            var data = new { update_existing = updateExisting };
 
-            return this.Execute<Model.Transaction>(paymentId, "subscription", null, data, null) != null;
+            return this.Execute<Model.Transaction>(paymentId, "assignExternalInvoicePdf", documentUploadId, data, null) != null;
         }
 
         public override void RegisterEvents()
