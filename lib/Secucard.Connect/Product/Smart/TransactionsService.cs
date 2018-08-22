@@ -72,9 +72,9 @@
         /// </summary>
         /// <param name="transactionId">Cancel the specific transaction by id</param>
         /// <returns></returns>
-        public bool Cancel(string transactionId)
+        public Transaction Cancel(string transactionId)
         {
-            return ExecuteToBool(transactionId, "cancel", null, null, null);
+            return Execute<Transaction>(transactionId, "cancel", null, null, null);
         }
 
         /// <summary>
