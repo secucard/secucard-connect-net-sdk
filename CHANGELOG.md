@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.7.0] - 2018-08-22
 
+### Added
+
+- Payment: Get a list of payment transactions
+
 ### Fixed
 
 - Smart.Transaction: cancel returns always false, now it returns the Transaction object (with the changed status)
