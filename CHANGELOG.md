@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.7.0] - 2018-08-22
+
+### Added
+
+- Payment: Get a list of payment transactions
+
+### Fixed
+
+- Smart.Transaction: cancel returns always false, now it returns the Transaction object (with the changed status)
+
 ## [1.6.0] - 2018-06-14
 
 ### Added
@@ -172,3 +182,6 @@ First release
 [1.4.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.3.0...1.4.0
 [1.4.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.4.0...1.4.1
 [1.5.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.4.1...1.5.0
+[1.6.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.5.0...1.6.0
+[1.7.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.6.0...1.7.0
+
