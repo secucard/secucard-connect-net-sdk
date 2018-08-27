@@ -18,7 +18,7 @@
             data.Amount = amount;
             data.Contract = new Contract { Id = contractId };
 
-            return this.Execute<Model.Transaction>(paymentId, "cancel", null, data, null) != null;
+            return this.ExecuteToBool(paymentId, "cancel", null, data, null);
         }
         
         public bool Capture(string paymentId)
@@ -46,7 +46,7 @@
 
         public bool SetShippingInformation(string paymentId, ShippingInformation data)
         {
-            return this.Update<Model.Transaction>(paymentId, "shippingInformation", null, data, null) != null;
+            return this.UpdateToBool(paymentId, "shippingInformation", null, data, null);
         }
 
         public bool AssignExternalInvoicePdf(string paymentId, string documentUploadId, bool updateExisting = false)
