@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
-## [1.8.0] - 2018-08-22
+## [1.8.0] - 2018-08-27
 
 ### Added
 
@@ -195,4 +195,5 @@ First release
 [1.5.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.4.1...1.5.0
 [1.6.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.5.0...1.6.0
 [1.7.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.6.0...1.7.0
+[1.8.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.7.0...1.8.0
 
