@@ -25,8 +25,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Payment: AssignExternalInvoicePdf
 
+### Fixed
+
+- Payment: Cancel returned (in some special cases) always false
+- Payment: Capture returned (in some special cases) always false
+- Payment: UpdateBasket returned (in some special cases) always false
+- Payment: ReverseAccrual returned (in some special cases) always false
+- Payment: SetShippingInformation returned (in some special cases) always false
+
 ### Removed
 
+- Payment: container into SecupayCreditcard-Model (was not implemented in the api)
+- Payment: container into SecupayInvoice-Model (was not implemented in the api)
 - Payment: InitSubsequent (was not implemented in the api)
 - Payment: UpdateSubscription (was not implemented in the api)
 

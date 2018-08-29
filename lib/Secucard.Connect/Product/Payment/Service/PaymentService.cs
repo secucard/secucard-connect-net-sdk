@@ -23,7 +23,7 @@
         
         public bool Capture(string paymentId)
         {
-            return this.Execute<Model.Transaction>(paymentId, "capture", null, null, null) != null;
+            return this.Execute<T>(paymentId, "capture", null, null, null) != null;
         }
 
         public bool UpdateBasket(string paymentId, Basket[] basket)
@@ -32,7 +32,7 @@
             data.Id = paymentId;
             data.Basket = basket;
 
-            return this.Update<Model.Transaction>(paymentId, "basket", null, data, null) != null;
+            return this.Update<T>(paymentId, "basket", null, data, null) != null;
         }
 
         public bool ReverseAccrual(string paymentId)
@@ -41,7 +41,7 @@
             data.Id = paymentId;
             data.Accrual = false;
 
-            return this.Update<Model.Transaction>(paymentId, "accrual", null, data, null) != null;
+            return this.Update<T>(paymentId, "accrual", null, data, null) != null;
         }
 
         public bool SetShippingInformation(string paymentId, ShippingInformation data)
@@ -53,7 +53,7 @@
         {
             var data = new { update_existing = updateExisting };
 
-            return this.Execute<Model.Transaction>(paymentId, "assignExternalInvoicePdf", documentUploadId, data, null) != null;
+            return this.ExecuteToBool(paymentId, "assignExternalInvoicePdf", documentUploadId, data, null);
         }
 
         public override void RegisterEvents()
