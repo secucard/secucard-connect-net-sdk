@@ -97,7 +97,24 @@ namespace Secucard.Connect.Client
             }, options);
         }
 
-        protected bool Update(string id, string action, string actionArg, object obj, ChannelOptions options)
+        protected R Update<R>(string id, string action, string actionArg, object obj, ChannelOptions options)
+            where R : SecuObject
+        {
+            var actionArgs = new List<string>();
+            if (actionArg != null) actionArgs.Add(actionArg);
+            return Request<R>(new ChannelRequest
+            {
+                Method = ChannelMethod.UpdateWithArgs,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
+                Action = action,
+                ActionArgs = actionArgs,
+                ObjectId = id,
+                Object = obj
+            }, options);
+        }
+
+        protected bool UpdateToBool(string id, string action, string actionArg, object obj, ChannelOptions options)
         {
             var actionArgs = new List<string>();
             if (actionArg != null) actionArgs.Add(actionArg);

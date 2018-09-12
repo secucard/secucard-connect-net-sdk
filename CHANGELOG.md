@@ -19,6 +19,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.8.0] - 2018-08-30
+
+### Added
+
+- Payment: AssignExternalInvoicePdf
+
+### Fixed
+
+- Payment: Cancel returned (in some special cases) always false
+- Payment: Capture returned (in some special cases) always false
+- Payment: UpdateBasket returned (in some special cases) always false
+- Payment: ReverseAccrual returned (in some special cases) always false
+- Payment: SetShippingInformation returned (in some special cases) always false
+
+### Removed
+
+- Payment: container into SecupayCreditcard-Model (was not implemented in the api)
+- Payment: container into SecupayInvoice-Model (was not implemented in the api)
+- Payment: InitSubsequent (was not implemented in the api)
+- Payment: UpdateSubscription (was not implemented in the api)
+
 ## [1.7.0] - 2018-08-22
 
 ### Added
@@ -184,4 +205,5 @@ First release
 [1.5.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.4.1...1.5.0
 [1.6.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.5.0...1.6.0
 [1.7.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.6.0...1.7.0
+[1.8.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.7.0...1.8.0
 
