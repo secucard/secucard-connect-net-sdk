@@ -19,6 +19,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+
+## [1.8.1] - 2018-11-01
+
+### Added
+
+- Payment: AssignExternalInvoicePdf
+
+### Fixed
+
+- Payment: AssignExternalInvoicePdf some serialize warning/error
+
+
 ## [1.8.0] - 2018-08-30
 
 ### Added
@@ -40,6 +52,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Payment: InitSubsequent (was not implemented in the api)
 - Payment: UpdateSubscription (was not implemented in the api)
 
+
 ## [1.7.0] - 2018-08-22
 
 ### Added
@@ -49,6 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Smart.Transaction: cancel returns always false, now it returns the Transaction object (with the changed status)
+
 
 ## [1.6.0] - 2018-06-14
 
@@ -60,6 +74,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Payment: send shipping information / invoice
 
+
 ## [1.5.0] - 2018-06-07
 
 ### Added
@@ -70,11 +85,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Payment: send shipping information / invoice
 
+
 ## [1.4.1] - 2018-02-13
 
 ### Added
 
 - Payment.Model.RedirectUrl: "url_push"
+
 
 ## [1.4.0] - 2017-11-08
 
@@ -93,6 +110,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Payment: Wrong payment attribute (TransId, OrderId)
+
 
 ## [1.3.0] - 2017-10-20
 
@@ -120,17 +138,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - DemoApp: Moved from secucard/secucard-connect-net-sdk to secucard/secucard-connect-net-sdk-demo
 
+
 ## [1.2.0] - 2017-07-13
 
 ### Changed
 
 - DataStorage variable is now protected to be accessible
 
+
 ## [1.1.1] - 2017-06-16
 
 ### Fixed
 
 - Smart.Transaction: Cancel payment transaction call
+
 
 ## [1.1.0] - 2017-06-07
 
@@ -150,6 +171,7 @@ New Methods:
 
 - Moved license information from *.cs files to README.md and LICENSE.md
 - Tests from the SDK
+
 
 ## [1.0.0] - 2017-03-31
 
@@ -173,6 +195,7 @@ New Methods:
 - Contributing point in Readme.md
 - Tests from the SDK
 
+
 ## [0.2.2] - 2017-01-09
 
 ### Added
@@ -183,15 +206,18 @@ New Methods:
 
 - Rename license file
 
+
 ## [0.2.1] - 2016-03-21
 
 ### Changed
 
 - Assembly Tags
 
+
 ## [0.2.0] - 2016-03-21
 
 First release
+
 
 [0.2.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/0.2.0...0.2.1
 [0.2.2]: https://github.com/secucard/secucard-connect-net-sdk/compare/0.2.1...0.2.2
@@ -206,4 +232,5 @@ First release
 [1.6.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.5.0...1.6.0
 [1.7.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.6.0...1.7.0
 [1.8.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.7.0...1.8.0
+[1.8.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.0...1.8.1
 
