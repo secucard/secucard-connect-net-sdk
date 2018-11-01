@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Payment: AssignExternalInvoicePdf some serialize warning/error
 
 
-## [1.8.0] - 2018-08-30
+## [1.8.0] - 2018-09-12
 
 ### Added
 
