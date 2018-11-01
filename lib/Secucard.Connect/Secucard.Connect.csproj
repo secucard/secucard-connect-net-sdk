@@ -144,6 +144,7 @@
     <Compile Include="Product\Loyalty\Model\MerchantCard.cs" />
     <Compile Include="Product\Loyalty\Model\Program.cs" />
     <Compile Include="Product\Loyalty\Model\Sale.cs" />
+    <Compile Include="Product\Payment\Model\AssignExternalInvoicePdfRequest.cs" />
     <Compile Include="Product\Payment\PaymentTransactionsService.cs" />
     <Compile Include="Product\Payment\Model\PaymentTransaction.cs" />
     <Compile Include="Product\Payment\ContractService.cs" />

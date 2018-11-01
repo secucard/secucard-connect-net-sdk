@@ -51,7 +51,8 @@
 
         public bool AssignExternalInvoicePdf(string paymentId, string documentUploadId, bool updateExisting = false)
         {
-            var data = new { update_existing = updateExisting };
+            var data = new AssignExternalInvoicePdfRequest();
+            data.updateExisting = updateExisting;
 
             return this.ExecuteToBool(paymentId, "assignExternalInvoicePdf", documentUploadId, data, null);
         }
