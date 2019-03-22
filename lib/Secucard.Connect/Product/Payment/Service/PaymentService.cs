@@ -53,7 +53,7 @@
         {
             var data = new AssignExternalInvoicePdfRequest();
             data.updateExisting = updateExisting;
-            data.name = name;
+            data.Name = name;
 
             return this.ExecuteToBool(paymentId, "assignExternalInvoicePdf", documentUploadId, data, null);
         }
