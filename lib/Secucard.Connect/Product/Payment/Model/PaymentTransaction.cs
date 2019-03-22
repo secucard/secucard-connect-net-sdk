@@ -143,5 +143,4 @@ namespace Secucard.Connect.Product.Payment.Model
                    "} " + base.ToString();
         }
     }
-    }
 }
