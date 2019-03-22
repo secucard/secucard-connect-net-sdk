@@ -49,10 +49,11 @@
             return this.UpdateToBool(paymentId, "shippingInformation", null, data, null);
         }
 
-        public bool AssignExternalInvoicePdf(string paymentId, string documentUploadId, bool updateExisting = false)
+        public bool AssignExternalInvoicePdf(string paymentId, string documentUploadId, bool updateExisting = false, string name = "")
         {
             var data = new AssignExternalInvoicePdfRequest();
             data.updateExisting = updateExisting;
+            data.name = name;
 
             return this.ExecuteToBool(paymentId, "assignExternalInvoicePdf", documentUploadId, data, null);
         }

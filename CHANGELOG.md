@@ -20,6 +20,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [1.9.0] - 2019-03-22
+
+### Added
+
+- Payment: AssignExternalInvoicePdf possibility to transmit some filename
+- Payment: Added some missing fields in PaymentTransaction model
+
+
 ## [1.8.1] - 2018-11-01
 
 ### Fixed
@@ -229,4 +237,5 @@ First release
 [1.7.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.6.0...1.7.0
 [1.8.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.7.0...1.8.0
 [1.8.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.0...1.8.1
+[1.9.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.1...1.9.0
 
