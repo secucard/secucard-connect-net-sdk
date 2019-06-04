@@ -15,6 +15,8 @@ namespace Secucard.Connect.Product.Payment
 
         public SecupayPrepaysService Secupayprepays { get; set; }
 
+        public SecupayPayoutService Secupaypayout { get; set; }
+
         public SecupayCreditcardsService Secupaycreditcards { get; set; }
 
         public SecupayInvoicesService Secupayinvoices { get; set; }

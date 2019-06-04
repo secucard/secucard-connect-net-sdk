@@ -25,7 +25,7 @@ namespace Secucard.Connect
     /// </summary>
     public class SecucardConnect
     {
-        public const string Version = "1.8.1";
+        public const string Version = "1.10.0";
         private readonly ClientConfiguration _configuration;
         private readonly ClientContext _context;
         private readonly Dictionary<string, IService> _serviceDict;
@@ -254,6 +254,7 @@ namespace Secucard.Connect
                 Secupaycreditcards = GetService<SecupayCreditcardsService>(),
                 Secupaydebits = GetService<SecupayDebitsService>(),
                 Secupayprepays = GetService<SecupayPrepaysService>(),
+                Secupaypayout = GetService<SecupayPayoutService>(),
                 Contracts = GetService<ContractService>(),
                 Secupayinvoices = GetService<SecupayInvoicesService>(),
                 PaymentTransactions = GetService<PaymentTransactionsService>()
