@@ -19,7 +19,7 @@ namespace Secucard.Connect.Product.Payment.Model
         public string Currency { get; set; }
 
         [DataMember(Name = "customer")]
-        public Customer Customer { get; set; }
+        public string Customer { get; set; }
         
         [DataMember(Name = "order_id")]
         public string OrderId { get; set; }
