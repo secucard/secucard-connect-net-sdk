@@ -12,9 +12,6 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "contact")]
         public Contact Contact { get; set; }
 
-        [DataMember(Name = "merchantId")]
-        public string MerchantId { get; set; }
-
         [DataMember(Name = "created")]
         public string FormattedCreated
         {
@@ -34,7 +31,7 @@ namespace Secucard.Connect.Product.Payment.Model
         public DateTime? Updated { get; set; }
 
         [DataMember(Name = "merchant")]
-        public Merchant Merchant { get; set; }
+        public string Merchant { get; set; }
 
         public override string ToString()
         {
@@ -42,7 +39,6 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", contact=" + Contact +
                    ", created=" + this.Created +
                    ", updated=" + this.Updated +
-                   ", merchantId=" + MerchantId +
                    "} " + base.ToString();
         }
     }
