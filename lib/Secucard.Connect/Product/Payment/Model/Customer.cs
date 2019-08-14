@@ -31,7 +31,7 @@ namespace Secucard.Connect.Product.Payment.Model
         public DateTime? Updated { get; set; }
 
         [DataMember(Name = "merchant")]
-        public string Merchant { get; set; }
+        public Merchant Merchant { get; set; }
 
         public override string ToString()
         {
