@@ -39,6 +39,7 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", contact=" + Contact +
                    ", created=" + this.Created +
                    ", updated=" + this.Updated +
+                   ", merchant=" + this.Merchant +
                    "} " + base.ToString();
         }
     }
