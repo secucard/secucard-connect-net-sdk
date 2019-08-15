@@ -12,9 +12,6 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "contact")]
         public Contact Contact { get; set; }
 
-        [DataMember(Name = "contract")]
-        public Contract Contract { get; set; }
-
         [DataMember(Name = "created")]
         public string FormattedCreated
         {
@@ -42,7 +39,7 @@ namespace Secucard.Connect.Product.Payment.Model
                    ", contact=" + Contact +
                    ", created=" + this.Created +
                    ", updated=" + this.Updated +
-                   ", contract=" + Contract +
+                   ", merchant=" + this.Merchant +
                    "} " + base.ToString();
         }
     }
