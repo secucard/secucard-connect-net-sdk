@@ -80,9 +80,6 @@ namespace Secucard.Connect.Product.Smart.Model
         [DataMember(Name = "error", EmitDefaultValue = false)]
         public string Error { get; set; }
 
-        [DataMember(Name = "texts", EmitDefaultValue = false)]
-        public List<string> Texts { get; set; }
-
         public override string ToString()
         {
             return "Transaction{" +
