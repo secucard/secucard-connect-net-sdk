@@ -209,7 +209,6 @@
     <Compile Include="Product\Smart\Model\ReceiptLineValue.cs" />
     <Compile Include="Product\Smart\Model\Routing.cs" />
     <Compile Include="Product\Smart\Model\SmartPin.cs" />
-    <Compile Include="Product\Smart\Model\Text.cs" />
     <Compile Include="Product\Smart\Model\Transaction.cs" />
     <Compile Include="Product\Smart\CheckinsService.cs" />
     <Compile Include="Product\Smart\IdentsService.cs" />
