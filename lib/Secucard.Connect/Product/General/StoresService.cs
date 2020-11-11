@@ -17,6 +17,7 @@
         /// <summary>
         /// Check in the store with the given id.
         /// </summary>
+        [System.Obsolete("Not used any more", true)]
         public bool CheckIn(string storeId)
         {
             return ExecuteToBool(storeId, "checkin", null, null, null);
@@ -25,6 +26,7 @@
         /// <summary>
         /// Check out of the store with the given id.
         /// </summary>
+        [System.Obsolete("Not used any more", true)]
         public bool CheckOut(string storeId)
         {
             return ExecuteToBool(storeId, "checkin", "false", null, null);

@@ -20,6 +20,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [1.11.0] - 2020-11-12
+
+### Added
+
+- Product.Service.UploadidentsService
+- Product.Payment.ContractService.CreateSubContract()
+- Product.Payment.SecupaySofortService
+- Product.Payment.PaymentTransactionsService.GetOldFormat()
+
+### Deprecated
+
+- Product.General.AccountDevicesService
+- Product.General.GeneralTransactionsService
+- Product.General.NewsService
+- Product.General.PublicMerchantsService
+- Product.General.SkeletonsService
+- Product.General.SkeletonsServiceStomp
+
+
 ## [1.10.0] - 2019-06-04
 
 ### Added
@@ -246,4 +265,5 @@ First release
 [1.8.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.0...1.8.1
 [1.9.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.1...1.9.1
 [1.10.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.9.1...1.10.0
+[1.11.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.10.0...1.11.0
 

@@ -5,6 +5,7 @@
     using Secucard.Connect.Product.General.Event;
     using Secucard.Connect.Product.General.Model;
 
+    [System.Obsolete("Not used any more", true)]
     public class AccountDevicesService : ProductService<AccountDevice>
     {
         public static readonly ServiceMetaData<AccountDevice> MetaData = new ServiceMetaData<AccountDevice>("general",

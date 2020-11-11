@@ -3,6 +3,7 @@
     using Secucard.Connect.Client;
     using Secucard.Connect.Product.General.Model;
 
+    [System.Obsolete("Not used any more", true)]
     public class PublicMerchantsService : ProductService<PublicMerchant>
     {
         public static readonly ServiceMetaData<PublicMerchant> MetaData = new ServiceMetaData<PublicMerchant>(

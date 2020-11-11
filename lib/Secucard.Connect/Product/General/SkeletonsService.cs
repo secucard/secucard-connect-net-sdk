@@ -4,6 +4,7 @@
     using Secucard.Connect.Net;
     using Secucard.Connect.Product.General.Model;
 
+    [System.Obsolete("Not used any more", true)]
     public class SkeletonsService : ProductService<Skeleton>
     {
         public static readonly ServiceMetaData<Skeleton> MetaData = new ServiceMetaData<Skeleton>(
