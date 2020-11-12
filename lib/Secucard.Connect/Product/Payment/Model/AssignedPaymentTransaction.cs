@@ -1,9 +1,10 @@
 namespace Secucard.Connect.Product.Payment.Model
 {
     using System.Runtime.Serialization;
+    using Secucard.Connect.Product.Common.Model;
 
     [DataContract]
-    public class AssignedPaymentTransaction
+    public class AssignedPaymentTransaction : SecuObject
     {
         // The remaining amount of the incoming payment
         // (read only)

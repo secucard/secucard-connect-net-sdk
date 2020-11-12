@@ -46,7 +46,7 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "accrual")]
         public bool Accrual { get; set; }
 
-        {System.ObsoleteAttribute]:
+        [System.ObsoleteAttribute()]
         [DataMember(Name = "subscription")]
         public Subscription Subscription { get; set; }
 
@@ -59,7 +59,7 @@ namespace Secucard.Connect.Product.Payment.Model
         /// <summary>
         /// Optional settings and parameters to customize the checkout process
         /// </summary>
-        {System.ObsoleteAttribute]:
+        [System.ObsoleteAttribute()]
         [DataMember(Name = "opt_data")]
         public OptData OptData { get; set; }
         
