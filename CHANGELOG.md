@@ -28,15 +28,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Product.Payment.ContractService.CreateSubContract()
 - Product.Payment.SecupaySofortService
 - Product.Payment.PaymentTransactionsService.GetOldFormat()
+- Product.Payment.PaymentTransactionsService.GetCrowdFundingData()
+- Product.Payment.PaymentTransactionsService.AssignPayment()
+- Product.Payment.PaymentTransactionsService.Cancel()
+- Product.Payment.PaymentTransactionsService.Capture()
+- Product.Payment.PaymentTransactionsService.UpdateBasket()
+- Product.Payment.PaymentTransactionsService.ReverseAccrual()
+- Product.Payment.PaymentTransactionsService.SetShippingInformation()
+- Product.Smart.TransactionsService.Prepare()
+- Product.Smart.TransactionsService.Abort()
 
 ### Deprecated
 
-- Product.General.AccountDevicesService
-- Product.General.GeneralTransactionsService
-- Product.General.NewsService
-- Product.General.PublicMerchantsService
-- Product.General.SkeletonsService
-- Product.General.SkeletonsServiceStomp
+- Marked some classes and attributes as deprecated, as they are not supported by the API anymore.
 
 
 ## [1.10.0] - 2019-06-04

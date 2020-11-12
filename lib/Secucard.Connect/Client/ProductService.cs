@@ -27,6 +27,23 @@ namespace Secucard.Connect.Client
             return Get(id, GetDefaultOptions());
         }
 
+        protected R GetWithAction<R>(string id, string action, string actionArg, object obj, ChannelOptions options)
+            where R : SecuObject
+        {
+            var actionArgs = new List<string>();
+            if (actionArg != null) actionArgs.Add(actionArg);
+            return Request<R>(new ChannelRequest
+            {
+                Method = ChannelMethod.Get,
+                Product = GetMetaData().Product,
+                Resource = GetMetaData().Resource,
+                Action = action,
+                ActionArgs = actionArgs,
+                ObjectId = id,
+                Object = obj
+            }, options);
+        }
+
         private T Get(string id, ChannelOptions options)
         {
             return Request<T>(new ChannelRequest

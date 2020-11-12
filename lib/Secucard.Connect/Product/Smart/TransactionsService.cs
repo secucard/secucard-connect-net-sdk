@@ -21,6 +21,11 @@
         public static string TYPE_AUTO = "auto";
         public static string TYPE_ZVT = "cashless";
         public static string TYPE_LOYALTY = "loyalty";
+        public static string TYPE_DIRECT_DEBIT = "debit";
+        public static string TYPE_CREDIT_CARD = "creditcard";
+        public static string TYPE_INVOICE = "invoice";
+        public static string TYPE_PREPAID = "prepaid";
+        public static string TYPE_PAYPAL = "paypal";
 
         public static readonly ServiceMetaData<Transaction> MetaData = new ServiceMetaData<Transaction>("smart", "transactions");
 
@@ -42,7 +47,7 @@
         /// <param name="transactionId"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public Transaction Start(string transactionId, string type)
+        public Transaction Start(string transactionId, string type, object obj = null)
         {
             // Load default properties
             var properties = Properties.Load("SecucardConnect.config");
@@ -63,8 +68,13 @@
                 channel = ChannelOptions.ChannelRest;
             }
 
-            return Execute<Transaction>(transactionId, "start", type, null,
+            return Execute<Transaction>(transactionId, "start", type, obj,
                 new ChannelOptions { Channel = channel });
+        }
+        
+        public Transaction Prepare(string transactionId, string type, object obj = null)
+        {
+            return Execute<Transaction>(transactionId, "prepare", type, obj, null);
         }
 
         /// <summary>
@@ -75,6 +85,11 @@
         public Transaction Cancel(string transactionId)
         {
             return Execute<Transaction>(transactionId, "cancel", null, null, null);
+        }
+        
+        public Transaction Abort(string transactionId)
+        {
+            return Execute<Transaction>(transactionId, "abort", null, null, null);
         }
 
         /// <summary>
