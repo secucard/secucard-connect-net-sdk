@@ -3,7 +3,7 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public abstract class SecuObject
+    public class SecuObject
     {
         [DataMember(Name = "id")]
         public string Id { get; set; }

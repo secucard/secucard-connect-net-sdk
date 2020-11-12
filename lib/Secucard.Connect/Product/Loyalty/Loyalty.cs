@@ -10,5 +10,7 @@ namespace Secucard.Connect.Product.Loyalty
         public CustomerLoyaltyService CustomerLoyalty { get; set; }
 
         public MerchantCardsService Merchantcards { get; set; }
+
+        public CardGroupsService CardGroups { get; set; }
     }
 }

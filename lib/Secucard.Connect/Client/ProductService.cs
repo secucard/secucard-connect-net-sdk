@@ -135,7 +135,7 @@ namespace Secucard.Connect.Client
         {
             var actionArgs = new List<string>();
             if (actionArg != null) actionArgs.Add(actionArg);
-            var result = Request<ExecuteResult>(new ChannelRequest
+            var result = Request<SecuObject>(new ChannelRequest
             {
                 Method = ChannelMethod.UpdateWithArgs,
                 Product = GetMetaData().Product,
@@ -146,7 +146,7 @@ namespace Secucard.Connect.Client
                 Object = obj
             }, options);
 
-            return Convert.ToBoolean(result.Result);
+            return true;
         }
 
         #endregion
@@ -195,7 +195,7 @@ namespace Secucard.Connect.Client
             var actionArgs = new List<string>();
             if (actionArg != null) actionArgs.Add(actionArg);
 
-            var result = Request<ExecuteResult>(new ChannelRequest
+            var result = Request<SecuObject>(new ChannelRequest
             {
                 Method = ChannelMethod.Execute,
                 Product = GetMetaData().Product,
@@ -206,7 +206,7 @@ namespace Secucard.Connect.Client
                 Object = obj
             }, options);
 
-            return Convert.ToBoolean(result.Result);
+            return true;
         }
 
         #endregion

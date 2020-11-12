@@ -25,7 +25,7 @@ namespace Secucard.Connect
     /// </summary>
     public class SecucardConnect
     {
-        public const string Version = "1.11.0";
+        public const string Version = "1.12.0";
         private readonly ClientConfiguration _configuration;
         private readonly ClientContext _context;
         private readonly Dictionary<string, IService> _serviceDict;
@@ -234,7 +234,9 @@ namespace Secucard.Connect
 
         private void WireServiceInstances()
         {
-            Document = new Document {Uploads = GetService<UploadsService>()};
+            Document = new Document {
+                Uploads = GetService<UploadsService>()
+            };
 
             General = new General
             {
@@ -257,12 +259,14 @@ namespace Secucard.Connect
                 Secupaypayout = GetService<SecupayPayoutService>(),
                 Contracts = GetService<ContractService>(),
                 Secupayinvoices = GetService<SecupayInvoicesService>(),
+                Secupaysofort = GetService<SecupaySofortService>(),
                 PaymentTransactions = GetService<PaymentTransactionsService>()
             };
 
             Loyalty = new Loyalty
             {
                 Cards = GetService<CardsService>(),
+                CardGroups = GetService<CardGroupsService>(),
                 CustomerLoyalty = GetService<CustomerLoyaltyService>(),
                 Merchantcards = GetService<MerchantCardsService>(),
             };
@@ -271,7 +275,8 @@ namespace Secucard.Connect
             Services = new Services
             {
                 Identrequests = GetService<IdentRequestsService>(),
-                Identresults = GetService<IdentResultsService>()
+                Identresults = GetService<IdentResultsService>(),
+                Uploadidents = GetService<UploadidentsService>()
             };
 
             Smart = new Smart

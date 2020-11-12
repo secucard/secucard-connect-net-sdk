@@ -56,6 +56,9 @@ namespace Secucard.Connect.Product.Payment.Model
         /// </summary>
         public const string PaymentActionSale = "sale";
 
+        [DataMember(Name = "demo")]
+        public bool Demo { get; set; }
+
         [DataMember(Name = "amount")]
         public long? Amount { get; set; }
 
@@ -125,6 +128,7 @@ namespace Secucard.Connect.Product.Payment.Model
         public override string ToString()
         {
             return "Transaction{" +
+                   "Demo='" + (this.Demo ? 1 : 0) + '\'' +
                    "Amount=" + this.Amount +
                    "Contract=" + this.Contract +
                    "Currency=" + this.Currency +

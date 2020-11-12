@@ -31,7 +31,8 @@
                 switch (channelRequest.Method)
                 {
                     case ChannelMethod.Get:
-                        return GetObject<T>(request, channelRequest.ObjectId);
+                        return GetObject<T>(request, channelRequest.ObjectId, channelRequest.Action, channelRequest.ActionArgs,
+                            channelRequest.Object);
                     case ChannelMethod.Create:
                         return CreateObject(request, (T)channelRequest.Object);
                     case ChannelMethod.Update:
@@ -85,11 +86,14 @@
             // No socket or http connection to close in .NET
         }
 
-        private T GetObject<T>(RestRequest request, string id)
+        private T GetObject<T>(RestRequest request, string id, string action = null, List<string> actionParameter = null, object obj = null)
         {
+            request.Object = obj;
             request.Id = id;
-            var obj = _restService.GetObject<T>(request);
-            return obj;
+            request.Action = action;
+            request.ActionParameter = actionParameter;
+            var newObj = _restService.GetObject<T>(request);
+            return newObj;
         }
 
         private ObjectList<T> FindObjects<T>(RestRequest request, QueryParams query)

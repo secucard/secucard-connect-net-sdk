@@ -20,6 +20,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [1.12.0] - 2020-11-19
+
+### Added
+
+- Product.Service.Transaction added additional attribute `demo`
+
+### Fixed
+
+- Fixed some calls of the previous releases
+
+### Changed
+
+- reworked the internal method `ExecuteToBool` and `UpdateToBool` to avoid mapping errors.
+
+
 ## [1.11.0] - 2020-11-12
 
 ### Added
@@ -276,4 +291,5 @@ First release
 [1.9.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.1...1.9.1
 [1.10.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.9.1...1.10.0
 [1.11.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.10.0...1.11.0
+[1.12.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.11.0...1.12.0
 
