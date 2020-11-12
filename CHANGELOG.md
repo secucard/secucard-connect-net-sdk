@@ -37,6 +37,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Product.Payment.PaymentTransactionsService.SetShippingInformation()
 - Product.Smart.TransactionsService.Prepare()
 - Product.Smart.TransactionsService.Abort()
+- Product.Payment.Model.OptData added some additional request attributes like `language`
+- Product.Payment.Model.SecupayInvoice added some additional response attributes like `transfer_account`
+
+### Changed
+
+- Product.Payment.Model.Customer replaced attribute `Contract` with `Merchant` as the merchants defines the ACL.
 
 ### Deprecated
 
