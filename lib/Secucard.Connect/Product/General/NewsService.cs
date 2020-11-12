@@ -6,6 +6,7 @@
     using Secucard.Connect.Product.Common.Model;
     using Secucard.Connect.Product.General.Model;
 
+    [System.Obsolete("Not used any more", true)]
     public class NewsService : ProductService<News>
     {
         public static readonly ServiceMetaData<News> MetaData = new ServiceMetaData<News>("general", "news");

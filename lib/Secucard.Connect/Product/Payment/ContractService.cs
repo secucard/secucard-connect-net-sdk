@@ -17,6 +17,11 @@
             return this.Execute<Contract>(contractId, "clone", null, cloneParams, null);
         }
 
+        public CreateSubContractResponse CreateSubContract(CreateSubContractRequest cloneParams, string contractId = "me")
+        {
+            return this.Execute<CreateSubContractResponse>(contractId, "requestId", null, cloneParams, null);
+        }
+
         protected override ServiceMetaData<Contract> GetMetaData()
         {
             return MetaData;

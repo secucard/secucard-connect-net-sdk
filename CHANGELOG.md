@@ -20,6 +20,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [1.11.0] - 2020-11-12
+
+### Added
+
+- Product.Service.UploadidentsService
+- Product.Payment.ContractService.CreateSubContract()
+- Product.Payment.SecupaySofortService
+- Product.Payment.PaymentTransactionsService.GetOldFormat()
+- Product.Payment.PaymentTransactionsService.GetCrowdFundingData()
+- Product.Payment.PaymentTransactionsService.AssignPayment()
+- Product.Payment.PaymentTransactionsService.Cancel()
+- Product.Payment.PaymentTransactionsService.Capture()
+- Product.Payment.PaymentTransactionsService.UpdateBasket()
+- Product.Payment.PaymentTransactionsService.ReverseAccrual()
+- Product.Payment.PaymentTransactionsService.SetShippingInformation()
+- Product.Smart.TransactionsService.Prepare()
+- Product.Smart.TransactionsService.Abort()
+- Product.Payment.Model.OptData added some additional request attributes like `language`
+- Product.Payment.Model.SecupayInvoice added some additional response attributes like `transfer_account`
+
+### Changed
+
+- Product.Payment.Model.Customer replaced attribute `Contract` with `Merchant` as the merchants defines the ACL.
+
+### Deprecated
+
+- Marked some classes and attributes as deprecated, as they are not supported by the API anymore.
+
+
 ## [1.10.0] - 2019-06-04
 
 ### Added
@@ -246,4 +275,5 @@ First release
 [1.8.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.0...1.8.1
 [1.9.1]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.8.1...1.9.1
 [1.10.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.9.1...1.10.0
+[1.11.0]: https://github.com/secucard/secucard-connect-net-sdk/compare/1.10.0...1.11.0
 

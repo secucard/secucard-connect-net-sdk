@@ -4,7 +4,7 @@ namespace Secucard.Connect.Product.Payment.Model
     using Secucard.Connect.Product.Common.Model;
 
     [DataContract]
-    public abstract class Transaction : SecuObject
+    public class Transaction : SecuObject
     {
         /// <summary>
         /// status for accepted debit transactions and finished prepay transactions

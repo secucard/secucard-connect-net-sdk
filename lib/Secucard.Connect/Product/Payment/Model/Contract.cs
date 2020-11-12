@@ -8,6 +8,7 @@ namespace Secucard.Connect.Product.Payment.Model
     [DataContract]
     public class Contract : SecuObject
     {
+        [System.Obsolete("was removed from api")]
         [DataMember(Name = "allow_cloning")]
         public bool? AllowCloning { get; set; }
 
@@ -17,6 +18,7 @@ namespace Secucard.Connect.Product.Payment.Model
         [DataMember(Name = "contract_id")]
         public string ContractId { get; set; }
 
+        [System.Obsolete("was removed from api")]
         [DataMember(Name = "internal_reference")]
         public string InternalReference { get; set; }
 

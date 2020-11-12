@@ -144,7 +144,14 @@
     <Compile Include="Product\Loyalty\Model\MerchantCard.cs" />
     <Compile Include="Product\Loyalty\Model\Program.cs" />
     <Compile Include="Product\Loyalty\Model\Sale.cs" />
+    <Compile Include="Product\Payment\Model\AssignedPaymentTransaction.cs" />
     <Compile Include="Product\Payment\Model\AssignExternalInvoicePdfRequest.cs" />
+    <Compile Include="Product\Payment\Model\CrowdFundingDataProjectAmount.cs" />
+    <Compile Include="Product\Payment\Model\CrowdFundingDataProject.cs" />
+    <Compile Include="Product\Payment\Model\CrowdFundingDataOpenDetail.cs" />
+    <Compile Include="Product\Payment\Model\CrowdFundingDataOpen.cs" />
+    <Compile Include="Product\Payment\Model\CrowdFundingData.cs" />
+    <Compile Include="Product\Payment\Model\SecupaySofort.cs" />
     <Compile Include="Product\Payment\Model\TransactionList.cs" />
     <Compile Include="Product\Payment\Model\PaymentTransactionDetails.cs" />
     <Compile Include="Product\Payment\Model\SecupayPayout.cs" />
@@ -169,6 +176,7 @@
     <Compile Include="Product\Payment\SecupayCreditcardsService.cs" />
     <Compile Include="Product\Payment\SecupayInvoicesService.cs" />
     <Compile Include="Product\Payment\SecupayPayoutService.cs" />
+    <Compile Include="Product\Payment\SecupaySofortService.cs" />
     <Compile Include="Product\Payment\SecupayPrepaysService.cs" />
     <Compile Include="Product\Payment\ContainerService.cs" />
     <Compile Include="Product\Payment\CustomerPaymentService.cs" />
@@ -182,6 +190,8 @@
     <Compile Include="Product\Payment\Model\Transaction.cs" />
     <Compile Include="Product\Payment\Model\TransferAccount.cs" />
     <Compile Include="Product\Payment\Service\PaymentService.cs" />
+    <Compile Include="Product\Service\UploadidentsService.cs" />
+    <Compile Include="Product\Service\Model\services\Uploadident.cs" />
     <Compile Include="Product\Service\Model\services\IdentContract.cs" />
     <Compile Include="Product\Service\Model\services\IdentRequest.cs" />
     <Compile Include="Product\Service\Model\services\IdentResult.cs" />
